@@ -12,11 +12,11 @@ import com.example.ServerTsofen45.Repo.AdminRepository;
 @Service
 public class AdminBL {
 	@Autowired
-	AdminRepository AdminRepository;
+	AdminRepository admin;
 	
 	
     public boolean LogIn(Admin Admin){
-        Admin bySys_id = AdminRepository.findByUserName(Admin.getUserName());
+        Admin bySys_id = admin.findByUserName(Admin.getUserName());
         if (bySys_id!=null){
             return true;
         }

@@ -8,9 +8,9 @@ import javax.persistence.OneToMany;
 //import com.project.OnTheGoShop.Beans.Device ;
 //import com.project.OnTheGoShop.Beans.Notification ;
 
-@Entity(name = "Accounts")
+@Entity
 public class Account extends User{
-	/* 
+	/*
     List<Notification> Notifications;
 	List<Device > Devices;
     @OneToMany
