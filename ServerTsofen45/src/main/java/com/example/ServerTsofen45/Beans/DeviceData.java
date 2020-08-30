@@ -405,24 +405,5 @@ public abstract class DeviceData {
 	}
 	public void setAnalog2(float analog2) {
 		this.analog2 = analog2;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	}	
 }
