@@ -12,6 +12,14 @@ import com.example.ServerTsofen45.Repo.SupportRepository;
 public class SupportBL {
 	@Autowired
 	SupportRepository SupportRepository;
+	
+    public boolean LogIn(Support support){
+        Support bySys_id = SupportRepository.findByUserName(support.getUserName());
+        if (bySys_id!=null){
+            return true;
+        }
+        return false;
+    }
 
 
 	
