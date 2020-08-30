@@ -1,18 +1,28 @@
 package com.example.ServerTsofen45.Beans;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-
-@MappedSuperclass
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+@Entity(name="users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class User {
 	String Email;
 	String UserName;
 	String Password;
 	int sys_id;
+	String Type;
 	
-    @Column
+	@Column
+    public String getType() {
+		return Type;
+	}
+	public void setType(String type) {
+		Type = type;
+	}
+	@Column
     public String getEmail() {
 		return Email;
 	}
