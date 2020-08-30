@@ -1,7 +1,10 @@
 package com.example.ServerTsofen45.Beans;
 
+import javax.persistence.Entity;
+
 import Emums.Severity;
 
+@Entity
 public class Notification {
 	int Id;
 	int UserId;
@@ -30,9 +33,13 @@ public class Notification {
 	}
 	public int getErrorCode() {
 		return ErrorCode;
-	} 
+	}
+	@javax.persistence.Id
 	public int getId() {
 		return Id;
+	}
+	public void setSever(Severity sever) {
+		Sever = sever;
 	}
 	public String getMessage() {
 		return Message;
