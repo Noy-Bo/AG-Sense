@@ -3,13 +3,14 @@ package com.example.ServerTsofen45.Beans;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import Emums.Errors;
 import Emums.Severity;
 
 @Entity
 public class Notification {
 	int Id;
 	int UserId;
-	int ErrorCode;
+	Errors ErrorCode;
 	String Message;
 	Severity Sever;
 	boolean Read_stat;
@@ -21,7 +22,7 @@ public class Notification {
 	public void setUserId(int userId) {
 		UserId = userId;
 	}
-	public void setErrorCode(int errorCode) {
+	public void setErrorCode(Errors errorCode) {
 		ErrorCode = errorCode;
 	}
 	public void setId(int id) {
@@ -42,7 +43,7 @@ public class Notification {
 		return Sever;
 	}
 	@Column
-	public int getErrorCode() {
+	public Errors getErrorCode() {
 		return ErrorCode;
 	}
 	@Column
