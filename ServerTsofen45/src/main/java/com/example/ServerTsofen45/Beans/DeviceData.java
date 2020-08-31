@@ -59,6 +59,7 @@ public abstract class DeviceData {
 	float humidity;
 	float analog1;
 	float analog2;
+	
 	@Id
 	public long getID() {
 		return ID;

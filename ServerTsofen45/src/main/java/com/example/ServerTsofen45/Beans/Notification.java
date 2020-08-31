@@ -1,5 +1,6 @@
 package com.example.ServerTsofen45.Beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import Emums.Severity;
@@ -11,6 +12,7 @@ public class Notification {
 	int ErrorCode;
 	String Message;
 	Severity Sever;
+	boolean Read_stat;
 	
 	
 	public Notification() {
@@ -28,12 +30,22 @@ public class Notification {
 	public void setMessage(String message) {
 		Message = message;
 	}
+	public void setRead_stat(boolean read_stat) {
+		this.Read_stat = read_stat;
+	}
+	@Column
+	public boolean getRead_stat() {
+		return Read_stat;
+	}
+	@Column
 	public Severity getSever() {
 		return Sever;
 	}
+	@Column
 	public int getErrorCode() {
 		return ErrorCode;
 	}
+	@Column
 	@javax.persistence.Id
 	public int getId() {
 		return Id;
@@ -41,9 +53,11 @@ public class Notification {
 	public void setSever(Severity sever) {
 		Sever = sever;
 	}
+	@Column
 	public String getMessage() {
 		return Message;
 	}
+	@Column
 	public int getUserId() {
 		return UserId;
 	}
