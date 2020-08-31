@@ -1,4 +1,6 @@
-package com.tsofen.agsenceapp;
+package com.tsofen.agsenceapp.entities;
+
+import com.tsofen.agsenceapp.utils.ColorStatus;
 
 public class Notification {
     private String deviceName;

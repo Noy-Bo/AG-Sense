@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountDashboard">
+    tools:context=".activities.AccountDashboardActivity">
 
 
     <LinearLayout
@@ -204,7 +204,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="12dp"
-                    android:src="@drawable/reports_icon"
+                    android:src="@drawable/helath_care_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHeight_percent="0.6"
                     app:layout_constraintStart_toEndOf="@+id/second_divider"

@@ -3,7 +3,7 @@
     <string name="username_hint">Username</string>
     <string name="pass_hint">Password</string>
     <string name="login_btn_text">Login</string>
-    
+
     <string name="account_dashboard_title">AgSense - Account Name Dashboard</string>
 
     <string name="accountSearchHint">Search account.....</string>
@@ -17,5 +17,7 @@
     <string name="unreadNotificationsString">Unread notifications</string>
     <string name="devicesSettingsString">Device settings</string>
     <string name="otherString">Other</string>
-
+    <string name="filterString">Filter</string>
+    <string name="mapString">Map</string>
+    <string name="deviceStatusTitle">Device status</string>
 </resources>

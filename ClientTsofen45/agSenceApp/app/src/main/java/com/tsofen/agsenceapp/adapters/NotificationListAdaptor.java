@@ -1,4 +1,4 @@
-package com.tsofen.agsenceapp;
+package com.tsofen.agsenceapp.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.tsofen.agsenceapp.utils.ColorStatus;
+import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.R;
 
 import java.util.ArrayList;
 
