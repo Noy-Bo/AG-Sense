@@ -3,4 +3,19 @@
     <string name="username_hint">Username</string>
     <string name="pass_hint">Password</string>
     <string name="login_btn_text">Login</string>
+    
+    <string name="account_dashboard_title">AgSense - Account Name Dashboard</string>
+
+    <string name="accountSearchHint">Search account.....</string>
+    <string name="searchDeviceHint">Search device...</string>
+
+    <string name="accountFaultyString">Account faults</string>
+    <string name="healthyAccounts">Healthy accounts</string>
+    <string name="faultyDevicesString">Faulty devices</string>
+    <string name="healthyDevicesString">Healthy devices</string>
+    <string name="healthCareReportsString">Healthcare reports</string>
+    <string name="unreadNotificationsString">Unread notifications</string>
+    <string name="devicesSettingsString">Device settings</string>
+    <string name="otherString">Other</string>
+
 </resources>
