@@ -4,42 +4,42 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
-
+import Enums.Errors;
 import Enums.Severity;
 
 @Entity
 public class Notification {
-	int Id;
-	int DeviceId;
-	long DeviceImei;
-	int UserId;
-	Error errorCode;
-	String Message;
+	int id;
+	int deviceId;
+	long deviceImei;
+	int userId;
+	Errors errorCode;
+	String message;
 	Severity severity;
-	boolean Read_stat;
+	boolean read_stat;
 	
 	
 	
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
-	public void setErrorCode(Error errorCode) {
+	public void setErrorCode(Errors errorCode) {
 		this.errorCode = errorCode;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 	public void setDeviceId(int deviceId) {
-		DeviceId = deviceId;
+		this.deviceId = deviceId;
 	}
 	public void setMessage(String message) {
-		Message = message;
+		this.message = message;
 	}
 	public void setRead_stat(boolean read_stat) {
-		this.Read_stat = read_stat;
+		this.read_stat = read_stat;
 	}
 	public void setDeviceImei(long iMEI) {
-		DeviceImei = iMEI;
+		deviceImei = iMEI;
 	}
 	public void setSeverity(Severity severity) {
 		this.severity = severity;
@@ -49,27 +49,27 @@ public class Notification {
 	@javax.persistence.Id
 	@GeneratedValue
 	public int getId() {
-		return Id;
+		return id;
 	}
 	@Column
 	public int getDeviceId() {
-		return DeviceId;
+		return deviceId;
 	}
 	@Column
 	public long getDeviceImei() {
-		return DeviceImei;
+		return deviceImei;
 	}
 	@Column
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 	@Column
-	public Error getErrorCode() {
+	public Errors getErrorCode() {
 		return errorCode;
 	}
 	@Column
 	public String getMessage() {
-		return Message;
+		return message;
 	}
 	@Column
 	public Severity getSeverity() {
@@ -77,7 +77,7 @@ public class Notification {
 	}
 	@Column
 	public boolean getRead_stat() {
-		return Read_stat;
+		return read_stat;
 	}
 	
 	
