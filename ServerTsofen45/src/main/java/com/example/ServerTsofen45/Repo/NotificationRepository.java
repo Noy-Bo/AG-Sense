@@ -1,13 +1,16 @@
 package com.example.ServerTsofen45.Repo;
 
+
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
-
 import com.example.ServerTsofen45.Beans.Notification;
+import Enums.Severity;
 
-import Emums.Severity;
 
 public interface NotificationRepository extends CrudRepository<Notification, Integer> {
-	Notification findById(int Id);
-	Notification findByUserId(int UserId);
-	Notification findBySever(Severity sever);
+	public List<Notification> findByDeviceId(int deviceId);
+	public List<Notification> findByUserId(int UserId);
+	public List<Notification> findBySeverity(Severity severity);
+	public List<Notification> findByDeviceImei(long deviceImei);
+	public List<Notification> findByDeviceImeiAndDeviceId(long deviceImei, int deviceId);
 }

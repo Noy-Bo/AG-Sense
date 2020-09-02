@@ -2,31 +2,35 @@ package com.example.ServerTsofen45.Beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 
-import Emums.Errors;
-import Emums.Severity;
+
+import Enums.Severity;
 
 @Entity
 public class Notification {
 	int Id;
+	int DeviceId;
+	long DeviceImei;
 	int UserId;
-	Errors ErrorCode;
+	Error errorCode;
 	String Message;
-	Severity Sever;
+	Severity severity;
 	boolean Read_stat;
 	
 	
-	public Notification() {
-		// TODO Auto-generated constructor stub
-	}
+	
 	public void setUserId(int userId) {
 		UserId = userId;
 	}
-	public void setErrorCode(Errors errorCode) {
-		ErrorCode = errorCode;
+	public void setErrorCode(Error errorCode) {
+		this.errorCode = errorCode;
 	}
 	public void setId(int id) {
 		Id = id;
+	}
+	public void setDeviceId(int deviceId) {
+		DeviceId = deviceId;
 	}
 	public void setMessage(String message) {
 		Message = message;
@@ -34,32 +38,53 @@ public class Notification {
 	public void setRead_stat(boolean read_stat) {
 		this.Read_stat = read_stat;
 	}
-	@Column
-	public boolean getRead_stat() {
-		return Read_stat;
+	public void setDeviceImei(long iMEI) {
+		DeviceImei = iMEI;
 	}
-	@Column
-	public Severity getSever() {
-		return Sever;
+	public void setSeverity(Severity severity) {
+		this.severity = severity;
 	}
-	@Column
-	public Errors getErrorCode() {
-		return ErrorCode;
-	}
+	
 	@Column
 	@javax.persistence.Id
+	@GeneratedValue
 	public int getId() {
 		return Id;
 	}
-	public void setSever(Severity sever) {
-		Sever = sever;
+	@Column
+	public int getDeviceId() {
+		return DeviceId;
+	}
+	@Column
+	public long getDeviceImei() {
+		return DeviceImei;
+	}
+	@Column
+	public int getUserId() {
+		return UserId;
+	}
+	@Column
+	public Error getErrorCode() {
+		return errorCode;
 	}
 	@Column
 	public String getMessage() {
 		return Message;
 	}
 	@Column
-	public int getUserId() {
-		return UserId;
+	public Severity getSeverity() {
+		return severity;
 	}
+	@Column
+	public boolean getRead_stat() {
+		return Read_stat;
+	}
+	
+	
+
+	
+	
+	
+	
+	
 }
