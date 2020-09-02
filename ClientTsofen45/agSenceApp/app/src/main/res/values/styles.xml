@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <dimen name="large_text_size">30sp</dimen>
@@ -22,5 +23,11 @@
         <!-- inactive track color (30% transparency) -->
         <item name="android:colorForeground">#42221f1f
         </item>
+
+    </style>
+    <style name="ToolBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:background">@color/dark_blue</item>
     </style>
 </resources>
