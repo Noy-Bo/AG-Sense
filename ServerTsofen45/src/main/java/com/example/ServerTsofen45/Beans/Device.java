@@ -5,10 +5,11 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-@Entity(name="devices")
+@Entity(name = "devices")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Device {
 	int id;
+
 	@Id
 	public int getId() {
 		return id;
@@ -17,7 +18,5 @@ public abstract class Device {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
-	
 }
