@@ -35,4 +35,5 @@
     <string name="EditAccount">Edit Account</string>
     <string name="NewDevice">New Device</string>
     <string name="EditDevice">Edit Device</string>
+
 </resources>
