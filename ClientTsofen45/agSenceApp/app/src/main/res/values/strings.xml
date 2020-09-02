@@ -20,4 +20,15 @@
     <string name="filterString">Filter</string>
     <string name="mapString">Map</string>
     <string name="deviceStatusTitle">Device status</string>
+
+
+
+    <string name="reset">Reset</string>
+    <string name="filterDevices">Filter Devices</string>
+    <string name="deviceType">Device Type</string>
+    <string name="healthyOrFaultyDevices">Healthy / Faulty Devices</string>
+    <string name="healthyDevices">Healthy Devices</string>
+    <string name="faultyDevices">Faulty Devices</string>
+
+
 </resources>

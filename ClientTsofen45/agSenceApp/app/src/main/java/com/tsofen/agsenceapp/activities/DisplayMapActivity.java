@@ -74,6 +74,9 @@ public class DisplayMapActivity extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         int counter = 0;
+        if(userMap==null){
+            return;
+        }
         for (int i = 0; i < userMap.getPlaces().size(); i++) {
             LatLng latLng = new LatLng(userMap.getPlaces().get(i).getLatitude(), userMap.getPlaces().get(i).getLongitude());
             builder.include(latLng);
