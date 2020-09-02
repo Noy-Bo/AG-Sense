@@ -1,6 +1,8 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -68,5 +70,10 @@ public class AccountDashboardActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void DeviceView(View view) {
+        Intent intent = new Intent(this, DeviceStatus.class);
+        startActivity(intent);
     }
 }

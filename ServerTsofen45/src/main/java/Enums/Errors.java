@@ -1,4 +1,4 @@
-package Emums;
+package Enums;
 
 public enum Errors {
 	DATABASE(0, "A database error has occurred."),
