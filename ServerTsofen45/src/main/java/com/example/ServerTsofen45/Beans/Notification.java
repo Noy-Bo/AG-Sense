@@ -3,8 +3,8 @@ package com.example.ServerTsofen45.Beans;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import Emums.Errors;
-import Emums.Severity;
+import Enums.Errors;
+import Enums.Severity;
 
 @Entity
 public class Notification {

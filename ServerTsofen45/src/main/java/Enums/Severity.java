@@ -1,4 +1,4 @@
-package Emums;
+package Enums;
 
 public enum Severity {
 	

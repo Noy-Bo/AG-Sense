@@ -9,6 +9,7 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Device {
 	int id;
+	
 
 	@Id
 	public int getId() {
@@ -19,4 +20,6 @@ public abstract class Device {
 		this.id = id;
 	}
 
+	
+	
 }
