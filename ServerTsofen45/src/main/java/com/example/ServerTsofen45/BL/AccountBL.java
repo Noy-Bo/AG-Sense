@@ -11,11 +11,11 @@ import com.example.ServerTsofen45.Repo.AccountRepository;
 public class AccountBL {
     @Autowired
    AccountRepository AccountRepository;
-    public boolean LogIn(Account account){
-        Account bySys_id = AccountRepository.findByUserName(account.getUserName());
-        if (bySys_id!=null){
+  /*  public boolean LogIn(Account account){
+        Account byUserNme = AccountRepository.findByUserName(account.getUserName());
+        if (byUserNme!=null){
             return true;
         }
         return false;
-    }
+    }*/
 }

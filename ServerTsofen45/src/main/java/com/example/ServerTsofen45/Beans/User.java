@@ -3,6 +3,7 @@ package com.example.ServerTsofen45.Beans;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +15,21 @@ import javax.persistence.InheritanceType;
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class User {
-	String Email;
-	String UserName;
-	String Password;
-	int sys_id;
-	String Type;
+	String email;
+	String name;
+	String userName;
+	int sysId;
+	String type;
 	byte[] hashPassword;
+
+	@Column
+	public String getname() {
+		return name;
+	}
+
+	public void setname(String firstName) {
+		this.name = firstName;
+	}
 
 	@Column
 	public byte[] getHashPassword() {
@@ -32,48 +42,51 @@ public abstract class User {
 
 	@Column
 	public String getType() {
-		return Type;
+		return type;
 	}
 
 	public void setType(String type) {
-		Type = type;
+		this.type = type;
 	}
 
 	@Column
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
 	@Column
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.userName = userName;
 	}
 
-	@Column
-	public String getPassword() {
-		return Password;
-	}
 
-	public void setPassword(String password) {
-		Password = password;
-	}
 
 	@Id
 	@GeneratedValue
-	public int getSys_id() {
-		return sys_id;
+	public int getSysId() {
+		return sysId;
 	}
 
-	public void setSys_id(int sys_id) {
-		this.sys_id = sys_id;
+	public void setSys_id(int sysId) {
+		this.sysId = sysId;
+	}
+	public boolean validate(String pass)
+	{
+		try {
+			return (hashPassword(pass)==this.hashPassword);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	private byte[] hashPassword(String password) throws NoSuchAlgorithmException {
@@ -81,6 +94,12 @@ public abstract class User {
 		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 
 		return hash;
+	}
+
+	@Override
+	public String toString() {
+		return "User [Email=" + email + ", firstName=" + name + ", UserName=" + name
+				+ ", sys_id=" + sysId + ", Type=" + type + "]";
 	}
 
 }
