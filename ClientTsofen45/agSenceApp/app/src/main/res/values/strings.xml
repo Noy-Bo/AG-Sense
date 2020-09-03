@@ -42,7 +42,6 @@
     <string name="search">Search</string>
 
     <string name="date">dd/mm/yyyy</string>
-    <string name="reset">reset</string>
 
     <string name="display_faulty">Display faulty</string>
     <string name="device_settings">Device Settings</string>
