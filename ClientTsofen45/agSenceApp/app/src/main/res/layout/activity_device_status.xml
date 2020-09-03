@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
+                android:onClick="filterDevices"
                 android:orientation="horizontal"
                 android:gravity="center">
 
@@ -94,13 +94,13 @@
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="map"
                 >
                 <Button
                     android:id="@+id/MapBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:onClick="map"
                     android:text="@string/mapString"
                     android:textAllCaps="false"
                     android:textColor="#FF9800"
