@@ -17,12 +17,12 @@ public class Account extends User{
 	
 	
 	@OneToMany
-    public List<Accounts> getDevices() {
+    public List<Accounts> getAccounts() {
     	
 		return accounts;
 	}
 
-	public void setDevices(ArrayList<Accounts> accounts) {
+	public void setAccounts(ArrayList<Accounts> accounts) {
 		this.accounts = accounts;
 	}
 
