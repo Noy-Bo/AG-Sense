@@ -38,32 +38,35 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp">
+        android:paddingEnd="50dp"
+        android:paddingStart="60dp">
 
-        <Switch
 
-            android:id="@+id/readSwitch"
+        <TextView
+
+            android:id="@+id/read_button"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_height="30dp"
+            android:layout_margin="7dp"
+            android:onClick="displayReadNotifications"
             android:layout_weight="1"
+            android:background="@drawable/blue_shape_squares"
             android:gravity="center"
             android:text="@string/read"
-            android:thumb="@drawable/switch_thumb_shape"
-            android:track="@drawable/switch_track"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:textColor="@color/dark_blue"></TextView>
 
-    <Switch
-        android:id="@+id/unreadSwitch"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:text="@string/unread"
-        android:gravity="center"
-        android:thumb="@drawable/switch_thumb_shape"
-        android:track="@drawable/switch_track"/>
+        <TextView
+
+            android:id="@+id/unread_button"
+            android:onClick="displayUnreadNotifications"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/blue_shape_squares"
+            android:gravity="center"
+            android:text="@string/unread"
+            android:textColor="@color/dark_blue"></TextView>
 
     </LinearLayout>
     <Space
@@ -88,6 +91,7 @@
         android:layout_margin="10dp"/>
 
     <ImageView
+
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_margin="10dp"
