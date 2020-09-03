@@ -89,8 +89,6 @@ public class DeviceStatusList extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
 

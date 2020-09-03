@@ -3,6 +3,7 @@ package com.tsofen.agsenceapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -63,6 +64,16 @@ public class DeviceStatus extends AppCompatActivity implements Serializable {
         //Devices[] devices1 = (Devices[]) getIntent().getSerializableExtra("extra");
         ListAdapter myAdapter = new DevicesAdapter(this,0, devicesTotal) ;
         NewsListView.setAdapter(myAdapter);
+
+        //applying listener that transfers us to a new activity (DeviceView)
+        NewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //TODO: To apply a better activity-transfer (in the future)...
+                Intent intent = new Intent(getApplicationContext(), DeviceView.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void filterDevices(View view) {
