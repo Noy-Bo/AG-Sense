@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.Beans;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -12,8 +13,7 @@ import Enums.Severity;
 @Table(name = "notifications")
 public class Notification {
 	int id;
-	int deviceId;
-	long deviceImei;
+	Device device;
 	int userId;
 	String dateTime;
 	Severity severity;
@@ -27,11 +27,8 @@ public class Notification {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setDeviceId(int deviceId) {
-		this.deviceId = deviceId;
-	}
-	public void setDeviceImei(long deviceImei) {
-		this.deviceImei = deviceImei;
+	public void setDevice(Device device) {
+		this.device = device;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -56,13 +53,13 @@ public class Notification {
 	public int getId() {
 		return id;
 	}
-	@Column
-	public int getDeviceId() {
-		return deviceId;
-	}
-	@Column
-	public long getDeviceImei() {
-		return deviceImei;
+	
+	@ManyToOne
+	@JoinColumns({
+	    @JoinColumn(name="deviceId"),
+	    @JoinColumn(name="deviceImei")})
+	public Device getDevice() {
+		return device;
 	}
 	@Column
 	public int getUserId() {
