@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.entities.User;
 
 public class LoginActivity extends AppCompatActivity {
-
+    public static User user = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +26,10 @@ public class LoginActivity extends AppCompatActivity {
         if( username != null && username.equals("Admin")){
             Intent intent = new Intent(this, AdminDashboardActivity.class);
             startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, AccountDashboardActivity.class);
+            startActivity(intent);
         }
-        Intent intent = new Intent(this, AccountDashboardActivity.class);
-        startActivity(intent);
+
     }
 }

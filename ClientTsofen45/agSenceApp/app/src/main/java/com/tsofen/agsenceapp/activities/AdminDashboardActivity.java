@@ -15,4 +15,10 @@ public class AdminDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dashboard);
     }
+
+    public void GoToAccountStatus(View view) {
+
+        Intent intent = new Intent(this, AccountStatusFilter.class);
+        startActivity(intent);
+    }
 }

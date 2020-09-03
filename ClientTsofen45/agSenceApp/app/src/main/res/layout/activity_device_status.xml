@@ -82,29 +82,29 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@null"
+                android:onClick="filterDevices"
                 android:text="@string/filterString"
                 android:textAllCaps="false"
-                android:textSize="@dimen/small_text_size"
-                android:background="@null"
                 android:textColor="@color/orange"
-                android:onClick="filterDevices"/>
+                android:textSize="@dimen/small_text_size" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/black"/>
+                android:background="@color/black" />
 
             <Button
                 android:id="@+id/MapBtn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@null"
+                android:onClick="map"
                 android:text="@string/mapString"
                 android:textAllCaps="false"
-                android:textSize="@dimen/small_text_size"
-                android:background="@null"
                 android:textColor="@color/orange"
-                android:onClick="map"/>
+                android:textSize="@dimen/small_text_size" />
         </LinearLayout>
 
         <ListView

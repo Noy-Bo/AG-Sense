@@ -14,6 +14,7 @@ import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.utils.ColorStatus;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AccountDashboardActivity extends AppCompatActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
@@ -25,37 +26,30 @@ public class AccountDashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_dashboard);
 
 
-        notificationArray.add( new Notification("Main Bank Machine","ATM","Battery running low",
-                "Leumi","12:30", ColorStatus.yellow));
-        notificationArray.add(new Notification("Tel-Aviv branch machine","ATM","Device has been moved 2 meters",
-                "Leumi","jul 23",ColorStatus.red));
-        notificationArray.add(new Notification("Ekron street ","ATM","healthy",
-                "Discont","Now",ColorStatus.blue));
 
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.yellow));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.red));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.green));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.blue));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.yellow));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.red));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.green));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.blue));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.yellow));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.red));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.green));
-        notificationArray.add( new Notification("DeviceName","(deviceType)","errorMessage",
-                "AccountName","date&time",ColorStatus.green));
+        java.util.Date date = new Date();
+                date.setTime(20102020);
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message1" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message2" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message3" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message4" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message5" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message6" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message7" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message8" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message9" , 15));
+        notificationArray.add( new Notification(15,25,25,10,date,
+                58,false,"Hey this is error message10" , 15));
+
 
 
 

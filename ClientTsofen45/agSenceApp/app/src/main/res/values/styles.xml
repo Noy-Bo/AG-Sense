@@ -33,11 +33,6 @@
     </style>
 
 
-=======
-    <style name="ToolBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@color/dark_blue</item>
-    </style>
+
 </resources>
 
