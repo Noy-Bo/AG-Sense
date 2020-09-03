@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
@@ -33,6 +34,8 @@ public class AccountDashboardActivity extends AppCompatActivity {
     Dialog myDialog;
     View popupView;
     Button reset ;
+    boolean displayReadNotifications = false;
+    boolean displayUnreadNotifications = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +82,6 @@ public class AccountDashboardActivity extends AppCompatActivity {
         ListView notificationList = findViewById(R.id.notification_list);
         notificationArrayAdapter = new NotificationListAdaptor(this,notificationArray);
         notificationList.setAdapter(notificationArrayAdapter);
-
-
-
-
-
 
 
     }
@@ -159,17 +157,49 @@ public class AccountDashboardActivity extends AppCompatActivity {
 
         TextView fromDate =(TextView) popupView.findViewById(R.id.fromDate);
         TextView toDate =(TextView) popupView.findViewById(R.id.toDate);
-        Switch switch1 = (Switch)popupView.findViewById(R.id.readSwitch);
-        Switch switch2 = (Switch)popupView.findViewById(R.id.unreadSwitch);
         toDate.setText("");
         fromDate.setText("");
-        switch1.setChecked(false);
-        switch2.setChecked(false);
-
     }
+
+
 
     public void search(View view) {
         setContentView(R.layout.activity_account_dashboard);
+    }
+
+    public void displayReadNotifications(final View view) {
+        TextView displayFaultyBox = view.findViewById(R.id.read_button);
+
+        if (displayReadNotifications == true) // do not display faulty devices.
+        {
+            displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+            displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            displayReadNotifications = false;
+        }
+        else if (displayReadNotifications == false) // displaying the faulty device.
+        {
+            displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
+            displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
+            displayReadNotifications = true;
+        }
+    }
+
+    public void displayUnreadNotifications(final View view) {
+        TextView displayHealthyBox = view.findViewById(R.id.unread_button);
+
+        if (displayUnreadNotifications == true) // do not display healthy devices.
+        {
+            displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+            displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            displayUnreadNotifications = false;
+        }
+        else if (displayUnreadNotifications == false) // displaying the healthy device.
+        {
+            displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
+            displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
+            displayUnreadNotifications = true;
+        }
+
     }
 
 }

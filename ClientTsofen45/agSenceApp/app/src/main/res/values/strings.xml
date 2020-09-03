@@ -44,6 +44,7 @@
     <string name="date">dd/mm/yyyy</string>
 
     <string name="display_faulty">Display faulty</string>
+    <string name="display_healthy">Display Healthy</string>
     <string name="device_settings">Device Settings</string>
     <string name="HealthCareDashboard">Healthcare Dashboard</string>
     <string name="NewAccount">New Account</string>
