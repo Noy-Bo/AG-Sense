@@ -13,14 +13,14 @@ public class SupportBL {
 	@Autowired
 	SupportRepository supportRepository;
 	
-    public boolean LogIn(Support support){
-        Support bySys_id = supportRepository.findByUserName(support.getUserName());
-        if (bySys_id!=null){
+ /*   public boolean LogIn(Support support){
+        Support byUserNme = supportRepository.findByUserName(support.getUserName());
+        if (byUserNme!=null){
             return true;
         }
         return false;
     }
-
+*/
 
 	
         }

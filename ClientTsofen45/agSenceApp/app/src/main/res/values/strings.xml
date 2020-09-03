@@ -21,14 +21,16 @@
     <string name="mapString">Map</string>
     <string name="deviceStatusTitle">Device status</string>
 
+    <string name="accountstatus">Account Status</string>
 
-
+    <string name="reset">Reset</string>
 
     <string name="filterDevices">Filter Devices</string>
     <string name="deviceType">Device Type</string>
     <string name="healthyOrFaultyDevices">Healthy / Faulty Devices</string>
     <string name="healthyDevices">Healthy Devices</string>
     <string name="faultyDevices">Faulty Devices</string>
+
 
 
     <string name="Filter">Filter</string>
@@ -41,6 +43,14 @@
 
     <string name="date">dd/mm/yyyy</string>
     <string name="reset">reset</string>
+
+    <string name="display_faulty">Display faulty</string>
+    <string name="device_settings">Device Settings</string>
+    <string name="HealthCareDashboard">Healthcare Dashboard</string>
+    <string name="NewAccount">New Account</string>
+    <string name="EditAccount">Edit Account</string>
+    <string name="NewDevice">New Device</string>
+    <string name="EditDevice">Edit Device</string>
 
 
 </resources>

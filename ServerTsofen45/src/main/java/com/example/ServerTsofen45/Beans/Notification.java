@@ -2,64 +2,89 @@ package com.example.ServerTsofen45.Beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 
-import Emums.Errors;
-import Emums.Severity;
+import Enums.Errors;
+import Enums.Severity;
 
 @Entity
 public class Notification {
-	int Id;
-	int UserId;
-	Errors ErrorCode;
-	String Message;
-	Severity Sever;
-	boolean Read_stat;
+	int id;
+	int deviceId;
+	long deviceImei;
+	int userId;
+	Errors errorCode;
+	String message;
+	Severity severity;
+	boolean read_stat;
 	
 	
-	public Notification() {
-		// TODO Auto-generated constructor stub
-	}
+	
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 	public void setErrorCode(Errors errorCode) {
-		ErrorCode = errorCode;
+		this.errorCode = errorCode;
 	}
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
+	}
+	public void setDeviceId(int deviceId) {
+		this.deviceId = deviceId;
 	}
 	public void setMessage(String message) {
-		Message = message;
+		this.message = message;
 	}
 	public void setRead_stat(boolean read_stat) {
-		this.Read_stat = read_stat;
+		this.read_stat = read_stat;
 	}
-	@Column
-	public boolean getRead_stat() {
-		return Read_stat;
+	public void setDeviceImei(long iMEI) {
+		deviceImei = iMEI;
 	}
-	@Column
-	public Severity getSever() {
-		return Sever;
+	public void setSeverity(Severity severity) {
+		this.severity = severity;
 	}
-	@Column
-	public Errors getErrorCode() {
-		return ErrorCode;
-	}
+	
 	@Column
 	@javax.persistence.Id
+	@GeneratedValue
 	public int getId() {
-		return Id;
-	}
-	public void setSever(Severity sever) {
-		Sever = sever;
+		return id;
 	}
 	@Column
-	public String getMessage() {
-		return Message;
+	public int getDeviceId() {
+		return deviceId;
+	}
+	@Column
+	public long getDeviceImei() {
+		return deviceImei;
 	}
 	@Column
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
+	@Column
+	public Errors getErrorCode() {
+		return errorCode;
+	}
+	@Column
+	public String getMessage() {
+		return message;
+	}
+	@Column
+	public Severity getSeverity() {
+		return severity;
+	}
+	@Column
+	public boolean getRead_stat() {
+		return read_stat;
+	}
+	
+	
+
+	
+	
+	
+	
+	
 }

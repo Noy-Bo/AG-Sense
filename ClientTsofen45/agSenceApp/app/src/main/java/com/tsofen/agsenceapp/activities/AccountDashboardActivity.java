@@ -171,4 +171,5 @@ public class AccountDashboardActivity extends AppCompatActivity {
     public void search(View view) {
         setContentView(R.layout.activity_account_dashboard);
     }
+
 }

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <dimen name="large_text_size">30sp</dimen>
@@ -32,3 +33,4 @@
         <item name="android:colorForeground">#673AB7</item>
     </style>
 </resources>
+
