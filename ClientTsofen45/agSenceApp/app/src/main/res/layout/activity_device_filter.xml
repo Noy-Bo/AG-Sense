@@ -25,7 +25,8 @@ tools:context=".activities.DeviceFilter">
             android:layout_gravity="left"
             android:layout_margin="10dp"
             android:clickable="true"
-            android:src="@drawable/ic_baseline_arrow_back_24"></ImageView>
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="finishTask"/>
 
         <TextView
 
