@@ -1,63 +1,34 @@
 package com.tsofen.agsenceapp.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Devices implements Serializable {
-    protected int ID;
-    protected int deviceTypeID;
-    protected int accountID;
-    protected boolean isFaulty;
-    String faultTime;
-    String name;
-    long imei;
-    String lastUpdate;
 
-    public int getID() {
-        return ID;
-    }
+    protected long imei;
+    protected int id;
+    protected int Userid;
+    protected String deviceType;
+    protected Date faultTime;
+    protected Date lastUpdate;
+    protected Boolean isFaulty;
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public int getDeviceTypeID() {
-        return deviceTypeID;
-    }
-
-    public void setDeviceTypeID(int deviceTypeID) {
-        this.deviceTypeID = deviceTypeID;
-    }
-
-    public int getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
-    }
-
-    public boolean isFaulty() {
+    public Boolean getFaulty() {
         return isFaulty;
     }
 
-    public void setFaulty(boolean faulty) {
+    public void setFaulty(Boolean faulty) {
         isFaulty = faulty;
     }
 
-    public String getFaultTime() {
-        return faultTime;
-    }
-
-    public void setFaultTime(String faultTime) {
+    public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty) {
+        this.imei = imei;
+        this.id = id;
+        Userid = userid;
+        this.deviceType = deviceType;
         this.faultTime = faultTime;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.lastUpdate = lastUpdate;
+        this.isFaulty = isFaulty;
     }
 
     public long getImei() {
@@ -68,22 +39,43 @@ public class Devices implements Serializable {
         this.imei = imei;
     }
 
-    public String getLastUpdate() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserid() {
+        return Userid;
+    }
+
+    public void setUserid(int userid) {
+        Userid = userid;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public Date getFaultTime() {
+        return faultTime;
+    }
+
+    public void setFaultTime(Date faultTime) {
+        this.faultTime = faultTime;
+    }
+
+    public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(String lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    public Devices(int ID, int deviceTypeID, int accountID, boolean isFaulty, String faultTime, String name, long imei, String lastUpdate) {
-        this.ID = ID;
-        this.deviceTypeID = deviceTypeID;
-        this.accountID = accountID;
-        this.isFaulty = isFaulty;
-        this.faultTime = faultTime;
-        this.name = name;
-        this.imei = imei;
+    public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 }

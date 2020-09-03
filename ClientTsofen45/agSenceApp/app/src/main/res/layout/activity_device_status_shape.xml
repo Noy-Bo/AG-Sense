@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/buttons_panel_background"
+
     tools:context=".activities.DeviceStatus">
 
     <LinearLayout
@@ -52,9 +52,10 @@
                 android:id="@+id/deviceidtype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:gravity="bottom|left"
                 android:text="Ta1"
+                android:layout_marginBottom="3dp"
                 android:textColor="@color/dark_blue" />
         </LinearLayout>
 
@@ -68,8 +69,8 @@
                 android:id="@+id/devicefaultTime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="10dp"
                 android:gravity="right"
                 android:text="June 12, 10:23"
                 android:textColor="@color/dark_blue"
@@ -86,8 +87,8 @@
                 android:id="@+id/devicelastUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center|center_horizontal|end"
                 android:text="17:35"
                 android:textColor="@color/dark_blue"

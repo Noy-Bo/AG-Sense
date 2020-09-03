@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tsofen.agsenceapp.activities.LoginActivity;
 import com.tsofen.agsenceapp.utils.ColorStatus;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.R;
@@ -49,10 +50,10 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
         else if ( notification.getImageStatus() == ColorStatus.red)
             notificationIconBox.setImageResource(R.drawable.notification_icon_red);
 
-        deviceNameDeviceTypeBox.setText(notification.getDeviceName()+" "+notification.getDeviceType());
+        deviceNameDeviceTypeBox.setText(notification.getDeviceid()+" "+notification.getDeviceid());
         errorMessageBox.setText(notification.getErrorMessage());
-        accountNameBox.setText(notification.getAccountName());
-        timeBox.setText(notification.getDateTime());
+        accountNameBox.setText(LoginActivity.user.getUserName());
+        timeBox.setText(String.valueOf(notification.getDateTime()));
 
         return layout;
     }

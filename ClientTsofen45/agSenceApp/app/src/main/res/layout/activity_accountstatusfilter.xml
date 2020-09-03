@@ -46,7 +46,7 @@
                         android:layout_gravity="center|left"
                         android:layout_marginLeft="80dp"
                         android:gravity="center"
-                        android:text="@string/accountstatus"
+                        android:text="Account Status"
                         android:textColor="@color/white"
                         android:textSize="20dp" />
 

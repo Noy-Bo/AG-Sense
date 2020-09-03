@@ -82,10 +82,15 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/accountfaults"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:contextClickable="true"
+                    android:longClickable="true"
+                    android:onClick="GoToAccountStatus"
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical">
@@ -127,7 +132,9 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:onClick="GoToAccountStatus">
 
                     <TextView
                         android:layout_width="wrap_content"
