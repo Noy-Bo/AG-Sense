@@ -26,4 +26,12 @@ public class NotificationBL {
 	   return notification;
 	   
    }
+
+   public void setNotificationsReaded(int id) {
+
+	   Notification notification = NotificationRepository.findById(id);
+	   notification.setReaded(true);
+	   NotificationRepository.save(notification);
+	
+   }
 }

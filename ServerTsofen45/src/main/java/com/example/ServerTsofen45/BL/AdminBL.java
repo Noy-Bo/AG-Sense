@@ -15,12 +15,12 @@ public class AdminBL {
 	AdminRepository admin;
 	
 	
-    public boolean LogIn(Admin Admin){
-        Admin bySys_id = admin.findByUserName(Admin.getUserName());
-        if (bySys_id!=null){
+/*    public boolean LogIn(Admin Admin){
+        Admin byUserNme = admin.findByUserName(Admin.getUserName());
+        if (byUserNme!=null){
             return true;
         }
         return false;
     }
-
+*/
 }

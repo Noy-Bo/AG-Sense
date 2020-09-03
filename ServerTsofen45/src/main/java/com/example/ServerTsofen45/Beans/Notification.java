@@ -1,87 +1,90 @@
 package com.example.ServerTsofen45.Beans;
-
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
-
 import Enums.Severity;
 
 @Entity
+@Table(name = "notifications")
 public class Notification {
-	int Id;
-	int DeviceId;
-	long DeviceImei;
-	int UserId;
-	Error errorCode;
-	String Message;
+	int id;
+	Device device;
+	int userId;
+	String dateTime;
 	Severity severity;
-	boolean Read_stat;
+	boolean readed;
+	private Error error;
 	
 	
 	
-	public void setUserId(int userId) {
-		UserId = userId;
-	}
-	public void setErrorCode(Error errorCode) {
-		this.errorCode = errorCode;
-	}
+	
+	
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
-	public void setDeviceId(int deviceId) {
-		DeviceId = deviceId;
+	public void setDevice(Device device) {
+		this.device = device;
 	}
-	public void setMessage(String message) {
-		Message = message;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	public void setRead_stat(boolean read_stat) {
-		this.Read_stat = read_stat;
-	}
-	public void setDeviceImei(long iMEI) {
-		DeviceImei = iMEI;
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 	public void setSeverity(Severity severity) {
 		this.severity = severity;
 	}
+	public void setReaded(boolean readed) {
+		this.readed = readed;
+	}
+	public void setError(Error error) {
+		this.error = error;
+	}
+	
 	
 	@Column
-	@javax.persistence.Id
+	@Id
 	@GeneratedValue
 	public int getId() {
-		return Id;
+		return id;
 	}
-	@Column
-	public int getDeviceId() {
-		return DeviceId;
-	}
-	@Column
-	public long getDeviceImei() {
-		return DeviceImei;
+	
+	@ManyToOne
+	@JoinColumns({
+	    @JoinColumn(name="deviceId"),
+	    @JoinColumn(name="deviceImei")})
+	public Device getDevice() {
+		return device;
 	}
 	@Column
 	public int getUserId() {
-		return UserId;
-	}
-	@Column
-	public Error getErrorCode() {
-		return errorCode;
-	}
-	@Column
-	public String getMessage() {
-		return Message;
+		return userId;
 	}
 	@Column
 	public Severity getSeverity() {
 		return severity;
 	}
 	@Column
-	public boolean getRead_stat() {
-		return Read_stat;
+	public String getDateTime() {
+		return dateTime;
+	}
+	@Column
+	public boolean isReaded() {
+		return readed;
+	}
+	
+	@ManyToOne
+    @JoinColumn(name = "errorCode")   
+	public Error getError() {
+		return error;
 	}
 	
 	
-
 	
 	
 	

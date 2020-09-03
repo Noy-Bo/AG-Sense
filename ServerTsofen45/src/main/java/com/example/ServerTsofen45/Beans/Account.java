@@ -1,5 +1,6 @@
 package com.example.ServerTsofen45.Beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,26 +11,21 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Account extends User{
-	/*
-    List<Notification> Notifications;
-	List<Device > Devices;
-    @OneToMany
-    public List<Device> getDevices() {
-    	
-		return Devices;
-	}
-
-	public void setDevices(List<Device> devices) {
-		Devices = devices;
-	}
-
+	
+	List<Accounts > accounts;
+   
+	
+	
 	@OneToMany
-	public List<Notification> getNotifications() {
-		return Notifications;
+    public List<Accounts> getAccounts() {
+    	
+		return accounts;
 	}
 
-	public void setNotifications(List<Notification> notifications) {
-		Notifications = notifications;
+	public void setAccounts(ArrayList<Accounts> accounts) {
+		this.accounts = accounts;
 	}
-*/
+
+
+
 }

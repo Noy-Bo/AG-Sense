@@ -20,16 +20,31 @@
     <string name="filterString">Filter</string>
     <string name="mapString">Map</string>
     <string name="deviceStatusTitle">Device status</string>
+
     <string name="accountstatus">Account Status</string>
 
     <string name="reset">Reset</string>
+
     <string name="filterDevices">Filter Devices</string>
     <string name="deviceType">Device Type</string>
     <string name="healthyOrFaultyDevices">Healthy / Faulty Devices</string>
     <string name="healthyDevices">Healthy Devices</string>
     <string name="faultyDevices">Faulty Devices</string>
 
+
+
+    <string name="Filter">Filter</string>
+    <string name="read">Read</string>
+    <string name="unread">Unread</string>
+
+    <string name="fromDate">From date</string>
+    <string name="toDate">To date</string>
+    <string name="search">Search</string>
+
+    <string name="date">dd/mm/yyyy</string>
+
     <string name="display_faulty">Display faulty</string>
+    <string name="display_healthy">Display Healthy</string>
     <string name="device_settings">Device Settings</string>
     <string name="HealthCareDashboard">Healthcare Dashboard</string>
     <string name="NewAccount">New Account</string>
