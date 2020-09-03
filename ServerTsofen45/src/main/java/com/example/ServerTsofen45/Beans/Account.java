@@ -13,7 +13,10 @@ import javax.persistence.OneToMany;
 public class Account extends User{
 	
 	List<Accounts > accounts;
-    @OneToMany
+   
+	
+	
+	@OneToMany
     public List<Accounts> getDevices() {
     	
 		return accounts;
