@@ -176,6 +176,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:onClick="goToFaultyDevices"
+                    android:id="@+id/admin_dashboard_faulty_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -215,6 +217,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:onClick="goToHealthyDevices"
+                    android:id="@+id/admin_dashboard_healthy_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
