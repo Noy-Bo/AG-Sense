@@ -30,7 +30,7 @@ public class NotificationBL {
    public void setNotificationsReaded(int id) {
 
 	   Notification notification = NotificationRepository.findById(id);
-	   notification.setRead_stat(true);
+	   notification.setReaded(true);
 	   NotificationRepository.save(notification);
 	
    }

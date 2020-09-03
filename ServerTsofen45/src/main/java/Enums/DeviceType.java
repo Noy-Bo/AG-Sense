@@ -4,4 +4,5 @@ public enum DeviceType {
 	
 	SensorForBanks,GpsForPersonal,lequidHeightForTanks
 
+	
 }

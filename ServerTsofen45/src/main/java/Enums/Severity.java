@@ -1,6 +1,5 @@
 package Enums;
 
 public enum Severity {
-	high , low;
-
+	CRITICAL, MAJOR, MODERATE, LOW;
 }

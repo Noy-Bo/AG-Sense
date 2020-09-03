@@ -115,17 +115,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
+                <TextView
+                    android:id="@+id/num_of_faulty_devices"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+
+                    android:layout_marginStart="32dp"
+                    android:layout_weight="0.08"
+                    android:background="@drawable/notification_red_circle_background"
+                    android:gravity="center"
+                    android:text="12"
+
+
+                    android:textColor="@color/white"
+
+
+                    android:textSize="7dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_percent=".35"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.551"
+                    app:layout_constraintWidth_percent=".042" />
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
                     android:src="@drawable/faulty_devices_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHeight_percent="0.6"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/num_of_faulty_devices"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.06"/>
+                    app:layout_constraintWidth_percent="0.06" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -148,23 +172,49 @@
                     android:id="@+id/first_divider"
                     android:layout_width="1dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="52dp"
                     android:background="@android:color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHeight_percent="0.83"
                     app:layout_constraintStart_toEndOf="@+id/textView"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/num_of_healthy_devices"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="0.08"
+                    android:background="@drawable/notification_red_circle_background"
+                    android:gravity="center"
+
+
+                    android:text="76"
+
+
+                    android:textColor="@color/white"
+                    android:textSize="7dp"
+
+                    android:textStyle="bold"
+
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_percent=".35"
+                    app:layout_constraintStart_toEndOf="@+id/first_divider"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.517"
+                    app:layout_constraintWidth_percent=".042" />
 
                 <ImageView
 
                     android:id="@+id/imageView2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
                     android:src="@drawable/healthy_devices_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHeight_percent="0.6"
-                    app:layout_constraintStart_toEndOf="@+id/first_divider"
+                    app:layout_constraintStart_toEndOf="@+id/num_of_healthy_devices"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.06">
 
@@ -176,7 +226,8 @@
 
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="8dp"
+                    android:onClick="DeviceView"
                     android:text="@string/healthyDevicesString"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/extra_small_text_size"
@@ -184,51 +235,8 @@
                     app:layout_constraintHeight_percent="0.4"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.615"
-                    app:layout_constraintWidth_percent="0.19"
-                    android:onClick="DeviceView">
-
-                </TextView>
-
-                <View
-                    android:id="@+id/second_divider"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHeight_percent="0.83"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/report_icon_image"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="12dp"
-                    android:src="@drawable/helath_care_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHeight_percent="0.6"
-                    app:layout_constraintStart_toEndOf="@+id/second_divider"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.06">
-
-                </ImageView>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
-
-                    android:text="Healthcare Reports"
-                    android:textColor="@color/orange"
-                    android:textSize="@dimen/extra_small_text_size"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHeight_percent="0.30"
-                    app:layout_constraintStart_toEndOf="@+id/report_icon_image"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.548"
-                    app:layout_constraintWidth_percent="0.24">
+                    app:layout_constraintVertical_bias="0.653"
+                    app:layout_constraintWidth_percent="0.19">
 
                 </TextView>
 

@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.activities.LoginActivity;
+import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
@@ -23,6 +25,7 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
         Devices devices = getItem(position);
         TextView name = layout.findViewById(R.id.devicename);
@@ -31,10 +34,11 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         TextView lastupdate = layout.findViewById(R.id.devicelastUpdate);
         ImageView imageView = layout.findViewById(R.id.device_status_imageview);
         imageView.setImageResource(R.drawable.faulty_devices_icon);
-        name.setText(devices.getName());
-        devicetypeid.setText(String.valueOf(devices.getDeviceTypeID()));
-        faultytime.setText(devices.getFaultTime());
-        lastupdate.setText(devices.getLastUpdate());
+
+        name.setText( LoginActivity.user.getUserName());
+        devicetypeid.setText((devices.getDeviceType()));
+        faultytime.setText(String.valueOf(devices.getFaultTime()));
+        lastupdate.setText(String.valueOf(devices.getLastUpdate()));
 
         return layout;
     }

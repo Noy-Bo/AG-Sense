@@ -13,13 +13,16 @@ import javax.persistence.OneToMany;
 public class Account extends User{
 	
 	List<Accounts > accounts;
-    @OneToMany
-    public List<Accounts> getDevices() {
+   
+	
+	
+	@OneToMany
+    public List<Accounts> getAccounts() {
     	
 		return accounts;
 	}
 
-	public void setDevices(ArrayList<Accounts> accounts) {
+	public void setAccounts(ArrayList<Accounts> accounts) {
 		this.accounts = accounts;
 	}
 
