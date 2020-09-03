@@ -12,25 +12,17 @@ import javax.persistence.OneToMany;
 @Entity
 public class Account extends User{
 	
-    ArrayList<Notification> Notifications;
-	ArrayList<Device > Devices;
+	ArrayList<Accounts > accounts;
     @OneToMany
-    public List<Device> getDevices() {
+    public List<Accounts> getDevices() {
     	
-		return Devices;
+		return accounts;
 	}
 
-	public void setDevices(ArrayList<Device> devices) {
-		Devices = devices;
+	public void setDevices(ArrayList<Accounts> accounts) {
+		this.accounts = accounts;
 	}
 
-	@OneToMany
-	public List<Notification> getNotifications() {
-		return Notifications;
-	}
 
-	public void setNotifications(ArrayList<Notification> notifications) {
-		Notifications = notifications;
-	}
 
 }
