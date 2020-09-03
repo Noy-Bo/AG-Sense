@@ -37,5 +37,14 @@ public class NotificationsController {
 	
 			return notifications;
 		}
+	  
+	  @GetMapping("/SetNotification/Readed/ById")
+	  public void setNotificationsReaded(@RequestParam int id)
+		{
+			
+		    
+			   notificationBL.setNotificationsReaded(id);
+	
+		}
 	
 }
