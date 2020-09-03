@@ -3,7 +3,6 @@ package com.example.ServerTsofen45.Beans;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -75,7 +74,7 @@ public abstract class User {
 		return sysId;
 	}
 
-	public void setSys_id(int sysId) {
+	public void setSysId(int sysId) {
 		this.sysId = sysId;
 	}
 	public boolean validate(String pass)

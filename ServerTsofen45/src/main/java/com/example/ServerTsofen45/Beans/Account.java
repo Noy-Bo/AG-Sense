@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Account extends User{
 	
-	ArrayList<Accounts > accounts;
+	List<Accounts > accounts;
     @OneToMany
     public List<Accounts> getDevices() {
     	

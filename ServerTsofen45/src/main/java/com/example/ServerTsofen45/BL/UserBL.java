@@ -23,27 +23,28 @@ public class UserBL {
 	SupportRepository supportRepository;
 	@Autowired
 	AccountRepository accountRepository;
-	@Autowired
-	UserRepository< User> userRepository;
+	//@Autowired
+	//UserRepository< User> userRepository;
 	ObjectMapper mapper = new ObjectMapper();
 
-	
 		public ArrayList<User> Containing(String Name)
 		{
-			return userRepository.findByFirstnameContaining(Name);
+			return null;
+			//return userRepository.findByFirstnameContaining(Name);
 		}
 	
 		public User getByName(String Name)
 		{
-			return userRepository.findByUserName(Name);
+			return null;
+		//	return userRepository.findByUserName(Name);
 		}
 	
 	    public User LogIn(String Username,String password){
-        User byUserName = userRepository.findByUserName(Username);
+     //   User byUserName = userRepository.findByUserName(Username);
         
-       if(byUserName.validate(password))
+    //   if(byUserName.validate(password))
        {
-    	   return byUserName;
+    	//   return byUserName;
        }
     	   
     	return null;

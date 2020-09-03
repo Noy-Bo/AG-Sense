@@ -1,8 +1,12 @@
 package com.example.ServerTsofen45.Repo;
 
-import com.example.ServerTsofen45.Beans.Support;
+import javax.transaction.Transactional;
 
-public interface SupportRepository extends UserRepository<Support>{
+import org.springframework.data.repository.CrudRepository;
+
+import com.example.ServerTsofen45.Beans.Support;
+@Transactional
+public interface SupportRepository extends UserRepository<Support>,CrudRepository<Support, Integer> {
 
 
 

@@ -1,19 +1,21 @@
 package com.example.ServerTsofen45.Beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Accounts {
 	String Text;
 	int Id;
-	ArrayList<Device > devices;
+	List<Device> devices;
 	
 	@OneToMany
-	public ArrayList<Device> getDevices() {
+	public List<Device> getDevices() {
 		return devices;
 	}
 	public void setDevices(ArrayList<Device> devices) {
@@ -26,7 +28,7 @@ public class Accounts {
 	public void setText(String text) {
 		Text = text;
 	}
-	@Column
+	@Id
 	public int getId() {
 		return Id;
 	}
