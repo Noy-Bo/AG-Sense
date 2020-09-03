@@ -86,9 +86,10 @@
                 android:textAllCaps="false"
                 android:textSize="@dimen/small_text_size"
                 android:background="@null"
-                android:textColor="@color/orange" />
+                android:textColor="@color/orange"
+                android:onClick="filterDevices"/>
 
-            <view
+            <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/black"/>
@@ -102,7 +103,8 @@
                 android:textAllCaps="false"
                 android:textSize="@dimen/small_text_size"
                 android:background="@null"
-                android:textColor="@color/orange" />
+                android:textColor="@color/orange"
+                android:onClick="map"/>
         </LinearLayout>
 
         <ListView

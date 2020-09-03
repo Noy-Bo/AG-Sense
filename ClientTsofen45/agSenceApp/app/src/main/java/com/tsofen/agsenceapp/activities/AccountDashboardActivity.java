@@ -1,8 +1,22 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,11 +30,15 @@ import java.util.ArrayList;
 public class AccountDashboardActivity extends AppCompatActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
     ArrayAdapter<Notification> notificationArrayAdapter;
+    Dialog myDialog;
+    View popupView;
+    Button reset ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_dashboard);
+        myDialog = new Dialog(this);
 
 
         notificationArray.add( new Notification("Main Bank Machine","ATM","Battery running low",
@@ -68,5 +86,89 @@ public class AccountDashboardActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void DeviceView(View view) {
+        Intent intent = new Intent(this, DeviceStatus.class);
+        startActivity(intent);
+    }
+
+
+    public void gotoFilter(View view) {
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        popupView = inflater.inflate(R.layout.pop_up1, null);
+        reset=(Button) popupView.findViewById(R.id.filterResetButton);
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        // dismiss the popup window when touched
+
+    }
+
+    public void listen(final View view) {
+        final Calendar cldr = Calendar.getInstance();
+        int day = cldr.get(Calendar.DAY_OF_MONTH);
+        int month = cldr.get(Calendar.MONTH);
+        int year = cldr.get(Calendar.YEAR);
+        // date picker dialog
+        final TextView textView = (TextView)  popupView.findViewById(R.id.fromDate);
+        DatePickerDialog picker = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        i1++;
+
+                        textView.setText(i+"/"+i1+"/"+i2);
+                    }
+
+                }, year, month, day);
+        picker.show();
+    }
+    public void listen1(final View view) {
+        final Calendar cldr = Calendar.getInstance();
+        int day = cldr.get(Calendar.DAY_OF_MONTH);
+        int month = cldr.get(Calendar.MONTH);
+        int year = cldr.get(Calendar.YEAR);
+        // date picker dialog
+        final TextView textView = (TextView)  popupView.findViewById(R.id.toDate);
+        DatePickerDialog picker = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        i1++;
+
+                        textView.setText(i+"/"+i1+"/"+i2);
+                    }
+
+                }, year, month, day);
+        picker.show();
+    }
+
+
+    public void reset(View view) {
+
+        TextView fromDate =(TextView) popupView.findViewById(R.id.fromDate);
+        TextView toDate =(TextView) popupView.findViewById(R.id.toDate);
+        Switch switch1 = (Switch)popupView.findViewById(R.id.readSwitch);
+        Switch switch2 = (Switch)popupView.findViewById(R.id.unreadSwitch);
+        toDate.setText("");
+        fromDate.setText("");
+        switch1.setChecked(false);
+        switch2.setChecked(false);
+
+    }
+
+    public void search(View view) {
+        setContentView(R.layout.activity_account_dashboard);
     }
 }
