@@ -26,15 +26,15 @@ public abstract class Device {
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
 
-	 
 	@Column
 	public long getImei() {
 		return imei;
 	}
-	
+
 	public void setImei(long imei) {
 		this.imei = imei;
 	}
+
 	@Column
 	public int getAccountId() {
 		return accountId;
@@ -43,6 +43,7 @@ public abstract class Device {
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
+
 	@Column
 	public DeviceType getType() {
 		return type;
@@ -51,6 +52,7 @@ public abstract class Device {
 	public void setType(DeviceType type) {
 		this.type = type;
 	}
+
 	@Column
 	public Time getLastUpdate() {
 		return lastUpdate;
@@ -59,6 +61,7 @@ public abstract class Device {
 	public void setLastUpdate(Time lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+
 	@Column
 	public String getLogitude() {
 		return logitude;
@@ -67,14 +70,16 @@ public abstract class Device {
 	public void setLogitude(String logitude) {
 		this.logitude = logitude;
 	}
+
 	@Column
 	public String getAltitude() {
 		return altitude;
-	}	
+	}
 
 	public void setAltitude(String altitude) {
 		this.altitude = altitude;
 	}
+
 	@Column
 	public boolean isRegistered() {
 		return isRegistered;
@@ -101,8 +106,7 @@ public abstract class Device {
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
 	}
-	
-	
+
 	@OneToMany
 	public List<DeviceData> getDeviceData() {
 		return deviceData;
@@ -111,9 +115,5 @@ public abstract class Device {
 	public void setDeviceData(List<DeviceData> deviceData) {
 		this.deviceData = deviceData;
 	}
-	
-	
 
-	
-	
 }
