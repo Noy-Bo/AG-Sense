@@ -46,7 +46,7 @@
                         android:layout_gravity="center|left"
                         android:layout_marginLeft="80dp"
                         android:gravity="center"
-                        android:text="@string/accountstatus"
+                        android:text="Account Status"
                         android:textColor="@color/white"
                         android:textSize="20dp" />
 
@@ -93,57 +93,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:weightSum="2"
+            android:paddingEnd="60dp"
+            android:paddingStart="60dp"
             android:background="@drawable/switch_background_color">
 
-            <Switch
-              android:switchMinWidth="55dp"
-
-                android:id="@+id/switch1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:background="@drawable/switch_background_color"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:layout_alignParentRight="true"
-                android:checked="false"
-                android:layout_marginLeft="20dp"
-                android:theme="@style/SCBSwitch"
-
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
-
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
+
+                android:id="@+id/display_faulty_button"
+                android:layout_width="0dp"
+                android:layout_height="22dp"
+
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="15dp"
+                android:onClick="displayFaultyClicked"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/white_shape_squares"
+                android:gravity="center"
                 android:text="@string/display_faulty"
-                android:textSize="13sp"
-                android:layout_marginBottom="3dp"
+                ></TextView>
 
-
-                android:background="@drawable/switch_background_color" />
-
-            <Switch
-                android:switchMinWidth="55dp"
-
-
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:checked="false"
-                android:theme="@style/SCBSwitch"
-                android:paddingLeft="100dp"
-                android:textColor="@color/black"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:text="Display healthy"
-                android:textSize="13sp"
-                android:layout_marginBottom="3dp"
+                android:id="@+id/display_healthy_button"
+                android:layout_width="0dp"
+                android:layout_height="22dp"
 
-                android:background="@drawable/switch_background_color" />
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="15dp"
+                android:onClick="displayHealthyClicked"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/white_shape_squares"
+                android:gravity="center"
+                android:text="@string/display_healthy"></TextView>
+
         </LinearLayout>
 
         <ListView

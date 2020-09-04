@@ -82,10 +82,15 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/accountfaults"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:contextClickable="true"
+                    android:longClickable="true"
+                    android:onClick="GoToAccountStatus"
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical">
@@ -127,7 +132,9 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:onClick="GoToAccountStatus">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -169,6 +176,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:onClick="goToFaultyDevices"
+                    android:id="@+id/admin_dashboard_faulty_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -208,6 +217,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:onClick="goToHealthyDevices"
+                    android:id="@+id/admin_dashboard_healthy_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -284,12 +295,7 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@drawable/notification_red_circle_background"
-                        android:gravity="center"
-                        android:text="9"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/small_text_size"
-                        android:textStyle="bold" />
+                        android:background="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout

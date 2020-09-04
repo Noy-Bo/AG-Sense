@@ -2,38 +2,91 @@ package com.tsofen.agsenceapp.entities;
 
 import com.tsofen.agsenceapp.utils.ColorStatus;
 
-public class Notification {
-    private String deviceName;
-    private String deviceType;
-    private String errorMessage;
-    private String AccountName;
-    private String dateTime;
-    private ColorStatus imageStatus; // 1-4 for color.
+import java.io.Serializable;
+import java.util.Date;
 
+public class Notification implements Serializable {
+    private  ColorStatus imageStatus; //1-4 for color
+    protected int id;
+    protected long Deviceimei;
+    protected int Deviceid;
+    protected int Userid;
+    protected Date dateTime;
+    protected int severity;
+    protected boolean isRead;
+    protected String errorMessage;
+    protected int errorCode;
 
-    public Notification(String deviceName, String deviceType, String deviceStatus, String accountName, String dateTime, ColorStatus imageStatus) {
-        this.deviceName = deviceName;
-        this.deviceType = deviceType;
-        this.errorMessage = deviceStatus;
-        AccountName = accountName;
+    public ColorStatus getImageStatus() {
+        return imageStatus;
+    }
+
+    public Notification(int id, long deviceimei, int deviceid, int userid, Date dateTime, int severity, boolean isRead, String errorMessage, int errorCode) {
+        this.id = id;
+        Deviceimei = deviceimei;
+        Deviceid = deviceid;
+        Userid = userid;
         this.dateTime = dateTime;
-        this.imageStatus = imageStatus;
+        this.severity = severity;
+        this.isRead = isRead;
+        this.errorMessage = errorMessage;
+        this.errorCode = errorCode;
     }
 
-    public String getDeviceName() {
-        return deviceName;
+    public int getId() {
+        return id;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getDeviceType() {
-        return deviceType;
+    public long getDeviceimei() {
+        return Deviceimei;
     }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
+    public void setDeviceimei(long deviceimei) {
+        Deviceimei = deviceimei;
+    }
+
+    public int getDeviceid() {
+        return Deviceid;
+    }
+
+    public void setDeviceid(int deviceid) {
+        Deviceid = deviceid;
+    }
+
+    public int getUserid() {
+        return Userid;
+    }
+
+    public void setUserid(int userid) {
+        Userid = userid;
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public int getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(int severity) {
+        this.severity = severity;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
     }
 
     public String getErrorMessage() {
@@ -44,27 +97,11 @@ public class Notification {
         this.errorMessage = errorMessage;
     }
 
-    public String getAccountName() {
-        return AccountName;
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    public void setAccountName(String accountName) {
-        AccountName = accountName;
-    }
-
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public ColorStatus getImageStatus() {
-        return imageStatus;
-    }
-
-    public void setImageStatus(ColorStatus imageStatus) {
-        this.imageStatus = imageStatus;
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 }
