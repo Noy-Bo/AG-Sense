@@ -1,5 +1,8 @@
 package com.example.ServerTsofen45.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ServerTsofen45.BL.DeviceBL;
 import com.example.ServerTsofen45.Beans.Device;
+import com.example.ServerTsofen45.Beans.Notification;
 
 @RestController
 @RequestMapping("Device")
@@ -17,16 +21,25 @@ public class DeviceController {
 	DeviceBL deviceBL;
 
 	@GetMapping("DeviceById")
-	public Device getSpicificDeviceById(@RequestParam int id, @RequestParam int imei) {
+	public Device getDeviceById(@RequestParam int deviceId) {
 
-		// get device from device logic
+		return deviceBL.getDeviceById(deviceId);
+	}
 
-		Device device = deviceBL.getSpecificDeviceById(id, imei);
-		if (device == null)
-			return null;
-		return device;
-		
+	@GetMapping("DeviceByName")
+	public ArrayList<Device> geDevicesByName(@RequestParam String name) {
 
+		ArrayList<Device> devices = new ArrayList<Device>();
+		devices = deviceBL.getDevicesByName(name);
+		return devices;
+	}
+
+	@GetMapping("DeviceByNameContaining")
+	public ArrayList<Device> geDevicesByNameContaining(@RequestParam String name) {
+
+		ArrayList<Device> devices = new ArrayList<Device>();
+		devices = deviceBL.getDevicesByName(name);
+		return devices;
 	}
 
 }

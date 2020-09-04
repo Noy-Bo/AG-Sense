@@ -4,6 +4,7 @@ import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity(name = "DevicesData")
@@ -60,6 +61,7 @@ public abstract class DeviceData {
 	float analog2;
 
 	@Id
+	@GeneratedValue
 	public long getID() {
 		return ID;
 	}
