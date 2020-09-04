@@ -18,7 +18,6 @@ public abstract class User {
 	String name;
 	String userName;
 	int sysId;
-	String type;
 	byte[] hashPassword;
 
 	@Column
@@ -39,14 +38,7 @@ public abstract class User {
 		this.hashPassword = hashPassword;
 	}
 
-	@Column
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	@Column
 	public String getEmail() {
@@ -98,7 +90,7 @@ public abstract class User {
 	@Override
 	public String toString() {
 		return "User [Email=" + email + ", firstName=" + name + ", UserName=" + name
-				+ ", sys_id=" + sysId + ", Type=" + type + "]";
+				+ ", sys_id=" + sysId +"]";
 	}
 
 }
