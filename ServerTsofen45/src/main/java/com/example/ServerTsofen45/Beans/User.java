@@ -19,6 +19,10 @@ public abstract class User {
 	String userName;
 	int sysId;
 	byte[] hashPassword;
+	
+	
+	
+
 
 	@Column
 	public String getname() {
@@ -34,11 +38,15 @@ public abstract class User {
 		return hashPassword;
 	}
 
-	public void setHashPassword(byte[] hashPassword) {
-		this.hashPassword = hashPassword;
+	protected void setHashPassword(String Password) throws NoSuchAlgorithmException {
+		this.hashPassword =  hashPassword(Password);;
 	}
 
 
+
+	public void setHashPassword(byte[] hashPassword) {
+		this.hashPassword = hashPassword;
+	}
 
 	@Column
 	public String getEmail() {

@@ -56,8 +56,8 @@ public class Notification {
 	
 	@ManyToOne
 	@JoinColumns({
-	    @JoinColumn(name="deviceId"),
-	    @JoinColumn(name="deviceImei")})
+	    @JoinColumn(name="deviceId")/*,
+	    @JoinColumn(name="deviceImei")*/})
 	public Device getDevice() {
 		return device;
 	}
