@@ -28,7 +28,7 @@ public abstract class Device {
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
 
-	@Id
+	@Column
 	public long getImei() {
 		return imei;
 	}
