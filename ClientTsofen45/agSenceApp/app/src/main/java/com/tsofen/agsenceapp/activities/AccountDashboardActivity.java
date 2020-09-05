@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -32,17 +33,21 @@ import java.util.Date;
 public class AccountDashboardActivity extends AppCompatActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
     ArrayAdapter<Notification> notificationArrayAdapter;
-    Dialog myDialog;
+    Dialog popUpDialog;
     View popupView;
-    Button reset ;
+    Button reset; //?
+    ImageView closePopUpImage;
+    ImageView fromDateCalenderImage;
+    ImageView toDateCalenderImage;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_dashboard);
-        myDialog = new Dialog(this);
+        popUpDialog = new Dialog(this);
 
 
 
@@ -86,81 +91,86 @@ public class AccountDashboardActivity extends AppCompatActivity {
     }
 
 
+
     public void gotoFilter(View view) {
-
-        // inflate the layout of the popup window
-        LayoutInflater inflater = (LayoutInflater)
-                getSystemService(LAYOUT_INFLATER_SERVICE);
-        popupView = inflater.inflate(R.layout.pop_up1, null);
-        reset=(Button) popupView.findViewById(R.id.filterResetButton);
-        // create the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        // show the popup window
-        // which view you pass in doesn't matter, it is only used for the window tolken
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-        // dismiss the popup window when touched
-
+        // show the layout of the popup window
+        popUpDialog.setContentView(R.layout.pop_up);
+        closePopUpImage =(ImageView) popUpDialog.findViewById(R.id.closePopUp) ;
+        reset=(Button)popUpDialog.findViewById(R.id.filterResetButton);
+        fromDateCalenderImage=(ImageView)popUpDialog.findViewById(R.id.fromDateCalender);
+        toDateCalenderImage =(ImageView)popUpDialog.findViewById(R.id.toDateCalender);
+        //search ??
+        closePopUpImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popUpDialog.dismiss();
+            }
+        });
+        fromDateCalenderImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listen(popUpDialog);
+            }
+        });
+        toDateCalenderImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listen1(this);
+            }
+        });
+        popUpDialog.show();
     }
-
-    public void listen(final View view) {
+    public void listen(final Dialog view) {
         final Calendar cldr = Calendar.getInstance();
         int day = cldr.get(Calendar.DAY_OF_MONTH);
         int month = cldr.get(Calendar.MONTH);
         int year = cldr.get(Calendar.YEAR);
         // date picker dialog
-        final TextView textView = (TextView)  popupView.findViewById(R.id.fromDate);
+        final TextView textView = (TextView)  popUpDialog.findViewById(R.id.fromDate);
         DatePickerDialog picker = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
-
                         textView.setText(i+"/"+i1+"/"+i2);
                     }
-
                 }, year, month, day);
         picker.show();
     }
-    public void listen1(final View view) {
+    public void listen1(final View.OnClickListener view) {
         final Calendar cldr = Calendar.getInstance();
         int day = cldr.get(Calendar.DAY_OF_MONTH);
         int month = cldr.get(Calendar.MONTH);
         int year = cldr.get(Calendar.YEAR);
         // date picker dialog
-        final TextView textView = (TextView)  popupView.findViewById(R.id.toDate);
+        final TextView textView = (TextView)  popUpDialog.findViewById(R.id.toDate);
         DatePickerDialog picker = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
-
                         textView.setText(i+"/"+i1+"/"+i2);
                     }
-
                 }, year, month, day);
         picker.show();
     }
-
-
     public void reset(View view) {
-
-        TextView fromDate =(TextView) popupView.findViewById(R.id.fromDate);
-        TextView toDate =(TextView) popupView.findViewById(R.id.toDate);
+        TextView fromDate =(TextView) popUpDialog.findViewById(R.id.fromDate);
+        TextView toDate =(TextView) popUpDialog.findViewById(R.id.toDate);
+        TextView displayFaultyBox = popUpDialog.findViewById(R.id.read_button);
+        TextView displayHealthyBox = popUpDialog.findViewById(R.id.unread_button);
         toDate.setText("");
         fromDate.setText("");
+        displayReadNotifications = false;
+        displayUnreadNotifications = false; // false
+        displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+        displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+        displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+        displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
     }
-
-
-
     public void search(View view) {
-        setContentView(R.layout.activity_account_dashboard);
+        // ??? setContentView(R.layout.activity_account_dashboard);
     }
-
     public void displayReadNotifications(final View view) {
         TextView displayFaultyBox = view.findViewById(R.id.read_button);
 
