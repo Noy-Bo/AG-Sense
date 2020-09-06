@@ -14,8 +14,8 @@ import javax.persistence.OneToMany;
 import Enums.DeviceType;
 
 @Entity(name = "devices")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Device {
+
+public  class Device {
 	int id;
 	long imei;
 	String name;
@@ -27,6 +27,22 @@ public abstract class Device {
 	boolean isRegistered;
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
+
+	public Device(int id, long imei, String name, int accountId, DeviceType type, Time lastUpdate, String logitude,
+			String altitude, boolean isRegistered, List<Notification> notifications, List<DeviceData> deviceData) {
+		super();
+		this.id = id;
+		this.imei = imei;
+		this.name = name;
+		this.accountId = accountId;
+		this.type = type;
+		this.lastUpdate = lastUpdate;
+		this.logitude = logitude;
+		this.altitude = altitude;
+		this.isRegistered = isRegistered;
+		this.notifications = notifications;
+		this.deviceData = deviceData;
+	}
 
 	@Column
 	public long getImei() {
@@ -133,6 +149,13 @@ public abstract class Device {
 		return "Device [id=" + id + ", imei=" + imei + ", name=" + name + ", accountId=" + accountId + ", type=" + type
 				+ ", lastUpdate=" + lastUpdate + ", logitude=" + logitude + ", altitude=" + altitude + ", isRegistered="
 				+ isRegistered + ", notifications=" + notifications + ", deviceData=" + deviceData + "]";
+	}
+
+	
+
+	public boolean isFaulty()
+	{
+		return false;
 	}
 
 	@Override

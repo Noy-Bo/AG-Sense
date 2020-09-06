@@ -9,14 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AccountStatusFilter" />
-        <activity android:name=".activities.DeviceSettings" />
-        <activity android:name=".activities.EditAccount" />
-        <activity android:name=".activities.EditDevice" />
-        <activity android:name=".activities.HealthCareDashboard" />
-        <activity android:name=".activities.NewAccount" />
-        <activity android:name=".activities.NewDevice" />
-        <activity android:name=".activities.DeviceStatusList" />
+        <activity android:name=".activities.DeviceStatusList"></activity>
         <activity android:name=".activities.DeviceView" />
         <activity android:name=".activities.DeviceFilter" />
         <activity android:name=".activities.AdminDashboardActivity" />

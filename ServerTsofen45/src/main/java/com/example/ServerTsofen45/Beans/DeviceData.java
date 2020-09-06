@@ -10,55 +10,316 @@ import javax.persistence.Id;
 @Entity(name = "DevicesData")
 public abstract class DeviceData {
 
-	long ID; // imei
-	int GpsType;
-	char GpsValidity;
-	Time DeviceDateAndTime;
-	String Latitude;
-	char LatitudeIndicator;
-	String Longitude;
-	char LongitudeIndicator;
-	float Speed;
-	int Orientation;
-	String Altitude;
-	String MileageData;
-	int Satellites;
-	int Hdop;
-	int GsmSignal;
-	boolean Input1Activated; // for private companies ATM
-	boolean Switch1Activated; // for private companies ATM
-	boolean Switch2Activated; // for private companies ATM
-	boolean SesmoActivated; // for private companies ATM
-	boolean CustomInputBit0;
-	boolean CustomInputBit1;
+	long ID;
+	long imei;
+	int gpsType;
+	char gpsValid;
+	Time dateAndTime;
+	Time updateTime;
+
+	String lat;
+	char latIndicator;
+	String lon;
+	char lonIndicator;
+	float speed;
+	int orientation;
+	String altitude;
+	String mileage;
+	int satelites;
+	int hdop;
+	int gsmSignal;
+	boolean externalPowerOn;
+	boolean externalPowerLow;
+	boolean internalBatteryLow;
+	boolean internalBatteryCharching;
+	boolean input1Activated; // for private companies ATM
+	boolean switch1Activated; // for private companies ATM
+	boolean switch2Activated; // for private companies ATM
+	boolean sesmoActivated; // for private companies ATM
+	boolean customInputBit0;
+	boolean customInputBit1;
 	boolean customInputBit2;
 	boolean customInputBit3;
-	boolean PowerCut;
-	boolean FuelCut;
-	boolean DoorLocked;
-	boolean DoorUnlocked;
-	boolean MoveAlertActive;
-	boolean SpeedingAlertActive;
-	boolean outOfGeoFenceAlertActive;
-	boolean IntoGeoFenceAlertActive;
-	boolean CustomAlertBit0;
-	boolean CustomAlertBit1;
-	boolean CustomAlertBit2;
-	boolean CustomAlertBit3;
-	boolean WorkingMode1;
-	boolean WorkingMode2;
-	boolean WorkingMode3;
-	boolean WorkingMode4;
-	boolean HarshBrake;
-	boolean HarshAccelerate;
-	boolean HarshTurnRight;
-	boolean HarshTurnLeft;
-	float DataOfPower;
-	float DataOfTemperature;
+	boolean powerCut;
+	boolean fuelCut;
+	boolean doorLocked;
+	boolean doorUnlocked;
+	boolean moveAlertActive;
+	boolean speedingAlertActive;
+	boolean outOfGeoFenceActive;
+	boolean intoGeoFenceActive;
+	boolean customAlertBit0;
+	boolean customAlertBit1;
+	boolean customAlertBit2;
+	boolean customAlertBit3;
+	boolean workingMode1;
+	boolean workingMode2;
+	boolean workingMode3;
+	boolean workingMode4;
+	boolean harshBrake;
+	boolean harshAccelerate;
+	boolean harshTurnRight;
+	boolean harshTurnLeft;
+	float externalPower;
+	float internalBattery;
+	float internalBatteryPower;
+	float temperatureInsideDevice;
 	float DataOfFuelSensor;
+	float temperatureExternal;
+	float fuelVoltage;
 	float humidity;
+	float distance;
 	float analog1;
 	float analog2;
+
+	public DeviceData() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public void setID(long iD) {
+		ID = iD;
+	}
+
+	public void setImei(long imei) {
+		this.imei = imei;
+	}
+
+	public void setGpsType(int gpsType) {
+		this.gpsType = gpsType;
+	}
+
+	public void setGpsValid(char gpsValid) {
+		this.gpsValid = gpsValid;
+	}
+
+	public void setDateAndTime(Time dateAndTime) {
+		this.dateAndTime = dateAndTime;
+	}
+
+	public Time getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Time updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
+	public void setLatIndicator(char latIndicator) {
+		this.latIndicator = latIndicator;
+	}
+
+	public void setLon(String lon) {
+		this.lon = lon;
+	}
+
+	public void setLonIndicator(char lonIndicator) {
+		this.lonIndicator = lonIndicator;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public void setOrientation(int orientation) {
+		this.orientation = orientation;
+	}
+
+	public void setAltitude(String altitude) {
+		this.altitude = altitude;
+	}
+
+	public void setMileage(String mileage) {
+		this.mileage = mileage;
+	}
+
+	public void setSatelites(int satelites) {
+		this.satelites = satelites;
+	}
+
+	public void setHdop(int hdop) {
+		this.hdop = hdop;
+	}
+
+	public void setGsmSignal(int gsmSignal) {
+		this.gsmSignal = gsmSignal;
+	}
+
+	public void setExternalPowerOn(boolean externalPowerOn) {
+		this.externalPowerOn = externalPowerOn;
+	}
+
+	public void setExternalPowerLow(boolean externalPowerLow) {
+		this.externalPowerLow = externalPowerLow;
+	}
+
+	public void setInternalBatteryLow(boolean internalBatteryLow) {
+		this.internalBatteryLow = internalBatteryLow;
+	}
+
+	public void setInternalBatteryCharching(boolean internalBatteryCharching) {
+		this.internalBatteryCharching = internalBatteryCharching;
+	}
+
+	public void setInput1Activated(boolean input1Activated) {
+		this.input1Activated = input1Activated;
+	}
+
+	public void setSwitch1Activated(boolean switch1Activated) {
+		this.switch1Activated = switch1Activated;
+	}
+
+	public void setSwitch2Activated(boolean switch2Activated) {
+		this.switch2Activated = switch2Activated;
+	}
+
+	public void setSesmoActivated(boolean sesmoActivated) {
+		this.sesmoActivated = sesmoActivated;
+	}
+
+	public void setCustomInputBit0(boolean customInputBit0) {
+		this.customInputBit0 = customInputBit0;
+	}
+
+	public void setCustomInputBit1(boolean customInputBit1) {
+		this.customInputBit1 = customInputBit1;
+	}
+
+	public void setCustomInputBit2(boolean customInputBit2) {
+		this.customInputBit2 = customInputBit2;
+	}
+
+	public void setCustomInputBit3(boolean customInputBit3) {
+		this.customInputBit3 = customInputBit3;
+	}
+
+	public void setPowerCut(boolean powerCut) {
+		this.powerCut = powerCut;
+	}
+
+	public void setFuelCut(boolean fuelCut) {
+		this.fuelCut = fuelCut;
+	}
+
+	public void setDoorLocked(boolean doorLocked) {
+		this.doorLocked = doorLocked;
+	}
+
+	public void setDoorUnlocked(boolean doorUnlocked) {
+		this.doorUnlocked = doorUnlocked;
+	}
+
+	public void setMoveAlertActive(boolean moveAlertActive) {
+		this.moveAlertActive = moveAlertActive;
+	}
+
+	public void setSpeedingAlertActive(boolean speedingAlertActive) {
+		this.speedingAlertActive = speedingAlertActive;
+	}
+
+	public void setOutOfGeoFenceActive(boolean outOfGeoFenceActive) {
+		this.outOfGeoFenceActive = outOfGeoFenceActive;
+	}
+
+	public void setIntoGeoFenceActive(boolean intoGeoFenceActive) {
+		this.intoGeoFenceActive = intoGeoFenceActive;
+	}
+
+	public void setCustomAlertBit0(boolean customAlertBit0) {
+		this.customAlertBit0 = customAlertBit0;
+	}
+
+	public void setCustomAlertBit1(boolean customAlertBit1) {
+		this.customAlertBit1 = customAlertBit1;
+	}
+
+	public void setCustomAlertBit2(boolean customAlertBit2) {
+		this.customAlertBit2 = customAlertBit2;
+	}
+
+	public void setCustomAlertBit3(boolean customAlertBit3) {
+		this.customAlertBit3 = customAlertBit3;
+	}
+
+	public void setWorkingMode1(boolean workingMode1) {
+		this.workingMode1 = workingMode1;
+	}
+
+	public void setWorkingMode2(boolean workingMode2) {
+		this.workingMode2 = workingMode2;
+	}
+
+	public void setWorkingMode3(boolean workingMode3) {
+		this.workingMode3 = workingMode3;
+	}
+
+	public void setWorkingMode4(boolean workingMode4) {
+		this.workingMode4 = workingMode4;
+	}
+
+	public void setHarshBrake(boolean harshBrake) {
+		this.harshBrake = harshBrake;
+	}
+
+	public void setHarshAccelerate(boolean harshAccelerate) {
+		this.harshAccelerate = harshAccelerate;
+	}
+
+	public void setHarshTurnRight(boolean harshTurnRight) {
+		this.harshTurnRight = harshTurnRight;
+	}
+
+	public void setHarshTurnLeft(boolean harshTurnLeft) {
+		this.harshTurnLeft = harshTurnLeft;
+	}
+
+	public void setExternalPower(float externalPower) {
+		this.externalPower = externalPower;
+	}
+
+	public void setInternalBattery(float internalBattery) {
+		this.internalBattery = internalBattery;
+	}
+
+	public void setInternalBatteryPower(float internalBatteryPower) {
+		this.internalBatteryPower = internalBatteryPower;
+	}
+
+	public void setTemperatureInsideDevice(float temperatureInsideDevice) {
+		this.temperatureInsideDevice = temperatureInsideDevice;
+	}
+
+	public void setDataOfFuelSensor(float dataOfFuelSensor) {
+		DataOfFuelSensor = dataOfFuelSensor;
+	}
+
+	public void setTemperatureExternal(float temperatureExternal) {
+		this.temperatureExternal = temperatureExternal;
+	}
+
+	public void setFuelVoltage(float fuelVoltage) {
+		this.fuelVoltage = fuelVoltage;
+	}
+
+	public void setHumidity(float humidity) {
+		this.humidity = humidity;
+	}
+
+	public void setDistance(float distance) {
+		this.distance = distance;
+	}
+
+	public void setAnalog1(float analog1) {
+		this.analog1 = analog1;
+	}
+
+	public void setAnalog2(float analog2) {
+		this.analog2 = analog2;
+	}
 
 	@Id
 	@GeneratedValue
@@ -66,188 +327,129 @@ public abstract class DeviceData {
 		return ID;
 	}
 
-	public void setID(long iD) {
-		ID = iD;
+	@Column
+	public long getImei() {
+		return imei;
 	}
 
 	@Column
 	public int getGpsType() {
-		return GpsType;
-	}
-
-	public void setGpsType(int gpsType) {
-		GpsType = gpsType;
+		return gpsType;
 	}
 
 	@Column
-	public char getGpsValidity() {
-		return GpsValidity;
-	}
-
-	public void setGpsValidity(char gpsValidity) {
-		GpsValidity = gpsValidity;
+	public char getGpsValid() {
+		return gpsValid;
 	}
 
 	@Column
-	public Time getDeviceDateAndTime() {
-		return DeviceDateAndTime;
-	}
-
-	public void setDeviceDateAndTime(Time deviceDateAndTime) {
-		DeviceDateAndTime = deviceDateAndTime;
+	public Time getDateAndTime() {
+		return dateAndTime;
 	}
 
 	@Column
-	public String getLatitude() {
-		return Latitude;
-	}
-
-	public void setLatitude(String latitude) {
-		Latitude = latitude;
+	public String getLat() {
+		return lat;
 	}
 
 	@Column
-	public char getLatitudeIndicator() {
-		return LatitudeIndicator;
-	}
-
-	public void setLatitudeIndicator(char latitudeIndicator) {
-		LatitudeIndicator = latitudeIndicator;
+	public char getLatIndicator() {
+		return latIndicator;
 	}
 
 	@Column
-	public String getLongitude() {
-		return Longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		Longitude = longitude;
+	public String getLon() {
+		return lon;
 	}
 
 	@Column
-	public char getLongitudeIndicator() {
-		return LongitudeIndicator;
-	}
-
-	public void setLongitudeIndicator(char longitudeIndicator) {
-		LongitudeIndicator = longitudeIndicator;
+	public char getLonIndicator() {
+		return lonIndicator;
 	}
 
 	@Column
 	public float getSpeed() {
-		return Speed;
-	}
-
-	public void setSpeed(float speed) {
-		Speed = speed;
+		return speed;
 	}
 
 	@Column
 	public int getOrientation() {
-		return Orientation;
-	}
-
-	public void setOrientation(int orientation) {
-		Orientation = orientation;
+		return orientation;
 	}
 
 	@Column
 	public String getAltitude() {
-		return Altitude;
-	}
-
-	public void setAltitude(String altitude) {
-		Altitude = altitude;
+		return altitude;
 	}
 
 	@Column
-	public String getMileageData() {
-		return MileageData;
-	}
-
-	public void setMileageData(String mileageData) {
-		MileageData = mileageData;
+	public String getMileage() {
+		return mileage;
 	}
 
 	@Column
-	public int getSatellites() {
-		return Satellites;
-	}
-
-	public void setSatellites(int satellites) {
-		Satellites = satellites;
+	public int getSatelites() {
+		return satelites;
 	}
 
 	@Column
 	public int getHdop() {
-		return Hdop;
-	}
-
-	public void setHdop(int hdop) {
-		Hdop = hdop;
+		return hdop;
 	}
 
 	@Column
 	public int getGsmSignal() {
-		return GsmSignal;
+		return gsmSignal;
 	}
 
-	public void setGsmSignal(int gsmSignal) {
-		GsmSignal = gsmSignal;
+	@Column
+	public boolean isExternalPowerOn() {
+		return externalPowerOn;
+	}
+
+	@Column
+	public boolean isExternalPowerLow() {
+		return externalPowerLow;
+	}
+
+	@Column
+	public boolean isInternalBatteryLow() {
+		return internalBatteryLow;
+	}
+
+	@Column
+	public boolean isInternalBatteryCharching() {
+		return internalBatteryCharching;
 	}
 
 	@Column
 	public boolean isInput1Activated() {
-		return Input1Activated;
-	}
-
-	public void setInput1Activated(boolean input1Activated) {
-		Input1Activated = input1Activated;
+		return input1Activated;
 	}
 
 	@Column
 	public boolean isSwitch1Activated() {
-		return Switch1Activated;
-	}
-
-	public void setSwitch1Activated(boolean switch1Activated) {
-		Switch1Activated = switch1Activated;
+		return switch1Activated;
 	}
 
 	@Column
 	public boolean isSwitch2Activated() {
-		return Switch2Activated;
-	}
-
-	public void setSwitch2Activated(boolean switch2Activated) {
-		Switch2Activated = switch2Activated;
+		return switch2Activated;
 	}
 
 	@Column
 	public boolean isSesmoActivated() {
-		return SesmoActivated;
-	}
-
-	public void setSesmoActivated(boolean sesmoActivated) {
-		SesmoActivated = sesmoActivated;
+		return sesmoActivated;
 	}
 
 	@Column
 	public boolean isCustomInputBit0() {
-		return CustomInputBit0;
-	}
-
-	public void setCustomInputBit0(boolean customInputBit0) {
-		CustomInputBit0 = customInputBit0;
+		return customInputBit0;
 	}
 
 	@Column
 	public boolean isCustomInputBit1() {
-		return CustomInputBit1;
-	}
-
-	public void setCustomInputBit1(boolean customInputBit1) {
-		CustomInputBit1 = customInputBit1;
+		return customInputBit1;
 	}
 
 	@Column
@@ -255,257 +457,164 @@ public abstract class DeviceData {
 		return customInputBit2;
 	}
 
-	public void setCustomInputBit2(boolean customInputBit2) {
-		this.customInputBit2 = customInputBit2;
-	}
-
 	@Column
 	public boolean isCustomInputBit3() {
 		return customInputBit3;
 	}
 
-	public void setCustomInputBit3(boolean customInputBit3) {
-		this.customInputBit3 = customInputBit3;
-	}
-
 	@Column
 	public boolean isPowerCut() {
-		return PowerCut;
-	}
-
-	public void setPowerCut(boolean powerCut) {
-		PowerCut = powerCut;
+		return powerCut;
 	}
 
 	@Column
 	public boolean isFuelCut() {
-		return FuelCut;
-	}
-
-	public void setFuelCut(boolean fuelCut) {
-		FuelCut = fuelCut;
+		return fuelCut;
 	}
 
 	@Column
 	public boolean isDoorLocked() {
-		return DoorLocked;
-	}
-
-	public void setDoorLocked(boolean doorLocked) {
-		DoorLocked = doorLocked;
+		return doorLocked;
 	}
 
 	@Column
 	public boolean isDoorUnlocked() {
-		return DoorUnlocked;
-	}
-
-	public void setDoorUnlocked(boolean doorUnlocked) {
-		DoorUnlocked = doorUnlocked;
+		return doorUnlocked;
 	}
 
 	@Column
 	public boolean isMoveAlertActive() {
-		return MoveAlertActive;
-	}
-
-	public void setMoveAlertActive(boolean moveAlertActive) {
-		MoveAlertActive = moveAlertActive;
+		return moveAlertActive;
 	}
 
 	@Column
 	public boolean isSpeedingAlertActive() {
-		return SpeedingAlertActive;
-	}
-
-	public void setSpeedingAlertActive(boolean speedingAlertActive) {
-		SpeedingAlertActive = speedingAlertActive;
+		return speedingAlertActive;
 	}
 
 	@Column
-	public boolean isOutOfGeoFenceAlertActive() {
-		return outOfGeoFenceAlertActive;
-	}
-
-	public void setOutOfGeoFenceAlertActive(boolean outOfGeoFenceAlertActive) {
-		this.outOfGeoFenceAlertActive = outOfGeoFenceAlertActive;
+	public boolean isOutOfGeoFenceActive() {
+		return outOfGeoFenceActive;
 	}
 
 	@Column
-	public boolean isIntoGeoFenceAlertActive() {
-		return IntoGeoFenceAlertActive;
-	}
-
-	public void setIntoGeoFenceAlertActive(boolean intoGeoFenceAlertActive) {
-		IntoGeoFenceAlertActive = intoGeoFenceAlertActive;
+	public boolean isIntoGeoFenceActive() {
+		return intoGeoFenceActive;
 	}
 
 	@Column
 	public boolean isCustomAlertBit0() {
-		return CustomAlertBit0;
-	}
-
-	public void setCustomAlertBit0(boolean customAlertBit0) {
-		CustomAlertBit0 = customAlertBit0;
+		return customAlertBit0;
 	}
 
 	@Column
 	public boolean isCustomAlertBit1() {
-		return CustomAlertBit1;
-	}
-
-	public void setCustomAlertBit1(boolean customAlertBit1) {
-		CustomAlertBit1 = customAlertBit1;
+		return customAlertBit1;
 	}
 
 	@Column
 	public boolean isCustomAlertBit2() {
-		return CustomAlertBit2;
-	}
-
-	public void setCustomAlertBit2(boolean customAlertBit2) {
-		CustomAlertBit2 = customAlertBit2;
+		return customAlertBit2;
 	}
 
 	@Column
 	public boolean isCustomAlertBit3() {
-		return CustomAlertBit3;
-	}
-
-	public void setCustomAlertBit3(boolean customAlertBit3) {
-		CustomAlertBit3 = customAlertBit3;
+		return customAlertBit3;
 	}
 
 	@Column
 	public boolean isWorkingMode1() {
-		return WorkingMode1;
-	}
-
-	public void setWorkingMode1(boolean workingMode1) {
-		WorkingMode1 = workingMode1;
+		return workingMode1;
 	}
 
 	@Column
 	public boolean isWorkingMode2() {
-		return WorkingMode2;
-	}
-
-	public void setWorkingMode2(boolean workingMode2) {
-		WorkingMode2 = workingMode2;
+		return workingMode2;
 	}
 
 	@Column
 	public boolean isWorkingMode3() {
-		return WorkingMode3;
-	}
-
-	public void setWorkingMode3(boolean workingMode3) {
-		WorkingMode3 = workingMode3;
+		return workingMode3;
 	}
 
 	@Column
 	public boolean isWorkingMode4() {
-		return WorkingMode4;
-	}
-
-	public void setWorkingMode4(boolean workingMode4) {
-		WorkingMode4 = workingMode4;
+		return workingMode4;
 	}
 
 	@Column
 	public boolean isHarshBrake() {
-		return HarshBrake;
-	}
-
-	public void setHarshBrake(boolean harshBrake) {
-		HarshBrake = harshBrake;
+		return harshBrake;
 	}
 
 	@Column
 	public boolean isHarshAccelerate() {
-		return HarshAccelerate;
-	}
-
-	public void setHarshAccelerate(boolean harshAccelerate) {
-		HarshAccelerate = harshAccelerate;
+		return harshAccelerate;
 	}
 
 	@Column
 	public boolean isHarshTurnRight() {
-		return HarshTurnRight;
-	}
-
-	public void setHarshTurnRight(boolean harshTurnRight) {
-		HarshTurnRight = harshTurnRight;
+		return harshTurnRight;
 	}
 
 	@Column
 	public boolean isHarshTurnLeft() {
-		return HarshTurnLeft;
-	}
-
-	public void setHarshTurnLeft(boolean harshTurnLeft) {
-		HarshTurnLeft = harshTurnLeft;
+		return harshTurnLeft;
 	}
 
 	@Column
-	public float getDataOfPower() {
-		return DataOfPower;
-	}
-
-	public void setDataOfPower(float dataOfPower) {
-		DataOfPower = dataOfPower;
+	public float getExternalPower() {
+		return externalPower;
 	}
 
 	@Column
-	public float getDataOfTemperature() {
-		return DataOfTemperature;
-	}
-
-	public void setDataOfTemperature(float dataOfTemperature) {
-		DataOfTemperature = dataOfTemperature;
+	public float getInternalBattery() {
+		return internalBattery;
 	}
 
 	@Column
+	public float getInternalBatteryPower() {
+		return internalBatteryPower;
+	}
 
+	@Column
+	public float getTemperatureInsideDevice() {
+		return temperatureInsideDevice;
+	}
+
+	@Column
 	public float getDataOfFuelSensor() {
 		return DataOfFuelSensor;
 	}
 
-	public void setDataOfFuelSensor(float dataOfFuelSensor) {
-		DataOfFuelSensor = dataOfFuelSensor;
+	@Column
+	public float getTemperatureExternal() {
+		return temperatureExternal;
 	}
 
 	@Column
+	public float getFuelVoltage() {
+		return fuelVoltage;
+	}
 
+	@Column
 	public float getHumidity() {
 		return humidity;
 	}
 
 	@Column
-
-	public void setHumidity(float humidity) {
-		this.humidity = humidity;
+	public float getDistance() {
+		return distance;
 	}
 
 	@Column
-
 	public float getAnalog1() {
 		return analog1;
 	}
 
-	public void setAnalog1(float analog1) {
-		this.analog1 = analog1;
-	}
-
 	@Column
-
 	public float getAnalog2() {
 		return analog2;
-	}
-
-	public void setAnalog2(float analog2) {
-		this.analog2 = analog2;
 	}
 
 }

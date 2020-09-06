@@ -42,4 +42,58 @@ public class DeviceController {
 		return devices;
 	}
 
+	@GetMapping("AllDevices")
+
+	public ArrayList<Device> getAllDevices(@RequestParam String name) {
+
+		ArrayList<Device> devices = new ArrayList<Device>();
+		devices = deviceBL.findAll();
+		return devices;
+	}
+
+	@GetMapping("FaultyDevices")
+
+	public ArrayList<Device> getFaultyDevices() {
+
+		ArrayList<Device> devices = new ArrayList<Device>();
+		ArrayList<Device> faultyDevices = new ArrayList<Device>();
+		devices = deviceBL.findAll();
+
+		for (Device device : devices) {
+			if (device.isFaulty())
+				faultyDevices.add(device);
+
+		}
+
+		return faultyDevices;
+	}
+
+	@GetMapping("HealthyDevices")
+
+	public ArrayList<Device> getHealthyDevices() {
+
+		ArrayList<Device> devices = new ArrayList<Device>();
+		ArrayList<Device> healthyDevices = new ArrayList<Device>();
+		devices = deviceBL.findAll();
+
+		for (Device device : devices) {
+
+			if (!device.isFaulty())
+				healthyDevices.add(device);
+
+		}
+
+		return healthyDevices;
+	}
+
+	@GetMapping("DevicesByType")
+	public ArrayList<Device> getDvicesByType(String type) {
+
+		ArrayList<Device> devices = new ArrayList<Device>();
+
+		devices = deviceBL.findByType(type);
+		return devices;
+	}
+
+
 }
