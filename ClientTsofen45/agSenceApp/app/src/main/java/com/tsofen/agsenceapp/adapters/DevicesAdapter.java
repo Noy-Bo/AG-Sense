@@ -36,7 +36,7 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         imageView.setImageResource(R.drawable.faulty_devices_icon);
 
         name.setText( LoginActivity.user.getUserName());
-        devicetypeid.setText((devices.getDeviceType()));
+        devicetypeid.setText((devices.getName()));
         faultytime.setText(String.valueOf(devices.getFaultTime()));
         lastupdate.setText(String.valueOf(devices.getLastUpdate()));
 
