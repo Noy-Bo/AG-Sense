@@ -62,9 +62,9 @@ public class UserController {
 	
 	//search user names in userProfiles table by name and returns UserProfile arraylist with names whose name contain the string given
 	@GetMapping("SpecificAccountsByName")
-	ArrayList<Account> getSpecificAccountsByName() 
+	ArrayList<Account> getSpecificAccountsByName(@RequestParam String name) 
 	{
-		return userBL.findallByName();
+		return userBL.findallByName(name);
 	}
 
 	

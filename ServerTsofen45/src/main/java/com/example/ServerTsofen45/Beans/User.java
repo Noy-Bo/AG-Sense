@@ -109,8 +109,8 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-	return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", sysId=" + sysId + ", hashPassword="
-			+ hashPassword + "]";
+	return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", sysId=" + sysId +
+			 "]";
 }
 
 }
