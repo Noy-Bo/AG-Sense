@@ -14,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activities.DeviceSetting"></activity>
+        <activity android:name=".activities.AccountStatusFilter" />
+        <activity android:name=".activities.DeviceSettings" />
+        <activity android:name=".activities.EditAccount" />
+        <activity android:name=".activities.EditDevice" />
+        <activity android:name=".activities.HealthCareDashboard" />
+        <activity android:name=".activities.NewAccount" />
+        <activity android:name=".activities.NewDevice" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -26,7 +33,6 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-
         <activity android:name=".activities.DeviceStatusList" />
         <activity android:name=".activities.DeviceView" />
         <activity android:name=".activities.DeviceFilter" />
