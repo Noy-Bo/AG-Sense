@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
-import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.User;
 
@@ -30,30 +29,30 @@ public class AccountStatusFilter extends AppCompatActivity implements Serializab
         setContentView(R.layout.activity_accountstatusfilter);
 
         ListView NewsListView = findViewById(R.id.listofaccounts);
-        User account1 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account2 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account3 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account4 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account5 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account6 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account7 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account8 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User account9 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
-        User[] accounts = new User[9];
-        accounts[0] = account1;
-        accounts[1] = account2;
-        accounts[2] = account3;
-        accounts[3] = account4;
-        accounts[4] = account5;
-        accounts[5] = account6;
-        accounts[6] = account7;
-        accounts[7] = account8;
-        accounts[8] = account9;
+        User user = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user1 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user2 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user3 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user4 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user5 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user6 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user7 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User user8 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+        User[] users = new User[9];
+        users[0] = user;
+        users[1] = user1;
+        users[2] = user2;
+        users[3] = user3;
+        users[4] = user4;
+        users[5] = user5;
+        users[6] = user6;
+        users[7] = user7;
+        users[8] = user8;
 
 
 
 
-        ListAdapter myAdapter = new AccountsAdapter(this,0, accounts) ;
+        ListAdapter myAdapter = new AccountsAdapter(this,0, users) ;
         NewsListView.setAdapter(myAdapter);
     }
 

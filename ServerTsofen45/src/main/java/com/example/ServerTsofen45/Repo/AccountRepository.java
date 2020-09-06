@@ -9,9 +9,7 @@ import com.example.ServerTsofen45.Beans.Account;
 
 @Transactional
 public interface AccountRepository extends UserRepository<Account> ,CrudRepository<Account, Integer> {
-	@Override
-	Account findByUserName(String UserName);
-
+	
 	
 
 }
