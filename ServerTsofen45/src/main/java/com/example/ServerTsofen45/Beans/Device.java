@@ -152,16 +152,12 @@ public  class Device {
 	}
 
 	
-<<<<<<< Updated upstream
+
 	public boolean isFaulty()
 	{
 		return false;
 	}
-=======
-	/*
-	 * public boolean isFaulty() { return false; }
-	 */
->>>>>>> Stashed changes
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

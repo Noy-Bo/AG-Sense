@@ -37,32 +37,19 @@ public class DeviceBL {
 		return devices;
 
 	}
-<<<<<<< Updated upstream
-	
+
 	public ArrayList<Device> findByType(String type) {
 
 		ArrayList<Device> devices = deviceRepository.findByType(type);
 		return devices;
 
 	}
-	
-	
-=======
 
->>>>>>> Stashed changes
 	public ArrayList<Device> findAll() {
 
 		ArrayList<Device> devices = deviceRepository.findAll();
 		return devices;
 
 	}
-<<<<<<< Updated upstream
-	
-	
-	
-	
-	
-=======
 
->>>>>>> Stashed changes
 }

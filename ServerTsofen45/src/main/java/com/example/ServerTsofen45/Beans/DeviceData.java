@@ -72,20 +72,11 @@ public abstract class DeviceData {
 	float analog1;
 	float analog2;
 
-<<<<<<< Updated upstream
-=======
 	public DeviceData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@GeneratedValue
-	public long getID() {
-		return ID;
-	}
-
->>>>>>> Stashed changes
 	public void setID(long iD) {
 		ID = iD;
 	}
