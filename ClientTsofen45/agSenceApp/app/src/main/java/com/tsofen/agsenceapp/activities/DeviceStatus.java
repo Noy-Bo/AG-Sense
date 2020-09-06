@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class DeviceStatus extends AppCompatActivity implements Serializable {
+    UserMap userMap = new UserMap("Map");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,9 @@ public class DeviceStatus extends AppCompatActivity implements Serializable {
     }
 
     public void map(View view) {
-        Intent intent = new Intent(this, DisplayMapActivity.class);
+        //userMap.addPlace(new Place(name, description, lat, lng));
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("user_map", userMap);
         startActivity(intent);
     }
 }
