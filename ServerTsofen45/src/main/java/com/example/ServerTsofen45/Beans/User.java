@@ -1,7 +1,6 @@
 package com.example.ServerTsofen45.Beans;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,10 +18,6 @@ public abstract class User {
 	int sysId;
 	String hashPassword;
 	
-	
-	
-
-
 	@Column
 	public String getname() {
 		return name;
@@ -36,17 +31,11 @@ public abstract class User {
 	public String getHashPassword() {
 		return hashPassword;
 	}
-
 	protected void setHashPassword(String Password)  {
 	//	this.hashPassword =  hashPassword(Password);
 		this.hashPassword =  Password;
 
 	}
-
-
-
-
-
 	@Column
 	public String getEmail() {
 		return email;
@@ -82,13 +71,6 @@ public abstract class User {
 		return (hashPassword(pass).equals(this.hashPassword));
 	}
 
-	/*private byte[] hashPassword(String password) throws NoSuchAlgorithmException {
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-
-		return hash;
-	}*/
-	
 	protected String hashPassword(String base)
 	{
 	    try{
@@ -109,8 +91,7 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-	return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", sysId=" + sysId + ", hashPassword="
-			+ hashPassword + "]";
+	return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", sysId=" + sysId +
+			 "]";
 }
-
 }
