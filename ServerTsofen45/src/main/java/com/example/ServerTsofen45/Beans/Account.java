@@ -1,30 +1,49 @@
 package com.example.ServerTsofen45.Beans;
 
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-//import com.project.OnTheGoShop.Beans.Device ;
-//import com.project.OnTheGoShop.Beans.Notification ;
 
 @Entity
 public class Account extends User{
 	
-	List<Accounts > accounts;
+	List<Accounts> accounts;
    
 	
 	
+    public Account() {
+		super();
+	}
+
+
+	public Account(String string, String string2, String string3, String string4) throws NoSuchAlgorithmException {
+    	super();
+    		this.setEmail(string);
+    		this.setname(string2);
+    		this.setUserName(string3);
+    		//this.setHashPassword(string4);
+    		this.hashPassword=hashPassword(string4);
+    	}	
+
+    
 	@OneToMany
     public List<Accounts> getAccounts() {
     	
 		return accounts;
 	}
 
-	public void setAccounts(ArrayList<Accounts> accounts) {
+	public void setAccounts(List<Accounts> accounts) {
 		this.accounts = accounts;
 	}
+	public void addNewAccount(Accounts account) {
+		this.accounts.add(account);
+	}
+
+
+
 
 
 

@@ -14,13 +14,14 @@ import javax.persistence.Table;
 public class Error {
 
 	
-	int errorCode;
+	int Code;
 	String message;
     private List<Notification> notifications;
 	
 	
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
+	
+	public void setCode(int code) {
+		Code = code;
 	}
 	public void setMessage(String message) {
 		this.message = message;
@@ -31,8 +32,8 @@ public class Error {
 	
 	@Column
 	@Id
-	public int getErrorCode() {
-		return errorCode;
+	public int getCode() {
+		return Code;
 	}
 	@Column
 	public String getMessage() {
@@ -43,6 +44,13 @@ public class Error {
 	public List<Notification> getNotifications() {
 		return notifications;
 	}
+	@Override
+	public String toString() {
+		return "Error [Code=" + Code + ", message=" + message + "]";
+	}
+	
+	
+	
 	
 	
 	
