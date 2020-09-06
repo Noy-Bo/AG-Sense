@@ -3,7 +3,6 @@ package com.example.ServerTsofen45.controllers;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.Account;
-import com.example.ServerTsofen45.Beans.Accounts;
-import com.example.ServerTsofen45.Beans.Notification;
 import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("User")
@@ -48,7 +44,7 @@ public class UserController {
 
 	//	*return all userProfiles in Database
 	@GetMapping("AllAccounts")
-	ArrayList<Account> getAccounts() 
+	ArrayList<Account> getAllAccounts() 
 	{
 
 		
@@ -63,6 +59,15 @@ public class UserController {
 		return null;*/
 		
 	}
+	
+	//search user names in userProfiles table by name and returns UserProfile arraylist with names whose name contain the string given
+	@GetMapping("SpecificAccountsByName")
+	ArrayList<Account> getSpecificAccountsByName(@RequestParam String name) 
+	{
+		return userBL.findallByName(name);
+	}
+
+	
 	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{

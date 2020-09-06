@@ -10,6 +10,7 @@ import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
 import com.example.ServerTsofen45.Repo.SupportRepository;
+import com.example.ServerTsofen45.Repo.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -20,30 +21,21 @@ public class UserBL {
 	SupportRepository supportRepository;
 	@Autowired
 	AccountRepository accountRepository;
-	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	UserRepository<User> userRepository;
 
-		public ArrayList<User> Containing(String Name)
-		{
-			return null;
-			//return userRepository.findByFirstnameContaining(Name);
-		}
 	
-		public User getByName(String Name)
-		{
-			return null;
-		//	return userRepository.findByUserName(Name);
-		}
-	
-	    public User LogIn(String Username,String password){
-     //   User byUserName = userRepository.findByUserName(Username);
-        
-    //   if(byUserName.validate(password))
+	   public User LogIn(String Username,String password){
+       User byUserName = userRepository.findByUserName(Username);
+       if(byUserName.validate(password))
        {
-    	//   return byUserName;
+
+    	   return byUserName;
        }
-    	   
+
     	return null;
     }
+	    
 	    public ArrayList<Account> findall() 
 	    {
 	    	return accountRepository.findAll();
@@ -54,4 +46,12 @@ public class UserBL {
 	    	
 	    	return jsonstr;*/
 	    }
+
+
+
+		public ArrayList<Account> findallByName(String Name) {
+			return accountRepository. findByNameContaining(Name);
+
+		}
 }
+
