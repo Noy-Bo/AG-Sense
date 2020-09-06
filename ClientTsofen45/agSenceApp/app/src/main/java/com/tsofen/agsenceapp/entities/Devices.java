@@ -8,6 +8,7 @@ public class Devices implements Serializable {
     protected long imei;
     protected int id;
     protected int Userid;
+    protected String name;
     protected String deviceType;
     protected Date faultTime;
     protected Date lastUpdate;
@@ -21,7 +22,7 @@ public class Devices implements Serializable {
         isFaulty = faulty;
     }
 
-    public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty) {
+    public Devices(long imei, int id, int userid, String name, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty) {
         this.imei = imei;
         this.id = id;
         Userid = userid;
@@ -29,6 +30,7 @@ public class Devices implements Serializable {
         this.faultTime = faultTime;
         this.lastUpdate = lastUpdate;
         this.isFaulty = isFaulty;
+        this.name=name;
     }
 
     public long getImei() {
@@ -77,5 +79,12 @@ public class Devices implements Serializable {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 }
