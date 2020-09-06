@@ -7,7 +7,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import com.example.ServerTsofen45.Beans.User;
 
-@NoRepositoryBean
+//@NoRepositoryBean
 public interface UserRepository<T extends User>  extends CrudRepository<T, Integer> {
 	User findByUserName(String UserName);
 	ArrayList<T> findByNameContaining(String name);

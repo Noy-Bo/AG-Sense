@@ -23,11 +23,10 @@ public class UserBL {
 	AccountRepository accountRepository;
 	@Autowired
 	UserRepository<User> userRepository;
-	//ObjectMapper mapper = new ObjectMapper();
 
 	
 	   public User LogIn(String Username,String password){
-       User byUserName = accountRepository.findByUserName(Username);
+       User byUserName = userRepository.findByUserName(Username);
        if(byUserName.validate(password))
        {
 
@@ -48,15 +47,10 @@ public class UserBL {
 	    	return jsonstr;*/
 	    }
 
-		public ArrayList<User> Containing(String Name)
-		{
-			return null;
-			//return userRepository.findByFirstnameContaining(Name);
-		}
-	
-		public User getByName(String Name)
-		{
-			return null;
-		//	return userRepository.findByUserName(Name);
+
+
+		public ArrayList<Account> findallByName(String Name) {
+			return accountRepository. findByNameContaining(Name);
+
 		}
 }
