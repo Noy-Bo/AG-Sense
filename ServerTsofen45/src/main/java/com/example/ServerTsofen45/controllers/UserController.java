@@ -44,7 +44,7 @@ public class UserController {
 
 	//	*return all userProfiles in Database
 	@GetMapping("AllAccounts")
-	ArrayList<Account> getAccounts() 
+	ArrayList<Account> getAllAccounts() 
 	{
 
 		
@@ -59,6 +59,15 @@ public class UserController {
 		return null;*/
 		
 	}
+	
+	//search user names in userProfiles table by name and returns UserProfile arraylist with names whose name contain the string given
+	@GetMapping("SpecificAccountsByName")
+	ArrayList<Account> getSpecificAccountsByName(@RequestParam String name) 
+	{
+		return userBL.findallByName(name);
+	}
+
+	
 	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
