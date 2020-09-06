@@ -16,7 +16,6 @@ public abstract class DeviceData {
 	char gpsValid;
 	Time dateAndTime;
 	Time updateTime;
-
 	String lat;
 	char latIndicator;
 	String lon;

@@ -50,6 +50,7 @@
     <string name="EditAccount">Edit Account</string>
     <string name="NewDevice">New Device</string>
     <string name="EditDevice">Edit Device</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
