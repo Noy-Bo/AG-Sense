@@ -10,6 +10,7 @@ import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
 import com.example.ServerTsofen45.Repo.SupportRepository;
+import com.example.ServerTsofen45.Repo.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -20,7 +21,32 @@ public class UserBL {
 	SupportRepository supportRepository;
 	@Autowired
 	AccountRepository accountRepository;
-	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	UserRepository<User> userRepository;
+	//ObjectMapper mapper = new ObjectMapper();
+
+	
+	   public User LogIn(String Username,String password){
+       User byUserName = accountRepository.findByUserName(Username);
+       if(byUserName.validate(password))
+       {
+
+    	   return byUserName;
+       }
+
+    	return null;
+    }
+	    
+	    public ArrayList<Account> findall() 
+	    {
+	    	return accountRepository.findAll();
+	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
+	    	String jsonstr="";
+	    	for(Account a:allaccounts)
+	    		jsonstr+= (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(a)+" ");
+	    	
+	    	return jsonstr;*/
+	    }
 
 		public ArrayList<User> Containing(String Name)
 		{
@@ -33,25 +59,4 @@ public class UserBL {
 			return null;
 		//	return userRepository.findByUserName(Name);
 		}
-	
-	    public User LogIn(String Username,String password){
-     //   User byUserName = userRepository.findByUserName(Username);
-        
-    //   if(byUserName.validate(password))
-       {
-    	//   return byUserName;
-       }
-    	   
-    	return null;
-    }
-	    public ArrayList<Account> findall() 
-	    {
-	    	return accountRepository.findAll();
-	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
-	    	String jsonstr="";
-	    	for(Account a:allaccounts)
-	    		jsonstr+= (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(a)+" ");
-	    	
-	    	return jsonstr;*/
-	    }
 }
