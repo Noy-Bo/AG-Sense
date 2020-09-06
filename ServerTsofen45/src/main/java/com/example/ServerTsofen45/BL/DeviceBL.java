@@ -37,4 +37,24 @@ public class DeviceBL {
 		return devices;
 
 	}
+	
+	public ArrayList<Device> findByType(String type) {
+
+		ArrayList<Device> devices = deviceRepository.findByType(type);
+		return devices;
+
+	}
+	
+	
+	public ArrayList<Device> findAll() {
+
+		ArrayList<Device> devices = deviceRepository.findAll();
+		return devices;
+
+	}
+	
+	
+	
+	
+	
 }

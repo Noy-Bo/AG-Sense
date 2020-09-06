@@ -14,8 +14,8 @@ import javax.persistence.OneToMany;
 import Enums.DeviceType;
 
 @Entity(name = "devices")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Device {
+
+public  class Device {
 	int id;
 	long imei;
 	String name;
@@ -135,6 +135,11 @@ public abstract class Device {
 				+ isRegistered + ", notifications=" + notifications + ", deviceData=" + deviceData + "]";
 	}
 
+	
+	public boolean isFaulty()
+	{
+		return false;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
