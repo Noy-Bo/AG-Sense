@@ -24,7 +24,9 @@ public class Account extends User{
     		this.setEmail(string);
     		this.setname(string2);
     		this.setUserName(string3);
-    		this.setHashPassword(string4);
+    		this.hashPassword=hashPassword(string4);
+
+
     	}	
 
     

@@ -9,7 +9,7 @@ import com.example.ServerTsofen45.Beans.User;
 
 @NoRepositoryBean
 public interface UserRepository<T extends User>  extends CrudRepository<T, Integer> {
-	T findByUserName(String UserName);
+	User findByUserName(String UserName);
 	ArrayList<T> findByNameContaining(String name);
 	ArrayList<T> findAll();
 
