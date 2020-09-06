@@ -1,6 +1,5 @@
 package com.example.ServerTsofen45.Beans;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,7 +17,7 @@ public abstract class User {
 	String name;
 	String userName;
 	int sysId;
-	byte[] hashPassword;
+	String hashPassword;
 	
 	
 	
@@ -34,19 +33,19 @@ public abstract class User {
 	}
 
 	@Column
-	public byte[] getHashPassword() {
+	public String getHashPassword() {
 		return hashPassword;
 	}
 
-	protected void setHashPassword(String Password) throws NoSuchAlgorithmException {
-		this.hashPassword =  hashPassword(Password);;
+	protected void setHashPassword(String Password)  {
+	//	this.hashPassword =  hashPassword(Password);
+		this.hashPassword =  Password;
+
 	}
 
 
 
-	public void setHashPassword(byte[] hashPassword) {
-		this.hashPassword = hashPassword;
-	}
+
 
 	@Column
 	public String getEmail() {
@@ -79,26 +78,39 @@ public abstract class User {
 	}
 	public boolean validate(String pass)
 	{
-		try {
-			return (hashPassword(pass)==this.hashPassword);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+
+		return (hashPassword(pass).equals(this.hashPassword));
 	}
 
-	private byte[] hashPassword(String password) throws NoSuchAlgorithmException {
+	/*private byte[] hashPassword(String password) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 
 		return hash;
+	}*/
+	
+	protected String hashPassword(String base)
+	{
+	    try{
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hash = digest.digest(base.getBytes("UTF-8"));
+	        StringBuffer hexString = new StringBuffer();
+
+	        for (int i = 0; i < hash.length; i++) {
+	            String hex = Integer.toHexString(0xff & hash[i]);
+	            if(hex.length() == 1) hexString.append('0');
+	            hexString.append(hex);
+	        }
+	        return hexString.toString();
+	    } catch(Exception ex){
+	       throw new RuntimeException(ex);
+	    }
 	}
 
 	@Override
 	public String toString() {
-		return "User [Email=" + email + ", firstName=" + name + ", UserName=" + name
-				+ ", sys_id=" + sysId +"]";
-	}
+	return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", sysId=" + sysId + ", hashPassword="
+			+ hashPassword + "]";
+}
 
 }
