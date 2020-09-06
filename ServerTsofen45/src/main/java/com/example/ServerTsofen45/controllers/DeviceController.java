@@ -89,6 +89,5 @@ public class DeviceController {
 		return devices;
 
 	}
-	
-	
+
 }
