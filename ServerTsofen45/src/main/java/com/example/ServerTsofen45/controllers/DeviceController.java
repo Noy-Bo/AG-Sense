@@ -43,14 +43,21 @@ public class DeviceController {
 	}
 
 	@GetMapping("AllDevices")
+<<<<<<< Updated upstream
 	public ArrayList<Device> getAllDevices() {
+=======
+	public ArrayList<Device> getAllDevices(@RequestParam String name) {
+>>>>>>> Stashed changes
 
 		ArrayList<Device> devices = new ArrayList<Device>();
 		devices = deviceBL.findAll();
 		return devices;
 	}
 
+<<<<<<< Updated upstream
 	@GetMapping("FaultyDevices")
+=======
+>>>>>>> Stashed changes
 	public ArrayList<Device> getFaultyDevices() {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
@@ -60,12 +67,19 @@ public class DeviceController {
 		for (Device device : devices) {
 			if (device.isFaulty())
 				faultyDevices.add(device);
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		}
 
 		return faultyDevices;
 	}
 
+<<<<<<< Updated upstream
 	@GetMapping("HealthyDevices")
+=======
+>>>>>>> Stashed changes
 	public ArrayList<Device> getHealthyDevices() {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
@@ -73,12 +87,19 @@ public class DeviceController {
 		devices = deviceBL.findAll();
 
 		for (Device device : devices) {
+<<<<<<< Updated upstream
 			if (!device.isFaulty())
 				healthyDevices.add(device);
+=======
+			if (device.isFaulty())
+				healthyDevices.add(device);
+
+>>>>>>> Stashed changes
 		}
 
 		return healthyDevices;
 	}
+<<<<<<< Updated upstream
 
 	@GetMapping("DevicesByType")
 	public ArrayList<Device> getDvicesByType(String type) {
@@ -88,6 +109,12 @@ public class DeviceController {
 		devices = deviceBL.findByType(type);
 		return devices;
 
+=======
+	
+	public ArrayList<Device> getDevicesByType(String deviceType)
+	{
+		return null;
+>>>>>>> Stashed changes
 	}
 
 }

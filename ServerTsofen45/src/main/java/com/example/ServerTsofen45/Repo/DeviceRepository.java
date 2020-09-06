@@ -17,8 +17,11 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 	 ArrayList<Device> findByName(String name);
 
 	 ArrayList<Device> findAll();
+<<<<<<< Updated upstream
 	 
 	 ArrayList<Device> findByType(String type);
 	 
+=======
+>>>>>>> Stashed changes
 
 }

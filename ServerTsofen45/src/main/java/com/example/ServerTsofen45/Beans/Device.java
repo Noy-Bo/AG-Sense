@@ -28,6 +28,22 @@ public  class Device {
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
 
+	public Device(int id, long imei, String name, int accountId, DeviceType type, Time lastUpdate, String logitude,
+			String altitude, boolean isRegistered, List<Notification> notifications, List<DeviceData> deviceData) {
+		super();
+		this.id = id;
+		this.imei = imei;
+		this.name = name;
+		this.accountId = accountId;
+		this.type = type;
+		this.lastUpdate = lastUpdate;
+		this.logitude = logitude;
+		this.altitude = altitude;
+		this.isRegistered = isRegistered;
+		this.notifications = notifications;
+		this.deviceData = deviceData;
+	}
+
 	@Column
 	public long getImei() {
 		return imei;
@@ -136,10 +152,16 @@ public  class Device {
 	}
 
 	
+<<<<<<< Updated upstream
 	public boolean isFaulty()
 	{
 		return false;
 	}
+=======
+	/*
+	 * public boolean isFaulty() { return false; }
+	 */
+>>>>>>> Stashed changes
 	@Override
 	public int hashCode() {
 		final int prime = 31;

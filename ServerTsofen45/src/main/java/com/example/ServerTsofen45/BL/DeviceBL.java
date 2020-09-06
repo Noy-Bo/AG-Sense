@@ -37,6 +37,7 @@ public class DeviceBL {
 		return devices;
 
 	}
+<<<<<<< Updated upstream
 	
 	public ArrayList<Device> findByType(String type) {
 
@@ -46,15 +47,22 @@ public class DeviceBL {
 	}
 	
 	
+=======
+
+>>>>>>> Stashed changes
 	public ArrayList<Device> findAll() {
 
 		ArrayList<Device> devices = deviceRepository.findAll();
 		return devices;
 
 	}
+<<<<<<< Updated upstream
 	
 	
 	
 	
 	
+=======
+
+>>>>>>> Stashed changes
 }
