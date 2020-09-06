@@ -7,15 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+
 import javax.persistence.OneToMany;
 
 import Enums.DeviceType;
 
 @Entity(name = "devices")
 
-public  class Device {
+public class Device {
 	int id;
 	long imei;
 	String name;
@@ -25,12 +24,10 @@ public  class Device {
 	double logitude;
 	double latitude;
 	boolean isRegistered;
+	boolean isFaulty;
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
 
-	
-	
-	
 	public Device() {
 		super();
 	}
@@ -105,14 +102,7 @@ public  class Device {
 		this.logitude = logitude;
 	}
 
-	@Column
-	public double getAltitude() {
-		return latitude;
-	}
-
-	public void setAltitude(double altitude) {
-		this.latitude = altitude;
-	}
+	
 
 	@Column
 	public boolean isRegistered() {
@@ -151,6 +141,26 @@ public  class Device {
 		this.deviceData = deviceData;
 	}
 
+	
+	
+	@Column
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	@Column
+	public boolean isFaulty() {
+		return isFaulty;
+	}
+
+	public void setFaulty(boolean isFaulty) {
+		this.isFaulty = isFaulty;
+	}
+
 	@Override
 	public String toString() {
 		return "Device [id=" + id + ", imei=" + imei + ", name=" + name + ", accountId=" + accountId + ", type=" + type
@@ -159,11 +169,6 @@ public  class Device {
 	}
 
 	
-
-	public boolean faulty()
-	{
-		return false;
-	}
 
 	@Override
 	public int hashCode() {
@@ -231,15 +236,5 @@ public  class Device {
 			return false;
 		return true;
 	}
-
-	
-	
-
-
-
-	
-	
-	
-	
 
 }

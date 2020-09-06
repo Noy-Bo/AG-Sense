@@ -29,7 +29,7 @@ public class UserController {
 		
 		User Resulte= userBL.LogIn(username, password);
 		return Resulte;
-		/*if (Resulte!=null)
+		/*if (Result!=null)
 		{
 	        ObjectMapper Obj = new ObjectMapper(); 
 	       return Obj.writeValueAsString(Resulte.toString()); 

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ServerTsofen45.BL.DeviceBL;
 import com.example.ServerTsofen45.Beans.Device;
-import com.example.ServerTsofen45.Beans.Notification;
 
 @RestController
 @RequestMapping("Device")
@@ -44,7 +43,7 @@ public class DeviceController {
 
 	@GetMapping("AllDevices")
 
-	public ArrayList<Device> getAllDevices(@RequestParam String name) {
+	public ArrayList<Device> getAllDevices() {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
 		devices = deviceBL.findAll();
@@ -56,16 +55,9 @@ public class DeviceController {
 	public ArrayList<Device> getFaultyDevices() {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
-		ArrayList<Device> faultyDevices = new ArrayList<Device>();
-		devices = deviceBL.findAll();
+		
 
-		for (Device device : devices) {
-		//	if (device.isFaulty())
-				faultyDevices.add(device);
-
-		}
-
-		return faultyDevices;
+		return devices;
 	}
 
 	@GetMapping("HealthyDevices")
@@ -73,29 +65,18 @@ public class DeviceController {
 	public ArrayList<Device> getHealthyDevices() {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
-		ArrayList<Device> healthyDevices = new ArrayList<Device>();
-		devices = deviceBL.findAll();
-
-		for (Device device : devices) {
-
-		//	if (!device.isFaulty())
-				healthyDevices.add(device);
-
-		}
-
-		return healthyDevices;
+		
+		return devices;
 	}
 
 	@GetMapping("DevicesByType")
-	public ArrayList<Device> getDvicesByType(String type) {
+	public ArrayList<Device> getDevicesByType(@RequestParam String type) {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
 
 		devices = deviceBL.findByType(type);
 		return devices;
 	}
-
-	
 	
 	
 
