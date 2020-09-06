@@ -153,10 +153,10 @@ public  class Device {
 
 	
 
-	public boolean isFaulty()
+	/*public boolean isFaulty()
 	{
 		return false;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {

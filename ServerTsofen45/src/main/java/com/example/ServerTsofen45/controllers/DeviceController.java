@@ -60,7 +60,7 @@ public class DeviceController {
 		devices = deviceBL.findAll();
 
 		for (Device device : devices) {
-			if (device.isFaulty())
+		//	if (device.isFaulty())
 				faultyDevices.add(device);
 
 		}
@@ -78,7 +78,7 @@ public class DeviceController {
 
 		for (Device device : devices) {
 
-			if (!device.isFaulty())
+		//	if (!device.isFaulty())
 				healthyDevices.add(device);
 
 		}
