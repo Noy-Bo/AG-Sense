@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity(name = "DevicesData")
-public abstract class DeviceData {
+public class DeviceData {
 
 	long ID;
 	long imei;
@@ -63,7 +63,6 @@ public abstract class DeviceData {
 	float internalBattery;
 	float internalBatteryPower;
 	float temperatureInsideDevice;
-	float DataOfFuelSensor;
 	float temperatureExternal;
 	float fuelVoltage;
 	float humidity;
@@ -290,10 +289,6 @@ public abstract class DeviceData {
 
 	public void setTemperatureInsideDevice(float temperatureInsideDevice) {
 		this.temperatureInsideDevice = temperatureInsideDevice;
-	}
-
-	public void setDataOfFuelSensor(float dataOfFuelSensor) {
-		DataOfFuelSensor = dataOfFuelSensor;
 	}
 
 	public void setTemperatureExternal(float temperatureExternal) {
@@ -579,11 +574,6 @@ public abstract class DeviceData {
 	@Column
 	public float getTemperatureInsideDevice() {
 		return temperatureInsideDevice;
-	}
-
-	@Column
-	public float getDataOfFuelSensor() {
-		return DataOfFuelSensor;
 	}
 
 	@Column
