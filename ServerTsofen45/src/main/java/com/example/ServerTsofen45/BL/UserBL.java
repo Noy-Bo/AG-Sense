@@ -26,15 +26,15 @@ public class UserBL {
 
 	
 	   public User LogIn(String Username,String password){
-       User byUserName = userRepository.findByUserName(Username);
-       if(byUserName.validate(password))
-       {
+	       Account byUserName = accountRepository.findByUserName(Username);
+	       if(byUserName.validate(password))
+	       {
 
-    	   return byUserName;
-       }
+	    	   return byUserName;
+	       }
 
-    	return null;
-    }
+	    	return null;
+	    }
 	    
 	    public ArrayList<Account> findall() 
 	    {
