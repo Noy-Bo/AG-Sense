@@ -1,50 +1,58 @@
 package com.example.ServerTsofen45.Beans;
 
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
 @Entity
-public class Account extends User{
+public class Account {
+	String Text;
+	int Id;
+	List<Device> devices;
+
+    private UserAccount account;
 	
-	List<Accounts> accounts;
-   
-	
-	
-    public Account() {
-		super();
+    @ManyToOne
+    @JoinColumn(name = "sys_id", nullable = false)
+	public UserAccount getAccount() {
+		return account;
 	}
-
-
-	public Account(String string, String string2, String string3, String string4) throws NoSuchAlgorithmException {
-    	super();
-    		this.setEmail(string);
-    		this.setname(string2);
-    		this.setUserName(string3);
-    		//this.setHashPassword(string4);
-    		this.hashPassword=hashPassword(string4);
-    	}	
-
-    
+	public void setAccount(UserAccount account) {
+		this.account = account;
+	}
+	public void setDevices(List<Device> devices) {
+		this.devices = devices;
+	}
 	@OneToMany
-    public List<Accounts> getAccounts() {
-    	
-		return accounts;
+	public List<Device> getDevices() {
+		return devices;
 	}
-
-	public void setAccounts(List<Accounts> accounts) {
-		this.accounts = accounts;
+	public void setDevices(ArrayList<Device> devices) {
+		this.devices = devices;
 	}
-	public void addNewAccount(Accounts account) {
-		this.accounts.add(account);
+	@Column
+	public String getText() {
+		return Text;
 	}
-
-
-
-
-
+	public void setText(String text) {
+		Text = text;
+	}
+	@Id
+	@GeneratedValue
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
+	
+	
 
 }

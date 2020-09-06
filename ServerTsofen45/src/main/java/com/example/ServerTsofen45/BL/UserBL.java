@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.ServerTsofen45.Beans.Account;
+import com.example.ServerTsofen45.Beans.UserAccount;
 import com.example.ServerTsofen45.Beans.User;
-import com.example.ServerTsofen45.Repo.AccountRepository;
+import com.example.ServerTsofen45.Repo.UserAccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
 import com.example.ServerTsofen45.Repo.SupportRepository;
 import com.example.ServerTsofen45.Repo.UserRepository;
@@ -20,13 +20,13 @@ public class UserBL {
 	@Autowired
 	SupportRepository supportRepository;
 	@Autowired
-	AccountRepository accountRepository;
+	UserAccountRepository accountRepository;
 	@Autowired
 	UserRepository<User> userRepository;
 
 	
 	   public User LogIn(String Username,String password){
-	       Account byUserName = accountRepository.findByUserName(Username);
+	       UserAccount byUserName = accountRepository.findByUserName(Username);
 	       if(byUserName.validate(password))
 	       {
 
@@ -36,7 +36,7 @@ public class UserBL {
 	    	return null;
 	    }
 	    
-	    public ArrayList<Account> findall() 
+	    public ArrayList<UserAccount> findall() 
 	    {
 	    	return accountRepository.findAll();
 	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
@@ -49,7 +49,7 @@ public class UserBL {
 
 
 
-		public ArrayList<Account> findallByName(String Name) {
+		public ArrayList<UserAccount> findallByName(String Name) {
 			return accountRepository. findByNameContaining(Name);
 
 		}

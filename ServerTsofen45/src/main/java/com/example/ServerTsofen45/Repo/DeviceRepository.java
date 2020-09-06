@@ -19,5 +19,7 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 	ArrayList<Device> findAll();
 
 	ArrayList<Device> findByType(String type);
+	
+	
 
 }

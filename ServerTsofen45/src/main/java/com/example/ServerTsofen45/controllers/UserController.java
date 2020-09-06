@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ServerTsofen45.BL.UserBL;
-import com.example.ServerTsofen45.Beans.Account;
+import com.example.ServerTsofen45.Beans.UserAccount;
 import com.example.ServerTsofen45.Beans.User;
-import com.example.ServerTsofen45.Repo.AccountRepository;
+import com.example.ServerTsofen45.Repo.UserAccountRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RestController
@@ -21,7 +21,7 @@ public class UserController {
 	@Autowired
 	UserBL userBL;
 	@Autowired
-	AccountRepository accountRepository;
+	UserAccountRepository accountRepository;
 	
 	@GetMapping("Login")
 	User Login(@RequestParam String username, @RequestParam String password) throws JsonProcessingException
@@ -44,7 +44,7 @@ public class UserController {
 
 	//	*return all userProfiles in Database
 	@GetMapping("AllAccounts")
-	ArrayList<Account> getAllAccounts() 
+	ArrayList<UserAccount> getAllAccounts() 
 	{
 
 		
@@ -62,7 +62,7 @@ public class UserController {
 	
 	//search user names in userProfiles table by name and returns UserProfile arraylist with names whose name contain the string given
 	@GetMapping("SpecificAccountsByName")
-	ArrayList<Account> getSpecificAccountsByName(@RequestParam String name) 
+	ArrayList<UserAccount> getSpecificAccountsByName(@RequestParam String name) 
 	{
 		return userBL.findallByName(name);
 	}
@@ -71,7 +71,7 @@ public class UserController {
 	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
-		Account ibra=new Account(email ,name, Username, pass);
+		UserAccount ibra=new UserAccount(email ,name, Username, pass);
 		accountRepository.save(ibra);
 		
 	}
