@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.DeviceSetting"></activity>
         <activity android:name=".activities.AccountStatusFilter" />
-        <activity android:name=".activities.DeviceSettings" />
+
         <activity android:name=".activities.EditAccount" />
         <activity android:name=".activities.EditDevice" />
         <activity android:name=".activities.HealthCareDashboard" />
