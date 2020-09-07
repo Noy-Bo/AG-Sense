@@ -11,8 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".activities.BackBaseActivity"></activity>
         <activity android:name=".activities.SearchBaseActivity" />
+=======
+        <activity android:name=".activities.AdminNotification"></activity>
+>>>>>>> master
         <activity android:name=".activities.DeviceSetting" />
         <activity android:name=".activities.AccountStatusFilter" />
         <activity android:name=".activities.DeviceSettings" />

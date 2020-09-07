@@ -22,7 +22,7 @@ public class DeviceData {
 	String lon;
 
 	char lonIndicator;
-	float speed;
+	Float speed;
 	int orientation;
 	String altitude;
 	String mileage;
