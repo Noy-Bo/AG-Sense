@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -89,5 +90,9 @@ public class AccountStatusFilter extends AppCompatActivity implements Serializab
             displayHealthyDevice = true;
         }
 
+    }
+    public void createAccount(View view) {
+        Intent intent = new Intent(this, NewAccount.class);
+        startActivity(intent);
     }
 }
