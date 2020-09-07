@@ -53,7 +53,18 @@
     <string name="EditDevice">Edit Device</string>
     <string name="alertString">Speeding Alert and Geo-Fence</string>
     <string name="title_activity_maps">Map</string>
-
+    <string name="fence_type">Fence Type</string>
+    <string name="fence_radius_m">Fence Radius(m)</string>
+    <string name="speed">Speed</string>
+    <string name="speedalertgeosetting">speedAlertGeoSetting</string>
+    <string name="authorizationsetting">authorizationSetting</string>
+    <string name="authorization_number">Authorization Number</string>
+    <string name="speeding_alert_and_geo_fence">Speeding Alert and Geo-Fence</string>
+    <string name="admin_number">Admin Number</string>
+    <string name="authorized_num_1">Authorized Num 1</string>
+    <string name="authorized_num_2">Authorized Num 2</string>
+    <string name="authorized_num_3">Authorized Num 3</string>
+    <string name="update_btn_device_settings">Update</string>
 
 
 </resources>
