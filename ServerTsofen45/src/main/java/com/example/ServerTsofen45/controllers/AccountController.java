@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ServerTsofen45.BL.AccountBL;
-import com.example.ServerTsofen45.BL.DeviceBL;
 
 @RestController
 @RequestMapping("Account")
