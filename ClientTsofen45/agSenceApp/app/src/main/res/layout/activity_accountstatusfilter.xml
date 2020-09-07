@@ -82,6 +82,7 @@
                         android:layout_weight="0.1"
                         android:background="@drawable/rounded_white_background_frame"
                         android:text="Create"
+                        android:onClick="createAccount"
                         android:textColor="@color/black" />
                 </LinearLayout>
 
