@@ -84,7 +84,6 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         notificationArrayAdapter = new NotificationListAdaptor(this,notificationArray);
         notificationList.setAdapter(notificationArrayAdapter);
 
-
     }
 
     public void DeviceView(View view) {

@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -23,7 +25,7 @@ import com.tsofen.agsenceapp.adapters.SliderAdapter;
 
 import java.util.ArrayList;
 
-public class DeviceView extends AppCompatActivity {
+public class DeviceView extends AppBaseActivity {
 
 
     private ViewPager sliderViewPager;
@@ -34,7 +36,10 @@ public class DeviceView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_view);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_device_view, null, false);
+        drawer.addView(contentView, 0);
+        navigationView.setCheckedItem(R.id.nav_device_status);
 
         sliderViewPager = (ViewPager) findViewById(R.id.viewPager);
         dotslinearLayout = (LinearLayout) findViewById(R.id.sliderDotsLayout);

@@ -28,6 +28,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         View contentView = inflater.inflate(R.layout.activity_admin_dashboard, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_dashboard);
+
     }
     public void accountNotification(View view) {
         Intent intent = new Intent(this, AdminNotification.class);
@@ -44,4 +45,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         }
         backPressedTime=System.currentTimeMillis();
     }
+
+
 }

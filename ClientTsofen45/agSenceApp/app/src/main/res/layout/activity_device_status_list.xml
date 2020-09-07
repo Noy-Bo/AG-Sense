@@ -8,26 +8,27 @@
     android:orientation="vertical"
     tools:context=".activities.DeviceStatusList">
 
+    <include
+        layout="@layout/activity_back_base"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:weightSum="1"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical" >
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
-            ></Space>
+            android:layout_weight="0.1"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.02"
-            android:background="@drawable/gradient_color_background"
-            ></View>
+            android:background="@drawable/gradient_color_background"/>
 
         <TextView
             android:onClick="map"
@@ -38,15 +39,13 @@
             android:text="Status Map"
             android:textColor="@color/orange"
             android:textSize="16sp"
-            android:background="#ffffff"
-            ></TextView>
+            android:background="@color/white"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.02"
-            android:background="@drawable/gradient_color_background"
-            ></View>
+            android:background="@drawable/gradient_color_background"/>
 
 
     </LinearLayout>
@@ -55,8 +54,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.84"
-        >
+        android:layout_weight="0.84">
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"

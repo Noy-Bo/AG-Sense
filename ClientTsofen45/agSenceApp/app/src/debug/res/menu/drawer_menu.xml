@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
 
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_admin_dashboard"
             android:icon="@drawable/user_white_icon"
@@ -11,6 +11,16 @@
             android:id="@+id/nav_account_dashboard"
             android:icon="@drawable/user_white_icon"
             android:title="Account Dashboard" />
+
+        <item
+            android:id="@+id/nav_admin_notifications"
+            android:icon="@drawable/notification_icon"
+            android:title="Admin Notifications" />
+
+        <item
+        android:id="@+id/nav_account_notifications"
+        android:icon="@drawable/notification_icon"
+        android:title="Account Notifications" />
 
         <item
             android:id="@+id/nav_device_status"
