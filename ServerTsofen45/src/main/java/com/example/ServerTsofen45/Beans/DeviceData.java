@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.Beans;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ public class DeviceData {
 	long imei;
 	int gpsType;
 	char gpsValid;
-	Time dateAndTime;
+	Timestamp dateAndTime;
 	Time updateTime;
 	String lat;
 	char latIndicator;
@@ -91,7 +92,8 @@ public class DeviceData {
 		this.gpsValid = gpsValid;
 	}
 
-	public void setDateAndTime(Time dateAndTime) {
+	
+	public void setDateAndTime(Timestamp dateAndTime) {
 		this.dateAndTime = dateAndTime;
 	}
 
@@ -337,7 +339,7 @@ public class DeviceData {
 	}
 
 	@Column
-	public Time getDateAndTime() {
+	public Timestamp getDateAndTime() {
 		return dateAndTime;
 	}
 
