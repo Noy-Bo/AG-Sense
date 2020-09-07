@@ -20,6 +20,7 @@ public class DeviceData {
 	String lat;
 	char latIndicator;
 	String lon;
+
 	char lonIndicator;
 	float speed;
 	int orientation;
@@ -60,16 +61,16 @@ public class DeviceData {
 	boolean harshAccelerate;
 	boolean harshTurnRight;
 	boolean harshTurnLeft;
-	float externalPower;
-	float internalBattery;
-	float internalBatteryPower;
-	float temperatureInsideDevice;
-	float temperatureExternal;
-	float fuelVoltage;
-	float humidity;
-	float distance;
-	float analog1;
-	float analog2;
+	Float externalPower;
+	Float internalBattery;
+	Float internalBatteryPower;
+	Float temperatureInsideDevice;
+	Float temperatureExternal;
+	Float fuelVoltage;
+	Float humidity;
+	Float distance;
+	Float analog1;
+	Float analog2;
 
 	public DeviceData() {
 		super();
@@ -121,7 +122,7 @@ public class DeviceData {
 		this.lonIndicator = lonIndicator;
 	}
 
-	public void setSpeed(float speed) {
+	public void setSpeed(Float speed) {
 		this.speed = speed;
 	}
 
@@ -277,43 +278,43 @@ public class DeviceData {
 		this.harshTurnLeft = harshTurnLeft;
 	}
 
-	public void setExternalPower(float externalPower) {
+	public void setExternalPower(Float externalPower) {
 		this.externalPower = externalPower;
 	}
 
-	public void setInternalBattery(float internalBattery) {
+	public void setInternalBattery(Float internalBattery) {
 		this.internalBattery = internalBattery;
 	}
 
-	public void setInternalBatteryPower(float internalBatteryPower) {
+	public void setInternalBatteryPower(Float internalBatteryPower) {
 		this.internalBatteryPower = internalBatteryPower;
 	}
 
-	public void setTemperatureInsideDevice(float temperatureInsideDevice) {
+	public void setTemperatureInsideDevice(Float temperatureInsideDevice) {
 		this.temperatureInsideDevice = temperatureInsideDevice;
 	}
 
-	public void setTemperatureExternal(float temperatureExternal) {
+	public void setTemperatureExternal(Float temperatureExternal) {
 		this.temperatureExternal = temperatureExternal;
 	}
 
-	public void setFuelVoltage(float fuelVoltage) {
+	public void setFuelVoltage(Float fuelVoltage) {
 		this.fuelVoltage = fuelVoltage;
 	}
 
-	public void setHumidity(float humidity) {
+	public void setHumidity(Float humidity) {
 		this.humidity = humidity;
 	}
 
-	public void setDistance(float distance) {
+	public void setDistance(Float distance) {
 		this.distance = distance;
 	}
 
-	public void setAnalog1(float analog1) {
+	public void setAnalog1(Float analog1) {
 		this.analog1 = analog1;
 	}
 
-	public void setAnalog2(float analog2) {
+	public void setAnalog2(Float analog2) {
 		this.analog2 = analog2;
 	}
 
@@ -364,7 +365,7 @@ public class DeviceData {
 	}
 
 	@Column
-	public float getSpeed() {
+	public Float getSpeed() {
 		return speed;
 	}
 
@@ -559,52 +560,52 @@ public class DeviceData {
 	}
 
 	@Column
-	public float getExternalPower() {
+	public Float getExternalPower() {
 		return externalPower;
 	}
 
 	@Column
-	public float getInternalBattery() {
+	public Float getInternalBattery() {
 		return internalBattery;
 	}
 
 	@Column
-	public float getInternalBatteryPower() {
+	public Float getInternalBatteryPower() {
 		return internalBatteryPower;
 	}
 
 	@Column
-	public float getTemperatureInsideDevice() {
+	public Float getTemperatureInsideDevice() {
 		return temperatureInsideDevice;
 	}
 
 	@Column
-	public float getTemperatureExternal() {
+	public Float getTemperatureExternal() {
 		return temperatureExternal;
 	}
 
 	@Column
-	public float getFuelVoltage() {
+	public Float getFuelVoltage() {
 		return fuelVoltage;
 	}
 
 	@Column
-	public float getHumidity() {
+	public Float getHumidity() {
 		return humidity;
 	}
 
 	@Column
-	public float getDistance() {
+	public Float getDistance() {
 		return distance;
 	}
 
 	@Column
-	public float getAnalog1() {
+	public Float getAnalog1() {
 		return analog1;
 	}
 
 	@Column
-	public float getAnalog2() {
+	public Float getAnalog2() {
 		return analog2;
 	}
 
