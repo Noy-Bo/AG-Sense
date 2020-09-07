@@ -2,10 +2,14 @@ package com.tsofen.agsenceapp.activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +24,8 @@ import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
@@ -29,7 +35,7 @@ import com.tsofen.agsenceapp.utils.ColorStatus;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AccountDashboardActivity extends AppCompatActivity {
+public class AccountDashboardActivity extends SearchBaseActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
     ArrayAdapter<Notification> notificationArrayAdapter;
     Dialog myDialog;
@@ -41,10 +47,11 @@ public class AccountDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_dashboard);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);
+        drawer.addView(contentView, 0);
+        navigationView.setCheckedItem(R.id.nav_account_dashboard);
         myDialog = new Dialog(this);
-
-
 
         java.util.Date date = new Date();
                 date.setTime(20102020);
@@ -194,6 +201,37 @@ public class AccountDashboardActivity extends AppCompatActivity {
             displayUnreadNotifications = true;
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_admin_dashboard, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                finishAffinity();
+            } else {
+                super.onBackPressed();
+            }
+        }
     }
 
 }
