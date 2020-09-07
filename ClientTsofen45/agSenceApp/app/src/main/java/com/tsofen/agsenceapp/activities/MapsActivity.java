@@ -59,6 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             counter++;
         }
         //add static places
+        //Misken
         LatLng latLng = new LatLng(32.7582555, 35.0278015);
         builder.include(latLng);
         latLngList.add(latLng);
