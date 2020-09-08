@@ -33,7 +33,7 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_accountstatusfilter, null, false);
         drawer.addView(contentView, 0);
-        navigationView.setCheckedItem(R.id.nav_account_dashboard);
+        navigationView.setCheckedItem(R.id.nav_accounts_status);
         ListView NewsListView = findViewById(R.id.listofaccounts);
 
         User user = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");

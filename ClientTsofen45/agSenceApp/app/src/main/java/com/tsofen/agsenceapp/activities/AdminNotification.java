@@ -45,7 +45,7 @@ public class AdminNotification extends SearchBaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_admin_notification, null, false);
         drawer.addView(contentView, 0);
-        navigationView.setCheckedItem(R.id.nav_admin_dashboard);
+        navigationView.setCheckedItem(R.id.nav_admin_notifications);
         myDialog = new Dialog(this);
         java.util.Date date = new Date();
         date.setTime(20102020);
