@@ -305,7 +305,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:onClick="accountNotification">
 
                     <TextView
                         android:layout_width="wrap_content"

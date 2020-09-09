@@ -19,7 +19,7 @@ public class NotificationsController {
 	 NotificationBL notificationBL;
 
 	  
-	  @GetMapping("/GetNotifications/Device/ById")
+	  @GetMapping("NotificationRelatedToDevice")
 	  public List<Notification>  getNotificationRelatedToDevice(@RequestParam int id ,@RequestParam long IMEI)
 		{
 			List<Notification> notifications = new ArrayList<Notification>();
@@ -28,7 +28,7 @@ public class NotificationsController {
 			return notifications;
 		}
 	  
-	  @GetMapping("/GetNotifications/User/ById")
+	  @GetMapping("NotificationsRelatedToUser")
 	  public List<Notification> getNotificationsRelatedToUser(@RequestParam int id)
 		{
 			
@@ -38,7 +38,7 @@ public class NotificationsController {
 			return notifications;
 		}
 	  
-	  @GetMapping("/SetNotification/Readed/ById")
+	  @GetMapping("Readed")
 	  public void setNotificationsReaded(@RequestParam int id)
 		{
 			

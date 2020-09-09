@@ -1,17 +1,16 @@
 package com.tsofen.agsenceapp.activities;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
 
 import com.tsofen.agsenceapp.R;
 
-public class DeviceSettings extends AppCompatActivity {
+public class DeviceSetting extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_settings);
-
+        setContentView(R.layout.activity_device_setting);
     }
 }

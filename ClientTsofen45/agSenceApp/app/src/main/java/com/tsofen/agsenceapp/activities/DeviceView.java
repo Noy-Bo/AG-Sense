@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class DeviceView extends AppCompatActivity {
 
+
     private ViewPager sliderViewPager;
     private LinearLayout dotslinearLayout;
     private SliderAdapter sliderAdapter;

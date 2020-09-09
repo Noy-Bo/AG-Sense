@@ -7,29 +7,33 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+
 import javax.persistence.OneToMany;
 
 import Enums.DeviceType;
 
 @Entity(name = "devices")
 
-public  class Device {
+public class Device {
 	int id;
 	long imei;
 	String name;
 	int accountId;
 	DeviceType type;
 	Time lastUpdate;
-	String logitude;
-	String altitude;
+	double logitude;
+	double latitude;
 	boolean isRegistered;
+	boolean isFaulty;
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
 
-	public Device(int id, long imei, String name, int accountId, DeviceType type, Time lastUpdate, String logitude,
-			String altitude, boolean isRegistered, List<Notification> notifications, List<DeviceData> deviceData) {
+	public Device() {
+		super();
+	}
+
+	public Device(int id, long imei, String name, int accountId, DeviceType type, Time lastUpdate, double logitude,
+			double altitude, boolean isRegistered, List<Notification> notifications, List<DeviceData> deviceData) {
 		super();
 		this.id = id;
 		this.imei = imei;
@@ -38,7 +42,7 @@ public  class Device {
 		this.type = type;
 		this.lastUpdate = lastUpdate;
 		this.logitude = logitude;
-		this.altitude = altitude;
+		this.latitude = altitude;
 		this.isRegistered = isRegistered;
 		this.notifications = notifications;
 		this.deviceData = deviceData;
@@ -90,22 +94,15 @@ public  class Device {
 	}
 
 	@Column
-	public String getLogitude() {
+	public double getLogitude() {
 		return logitude;
 	}
 
-	public void setLogitude(String logitude) {
+	public void setLogitude(double logitude) {
 		this.logitude = logitude;
 	}
 
-	@Column
-	public String getAltitude() {
-		return altitude;
-	}
-
-	public void setAltitude(String altitude) {
-		this.altitude = altitude;
-	}
+	
 
 	@Column
 	public boolean isRegistered() {
@@ -144,32 +141,50 @@ public  class Device {
 		this.deviceData = deviceData;
 	}
 
+	
+	
+	@Column
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	@Column
+	public boolean isFaulty() {
+		return isFaulty;
+	}
+
+	public void setFaulty(boolean isFaulty) {
+		this.isFaulty = isFaulty;
+	}
+
 	@Override
 	public String toString() {
 		return "Device [id=" + id + ", imei=" + imei + ", name=" + name + ", accountId=" + accountId + ", type=" + type
-				+ ", lastUpdate=" + lastUpdate + ", logitude=" + logitude + ", altitude=" + altitude + ", isRegistered="
+				+ ", lastUpdate=" + lastUpdate + ", logitude=" + logitude + ", altitude=" + latitude + ", isRegistered="
 				+ isRegistered + ", notifications=" + notifications + ", deviceData=" + deviceData + "]";
 	}
 
 	
-
-	/*public boolean isFaulty()
-	{
-		return false;
-	}*/
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + accountId;
-		result = prime * result + ((altitude == null) ? 0 : altitude.hashCode());
 		result = prime * result + ((deviceData == null) ? 0 : deviceData.hashCode());
 		result = prime * result + id;
 		result = prime * result + (int) (imei ^ (imei >>> 32));
 		result = prime * result + (isRegistered ? 1231 : 1237);
 		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
-		result = prime * result + ((logitude == null) ? 0 : logitude.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(logitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((notifications == null) ? 0 : notifications.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
@@ -187,11 +202,6 @@ public  class Device {
 		Device other = (Device) obj;
 		if (accountId != other.accountId)
 			return false;
-		if (altitude == null) {
-			if (other.altitude != null)
-				return false;
-		} else if (!altitude.equals(other.altitude))
-			return false;
 		if (deviceData == null) {
 			if (other.deviceData != null)
 				return false;
@@ -208,10 +218,9 @@ public  class Device {
 				return false;
 		} else if (!lastUpdate.equals(other.lastUpdate))
 			return false;
-		if (logitude == null) {
-			if (other.logitude != null)
-				return false;
-		} else if (!logitude.equals(other.logitude))
+		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+			return false;
+		if (Double.doubleToLongBits(logitude) != Double.doubleToLongBits(other.logitude))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -227,9 +236,5 @@ public  class Device {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
 
 }

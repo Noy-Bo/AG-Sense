@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,10 +18,13 @@ import android.widget.Toast;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DeviceLastMessageAdapter;
 import com.tsofen.agsenceapp.entities.DeviceLastMessage;
+import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
 
 public class DeviceStatusList extends AppCompatActivity {
+    UserMap userMap = new UserMap("Map");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +93,13 @@ public class DeviceStatusList extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void map(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("user_map", userMap);
+        intent.putExtra("flag", true);
+        startActivity(intent);
     }
 
 

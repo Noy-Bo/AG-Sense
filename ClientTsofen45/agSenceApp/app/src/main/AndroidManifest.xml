@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tsofen.agsenceapp">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the "MyLocation" functionality.
-    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.AdminNotification"></activity>
+        <activity android:name=".activities.DeviceSetting" />
+        <activity android:name=".activities.AccountStatusFilter" />
 
+        <activity android:name=".activities.EditAccount" />
+        <activity android:name=".activities.EditDevice" />
+        <activity android:name=".activities.HealthCareDashboard" />
+        <activity android:name=".activities.NewAccount" />
+        <activity android:name=".activities.NewDevice" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -25,8 +30,7 @@
         -->
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-
+            android:label="@string/title_activity_maps" />
         <activity android:name=".activities.DeviceStatusList" />
         <activity android:name=".activities.DeviceView" />
         <activity android:name=".activities.DeviceFilter" />
@@ -35,7 +39,6 @@
             android:name=".activities.AccountDashboardActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.DeviceStatus" />
-        <activity android:name=".activities.DisplayMapActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,11 +46,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
