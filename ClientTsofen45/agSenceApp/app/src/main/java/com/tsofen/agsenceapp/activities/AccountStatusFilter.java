@@ -1,8 +1,10 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -19,7 +21,7 @@ import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
 
-public class AccountStatusFilter extends AppCompatActivity implements Serializable {
+public class AccountStatusFilter extends AppBaseActivity implements Serializable {
 
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
@@ -27,9 +29,13 @@ public class AccountStatusFilter extends AppCompatActivity implements Serializab
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accountstatusfilter);
 
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_accountstatusfilter, null, false);
+        drawer.addView(contentView, 0);
+        navigationView.setCheckedItem(R.id.nav_accounts_status);
         ListView NewsListView = findViewById(R.id.listofaccounts);
+
         User user = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
         User user1 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
         User user2 = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
@@ -49,9 +55,6 @@ public class AccountStatusFilter extends AppCompatActivity implements Serializab
         users[6] = user6;
         users[7] = user7;
         users[8] = user8;
-
-
-
 
         ListAdapter myAdapter = new AccountsAdapter(this,0, users) ;
         NewsListView.setAdapter(myAdapter);
