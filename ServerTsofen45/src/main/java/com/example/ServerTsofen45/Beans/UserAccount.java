@@ -26,6 +26,7 @@ public class UserAccount extends User{
     		this.account=ac;
     		//this.setHashPassword(string4);
     		this.hashPassword=hashPassword(string4);
+    		this.setAccount(ac);
     	}	
 
     

@@ -29,6 +29,7 @@ public class UserBL {
 	    User byUserName = userRepository.findByUserName(Username);
 	       if(byUserName.validate(password))
 	       {
+	    	   byUserName.setAccount(byUserName.getAccount());
 
 	    	   return byUserName;
 	       }

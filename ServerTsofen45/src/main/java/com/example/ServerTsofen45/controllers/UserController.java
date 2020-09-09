@@ -3,8 +3,7 @@ package com.example.ServerTsofen45.controllers;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ServerTsofen45.BL.UserBL;
-import com.example.ServerTsofen45.Beans.Account;
 import com.example.ServerTsofen45.Beans.Admin;
 import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Beans.UserAccount;
@@ -21,6 +19,7 @@ import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
 import com.example.ServerTsofen45.Repo.UserAccountRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("User")
@@ -37,17 +36,9 @@ public class UserController {
 	@GetMapping("Login")
 	public User Login(@RequestParam String username, @RequestParam String password) throws JsonProcessingException
 	{
-		User Resulte= userBL.LogIn(username, password);
-		return Resulte;
-		/*if (Result!=null)
-		{
-	        ObjectMapper Obj = new ObjectMapper(); 
-	       return Obj.writeValueAsString(Resulte.toString()); 
-		}
-		else 
-		{
-			return "the username or password is incorrect please input again";
-		}*/		
+
+		return userBL.LogIn(username, password);
+
 	}
 	
 	
