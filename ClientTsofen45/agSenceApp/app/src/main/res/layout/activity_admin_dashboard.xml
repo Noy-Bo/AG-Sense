@@ -1,72 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.AdminDashboardActivity">
+
+    <include
+        android:id="@+id/included"
+        layout="@layout/activity_search_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/dark_blue"
-            android:orientation="vertical"
-            android:paddingTop="5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:src="@drawable/menu_white_icon" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6" />
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:src="@drawable/user_white_icon" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/rounded_white_background_frame"
-                    android:gravity="center_vertical"
-                    android:hint="@string/accountSearchHint"
-                    android:paddingStart="10dp"
-                    android:textSize="@dimen/small_text_size" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/included">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,12 +39,12 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/rounded_white_background_frame"
                     android:clickable="true"
                     android:contextClickable="true"
+                    android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:longClickable="true"
                     android:onClick="GoToAccountStatus"
-                    android:background="@drawable/rounded_white_background_frame"
-                    android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical">
 
                     <TextView
@@ -131,10 +83,10 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_white_background_frame"
-                    android:drawableBottom="@drawable/faulty_accounts_icon"
-                    android:orientation="vertical"
                     android:clickable="true"
-                    android:onClick="GoToAccountStatus">
+                    android:drawableBottom="@drawable/faulty_accounts_icon"
+                    android:onClick="GoToAccountStatus"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -176,7 +128,6 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:onClick="goToFaultyDevices"
                     android:id="@+id/admin_dashboard_faulty_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -184,6 +135,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
+                    android:onClick="goToFaultyDevices"
                     android:orientation="vertical">
 
                     <TextView
@@ -217,7 +169,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:onClick="goToHealthyDevices"
                     android:id="@+id/admin_dashboard_healthy_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -225,6 +176,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
+                    android:onClick="goToHealthyDevices"
                     android:orientation="vertical">
 
                     <TextView
@@ -346,6 +298,11 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+
+                    android:clickable="true"
+                    android:contextClickable="true"
+                    android:longClickable="true"
+                    android:onClick="GoToAccountSettings"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -411,4 +368,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
