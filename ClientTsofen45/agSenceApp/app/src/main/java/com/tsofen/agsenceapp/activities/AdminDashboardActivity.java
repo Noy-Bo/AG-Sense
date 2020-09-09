@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import android.widget.Toast;
+
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -45,6 +47,12 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         startActivity(intent);
     }
 
+
+    public void GoToAccountSettings(View view) {
+        Intent intent = new Intent(this,DeviceSetting.class);
+        startActivity(intent);
+    }
+
     public void onBackPressed(){
         if(backPressedTime+2000>System.currentTimeMillis()){
             backtoast.cancel();
@@ -56,6 +64,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         }
         backPressedTime = System.currentTimeMillis();
     }
+
 
 
 }
