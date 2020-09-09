@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.R;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceSetting extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
