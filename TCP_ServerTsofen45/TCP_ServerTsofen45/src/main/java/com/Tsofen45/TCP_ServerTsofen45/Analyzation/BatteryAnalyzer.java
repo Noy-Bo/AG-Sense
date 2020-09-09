@@ -12,6 +12,7 @@ public class BatteryAnalyzer extends Analyzer {
 		// TODO Auto-generated method stub
 		if(Integer.parseInt(s) < minBattery) {
 			//Push Notification
+			System.out.println("Sending notifaction on battery low");
 		}
 	}
 	

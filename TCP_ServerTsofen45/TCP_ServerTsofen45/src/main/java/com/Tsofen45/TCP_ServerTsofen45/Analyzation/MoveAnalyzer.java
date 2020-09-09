@@ -10,6 +10,7 @@ public class MoveAnalyzer extends Analyzer{
 		// TODO Auto-generated method stub
 		if(Integer.parseInt(s) > 0) {
 			//Push Notification
+			System.out.println("Sending notificatin on device moved");
 		}
 	}
 	

@@ -31,7 +31,7 @@ public class DeviceMessageHandler implements Runnable {
 	@Autowired
 	CommandsFactory cmdfac;
 	
-	@Autowired
+	
 	DeviceData deviceData;
 	
 	@Autowired
@@ -40,12 +40,11 @@ public class DeviceMessageHandler implements Runnable {
 	@Autowired
 	DeviceDataRouter deviceDatarouter;
 
-
-	public DeviceMessageHandler(DataInputStream dis, DataOutputStream dos) {
-		super();
-		this.dis = dis;
-		this.dos = dos;
-
+	public void setDis(DataInputStream dis) {
+		this.dis =dis;
+	}
+	public void setDos(DataOutputStream dos) {
+		this.dos =dos;
 	}
 
 	@Override

@@ -42,8 +42,8 @@ public class U111 extends UpCommand{
 	        //this.device.setDateAndTime(get_date_time(data.substring(2,14)));
 	        String indicator  =  data.substring(23,24);
 	        this.device.setLonIndicator(data.substring(23,24));
-	        this.device.setLon(Double.parseDouble(data.substring(14,23)));
-	        this.device.setLat(Double.parseDouble(data.substring(24,34)));
+	        this.device.setLon((data.substring(14,16)) + " " + (data.substring(16,24)));
+	        this.device.setLat((data.substring(24,27)) + " " + (data.substring(27,34)));
 	        indicator = data.substring(34, 35);
 	        this.device.setLatIndicator(data.substring(34,35));
 	        this.device.setSpeed(Integer.parseInt(data.substring(35,38)));

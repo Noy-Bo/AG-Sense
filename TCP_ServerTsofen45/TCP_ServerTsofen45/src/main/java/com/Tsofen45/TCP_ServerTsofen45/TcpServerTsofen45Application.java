@@ -41,7 +41,12 @@ public class TcpServerTsofen45Application {
 				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 				
 				//making the thread
-				Thread t = new Thread(new DeviceMessageHandler(dis,dos));
+				DeviceMessageHandler dvcHandler = new DeviceMessageHandler();
+				dvcHandler.setDis(dis);
+				dvcHandler.setDos(dos);
+				
+				Thread t = new Thread(dvcHandler);
+				
 				t.start();
 			}
 

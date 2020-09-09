@@ -12,7 +12,7 @@ public class DeviceDataRouter {
 	@Autowired
 	DeviceDataRepo deviceDataRepo;
 	
-	
+	//TODO make data structure to save device data and save them on data base after one minute
 	public void saveDeviceData(DeviceData d) {
 		deviceDataRepo.save(d);	
 	}
