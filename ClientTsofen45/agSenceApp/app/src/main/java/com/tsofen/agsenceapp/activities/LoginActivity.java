@@ -25,14 +25,14 @@ public class LoginActivity extends AppCompatActivity {
 
         if (username != null && username.equals("Admin")) {
             Intent intent = new Intent(this, AdminDashboardActivity.class);
-//            AppBaseActivity.hideAccountOptions();
+            AppBaseActivity.setUserType(username);
             startActivity(intent);
         }
 
         else if(username != null && username.equals("Account")) // Noy - added 'else' here so it will not load 2 screens when logging in as admin.
         {
             Intent intent = new Intent(this, AccountDashboardActivity.class);
-//            AppBaseActivity.hideAdminOptions();
+            AppBaseActivity.setUserType(username);
             startActivity(intent);
         }else{
             Toast.makeText(this,"Please enter a valid username",Toast.LENGTH_LONG).show();

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.BackBaseActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/filtired_devices_toolbar"
+        android:id="@+id/back_toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/dark_blue"
