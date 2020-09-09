@@ -3,8 +3,6 @@ package com.tsofen.agsenceapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +29,11 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     public void goToFaultyDevices(View view) { //TODO: CHANGE ACTIVITY TO TRANSFER TO
         Intent intent = new Intent(this, DeviceStatus.class);
+        startActivity(intent);
+    }
+
+    public void GoToAccountSettings(View view) {
+        Intent intent = new Intent(this,DeviceSetting.class);
         startActivity(intent);
     }
 }
