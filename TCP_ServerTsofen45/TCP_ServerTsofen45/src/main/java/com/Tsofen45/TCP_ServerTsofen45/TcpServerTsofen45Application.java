@@ -12,6 +12,9 @@ import org.springframework.context.ApplicationContext;
 
 import com.Tsofen45.TCP_ServerTsofen45.MessageHandler.DeviceMessageHandler;
 
+
+
+
 @SpringBootApplication
 public class TcpServerTsofen45Application {
 
@@ -19,22 +22,31 @@ public class TcpServerTsofen45Application {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(TcpServerTsofen45Application.class, args);
 
-//		String message= "(864403044134030U1110A2007261356023245.5325N03501.3722E0001800000000001F6012740000000,&P1160,A10203,A2014A^44)";
-//		CommandsFactory commandsFactory = context.getBean(CommandsFactory.class);
-//		commandsFactory.setMessage(message);
-//		Thread t1 =  new Thread(commandsFactory);
-//		t1.start();
+
+		//The purpose of this class is to make thread for each message that is recieved from the device 
 		try {
 
 			ServerSocket serverSocket = new ServerSocket(port);
 			System.out.println("Server is up");
 			while(true)
 			{
+				//Open a socket for new device
 				Socket socket = serverSocket.accept();
+				
+				//Getting the input stream from that socket
 				InputStream is = socket.getInputStream();
+				
+				//getting the data from input stream
 				DataInputStream dis = new DataInputStream(is);
 				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-				Thread t = new Thread(new DeviceMessageHandler(dis,dos));
+				
+				//making the thread
+				DeviceMessageHandler dvcHandler = context.getBean(DeviceMessageHandler.class);
+				dvcHandler.setDis(dis);
+				dvcHandler.setDos(dos);
+				
+				Thread t = new Thread(dvcHandler);
+				
 				t.start();
 			}
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 
 
-@Entity(name = "DevicesData")
+@Entity(name = "Messages")
 public class DeviceData {
     long ID;
     long imei;
@@ -15,9 +15,9 @@ public class DeviceData {
     String gpsValid;
     LocalDateTime dateAndTime;
     Time updateTime;
-    double lat;
+    String lat;
     String latIndicator;
-    double lon;
+    String lon;
     String lonIndicator;
     float speed;
     int orientation;
@@ -97,10 +97,10 @@ public class DeviceData {
     public void setUpdateTime(Time updateTime) {
         this.updateTime = updateTime;
     }
-    public void setLat(double lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
-    public void setLon(double lon) {
+    public void setLon(String lon) {
         this.lon = lon;
     }
     public void setSpeed(float speed) {
@@ -279,7 +279,7 @@ public class DeviceData {
         return dateAndTime;
     }
     @Column
-    public double getLat() {
+    public String getLat() {
         return lat;
     }
     @Column
@@ -287,7 +287,7 @@ public class DeviceData {
         return latIndicator;
     }
     @Column
-    public double getLon() {
+    public String getLon() {
         return lon;
     }
     @Column

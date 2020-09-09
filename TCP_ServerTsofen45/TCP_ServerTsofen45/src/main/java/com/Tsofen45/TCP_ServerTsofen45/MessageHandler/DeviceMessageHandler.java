@@ -5,10 +5,16 @@ import java.io.DataOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
+import com.Tsofen45.TCP_ServerTsofen45.Analyzation.AnalyzerManager;
+import com.Tsofen45.TCP_ServerTsofen45.Authentication.Authenticate;
+import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 import com.Tsofen45.TCP_ServerTsofen45.Factories.CommandsFactory;
+import com.Tsofen45.TCP_ServerTsofen45.Routers.DeviceDataRouter;
+import com.Tsofen45.TCP_ServerTsofen45.Validation.Validate;
 
-
+@Component
 public class DeviceMessageHandler implements Runnable {
 
 
@@ -17,14 +23,28 @@ public class DeviceMessageHandler implements Runnable {
 	private DataOutputStream dos;
 	
 	@Autowired
-	CommandsFactory cmdfac =new CommandsFactory();
+	Validate validate;
+	
+	@Autowired
+	Authenticate authenticate;
+	
+	@Autowired
+	CommandsFactory cmdfac;
+	
+	
+	DeviceData deviceData;
+	
+	@Autowired
+	AnalyzerManager analyzerManager;
+	
+	@Autowired
+	DeviceDataRouter deviceDatarouter;
 
-
-	public DeviceMessageHandler(DataInputStream dis, DataOutputStream dos) {
-		super();
-		this.dis = dis;
-		this.dos = dos;
-
+	public void setDis(DataInputStream dis) {
+		this.dis =dis;
+	}
+	public void setDos(DataOutputStream dos) {
+		this.dos =dos;
 	}
 
 	@Override
@@ -33,10 +53,25 @@ public class DeviceMessageHandler implements Runnable {
 		String message = GetMessage();
 		System.out.println(message);
 		
+		//Validation
+		if(!validate.getCheckSum(message)) {
+			System.out.println("Check some not valid!");
+			return;
+		}
+		//Authentication
+		if(!authenticate.check_imei(message)) {
+			System.out.println("Imei not found!");
+			return;
+		}	
+		//Making Device Data
+		deviceData = cmdfac.makeDeviceData(message);
 		
+		//Making Analyzes if we need to notify the user .. like: Battery low, Device Moved
+		analyzerManager.analyze(deviceData);
 		
-		cmdfac.makecommand(message);
-
+		//Saving the Device Data in the data base
+		deviceDatarouter.saveDeviceData(deviceData);
+		
 	}
 	private String GetMessage() {
 		int c;
