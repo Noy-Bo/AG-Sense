@@ -78,8 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-
-                    android:hint="@string/devicesettingsspeed"
+                    android:hint="@string/devicesettingslimit"
                     android:inputType="numberDecimal"
                     android:ems="16"
                     android:textSize="10sp"
@@ -117,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
 
-                    android:hint="@string/devicesettingsspeed"
+android:hint="@string/latitudelimit"
                     android:inputType="number"
                     android:ems="16"
                     android:textSize="10sp"
@@ -188,7 +187,7 @@
                     android:layout_weight="4.4" />
 
                 <EditText
-                    android:id="@+id/editTextNumber"
+                    android:id="@+id/fenceradiustextnumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
@@ -237,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
-
+android:onClick="SpeedingAlertUpdate"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -285,8 +284,8 @@
                     android:layout_weight="0.01"
                     android:ems="16"
                     android:textSize="10sp"
-                    android:inputType="textPersonName"
-                    android:text="@string/authorized_num_2"
+                    android:inputType="phone"
+
 
                     tools:ignore="SmallSp,TextFields" />
             </LinearLayout>
@@ -310,8 +309,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
                     android:ems="16"
-                    android:inputType="textPersonName"
-                    android:text="@string/authorized_num_2"
+
+                   android:hint=""
+                    android:inputType="phone"
+
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -328,15 +329,15 @@
                     android:text="@string/authorized_num_2" />
 
                 <EditText
-
                     android:id="@+id/editauthorizednum2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
                     android:ems="16"
-                    android:textSize="10sp"
-                    android:inputType="textPersonName"
-                    />
+
+                    android:inputType="phone"
+
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -356,10 +357,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-
-                    android:inputType="textPersonName"
                     android:ems="16"
-                    android:textSize="10sp"/>
+                    android:inputType="phone"
+
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <Button
@@ -389,7 +390,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/speedAlertGeoSetting"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -529,6 +530,7 @@
             <Button
                 android:id="@+id/SpeedingAlertUpdateBtn"
                 android:layout_width="wrap_content"
+                android:onClick="SpeedingAlertUSecondpdate"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
                 android:layout_marginEnd="10dp"
