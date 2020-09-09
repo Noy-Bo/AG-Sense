@@ -28,21 +28,6 @@ public class SearchBaseActivity extends AppBaseActivity {
 
     }
 
-    public void GoToAccountStatus(View view) {
-        Intent intent = new Intent(this, AccountStatusFilter.class);
-        startActivity(intent);
-    }
-
-    public void goToHealthyDevices(View view) {
-        Intent intent = new Intent(this, DeviceStatus.class);
-        startActivity(intent);
-    }
-
-    public void goToFaultyDevices(View view) { //TODO: CHANGE ACTIVITY TO TRANSFER TO
-        Intent intent = new Intent(this, DeviceStatus.class);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -66,11 +51,7 @@ public class SearchBaseActivity extends AppBaseActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                finishAffinity();
-            } else {
-                super.onBackPressed();
-            }
+            super.onBackPressed();
         }
     }
 }

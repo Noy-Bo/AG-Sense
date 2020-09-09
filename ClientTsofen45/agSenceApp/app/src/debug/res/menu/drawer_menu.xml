@@ -18,11 +18,6 @@
             android:title="Admin Notifications" />
 
         <item
-        android:id="@+id/nav_account_notifications"
-        android:icon="@drawable/notification_icon"
-        android:title="Account Notifications" />
-
-        <item
             android:id="@+id/nav_device_status"
             android:icon="@drawable/device_icon"
             android:title="Device Status" />

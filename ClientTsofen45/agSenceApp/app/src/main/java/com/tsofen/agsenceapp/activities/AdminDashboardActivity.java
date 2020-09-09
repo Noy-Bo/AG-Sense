@@ -29,16 +29,32 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         Intent intent = new Intent(this, AdminNotification.class);
         startActivity(intent);
     }
+
+    public void GoToAccountStatus(View view) {
+        Intent intent = new Intent(this, AccountStatusFilter.class);
+        startActivity(intent);
+    }
+
+    public void goToHealthyDevices(View view) {
+        Intent intent = new Intent(this, DeviceStatus.class);
+        startActivity(intent);
+    }
+
+    public void goToFaultyDevices(View view) {
+        Intent intent = new Intent(this, DeviceStatus.class);
+        startActivity(intent);
+    }
+
     public void onBackPressed(){
         if(backPressedTime+2000>System.currentTimeMillis()){
             backtoast.cancel();
-            super.onBackPressed();
+            super.finishAffinity();
             return;
         }else{
             backtoast = Toast.makeText(getBaseContext(), "press back again to exit", Toast.LENGTH_SHORT);
             backtoast.show();
         }
-        backPressedTime=System.currentTimeMillis();
+        backPressedTime = System.currentTimeMillis();
     }
 
 
