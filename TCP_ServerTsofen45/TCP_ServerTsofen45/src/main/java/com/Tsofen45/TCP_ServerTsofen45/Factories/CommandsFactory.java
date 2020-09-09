@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Service;
 
+import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 import com.Tsofen45.TCP_ServerTsofen45.Repos.DeviceDataRepo;
 import com.Tsofen45.TCP_ServerTsofen45.UPCommands.U111;
 import com.Tsofen45.TCP_ServerTsofen45.UPCommands.UpCommand;
@@ -21,7 +22,7 @@ public class CommandsFactory {
     UpCommand commands;
 
     
-    public void  makecommand(String message){
+    public DeviceData  makeDeviceData(String message){
         String command = message.substring(16,20);
         try {
             Class UPCommand = Class.forName("com.Tsofen45.TCP_ServerTsofen45.UPCommands."+command);
@@ -35,8 +36,6 @@ public class CommandsFactory {
                 if (commands instanceof U111){
                     ((U111)commands).parse_optional(message.substring(message.indexOf("&")+1,message.indexOf("^")));
                 }
-                deviceDataRepo.save(commands.getDevice());
-                //System.out.println(commands.getDevice());
             }
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             e.printStackTrace();
@@ -47,6 +46,7 @@ public class CommandsFactory {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        return commands.getDevice();
     }
 
 }

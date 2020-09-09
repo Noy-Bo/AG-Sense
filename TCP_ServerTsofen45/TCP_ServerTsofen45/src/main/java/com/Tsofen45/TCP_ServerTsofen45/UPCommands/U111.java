@@ -40,9 +40,9 @@ public class U111 extends UpCommand{
 	        this.device.setGpsType(Integer.parseInt(data.substring(0,1)));
 	        this.device.setGpsValid(data.substring(1,2));
 	        //this.device.setDateAndTime(get_date_time(data.substring(2,14)));
-	        this.device.setLon(Double.parseDouble(data.substring(14,23)));
 	        String indicator  =  data.substring(23,24);
 	        this.device.setLonIndicator(data.substring(23,24));
+	        this.device.setLon(Double.parseDouble(data.substring(14,23)));
 	        this.device.setLat(Double.parseDouble(data.substring(24,34)));
 	        indicator = data.substring(34, 35);
 	        this.device.setLatIndicator(data.substring(34,35));
