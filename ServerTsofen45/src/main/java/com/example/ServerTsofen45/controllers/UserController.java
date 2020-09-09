@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.Account;
+import com.example.ServerTsofen45.Beans.Admin;
 import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
+import com.example.ServerTsofen45.Repo.AdminRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RestController
@@ -21,7 +23,7 @@ public class UserController {
 	@Autowired
 	UserBL userBL;
 	@Autowired
-	AccountRepository accountRepository;
+	AdminRepository adminRepository;
 	
 	@GetMapping("Login")
 	User Login(@RequestParam String username, @RequestParam String password) throws JsonProcessingException
@@ -71,8 +73,8 @@ public class UserController {
 	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
-		Account ibra=new Account(email ,name, Username, pass);
-		accountRepository.save(ibra);
+		Admin ibra=new Admin(email ,name, Username, pass);
+		adminRepository.save(ibra);
 		
 	}
 	
