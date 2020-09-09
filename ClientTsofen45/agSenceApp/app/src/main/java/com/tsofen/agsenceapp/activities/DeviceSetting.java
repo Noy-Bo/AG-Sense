@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.tsofen.agsenceapp.R;
 
-public class DeviceSetting extends AppCompatActivity {
+public class DeviceSetting extends BackBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

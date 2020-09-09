@@ -53,6 +53,10 @@
     <string name="EditDevice">Edit Device</string>
     <string name="alertString">Speeding Alert and Geo-Fence</string>
     <string name="title_activity_maps">Map</string>
+
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <string name="fence_type">Fence Type</string>
     <string name="fence_radius_m">Fence Radius(m)</string>
     <string name="speed">Speed</string>
