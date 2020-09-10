@@ -1,11 +1,9 @@
 package com.example.ServerTsofen45.Beans;
 
 
-import java.beans.Transient;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,6 +16,7 @@ public class Error {
 	
 	int Code;
 	String message;
+    private List<Notification> notifications;
 	
 	
 	
@@ -26,6 +25,9 @@ public class Error {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 	
 	@Column
@@ -37,7 +39,11 @@ public class Error {
 	public String getMessage() {
 		return message;
 	}
-	
+
+	@OneToMany
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
 	@Override
 	public String toString() {
 		return "Error [Code=" + Code + ", message=" + message + "]";
