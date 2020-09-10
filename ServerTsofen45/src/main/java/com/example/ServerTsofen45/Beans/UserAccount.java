@@ -12,7 +12,6 @@ import org.json.simple.JSONObject;
 @Entity
 public class UserAccount extends User{
 	
-	List<Account> accounts;
    
 	
 	
@@ -21,7 +20,7 @@ public class UserAccount extends User{
 	}
 
 
-	public UserAccount(String string, String string2, String string3, String string4) throws NoSuchAlgorithmException {
+	public UserAccount(String string, String string2, String string3, String string4,Account ac) throws NoSuchAlgorithmException {
     	super();
     		this.setEmail(string);
     		this.setname(string2);
@@ -47,18 +46,7 @@ public class UserAccount extends User{
 
 
     
-	@OneToMany
-    public List<Account> getAccounts() {
-    	
-		return accounts;
-	}
 
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
-	public void addNewAccount(Account account) {
-		this.accounts.add(account);
-	}
 
 
 

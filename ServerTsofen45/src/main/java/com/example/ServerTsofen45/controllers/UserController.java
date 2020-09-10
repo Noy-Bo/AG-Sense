@@ -26,7 +26,6 @@ public class UserController {
 	@Autowired
 	UserBL userBL;
 	@Autowired
-
 	UserAccountRepository useraccountRepository;
 	@Autowired
 	AccountRepository accountRepository;

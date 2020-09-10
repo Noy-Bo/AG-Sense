@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.json.simple.JSONObject;
 
@@ -21,6 +23,7 @@ public abstract class User {
 	String userName;
 	int sysId;
 	String hashPassword;
+	Account account;
 
 	String type;
 	public String getType() {
