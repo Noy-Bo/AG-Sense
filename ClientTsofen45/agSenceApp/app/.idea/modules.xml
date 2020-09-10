@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2047826287/ClientTsofen45-agSenceApp.iml" filepath="$PROJECT_DIR$/.idea/modules/2047826287/ClientTsofen45-agSenceApp.iml" group="agSenceApp" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2047826287/agSenceApp.iml" filepath="$PROJECT_DIR$/.idea/modules/2047826287/agSenceApp.iml" group="agSenceApp" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/agSenceApp-app.iml" filepath="$PROJECT_DIR$/.idea/modules/agSenceApp-app.iml" group="agSenceApp/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app.iml" group="agSenceApp/app" />
     </modules>
   </component>
