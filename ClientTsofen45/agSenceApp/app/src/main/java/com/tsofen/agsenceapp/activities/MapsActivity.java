@@ -1,10 +1,10 @@
 package com.tsofen.agsenceapp.activities;
 
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,6 +24,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private UserMap userMap;
     ArrayList<LatLng> latLngList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

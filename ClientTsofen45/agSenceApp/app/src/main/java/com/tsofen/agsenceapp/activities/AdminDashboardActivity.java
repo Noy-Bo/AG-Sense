@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.Toast;
-
-
-import androidx.appcompat.widget.Toolbar;
 
 import com.tsofen.agsenceapp.R;
 
@@ -17,6 +13,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     private  long backPressedTime;
     private Toast backtoast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

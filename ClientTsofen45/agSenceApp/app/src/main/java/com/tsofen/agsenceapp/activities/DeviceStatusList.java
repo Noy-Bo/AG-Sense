@@ -1,19 +1,15 @@
 package com.tsofen.agsenceapp.activities;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DeviceLastMessageAdapter;
@@ -24,6 +20,7 @@ import java.util.ArrayList;
 
 public class DeviceStatusList extends BackBaseActivity {
     UserMap userMap = new UserMap("Map");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

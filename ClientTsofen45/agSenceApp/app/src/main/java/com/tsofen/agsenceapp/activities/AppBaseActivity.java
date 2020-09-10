@@ -17,6 +17,7 @@ import com.tsofen.agsenceapp.R;
 
 public class AppBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
     protected DrawerLayout drawer;
     protected NavigationView navigationView;
     protected Toolbar toolbar;

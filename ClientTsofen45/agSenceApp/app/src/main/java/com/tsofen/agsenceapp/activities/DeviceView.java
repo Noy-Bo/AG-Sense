@@ -1,31 +1,21 @@
 package com.tsofen.agsenceapp.activities;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.SliderAdapter;
 
-import java.util.ArrayList;
-
 public class DeviceView extends AppBaseActivity {
+
 
 
     private ViewPager sliderViewPager;

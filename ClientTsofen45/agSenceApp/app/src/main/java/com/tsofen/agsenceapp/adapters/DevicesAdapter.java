@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.activities.LoginActivity;
-import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.entities.Devices;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
@@ -22,6 +21,7 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         super(context, resource, devices);
         inflater = LayoutInflater.from(context);
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

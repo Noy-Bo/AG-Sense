@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:gravity="center">
 
+
         <include
             android:id="@+id/included"
             layout="@layout/activity_back_base"

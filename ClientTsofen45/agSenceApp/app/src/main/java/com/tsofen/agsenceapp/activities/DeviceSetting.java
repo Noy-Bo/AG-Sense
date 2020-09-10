@@ -158,6 +158,7 @@ public class DeviceSetting extends AppCompatActivity {
                 Toast toast = Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT);
                 toast.show();
             }
+
                 else
                 {
                     Toast.makeText(this, "One or more Argument is invalid", Toast.LENGTH_SHORT).show();

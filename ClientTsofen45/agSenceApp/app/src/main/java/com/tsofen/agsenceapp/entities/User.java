@@ -13,6 +13,7 @@ public class User implements Serializable {
         this.userName = userName;
         this.email = email;
         this.userType = userType;
+
     }
 
     public int getId() {

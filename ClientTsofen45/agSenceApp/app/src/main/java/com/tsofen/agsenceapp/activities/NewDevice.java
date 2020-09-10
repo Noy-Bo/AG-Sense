@@ -1,13 +1,10 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.os.Bundle;
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.R;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class NewDevice extends AppCompatActivity {
 
