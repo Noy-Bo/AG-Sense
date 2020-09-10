@@ -20,6 +20,6 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	ArrayList<Device> findByType(String type);
 	
-	
+	ArrayList<Device> findByaccountId(int id);
 
 }
