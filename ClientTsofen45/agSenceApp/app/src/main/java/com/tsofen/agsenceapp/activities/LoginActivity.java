@@ -12,8 +12,9 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.User;
 
 public class LoginActivity extends AppCompatActivity {
-    public static User user = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+    public static User user = new User(10, "Tsofen", "Tsofen@Tsofen.Tsofen", "Admin");
     Bundle dataContainer = new Bundle();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +22,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        EditText editText = (EditText) findViewById(R.id.usernameTxt);
-        String username = editText.getText().toString();
-dataContainer.putString(userName, username);
-dataContainer.putString(password,)
+        EditText editTextUserName = (EditText) findViewById(R.id.usernameTxt);
+        String username = editTextUserName.getText().toString();
+        dataContainer.putString(userName, username);
+        EditText editTextPassword = (EditText) findViewById(R.id.passTxt);
+        String password = editTextPassword.getText().toString();
+        dataContainer.putString(password,password );
+
         /*if (username != null && username.equals("Admin")) {
             Intent intent = new Intent(this, AdminDashboardActivity.class);
             AppBaseActivity.setUserType(username);
