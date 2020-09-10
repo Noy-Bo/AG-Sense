@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tsofen.agsenceapp">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the "MyLocation" functionality.
-    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,14 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.DeviceSetting"></activity>
-        <activity android:name=".activities.AccountStatusFilter" />
-        <activity android:name=".activities.DeviceSettings" />
-        <activity android:name=".activities.EditAccount" />
-        <activity android:name=".activities.EditDevice" />
-        <activity android:name=".activities.HealthCareDashboard" />
-        <activity android:name=".activities.NewAccount" />
-        <activity android:name=".activities.NewDevice" />
+        <activity android:name=".activities.BackBaseActivity"/>
+        <activity android:name=".activities.SearchBaseActivity" />
+        <activity android:name=".activities.AdminNotification" android:label="@string/AdminNotification"/>
+        <activity android:name=".activities.DeviceSetting" android:label="Device Settings"/>
+        <activity android:name=".activities.AccountStatusFilter" android:label="Accounts Status"/>
+
+        <activity android:name=".activities.EditAccount" android:label="@string/EditAccount"/>
+        <activity android:name=".activities.EditDevice" android:label="@string/EditDevice"/>
+        <activity android:name=".activities.HealthCareDashboard" android:label="@string/healthCareReportsString"/>
+        <activity android:name=".activities.NewAccount" android:label="@string/NewAccount"/>
+        <activity android:name=".activities.NewDevice" android:label="@string/NewDevice"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -33,14 +33,14 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activities.DeviceStatusList" />
-        <activity android:name=".activities.DeviceView" />
-        <activity android:name=".activities.DeviceFilter" />
-        <activity android:name=".activities.AdminDashboardActivity" />
+        <activity android:name=".activities.DeviceStatusList" android:label="Device Status List"/>
+        <activity android:name=".activities.DeviceView" android:label="Device View"/>
+        <activity android:name=".activities.DeviceFilter" android:label="@string/Filter"/>
+        <activity android:name=".activities.AdminDashboardActivity" android:label="Admin Dashboard"/>
         <activity
-            android:name=".activities.AccountDashboardActivity"
+            android:name=".activities.AccountDashboardActivity" android:label="Account Dashboard"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activities.DeviceStatus" />
+        <activity android:name=".activities.DeviceStatus" android:label="Device Status"/>
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,11 +48,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

@@ -35,7 +35,7 @@ public class AccountsAdapter extends ArrayAdapter<User> implements Serializable 
 
 
         name.setText( LoginActivity.user.getUserName());
-        amountofdevices.setText((users.getId()));
+//        amountofdevices.setText((users.getId()));
         accountlastupdate.setText(String.valueOf(users.getUserType()));
 
 

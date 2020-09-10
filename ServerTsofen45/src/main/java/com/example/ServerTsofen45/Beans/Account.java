@@ -1,14 +1,12 @@
 package com.example.ServerTsofen45.Beans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,16 +14,15 @@ public class Account {
 	String Text;
 	int Id;
 	List<Device> devices;
-
-    private UserAccount account;
 	
-    @ManyToOne
-    @JoinColumn(name = "sys_id", nullable = false)
-	public UserAccount getAccount() {
-		return account;
+		
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public void setAccount(UserAccount account) {
-		this.account = account;
+	public Account(String text,int i) {
+		Text = text;
+		this.Id=i;
 	}
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
@@ -34,9 +31,7 @@ public class Account {
 	public List<Device> getDevices() {
 		return devices;
 	}
-	public void setDevices(ArrayList<Device> devices) {
-		this.devices = devices;
-	}
+
 	@Column
 	public String getText() {
 		return Text;
