@@ -20,6 +20,10 @@ public class Account {
 
 	
   
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Account(String text, int id) {
 		super();
 		Text = text;

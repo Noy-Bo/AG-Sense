@@ -26,6 +26,7 @@ public abstract class User {
 	Account account;
 
 	String type;
+	
 	public String getType() {
 		return type;
 	}
