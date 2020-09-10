@@ -83,6 +83,7 @@
     <string name="longitudelimit">000-0000-000 - 999-9999-999</string>
     <string name="latitudelimit">00.000000 - 99.999999</string>
     <string name="devicesettingslimit">000.0000000 - 999.999999</string>
+    <string name="settings">Settings</string>
 
 
 </resources>
