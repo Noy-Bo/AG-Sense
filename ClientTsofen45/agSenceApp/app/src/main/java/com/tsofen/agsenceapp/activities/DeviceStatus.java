@@ -21,6 +21,7 @@ public class DeviceStatus extends SearchBaseActivity{
     UserMap userMap = new UserMap("Map");
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

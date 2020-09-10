@@ -6,3 +6,4 @@ public enum Opcodes {
     getSpicificDeviceByname, getRecentLocationRelatedToDevice, getSpicificDeviceByFilter, markNotificationAsRead,
     GetDeviceSetting, setDeviceSettingAlertGeoForce, setDeviceSettingAuthorizedNumber, setDeviceSettingInterval
 }
+

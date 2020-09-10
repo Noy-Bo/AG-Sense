@@ -26,6 +26,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<LatLng> latLngList = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

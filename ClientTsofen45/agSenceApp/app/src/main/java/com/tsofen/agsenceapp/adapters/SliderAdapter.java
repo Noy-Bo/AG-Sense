@@ -18,6 +18,7 @@ public class SliderAdapter extends PagerAdapter {
     public static final String TAG = "SliderAdapter:";
     //Arrays for slider-layouts..
 
+
     public SliderAdapter(Context context){
         this.context=context;
     }

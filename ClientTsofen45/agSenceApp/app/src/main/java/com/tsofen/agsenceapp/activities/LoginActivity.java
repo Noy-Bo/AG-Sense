@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+
     public void login(View view) {
         EditText editText = (EditText) findViewById(R.id.usernameTxt);
         String username = editText.getText().toString();

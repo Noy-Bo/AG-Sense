@@ -17,6 +17,7 @@ public class DeviceFilter extends BackBaseActivity {
     private int help;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

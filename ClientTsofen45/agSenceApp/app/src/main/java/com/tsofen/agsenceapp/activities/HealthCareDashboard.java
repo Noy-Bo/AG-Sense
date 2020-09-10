@@ -14,3 +14,4 @@ public class HealthCareDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_health_care_dashboard);
     }
 }
+

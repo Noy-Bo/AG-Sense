@@ -28,3 +28,4 @@ public class UserMap implements Serializable {
         this.places.add(place);
     }
 }
+

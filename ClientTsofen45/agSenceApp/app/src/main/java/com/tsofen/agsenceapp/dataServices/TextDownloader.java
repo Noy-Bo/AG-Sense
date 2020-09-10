@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
 public class TextDownloader {
     public String getText(String urlAddress) {
         try {

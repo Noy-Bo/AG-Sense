@@ -5,6 +5,7 @@ import java.util.Comparator;
 public class DeviceLastMessage {
     private String lastUpdateTime;
 
+
     private String timeElapsed;
     private String otherInfo;
 
