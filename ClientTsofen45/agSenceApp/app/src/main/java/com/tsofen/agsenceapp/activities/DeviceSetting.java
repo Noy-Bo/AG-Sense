@@ -9,8 +9,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.tsofen.agsenceapp.R;
 
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ import java.util.List;
 
 import static java.lang.Float.parseFloat;
 
-public class DeviceSetting extends AppCompatActivity {
+public class DeviceSetting extends BackBaseActivity {
 
 
     EditText longitude, latitude, speed, fence_radius_m;
