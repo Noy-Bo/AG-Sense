@@ -1,23 +1,43 @@
 package com.tsofen.agsenceapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ProcessLifecycleOwner;
+import androidx.work.WorkManager;
+
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.User;
 
 public class LoginActivity extends AppCompatActivity {
+
+
     public static User user = new User (10,"Tsofen","Tsofen@Tsofen.Tsofen","Admin");
+    private WorkManager workManager = WorkManager.getInstance(this);
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    }
+
+        //testing cacheMgr function
+        //CacheMgr cacheMgr = CacheMgr.getInstance();
+        //cacheMgr.initializeAllServices();
+
+        // registering activity to observer.
+        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
+
+  }
 
     public void login(View view) {
         EditText editText = (EditText) findViewById(R.id.usernameTxt);

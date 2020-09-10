@@ -13,18 +13,18 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
 import com.tsofen.agsenceapp.entities.Notification;
-import com.tsofen.agsenceapp.utils.ColorStatus;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +42,8 @@ public class AccountDashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_dashboard);
+
+
         myDialog = new Dialog(this);
 
 
