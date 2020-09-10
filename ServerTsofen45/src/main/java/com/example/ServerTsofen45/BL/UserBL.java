@@ -27,9 +27,9 @@ public class UserBL {
 	
 	   public User LogIn(String Username,String password){
 	    User byUserName = userRepository.findByUserName(Username);
-	       if(byUserName.validate(password))
+	       if(byUserName!=null &&byUserName.validate(password))
 	       {
-	    	   byUserName.setAccount(byUserName.getAccount());
+	    	   byUserName.updateType();
 
 	    	   return byUserName;
 	       }
@@ -39,13 +39,8 @@ public class UserBL {
 	    
 	    public ArrayList<UserAccount> findall() 
 	    {
-	    	return (ArrayList<UserAccount>) accountRepository.findAll();
-	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
-	    	String jsonstr="";
-	    	for(Account a:allaccounts)
-	    		jsonstr+= (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(a)+" ");
-	    	
-	    	return jsonstr;*/
+	    	return accountRepository.findAllByOrderBySysIdDesc();
+
 	    }
 
 
