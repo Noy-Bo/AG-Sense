@@ -28,6 +28,7 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
         Log.d("IN ADAPTER","IN CONSTRUCTOR");
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {

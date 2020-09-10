@@ -23,6 +23,7 @@ public class UserMap implements Serializable {
         return places;
     }
 
+
     public void addPlace(Place place) {
         this.places.add(place);
     }

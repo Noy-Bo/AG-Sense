@@ -13,5 +13,6 @@ public class NewAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_account);
 
+
     }
 }

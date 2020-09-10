@@ -28,6 +28,7 @@ public class SliderAdapter extends PagerAdapter {
         return 3;
     }
 
+
     //Determines whether a page View is associated with a specific key object as returned by instantiateItem(ViewGroup, int).
     // This method is required for a PagerAdapter to function properly.
     @Override

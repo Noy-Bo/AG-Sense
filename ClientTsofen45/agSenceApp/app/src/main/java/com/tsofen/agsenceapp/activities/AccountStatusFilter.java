@@ -26,6 +26,7 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

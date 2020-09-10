@@ -1,5 +1,8 @@
 package com.tsofen.agsenceapp.activities;
 
+<<<<<<< HEAD
+import android.content.Context;
+=======
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -7,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+>>>>>>> master
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+<<<<<<< HEAD
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+=======
+>>>>>>> master
 import com.tsofen.agsenceapp.R;
 
 public class SearchBaseActivity extends AppBaseActivity {
@@ -26,6 +36,10 @@ public class SearchBaseActivity extends AppBaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_search_base, null, false);
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
     }
 
     @Override

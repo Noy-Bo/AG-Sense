@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Devices implements Serializable {
 
+
     protected long imei;
     protected int id;
     protected int Userid;

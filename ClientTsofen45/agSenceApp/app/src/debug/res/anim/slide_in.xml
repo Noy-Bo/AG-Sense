@@ -4,4 +4,8 @@
     android:duration="@android:integer/config_longAnimTime"
     android:fromXDelta="100%p"
     android:toXDelta="0%p">
+<<<<<<< HEAD
 </translate>
+=======
+</translate>
+>>>>>>> master

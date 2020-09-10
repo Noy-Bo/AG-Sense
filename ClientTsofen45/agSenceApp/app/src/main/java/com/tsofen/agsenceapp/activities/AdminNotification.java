@@ -5,13 +5,21 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
 import android.view.Gravity;
+>>>>>>> master
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+<<<<<<< HEAD
+import android.widget.ListView;
+import android.widget.TextView;
+
+=======
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -21,16 +29,26 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
+>>>>>>> master
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
 import com.tsofen.agsenceapp.entities.Notification;
+<<<<<<< HEAD
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+
+=======
 import com.tsofen.agsenceapp.utils.ColorStatus;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+>>>>>>> master
 public class AdminNotification extends SearchBaseActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
     ArrayAdapter<Notification> notificationArrayAdapter;

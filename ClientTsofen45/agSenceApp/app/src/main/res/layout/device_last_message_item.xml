@@ -13,6 +13,7 @@
         android:weightSum="1"
         >
 
+
         <TextView
             android:id="@+id/update_time_column"
             android:layout_width="0dp"

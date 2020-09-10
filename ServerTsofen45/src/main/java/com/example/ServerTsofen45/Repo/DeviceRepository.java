@@ -2,7 +2,6 @@ package com.example.ServerTsofen45.Repo;
 
 import java.util.ArrayList;
 
-import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -19,6 +18,7 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 	ArrayList<Device> findAll();
 
 	ArrayList<Device> findByType(String type);
+	
 	
 	
 
