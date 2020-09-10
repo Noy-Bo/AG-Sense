@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ServerTsofen45.BL.NotificationBL;
 import com.example.ServerTsofen45.Beans.Notification;
+import com.example.ServerTsofen45.Beans.NotificationDTO;
 
 @RestController
 @RequestMapping("Notifications")
@@ -19,6 +20,17 @@ public class NotificationsController {
 	 NotificationBL notificationBL;
 
 	  
+	
+	
+	
+	 @GetMapping("AllNotifications")
+	  public List<NotificationDTO>  getAllNotifications()
+		{
+		 	return notificationBL.getAllNotifications();
+		
+			
+		}
+	
 	  @GetMapping("NotificationRelatedToDevice")
 	  public List<Notification>  getNotificationRelatedToDevice(@RequestParam int id ,@RequestParam long IMEI)
 		{
@@ -29,7 +41,8 @@ public class NotificationsController {
 		}
 	  
 	  @GetMapping("NotificationsRelatedToUser")
-	  public List<Notification> getNotificationsRelatedToUser(@RequestParam int id)
+	  public List<Notification>  getNotificationsRelatedToAccount(@RequestParam int id, @RequestParam int start , @RequestParam int num)
+
 		{
 			
 		     List<Notification> notifications = new ArrayList<Notification>();
