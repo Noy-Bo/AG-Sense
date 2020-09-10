@@ -32,12 +32,12 @@ public class NotificationsController {
 	 
 	 
 	  @GetMapping("NotificationsRelatedToAccount")
-	  public List<NotificationDTO> getNotificationsRelatedToAccount(int id,int start , int num)
+	  public List<NotificationDTO> getNotificationsRelatedToAccount(@RequestParam int id,@RequestParam int start ,@RequestParam int num)
 		{
 		
 		  if(start == 0 && num == 0 ) {
 				
-				return notificationBL.getAllNotifications();
+				return notificationBL.getNotificationsRelatedToUser(id);
 			}
 
 		

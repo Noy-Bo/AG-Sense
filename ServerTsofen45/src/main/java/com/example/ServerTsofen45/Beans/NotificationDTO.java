@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.example.ServerTsofen45.Beans;
 
 import java.sql.Time;
@@ -19,4 +20,27 @@ public interface  NotificationDTO {
 
 	
 	
+=======
+package com.example.ServerTsofen45.Beans;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+
+import Enums.Severity;
+
+public interface  NotificationDTO {
+
+	int getId();
+	long getDevice_id() ;
+	long getDevice_imei();
+	int getUser_id();
+	Timestamp getDate_time();
+	Severity getSeverity();
+	boolean getReaded();
+	int getCode();
+	String getMessage();
+
+	
+	
+>>>>>>> ef3371cbb76f45bdc7615073c5ddfc98b8453157
 }
