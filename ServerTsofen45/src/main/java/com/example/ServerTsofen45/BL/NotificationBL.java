@@ -18,12 +18,7 @@ public class NotificationBL {
    
     public List<NotificationDTO> getAllNotifications() {
     	
-    	List<NotificationDTO> list = NotificationRepository.findAll1();
-    	
-    	System.out.println(list.get(1).toString());
-    	
-    	
-    	return list;
+    	return  NotificationRepository.findAll1();
     	
     }
     
@@ -33,10 +28,10 @@ public class NotificationBL {
     	return NotificationRepository.findByDeviceImeiAndDeviceId(IMEI, id);
     }
 
-   public List<Notification> getNotificationsRelatedToUser(int userId) {
+   public List<NotificationDTO> getNotificationsRelatedToUser(int userId) {
 	  
 	   
-	  List<Notification> notification = NotificationRepository.findByUserId(userId);
+	  List<NotificationDTO> notification = NotificationRepository.findByUserId(userId);
 	   return notification;
 	   
    }

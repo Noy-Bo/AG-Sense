@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ServerTsofen45.BL.NotificationBL;
 import com.example.ServerTsofen45.Beans.Notification;
+import com.example.ServerTsofen45.Beans.NotificationDTO;
 
 @RestController
 @RequestMapping("Notifications")
@@ -28,14 +29,25 @@ public class NotificationsController {
 			return notifications;
 		}
 	  
-	  @GetMapping("NotificationsRelatedToUser")
-	  public List<Notification> getNotificationsRelatedToUser(@RequestParam int id)
+	 
+	 
+	  @GetMapping("NotificationsRelatedToAccount")
+	  public List<NotificationDTO> getNotificationsRelatedToAccount(int id,int start , int num)
 		{
-			
-		     List<Notification> notifications = new ArrayList<Notification>();
+		
+		  if(start == 0 && num == 0 ) {
+				
+				return notificationBL.getAllNotifications();
+			}
+
+		
+		  List<NotificationDTO> notifications = new ArrayList<NotificationDTO>();
 			 notifications = notificationBL.getNotificationsRelatedToUser(id);
-	
-			return notifications;
+			
+			 List<NotificationDTO> sublist = notifications.subList(start, start + num);
+			return  sublist;
+		  
+		 
 		}
 	  
 	  @GetMapping("Readed")
