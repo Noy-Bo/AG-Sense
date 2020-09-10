@@ -32,24 +32,6 @@ public abstract class User {
 	Account account;
 	String hashPassword;
 	String type;
-	
-	
-/*	String dtype;
-	
-
-
-	public String getDtype() {
-		return dtype;
-	}
-
-
-
-	public void setDtype(String dtype) {
-		this.dtype = dtype;
-	}
-*/
-
-
 	public String getType() {
 		return type;
 	}
@@ -166,6 +148,4 @@ public abstract class User {
 		   
 		   return jo;
 	}
-
-
 }
