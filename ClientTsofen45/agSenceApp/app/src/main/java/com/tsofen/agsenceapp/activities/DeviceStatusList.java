@@ -22,7 +22,7 @@ import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
 
-public class DeviceStatusList extends BackBaseActivity {
+public class DeviceStatusList extends AppCompatActivity {
     UserMap userMap = new UserMap("Map");
 
     @Override

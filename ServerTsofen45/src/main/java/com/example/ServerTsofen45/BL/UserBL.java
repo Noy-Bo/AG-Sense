@@ -26,10 +26,9 @@ public class UserBL {
 
 	
 	   public User LogIn(String Username,String password){
-	    User byUserName = userRepository.findByUserName(Username);
+	       UserAccount byUserName = accountRepository.findByUserName(Username);
 	       if(byUserName.validate(password))
 	       {
-	    	   byUserName.setAccount(byUserName.getAccount());
 
 	    	   return byUserName;
 	       }
@@ -39,7 +38,7 @@ public class UserBL {
 	    
 	    public ArrayList<UserAccount> findall() 
 	    {
-	    	return (ArrayList<UserAccount>) accountRepository.findAll();
+	    	return accountRepository.findAll();
 	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
 	    	String jsonstr="";
 	    	for(Account a:allaccounts)
