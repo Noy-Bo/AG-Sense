@@ -6,14 +6,19 @@ import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.tsofen.agsenceapp.R;
 
-public class DeviceFilter extends AppCompatActivity {
+public class DeviceFilter extends BackBaseActivity {
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
     boolean type1Toggle = false;
+    boolean type2Toggle = false;
+    boolean type3Toggle = false;
+    private int help;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,5 +80,87 @@ public class DeviceFilter extends AppCompatActivity {
 
             type1Toggle = true;
         }
+
+    }
+
+
+    public void type2Toggle(View view) {
+        TextView type2Box = view.findViewById(R.id.type2_button);
+        if (type2Toggle == true) // do not display healthy devices.
+        {
+            type2Box.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+            type2Box.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+
+            type2Toggle = false;
+        } else if (type2Toggle == false) // displaying the healthy device.
+        {
+            type2Box.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+            type2Box.setTextColor(ContextCompat.getColor(this, R.color.white));
+
+            type2Toggle = true;
+        }
+    }
+
+
+
+
+    public void type3Toggle(View view) {
+        TextView type3Box = view.findViewById(R.id.type3_button);
+
+        if (type3Toggle == true) // do not display healthy devices.
+        {
+            type3Box.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+            type3Box.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+
+            type3Toggle = false;
+        } else if (type3Toggle == false) // displaying the healthy device.
+        {
+            type3Box.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+            type3Box.setTextColor(ContextCompat.getColor(this, R.color.white));
+
+            type3Toggle = true;
+        }
+    }
+
+    public void resetFilterDevices(View view) {
+
+        TextView displayfaultybutton = findViewById(R.id.display_faulty_button);
+
+        displayfaultybutton.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+        displayfaultybutton.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+        displayFaultyDevice = false;
+
+
+
+        TextView displayhealthybutton = findViewById(R.id.display_healthy_button);
+
+        displayhealthybutton.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+        displayhealthybutton.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+        displayHealthyDevice = false;
+
+
+        TextView type1Box = findViewById(R.id.type1_button);
+
+        type1Box.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+        type1Box.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+
+        type1Toggle = false;
+
+
+        TextView type2Box = findViewById(R.id.type2_button);
+
+        type2Box.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+        type2Box.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+
+        type2Toggle = false;
+        TextView type3Box = findViewById(R.id.type3_button);
+
+        type3Box.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+        type3Box.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+
+        type3Toggle = false;
+
+
+
     }
 }
