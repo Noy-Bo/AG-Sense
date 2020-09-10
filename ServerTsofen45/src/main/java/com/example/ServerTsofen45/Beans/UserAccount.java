@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class UserAccount extends User{
 	
+	List<Account> accounts;
    
 	
 	
@@ -18,19 +19,28 @@ public class UserAccount extends User{
 	}
 
 
-	public UserAccount(String string, String string2, String string3, String string4,Account ac) throws NoSuchAlgorithmException {
+	public UserAccount(String string, String string2, String string3, String string4) throws NoSuchAlgorithmException {
     	super();
     		this.setEmail(string);
     		this.setname(string2);
     		this.setUserName(string3);
-    		this.account=ac;
     		//this.setHashPassword(string4);
     		this.hashPassword=hashPassword(string4);
-    		this.setAccount(ac);
     	}	
 
     
+	@OneToMany
+    public List<Account> getAccounts() {
+    	
+		return accounts;
+	}
 
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+	public void addNewAccount(Account account) {
+		this.accounts.add(account);
+	}
 
 
 
