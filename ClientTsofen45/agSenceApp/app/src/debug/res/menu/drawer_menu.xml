@@ -7,7 +7,10 @@
             android:icon="@drawable/user_white_icon"
             android:title="Admin Dashboard" />
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         <item
             android:id="@+id/nav_account_dashboard"
             android:icon="@drawable/user_white_icon"

@@ -8,4 +8,7 @@
     tools:context=".activities.AppBaseActivity"
     tools:showIn="@layout/app_bar_main"/>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
