@@ -1,14 +1,13 @@
 package com.tsofen.agsenceapp.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
@@ -18,13 +17,14 @@ import com.tsofen.agsenceapp.entities.UserMap;
 import java.io.Serializable;
 import java.util.Date;
 
-
-public class DeviceStatus extends SearchBaseActivity{
+public class DeviceStatus extends AppCompatActivity implements Serializable {
     UserMap userMap = new UserMap("Map");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_device_status);
+        ListView NewsListView = findViewById(R.id.listOfDevices);
         Date date = new Date();
         date.getTime();
         Date date1 = new Date();
@@ -34,7 +34,7 @@ public class DeviceStatus extends SearchBaseActivity{
         Devices devices3 = new Devices(0,1,1,"Device",date,date1,true);
         Devices devices4 = new Devices(0,1,1,"Device",date,date1,true);
         Devices devices5 = new Devices(0,1,1,"Device",date,date1,true);
-        Devices devices6 = new Devices(0,1,1,"Device",date,date1,true);
+        Devices devices6 =new Devices(0,1,1,"Device",date,date1,true);
         Devices devices7 = new Devices(0,1,1,"Device",date,date1,true);
         Devices devices8 = new Devices(0,1,1,"Device",date,date1,true);
         Devices devices9 = new Devices(0,1,1,"Device",date,date1,true);
@@ -63,16 +63,12 @@ public class DeviceStatus extends SearchBaseActivity{
         devicesTotal[14] = devices14;
         devicesTotal[15] = devices15;
 
-
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
-        ListView devicesList = contentView.findViewById(R.id.listOfDevices);
         //Devices[] devices1 = (Devices[]) getIntent().getSerializableExtra("extra");
         ListAdapter myAdapter = new DevicesAdapter(this,0, devicesTotal) ;
-        devicesList.setAdapter(myAdapter);
+        NewsListView.setAdapter(myAdapter);
 
         //applying listener that transfers us to a new activity (DeviceView)
-        devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        NewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO: To apply a better activity-transfer (in the future)...
@@ -80,9 +76,6 @@ public class DeviceStatus extends SearchBaseActivity{
                 startActivity(intent);
             }
         });
-
-        drawer.addView(contentView, 0);
-        navigationView.setCheckedItem(R.id.nav_device_status);
     }
 
     public void filterDevices(View view) {

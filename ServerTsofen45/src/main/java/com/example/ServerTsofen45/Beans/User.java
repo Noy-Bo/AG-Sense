@@ -3,16 +3,11 @@ package com.example.ServerTsofen45.Beans;
 import java.security.MessageDigest;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.json.simple.JSONObject;
 
@@ -20,17 +15,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-/*@DiscriminatorColumn(
-	    name="Type",
-	    discriminatorType=DiscriminatorType.STRING
-	)*/
 public abstract class User {
 	String email;
 	String name;
 	String userName;
 	int sysId;
-	Account account;
 	String hashPassword;
+
 	String type;
 	public String getType() {
 		return type;
@@ -43,11 +34,13 @@ public abstract class User {
 	public void setType(String type) {
 		this.type=type;
 }
+
 	
 	@Column
 	public String getname() {
 		return name;
 	}
+
 	@ManyToOne
 	@JoinColumn(name="AccountId", referencedColumnName="Id")
 	public Account getAccount() {
@@ -59,6 +52,7 @@ public abstract class User {
 
 
 	}
+
 
 	public void setname(String firstName) {
 		this.name = firstName;
@@ -102,7 +96,7 @@ public abstract class User {
 	public void setSysId(int sysId) {
 		this.sysId = sysId;
 	}
-	public  boolean validate(String pass)
+	public boolean validate(String pass)
 	{
 
 		return (hashPassword(pass).equals(this.hashPassword));
@@ -125,8 +119,10 @@ public abstract class User {
 	       throw new RuntimeException(ex);
 	    }
 	}
+
 	@Override
 	public String toString() {
+
 		return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", type=" + type + "]";
 	}
 	
@@ -148,4 +144,5 @@ public abstract class User {
 		   
 		   return jo;
 	}
+
 }

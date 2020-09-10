@@ -11,10 +11,8 @@ import com.example.ServerTsofen45.Beans.User;
 public interface UserRepository<T extends User>  extends CrudRepository<T, Integer> {
 	User findByUserName(String UserName);
 	ArrayList<T> findByNameContaining(String name);
-	//ArrayList<T> findAllOrderBysysIddesc();
 	ArrayList<T> findAll();
 	ArrayList<T> findAllByOrderBySysIdDesc();
-
 
 
 

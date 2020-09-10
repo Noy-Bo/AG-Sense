@@ -11,81 +11,126 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/app_bar_main"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/filtired_devices_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             android:background="@color/dark_blue"
-            android:orientation="horizontal">
+            android:elevation="4dp">
 
-            <EditText
-                android:id="@+id/searchaccounttext"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_white_background_frame"
-                android:hint="@string/accountSearchHint"
-                android:inputType="textPersonName"
-                android:paddingStart="10dp"
-                android:textSize="@dimen/small_text_size" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/rounded_white_background_frame"
-                android:onClick="createAccount"
-                android:text="Create"
-                android:textColor="@color/black"
-                android:textSize="@dimen/small_text_size" />
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+
+                        android:layout_marginRight="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/menu_white_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_marginLeft="80dp"
+                        android:gravity="center"
+                        android:text="Account Status"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/searchaccounttext"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_white_background_frame"
+
+                        android:ems="10"
+                        android:hint="Search account"
+
+
+                        android:inputType="textPersonName"
+                        android:paddingLeft="5dp" />
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="78dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="8.5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.1"
+                        android:background="@drawable/rounded_white_background_frame"
+                        android:text="Create"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/switch_background_color"
             android:orientation="horizontal"
-            android:paddingStart="60dp"
+            android:weightSum="2"
             android:paddingEnd="60dp"
-            android:weightSum="2">
+            android:paddingStart="60dp"
+            android:background="@drawable/switch_background_color">
+
 
             <TextView
+
                 android:id="@+id/display_faulty_button"
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="22dp"
+
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="15dp"
+                android:onClick="displayFaultyClicked"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:background="@drawable/white_shape_squares"
                 android:gravity="center"
-                android:onClick="displayFaultyClicked"
                 android:text="@string/display_faulty"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small_text_size" />
+                ></TextView>
 
             <TextView
 
                 android:id="@+id/display_healthy_button"
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="15dp"
+                android:layout_height="22dp"
+
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="15dp"
+                android:onClick="displayHealthyClicked"
                 android:layout_weight="1"
+                android:textColor="@color/white"
                 android:background="@drawable/white_shape_squares"
                 android:gravity="center"
-                android:onClick="displayHealthyClicked"
-                android:text="@string/display_healthy"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small_text_size" />
+                android:text="@string/display_healthy"></TextView>
 
         </LinearLayout>
 
@@ -93,9 +138,7 @@
             android:id="@+id/listofaccounts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
             android:divider="@null"
-            android:dividerHeight="5dp"
 
             />
 

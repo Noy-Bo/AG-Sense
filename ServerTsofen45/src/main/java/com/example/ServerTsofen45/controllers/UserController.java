@@ -1,12 +1,15 @@
 package com.example.ServerTsofen45.controllers;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import org.json.simple.*;
 import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.UserAccount;
@@ -16,12 +19,14 @@ import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.example.ServerTsofen45.Repo.UserAccountRepository;
 
 
+
 @RestController
 @RequestMapping("User")
 public class UserController {
 	@Autowired
 	UserBL userBL;
 	@Autowired
+
 	UserAccountRepository useraccountRepository;
 	@Autowired
 	AccountRepository accountRepository;
@@ -40,9 +45,11 @@ public class UserController {
 	}
 
 
+
 	//	*return all userProfiles in Database
 	@SuppressWarnings("unchecked")
 	@GetMapping("AllAccounts")
+
 	JSONArray getAllAccounts(@RequestParam int start,@RequestParam int num) 
 	{
 		List<UserAccount> res= userBL.findall();
@@ -56,6 +63,7 @@ public class UserController {
 	    	jsonArray.add(res.get(i).toJson());
 	    }
 	    return jsonArray;
+
 
 		
 	}
@@ -71,12 +79,14 @@ public class UserController {
 	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
+
 		Account ac= new Account("delek",1);
 		accountRepository.save(ac);
 		//Admin ibra=new Admin(email ,name, Username, pass);
 	///	adminRepository.save(ibra);
 		UserAccount ibra=new UserAccount(email ,name, Username, pass,null);
 		useraccountRepository.save(ibra);
+
 
 	}
 	
