@@ -14,3 +14,4 @@ public class NewDevice extends AppCompatActivity {
         setContentView(R.layout.activity_new_device);
     }
 }
+

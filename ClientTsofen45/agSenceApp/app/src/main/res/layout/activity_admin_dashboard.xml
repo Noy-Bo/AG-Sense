@@ -8,6 +8,7 @@
     tools:context=".activities.AdminDashboardActivity">
 
 
+
     <include
         android:id="@+id/included"
         layout="@layout/activity_search_base"

@@ -23,6 +23,7 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
     }
 
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

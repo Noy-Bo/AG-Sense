@@ -22,6 +22,7 @@ public class AccountsAdapter extends ArrayAdapter<User> implements Serializable 
     }
 
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

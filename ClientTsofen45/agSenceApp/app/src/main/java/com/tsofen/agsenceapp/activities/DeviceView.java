@@ -18,6 +18,7 @@ public class DeviceView extends AppBaseActivity {
 
 
 
+
     private ViewPager sliderViewPager;
     private LinearLayout dotslinearLayout;
     private SliderAdapter sliderAdapter;

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class AccountDashboardActivity extends SearchBaseActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
     ArrayAdapter<Notification> notificationArrayAdapter;

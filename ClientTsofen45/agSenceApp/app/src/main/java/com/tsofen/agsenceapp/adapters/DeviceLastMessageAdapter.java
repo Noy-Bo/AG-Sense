@@ -27,6 +27,7 @@ public class DeviceLastMessageAdapter extends ArrayAdapter<DeviceLastMessage> {
 
 
 
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

@@ -15,6 +15,7 @@ public class Place implements Serializable {
     }
 
 
+
     public Place(String title, String snippet, Double latitude, Double longitude) {
         this.snippet = snippet;
         this.title = title;

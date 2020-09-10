@@ -20,6 +20,7 @@ import static java.lang.Float.parseFloat;
 
 public class DeviceSetting extends AppCompatActivity {
 
+
     EditText longitude, latitude, speed, fence_radius_m;
     EditText trackingintervale1, trackingintervale2, distance, headingdir;
     Button SpeedingAlertButtonUpdate, SpeedingAlertSecondButtonUpdate, AuthorizationNumberButtonUpdate;

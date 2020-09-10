@@ -15,4 +15,5 @@ public class EditDevice extends AppCompatActivity {
 
     }
 
+
 }

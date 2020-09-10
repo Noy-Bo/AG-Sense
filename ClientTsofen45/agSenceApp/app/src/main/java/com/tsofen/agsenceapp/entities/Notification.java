@@ -18,6 +18,7 @@ public class Notification implements Serializable {
     protected int errorCode;
 
 
+
     public ColorStatus getImageStatus() {
         return imageStatus;
     }
