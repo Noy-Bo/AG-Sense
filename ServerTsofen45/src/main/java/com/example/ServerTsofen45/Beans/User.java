@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import org.json.simple.JSONObject;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class User {
@@ -17,11 +21,38 @@ public abstract class User {
 	String userName;
 	int sysId;
 	String hashPassword;
+
+	String type;
+	public String getType() {
+		return type;
+	}
+	public User() {
+		super();
+
+		// TODO Auto-generated constructor stub
+	}
+	public void setType(String type) {
+		this.type=type;
+}
+
 	
 	@Column
 	public String getname() {
 		return name;
 	}
+
+	@ManyToOne
+	@JoinColumn(name="AccountId", referencedColumnName="Id")
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+
+
+	}
+
 
 	public void setname(String firstName) {
 		this.name = firstName;
@@ -91,7 +122,27 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-	return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", sysId=" + sysId +
-			 "]";
-}
+
+		return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", type=" + type + "]";
+	}
+	
+	public void updateType() {
+		if(this.account==null)
+			this.type="admin";
+		else
+			this.type="account";			
+	}
+	@SuppressWarnings("unchecked")
+	public JSONObject toJson()
+	{
+		   JSONObject jo = new JSONObject();
+
+		   jo.put("username", this.userName);
+		   jo.put("email", this.email);
+		   jo.put("id", this.sysId);
+		   jo.put("type", this.type);
+		   
+		   return jo;
+	}
+
 }

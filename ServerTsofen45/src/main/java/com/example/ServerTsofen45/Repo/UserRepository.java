@@ -12,6 +12,8 @@ public interface UserRepository<T extends User>  extends CrudRepository<T, Integ
 	User findByUserName(String UserName);
 	ArrayList<T> findByNameContaining(String name);
 	ArrayList<T> findAll();
+	ArrayList<T> findAllByOrderBySysIdDesc();
+
 
 
 }
