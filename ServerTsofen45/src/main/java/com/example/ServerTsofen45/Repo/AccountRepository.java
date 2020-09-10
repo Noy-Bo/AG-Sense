@@ -2,8 +2,9 @@ package com.example.ServerTsofen45.Repo;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.ServerTsofen45.Beans.Device;
+import com.example.ServerTsofen45.Beans.Account;
 
-public interface AccountRepository  extends CrudRepository<Device, Integer>  {
+public interface AccountRepository  extends CrudRepository<Account, Integer>  {
+
 
 }
