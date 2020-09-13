@@ -14,6 +14,7 @@ public class Admin extends User {
     		//this.setHashPassword(string4);
     		this.hashPassword=hashPassword(string4);
     		this.setAccount(null);
+    		this.setType("admin");
     	}
 
 	public Admin() {

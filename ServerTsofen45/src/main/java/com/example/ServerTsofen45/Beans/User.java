@@ -26,7 +26,7 @@ public abstract class User {
 	Account account;
 
 	String type;
-	
+	@Column
 	public String getType() {
 		return type;
 	}

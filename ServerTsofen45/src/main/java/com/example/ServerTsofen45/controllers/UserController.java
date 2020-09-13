@@ -13,6 +13,7 @@ import org.json.simple.*;
 import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.UserAccount;
 import com.example.ServerTsofen45.Beans.Account;
+import com.example.ServerTsofen45.Beans.Admin;
 import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
@@ -92,18 +93,18 @@ public class UserController {
 
 
 
-	@GetMapping("Add")
+	/*@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
-		Account ac= new Account("delek",1);
+		Account ac= new Account("delek");
 		accountrepo.save(ac);
 		//Admin ibra=new Admin(email ,name, Username, pass);
-	///	adminRepository.save(ibra);
-		UserAccount ibra=new UserAccount(email ,name, Username, pass,null);
+		//adminRepository.save(ibra);
+		UserAccount ibra=new UserAccount(email ,name, Username, pass,ac);
 		useraccountRepository.save(ibra);
 
 
-	}
+	}*/
 	
 	
 	
