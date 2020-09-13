@@ -14,12 +14,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
 import com.tsofen.agsenceapp.entities.Notification;
 
@@ -46,6 +49,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);

@@ -1,36 +1,53 @@
 package com.tsofen.agsenceapp.activities;
 
+
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ProcessLifecycleOwner;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.dataServices.OnLogin;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
 import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
+import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    public static User user;
+    public CacheMgr cacheMgr = CacheMgr.getInstance();
+    public static User user ;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Map<String,String> params = new HashMap<>();
-        params.put("username","Admin");
-        params.put("password","1234");
-        String url = UrlConnectionMaker.ctreatUrl(ServicesName.Login,params);
+
+        // observer registeration for onforeground. -- read AppLifeCycleObserver.
+        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
 
     }
+
 
 
 
@@ -55,14 +72,14 @@ public class LoginActivity extends AppCompatActivity {
 
         UserDataAdapter.userLogin(username, "", new onUserLoginHandler() {
             @Override
-            public void onAdminLoginSuccess(User user) {
+            public void onAdminLoginSuccess(Admin user) {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 AppBaseActivity.setUserType(username);
                 startActivity(intent);
             }
 
             @Override
-            public void onAccountLoginSuccess(User user) {
+            public void onAccountLoginSuccess(Account user) {
 
             }
 
@@ -71,6 +88,9 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
+        Map<String,String> params = new HashMap<>();
+        params.put("username","Admin");
+        params.put("password","1234");
+        String url = UrlConnectionMaker.ctreatUrl(ServicesName.Login,params);
     }
 }
