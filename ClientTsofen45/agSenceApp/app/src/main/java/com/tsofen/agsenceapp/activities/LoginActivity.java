@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
 
-
     }
 
 
@@ -66,14 +65,14 @@ final String pass = password.getText().toString();
             @Override
             public void onAdminLoginSuccess(Admin user) {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-                AppBaseActivity.setUserType(user.getUsername());
+                AppBaseActivity.setUserType("Admin");
                 startActivity(intent);
             }
 
             @Override
             public void onAccountLoginSuccess(Account user) {
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
-                AppBaseActivity.setUserType(user.getUsername());
+                AppBaseActivity.setUserType("Account");
                 startActivity(intent);
             }
 
