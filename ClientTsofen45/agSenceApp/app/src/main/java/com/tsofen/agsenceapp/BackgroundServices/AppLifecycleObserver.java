@@ -22,6 +22,9 @@ public class AppLifecycleObserver implements LifecycleObserver {
     public void onEnterForeground() {
 
 
+
+        cacheMgr.getDevicesJob("https://www.google.com/");
+
         /*runnableCode = new Runnable() {   ------- this is a test run for the ServerPerioicJob.
             @Override
             public void run() {
@@ -46,7 +49,7 @@ public class AppLifecycleObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onEnterBackground() {
         Log.d("Handlers", "onstop");
-        handler.removeCallbacks(runnableCode);
+        //handler.removeCallbacks(runnableCode);
 
     }
 

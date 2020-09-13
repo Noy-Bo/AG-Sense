@@ -28,7 +28,7 @@ import com.tsofen.agsenceapp.entities.User;
 public class LoginActivity extends AppCompatActivity {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-    public static User user ;
+    public static User user;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
 
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         final String username = usernametext.getText().toString();
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         EditText password = (EditText) findViewById(R.id.passTxt);
-final String pass = password.getText().toString();
+        final String pass = password.getText().toString();
 
 
         progressBar.setVisibility(View.VISIBLE);
