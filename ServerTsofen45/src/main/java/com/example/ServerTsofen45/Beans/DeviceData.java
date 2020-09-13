@@ -17,14 +17,12 @@ public class DeviceData {
 	char gpsValid;
 	Timestamp dateAndTime;
 	Time updateTime;
-	String lat;
+	double lat;
 	char latIndicator;
-	String lon;
-
+	double lon;
 	char lonIndicator;
 	Float speed;
 	int orientation;
-	String altitude;
 	String mileage;
 	int satelites;
 	int hdop;
@@ -93,7 +91,6 @@ public class DeviceData {
 		this.gpsValid = gpsValid;
 	}
 
-	
 	public void setDateAndTime(Timestamp dateAndTime) {
 		this.dateAndTime = dateAndTime;
 	}
@@ -106,7 +103,7 @@ public class DeviceData {
 		this.updateTime = updateTime;
 	}
 
-	public void setLat(String lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
 
@@ -114,7 +111,7 @@ public class DeviceData {
 		this.latIndicator = latIndicator;
 	}
 
-	public void setLon(String lon) {
+	public void setLon(double lon) {
 		this.lon = lon;
 	}
 
@@ -128,10 +125,6 @@ public class DeviceData {
 
 	public void setOrientation(int orientation) {
 		this.orientation = orientation;
-	}
-
-	public void setAltitude(String altitude) {
-		this.altitude = altitude;
 	}
 
 	public void setMileage(String mileage) {
@@ -345,7 +338,7 @@ public class DeviceData {
 	}
 
 	@Column
-	public String getLat() {
+	public double getLat() {
 		return lat;
 	}
 
@@ -355,7 +348,7 @@ public class DeviceData {
 	}
 
 	@Column
-	public String getLon() {
+	public double getLon() {
 		return lon;
 	}
 
@@ -372,11 +365,6 @@ public class DeviceData {
 	@Column
 	public int getOrientation() {
 		return orientation;
-	}
-
-	@Column
-	public String getAltitude() {
-		return altitude;
 	}
 
 	@Column

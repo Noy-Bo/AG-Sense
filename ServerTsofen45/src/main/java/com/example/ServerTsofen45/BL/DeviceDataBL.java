@@ -15,7 +15,8 @@ public class DeviceDataBL {
 	
 	@Autowired
 	DeviceDataRepository deviceDataRepository;
-	
+	@Autowired
+	DeviceRepository deviceRepository;
 
 	public ArrayList<DeviceData> findAll() {
 
@@ -23,6 +24,8 @@ public class DeviceDataBL {
 		return devices;
 
 	}
+	
+
 
 
 }

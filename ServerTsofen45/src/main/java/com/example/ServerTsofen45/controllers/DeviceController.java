@@ -34,10 +34,10 @@ public class DeviceController {
 	}
 
 	@GetMapping("DeviceByNameContaining")
-	public ArrayList<Device> geDevicesByNameContaining(@RequestParam String name) {
+	public ArrayList<Device> geDevicesByNameContaining(@RequestParam String name ,@RequestParam int start,@RequestParam int num) {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
-		devices = deviceBL.getDevicesByName(name);
+		devices = deviceBL.findByNameContaining(name, start, num);
 		return devices;
 	}
 
@@ -77,6 +77,7 @@ public class DeviceController {
 		devices = deviceBL.findByType(type);
 		return devices;
 	}
+	
 	@GetMapping("getDeviceRelatedToAccount")
 	public ArrayList<Device> getDeviceRelatedToAccount(@RequestParam int id,@RequestParam int start,@RequestParam int num){
 		ArrayList<Device> devices = new ArrayList<Device>();
@@ -84,6 +85,15 @@ public class DeviceController {
 		return devices;
 	}
 	
+	
+	@GetMapping("recentLocations")
+	public ArrayList<String> getRecentLocationRelatedToDevice(@RequestParam int id, @RequestParam int start,@RequestParam int num) {
+
+		ArrayList<String> locations = new ArrayList<String>();
+
+		locations = deviceBL.getRecentLocationRelatedToDevice(id, start, num);
+		return locations;
+	}
 	
 
 }
