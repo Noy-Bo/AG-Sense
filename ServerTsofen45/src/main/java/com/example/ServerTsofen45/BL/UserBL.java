@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.BL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,8 @@ public class UserBL {
 
 	}
 
-	public ArrayList<UserAccount> findallByName(String Name) {
-		return accountRepository.findByNameContaining(Name);
+		public List<UserAccount> findallByName(String Name) {
+			return accountRepository. findByNameContaining(Name);
 
 	}
 }

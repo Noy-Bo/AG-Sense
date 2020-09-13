@@ -54,7 +54,7 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
 
         deviceNameDeviceTypeBox.setText(notification.getDeviceid()+" "+notification.getDeviceid());
         errorMessageBox.setText(notification.getErrorMessage());
-        accountNameBox.setText(LoginActivity.user.getUserName());
+        accountNameBox.setText(LoginActivity.user.getUsername());
         timeBox.setText(String.valueOf(notification.getDateTime()));
 
         return layout;
