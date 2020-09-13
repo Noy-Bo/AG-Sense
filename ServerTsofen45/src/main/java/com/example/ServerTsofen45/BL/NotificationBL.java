@@ -18,14 +18,14 @@ public class NotificationBL {
    
     public List<NotificationDTO> getAllNotifications() {
     	
-    	return  NotificationRepository.findAll1();
+    	return  NotificationRepository.getAll();
     	
     }
     
-    public List<Notification> getNotificationRelatedToDevice(int id ,long IMEI){
+    public List<NotificationDTO> getNotificationRelatedToDevice(int id){
     	
     	
-    	return NotificationRepository.findByDeviceImeiAndDeviceId(IMEI, id);
+    	return NotificationRepository.findByDeviceId(id);
     }
 
    public List<NotificationDTO> getNotificationsRelatedToUser(int userId) {

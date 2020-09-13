@@ -24,35 +24,26 @@ public class UserBL {
 	@Autowired
 	UserRepository<User> userRepository;
 
-	
-	   public User LogIn(String Username,String password){
+	public User LogIn(String Username, String password) {
 
+		User byUserName = userRepository.findByUserName(Username);
+		if (byUserName != null && byUserName.validate(password)) {
+			byUserName.updateType();
 
-	    User byUserName = userRepository.findByUserName(Username);
-	       if(byUserName!=null &&byUserName.validate(password))
-	       {
-	    	   byUserName.updateType();
+			return byUserName;
+		}
 
-	    	   return byUserName;
-	       }
+		return null;
+	}
 
-	    	return null;
-	    }
-	    
-	    public ArrayList<UserAccount> findall() 
-	    {
+	public ArrayList<UserAccount> findall() {
 
+		return accountRepository.findAllByOrderBySysIdDesc();
 
-	    	return accountRepository.findAllByOrderBySysIdDesc();
-
-
-	    }
-
-
+	}
 
 		public List<UserAccount> findallByName(String Name) {
 			return accountRepository. findByNameContaining(Name);
 
-		}
+	}
 }
-

@@ -9,6 +9,8 @@ import com.example.ServerTsofen45.Beans.DeviceData;
 public interface DeviceDataRepository extends CrudRepository<DeviceData, Integer> {
 	
 	ArrayList<DeviceData> findAll();
+	
+	DeviceData findByID(int deviceId);
 
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ServerTsofen45.Beans.Device;
+import com.example.ServerTsofen45.Beans.DeviceData;
 import com.example.ServerTsofen45.Beans.Notification;
 import com.example.ServerTsofen45.Repo.DeviceRepository;
 import com.example.ServerTsofen45.Repo.NotificationRepository;
@@ -31,11 +32,20 @@ public class DeviceBL {
 
 	}
 
-	public ArrayList<Device> findByNameContaining(String name) {
+	public ArrayList<Device> findByNameContaining(String name, int start, int num) {
 
-		ArrayList<Device> devices = deviceRepository.findByName(name);
-		return devices;
+		ArrayList<Device> devices;
+		if (start == 0 && num == 0) {
+			devices = deviceRepository.findByNameContaining(name);
+			return devices;
+		}
 
+		devices = deviceRepository.findByNameContaining(name);
+		if (devices.size() > start + num && devices.size() > start) {
+			ArrayList<Device> sublist = (ArrayList<Device>) devices.subList(start, start + num);
+			return sublist;
+		} else
+			return devices;
 	}
 
 	public ArrayList<Device> findByType(String type) {
@@ -51,16 +61,38 @@ public class DeviceBL {
 		return devices;
 
 	}
-	public ArrayList<Device> getDeviceRelatedToAccount(int id,int start , int num ){
+
+	public ArrayList<Device> getDeviceRelatedToAccount(int id, int start, int num) {
 		ArrayList<Device> devices;
-		if(start==0 && num==0) {
+		if (start == 0 && num == 0) {
 			devices = deviceRepository.findAll();
 			return devices;
 		}
 		devices = deviceRepository.findByaccountId(id);
-		ArrayList<Device> sublist = (ArrayList<Device>) devices.subList(start, start+num);
+		ArrayList<Device> sublist = (ArrayList<Device>) devices.subList(start, start + num);
 		return sublist;
-		
+
+	}
+
+	public ArrayList<String> getRecentLocationRelatedToDevice(int id, int start, int num) {
+	
+		Device device = deviceRepository.findById(id);
+		List<DeviceData> deviceDatas = device.getDeviceData();
+	    ArrayList<String> locations = new ArrayList<String>();
+	    
+	    for(DeviceData deviceData : deviceDatas)
+	    {
+	    	String location = "'"+deviceData.getLat()+","+deviceData.getLon()+","+deviceData.getDateAndTime()+"'";
+	    	locations.add(location);
+	    }
+
+	    if(locations.size()>start&&locations.size()>(start+num))
+	    {
+	    	return (ArrayList<String>) (locations.subList(start, start+num));
+	    }
+	    else
+	    	return locations;
+	    
 	}
 
 }
