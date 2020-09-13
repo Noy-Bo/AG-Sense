@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.adaptersInterfaces.onDeviceDataLoadedHandler;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
 
@@ -48,9 +48,9 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     public void goToFaultyDevices(View view) {
         final ArrayList<Devices> faulty = new ArrayList<>();
-        DeviceDataAdapter.getFaultyDevices(new onDeviceDataLoadedHandler() {
+        DeviceDataAdapter.getInstance().getFaultyDevices(new DeviceDataRequestHandler() {
             @Override
-            public void deviceDataLoaded(List<Devices> devices) {
+            public void onDeviceDataLoaded(List<Devices> devices) {
                 faulty.addAll(devices);
             }
         });

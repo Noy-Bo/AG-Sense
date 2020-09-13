@@ -4,9 +4,13 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
+import com.tsofen.agsenceapp.CacheManagerAPI;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
+import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
-import com.tsofen.agsenceapp.dataServices.OnDevicesReadyHandler;
-import com.tsofen.agsenceapp.dataServices.OnLogin;
+import com.tsofen.agsenceapp.dataServices.DevicesHandler;
+import com.tsofen.agsenceapp.dataServices.LoginHandler;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
@@ -19,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CacheMgr {
+public class CacheMgr implements CacheManagerAPI {
     private static CacheMgr cacheMgr = null;
 
     //handles
@@ -41,7 +45,7 @@ public class CacheMgr {
 
     public class getDevicesRunnable implements Runnable // TODO - transform to anonymous class
     {
-        private OnDevicesReadyHandler handler;
+        private DevicesHandler handler;
         @Override
         public void run()
         {
@@ -78,7 +82,7 @@ public class CacheMgr {
                         devices.add(new Devices(0,1,1,"Device",date,date1,true));
 
                         if (handler != null) {
-                            handler.onDevicesReady(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
+                            handler.onDevicesDownloadFinished(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
                         }
                     }
 
@@ -111,7 +115,7 @@ public class CacheMgr {
 
    // }
 
-   public void loginJob(final String username, final String password, final OnLogin handler)
+   public void loginJob(final String username, final String password, final LoginHandler handler)
     {
         threadHandler.post(new Runnable() {
             @Override
@@ -150,6 +154,41 @@ public class CacheMgr {
 
             }
         });
+    }
+
+    @Override
+    public void getAccountsJob(int start, int num, AccountsHandler handler) {
+
+    }
+
+    @Override
+    public void getDevicesJob(int start, int num, DevicesHandler handler) {
+
+    }
+
+    @Override
+    public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
+
+    }
+
+    @Override
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, DevicesHandler handler) {
+
+    }
+
+    @Override
+    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, NotificationsHandler handler) {
+
+    }
+
+    @Override
+    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, NotificationsHandler handler) {
+
+    }
+
+    @Override
+    public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
+
     }
 
 }
