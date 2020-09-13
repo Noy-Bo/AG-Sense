@@ -7,7 +7,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class TextDownloader {
+public class TextDownloader{
+    OnDataReadyHandler handler = null;
+
     public String getText(String urlAddress) {
         try {
             // Create a URL for the desired page
@@ -20,6 +22,12 @@ public class TextDownloader {
             while ((input = in.readLine()) != null) {
                 str += input;
             }
+
+            if(this.handler!=null) // if there is a handler, we want to activate the completed downloaded
+            {
+                this.handler.onDataDownloadCompleted(str); // activating handlers function to set result(str)
+            }
+
             in.close();
             return str;
         } catch (MalformedURLException e) {
@@ -28,4 +36,10 @@ public class TextDownloader {
             return null;
         }
     }
+
+    public void setOnDownloadCompletedListener(OnDataReadyHandler handler)
+    {
+        this.handler = handler;
+    }
+
 }

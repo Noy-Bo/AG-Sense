@@ -24,10 +24,9 @@ public class Account {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Account(String text, int id) {
+	public Account(String text) {
 		super();
 		Text = text;
-		Id = id;
 	}
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
