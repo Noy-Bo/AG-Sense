@@ -2,17 +2,15 @@ package com.tsofen.agsenceapp.entities;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public abstract class User implements Serializable {
     protected int id;
-    protected String userName;
+    protected String username;
     protected String email;
-    protected String userType;
 
-    public User(int id, String userName, String email, String userType) {
+    public User(int id, String username, String email) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
-        this.userType = userType;
     }
 
     public int getId() {
@@ -23,12 +21,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -39,11 +37,4 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-}
+  }
