@@ -1,6 +1,5 @@
 package com.tsofen.agsenceapp;
 
-import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.User;
 

@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.Account;
-import com.tsofen.agsenceapp.entities.Devices;
-import com.tsofen.agsenceapp.activities.LoginActivity;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;

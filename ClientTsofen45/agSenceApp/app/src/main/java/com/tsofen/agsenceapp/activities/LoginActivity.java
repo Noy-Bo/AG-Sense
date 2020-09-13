@@ -1,40 +1,38 @@
 package com.tsofen.agsenceapp.activities;
 
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ProcessLifecycleOwner;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.dataServices.OnLogin;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
-import com.tsofen.agsenceapp.dataServices.ServicesName;
-import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class LoginActivity extends AppCompatActivity {
+
     public CacheMgr cacheMgr = CacheMgr.getInstance();
     public static User user ;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,47 +48,59 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
     public void login(View view) {
-        EditText editText = (EditText) findViewById(R.id.usernameTxt);
-        final String username = editText.getText().toString();
-//
-//        if (username != null && username.equals("Admin")) {
-//            Intent intent = new Intent(this, AdminDashboardActivity.class);
-//            AppBaseActivity.setUserType(username);
-//            startActivity(intent);
-//        }
-//
-//        else if(username != null && username.equals("Account")) // Noy - added 'else' here so it will not load 2 screens when logging in as admin.
-//        {
-//            Intent intent = new Intent(this, AccountDashboardActivity.class);
-//            AppBaseActivity.setUserType(username);
-//            startActivity(intent);
-//        }else{
-//            Toast.makeText(this,"Please enter a valid username",Toast.LENGTH_LONG).show();
-//        }
 
-        UserDataAdapter.userLogin(username, "", new onUserLoginHandler() {
+        EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
+        final String username = usernametext.getText().toString();
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
+        EditText password = (EditText) findViewById(R.id.passTxt);
+final String pass = password.getText().toString();
+
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        hideKeyboard(this);
+
+
+        UserDataAdapter.userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-                AppBaseActivity.setUserType(username);
+                AppBaseActivity.setUserType(user.getUsername());
                 startActivity(intent);
             }
 
             @Override
             public void onAccountLoginSuccess(Account user) {
-
+                Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
+                AppBaseActivity.setUserType(user.getUsername());
+                startActivity(intent);
             }
 
             @Override
             public void onUserLoginFailed() {
-
+                Toast.makeText(LoginActivity.this,"Please enter a valid username",Toast.LENGTH_LONG).show();
             }
+
         });
-        Map<String,String> params = new HashMap<>();
-        params.put("username","Admin");
-        params.put("password","1234");
-        String url = UrlConnectionMaker.ctreatUrl(ServicesName.Login,params);
+
+
+
+
+
+    }
+
+
+
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

@@ -8,13 +8,12 @@ import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 import com.tsofen.agsenceapp.dataServices.OnDevicesReadyHandler;
 import com.tsofen.agsenceapp.dataServices.OnLogin;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
-import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
-import com.tsofen.agsenceapp.entities.User;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 public class CacheMgr {
     private static CacheMgr cacheMgr = null;
@@ -23,7 +22,9 @@ public class CacheMgr {
     private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
     private Handler threadHandler;
-    private CacheMgr() {}
+    private CacheMgr() {
+        initializeAllServices();
+    }
 
     public static CacheMgr getInstance()
     {
@@ -84,7 +85,7 @@ public class CacheMgr {
     }
 
 
-    public void initializeAllServices() // remove public
+    private void initializeAllServices() // remove public
     {
         //initializing the serverPeriodJob
         handlerThreadLogin.start();
@@ -110,7 +111,7 @@ public class CacheMgr {
                 downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
                     @Override
                     public void onDataDownloadCompleted(String downloadedData) {
-                        Account user = new Account(1, "Rami", "rami@gmail.com", false,12);
+                        Admin user = new Admin(1, "Admin", "rami@gmail.com");
                         handler.onLoginSuccess(user);
                     }
                 });

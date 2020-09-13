@@ -8,9 +8,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.tsofen.agsenceapp.dataServices.OnLogin;
-import com.tsofen.agsenceapp.entities.User;
-
 public class AppLifecycleObserver implements LifecycleObserver {
 
     public static final String TAG = AppLifecycleObserver.class.getName();
@@ -23,21 +20,7 @@ public class AppLifecycleObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onEnterForeground() {
-        Log.d("Handlers", "onstart");
-        cacheMgr.initializeAllServices();
-        cacheMgr.loginJob(new OnLogin() {
-            @Override
-            public void onLoginSuccess(User user) {
-                Log.d("login", "Asynchronous login was successful");
 
-            }
-
-            @Override
-            public void onLoginFailure() {
-                Log.d("login", "Asynchronous login failed");
-
-            }
-        });
 
         /*runnableCode = new Runnable() {   ------- this is a test run for the ServerPerioicJob.
             @Override
