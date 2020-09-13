@@ -5,7 +5,10 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Columns;
+
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +21,7 @@ public class Notification {
 	private int id;
 	private Device device;
 	private int userId;
-	private Time dateTime;
+	private Timestamp dateTime;
 	private Severity severity;
 	private boolean readed;
 	private Error error;
@@ -36,7 +39,7 @@ public class Notification {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public void setDateTime(Time dateTime) {
+	public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
 	}
 	public void setSeverity(Severity severity) {
@@ -73,7 +76,7 @@ public class Notification {
 		return severity;
 	}
 	@Column
-	public Time getDateTime() {
+	public Timestamp getDateTime() {
 		return dateTime;
 	}
 	@Column

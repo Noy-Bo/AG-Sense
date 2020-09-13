@@ -1,17 +1,14 @@
 package com.tsofen.agsenceapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 
-public class DeviceFilter extends AppCompatActivity {
+public class DeviceFilter extends BackBaseActivity {
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
     boolean type1Toggle = false;
@@ -19,11 +16,12 @@ public class DeviceFilter extends AppCompatActivity {
     boolean type3Toggle = false;
     private int help;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_filter);
-
     }
     public void finishTask(View view) {
         finish();

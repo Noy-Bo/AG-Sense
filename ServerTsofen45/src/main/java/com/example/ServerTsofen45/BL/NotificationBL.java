@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.ServerTsofen45.Beans.Notification;
+import com.example.ServerTsofen45.Beans.NotificationDTO;
 import com.example.ServerTsofen45.Repo.NotificationRepository;
 
 
@@ -14,15 +15,23 @@ public class NotificationBL {
     @Autowired
     NotificationRepository NotificationRepository;
     
-   public List<Notification> getNotificationRelatedToDevice(int id ,long IMEI){
+   
+    public List<NotificationDTO> getAllNotifications() {
     	
-    	return NotificationRepository.findByDeviceImeiAndDeviceId(IMEI, id);
+    	return  NotificationRepository.getAll();
+    	
+    }
+    
+    public List<NotificationDTO> getNotificationRelatedToDevice(int id){
+    	
+    	
+    	return NotificationRepository.findByDeviceId(id);
     }
 
-   public List<Notification> getNotificationsRelatedToUser(int userId) {
+   public List<NotificationDTO> getNotificationsRelatedToUser(int userId) {
 	  
 	   
-	  List<Notification> notification = NotificationRepository.findByUserId(userId);
+	  List<NotificationDTO> notification = NotificationRepository.findByUserId(userId);
 	   return notification;
 	   
    }
@@ -34,4 +43,6 @@ public class NotificationBL {
 	   NotificationRepository.save(notification);
 	
    }
+
+
 }

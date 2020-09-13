@@ -23,10 +23,12 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
     public NotificationListAdaptor(Context context, ArrayList<Notification> notificationArray)
     {
 
+
         super(context,0,notificationArray);
         inflater = LayoutInflater.from(context);
         Log.d("IN ADAPTER","IN CONSTRUCTOR");
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
@@ -52,7 +54,7 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
 
         deviceNameDeviceTypeBox.setText(notification.getDeviceid()+" "+notification.getDeviceid());
         errorMessageBox.setText(notification.getErrorMessage());
-        accountNameBox.setText(LoginActivity.user.getUserName());
+        accountNameBox.setText(LoginActivity.user.getUsername());
         timeBox.setText(String.valueOf(notification.getDateTime()));
 
         return layout;

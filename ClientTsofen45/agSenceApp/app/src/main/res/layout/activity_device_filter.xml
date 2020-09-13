@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".activities.DeviceFilter">
 
+    <include
+        layout="@layout/activity_back_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -27,7 +33,7 @@
             android:gravity="center"
             android:text="@string/healthyOrFaultyDevices"
             android:textColor="@color/yellow"
-            android:textSize="15dp"></TextView>
+            android:textSize="15dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,11 +90,12 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/filterdevicetype"
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/filtired_devices_toolbar"
         tools:layout_editor_absoluteX="0dp">
         >

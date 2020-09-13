@@ -8,6 +8,8 @@
 
     </style>
 
+
+
     <dimen name="large_text_size">30sp</dimen>
     <dimen name="medium_text_size">20sp</dimen>
     <dimen name="small_text_size">17sp</dimen>
@@ -47,6 +49,15 @@
 <!--
         <item name="android:colorForeground">#673AB7</item>
 -->
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
 

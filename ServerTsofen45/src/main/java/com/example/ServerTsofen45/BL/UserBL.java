@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.BL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,34 +25,26 @@ public class UserBL {
 	@Autowired
 	UserRepository<User> userRepository;
 
-	
-	   public User LogIn(String Username,String password){
-	       UserAccount byUserName = accountRepository.findByUserName(Username);
-	       if(byUserName.validate(password))
-	       {
+	public User LogIn(String Username, String password) {
 
-	    	   return byUserName;
-	       }
+		User byUserName = userRepository.findByUserName(Username);
+		if (byUserName != null && byUserName.validate(password)) {
+			byUserName.updateType();
 
-	    	return null;
-	    }
-	    
-	    public ArrayList<UserAccount> findall() 
-	    {
-	    	return accountRepository.findAll();
-	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
-	    	String jsonstr="";
-	    	for(Account a:allaccounts)
-	    		jsonstr+= (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(a)+" ");
-	    	
-	    	return jsonstr;*/
-	    }
+			return byUserName;
+		}
 
+		return null;
+	}
 
+	public ArrayList<UserAccount> findall() {
 
-		public ArrayList<UserAccount> findallByName(String Name) {
+		return accountRepository.findAllByOrderBySysIdDesc();
+
+	}
+
+		public List<UserAccount> findallByName(String Name) {
 			return accountRepository. findByNameContaining(Name);
 
-		}
+	}
 }
-
