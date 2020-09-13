@@ -17,6 +17,4 @@ public interface  NotificationDTO {
 	int getCode();
 	String getMessage();
 
-	
-	
 }

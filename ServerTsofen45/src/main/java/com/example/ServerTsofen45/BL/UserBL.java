@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.BL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,51 +25,26 @@ public class UserBL {
 	@Autowired
 	UserRepository<User> userRepository;
 
-	
-	   public User LogIn(String Username,String password){
-<<<<<<< HEAD
-	    User byUserName = userRepository.findByUserName(Username);
-	       if(byUserName.validate(password))
-	       {
-	    	   byUserName.setAccount(byUserName.getAccount());
-=======
+	public User LogIn(String Username, String password) {
 
-	    User byUserName = userRepository.findByUserName(Username);
-	       if(byUserName!=null &&byUserName.validate(password))
-	       {
-	    	   byUserName.updateType();
+		User byUserName = userRepository.findByUserName(Username);
+		if (byUserName != null && byUserName.validate(password)) {
+			byUserName.updateType();
 
->>>>>>> master
+			return byUserName;
+		}
 
-	    	   return byUserName;
-	       }
+		return null;
+	}
 
-	    	return null;
-	    }
-	    
-	    public ArrayList<UserAccount> findall() 
-	    {
-<<<<<<< HEAD
-	    	return (ArrayList<UserAccount>) accountRepository.findAll();
-	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
-	    	String jsonstr="";
-	    	for(Account a:allaccounts)
-	    		jsonstr+= (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(a)+" ");
-	    	
-	    	return jsonstr;*/
-=======
+	public ArrayList<UserAccount> findall() {
 
-	    	return accountRepository.findAllByOrderBySysIdDesc();
+		return accountRepository.findAllByOrderBySysIdDesc();
 
+	}
 
->>>>>>> master
-	    }
-
-
-
-		public ArrayList<UserAccount> findallByName(String Name) {
+		public List<UserAccount> findallByName(String Name) {
 			return accountRepository. findByNameContaining(Name);
 
-		}
+	}
 }
-

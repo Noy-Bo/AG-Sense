@@ -12,66 +12,69 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.adapters.LoginCallBack;
-import com.tsofen.agsenceapp.adapters.TestAdapter;
+import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
+import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
+import com.tsofen.agsenceapp.dataServices.ServicesName;
+import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
 import com.tsofen.agsenceapp.entities.User;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
-    public static User user = new User(10, "Tsofen", "Tsofen@Tsofen.Tsofen", "Admin");
+
+
+    public static User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Map<String,String> params = new HashMap<>();
+        params.put("username","Admin");
+        params.put("password","1234");
+        String url = UrlConnectionMaker.ctreatUrl(ServicesName.Login,params);
+
     }
 
 
     public void login(View view) {
+
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         EditText password = (EditText) findViewById(R.id.passTxt);
+final String pass = password.getText().toString();
 
 
-       /*if (username != null && username.equals("Admin")) {
-            Intent intent = new Intent(this, AdminDashboardActivity.class);
-            AppBaseActivity.setUserType(username);
-            startActivity(intent);
-        }
-
-        else if(username != null && username.equals("Account")) // Noy - added 'else' here so it will not load 2 screens when logging in as admin.
-        {
-            Intent intent = new Intent(this, AccountDashboardActivity.class);
-            AppBaseActivity.setUserType(username);
-            startActivity(intent);
-        }else{
-            Toast.makeText(this,"Please enter a valid username",Toast.LENGTH_LONG).show();
-        }*/
-
-        final TestAdapter adapter = new TestAdapter();
         progressBar.setVisibility(View.VISIBLE);
 
         hideKeyboard(this);
 
-        adapter.login(username, "1111", new LoginCallBack() {
+
+        UserDataAdapter.userLogin(username, pass, new onUserLoginHandler() {
             @Override
-            public void onAdminLoginSuccess() {
+            public void onAdminLoginSuccess(User user) {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 AppBaseActivity.setUserType(username);
                 startActivity(intent);
             }
+
             @Override
-            public void onUserLoginSuccess() {
+            public void onAccountLoginSuccess(User user) {
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
                 AppBaseActivity.setUserType(username);
                 startActivity(intent);
             }
 
             @Override
-            public void onLoginFail() {
+            public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this,"Please enter a valid username",Toast.LENGTH_LONG).show();
             }
         });
+
+
 
 
     }

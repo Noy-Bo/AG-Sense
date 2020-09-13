@@ -19,25 +19,52 @@ public class NotificationsController {
 	@Autowired
 	 NotificationBL notificationBL;
 
+	@GetMapping("getNotifications")
+	  public List<NotificationDTO>  getNotifications(@RequestParam int start, @RequestParam int num)
+		{
+		
+		 if(start == 0 && num == 0 ) {
+				
+				return notificationBL.getAllNotifications();
+			}
+
+		
+		  List<NotificationDTO> notifications = new ArrayList<NotificationDTO>();
+			 notifications = notificationBL.getAllNotifications();
+			
+			 List<NotificationDTO> sublist = notifications.subList(start, start + num);
+			return  sublist;
+		 
+		}
+	
+	
+	
 	  
 	  @GetMapping("NotificationRelatedToDevice")
-	  public List<Notification>  getNotificationRelatedToDevice(@RequestParam int id ,@RequestParam long IMEI)
+	  public List<NotificationDTO>   getNotificationRelatedToDevice(@RequestParam int id, @RequestParam int start, @RequestParam int num)
 		{
-			List<Notification> notifications = new ArrayList<Notification>();
-			notifications = notificationBL.getNotificationRelatedToDevice(id, IMEI);
+		  if(start == 0 && num == 0 ) {
+				
+				return notificationBL.getNotificationRelatedToDevice(id);
+			}
+
 		
-			return notifications;
+		  List<NotificationDTO> notifications = new ArrayList<NotificationDTO>();
+			 notifications = notificationBL.getNotificationRelatedToDevice(id);
+			
+			 List<NotificationDTO> sublist = notifications.subList(start, start + num);
+			return  sublist;
 		}
 	  
 	 
 	 
 	  @GetMapping("NotificationsRelatedToAccount")
-	  public List<NotificationDTO> getNotificationsRelatedToAccount(int id,int start , int num)
+	  public List<NotificationDTO> getNotificationsRelatedToAccount(@RequestParam int id,@RequestParam int start ,@RequestParam int num)
 		{
 		
 		  if(start == 0 && num == 0 ) {
 				
-				return notificationBL.getAllNotifications();
+				return notificationBL.getNotificationsRelatedToUser(id);
 			}
 
 		
@@ -51,12 +78,15 @@ public class NotificationsController {
 		}
 	  
 	  @GetMapping("Readed")
-	  public void setNotificationsReaded(@RequestParam int id)
+	  public boolean markNotificationAsRead (@RequestParam ArrayList<Integer> idList)
 		{
 			
+		    for (Integer id : idList) {
+		    	 notificationBL.setNotificationsReaded(id);
+		    }
 		    
-			   notificationBL.setNotificationsReaded(id);
-	
+		    return true;
+			  
 		}
 	
 }
