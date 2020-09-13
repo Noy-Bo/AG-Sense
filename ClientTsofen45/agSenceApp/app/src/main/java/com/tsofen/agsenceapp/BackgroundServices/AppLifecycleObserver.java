@@ -8,6 +8,9 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.tsofen.agsenceapp.dataServices.OnLogin;
+import com.tsofen.agsenceapp.entities.User;
+
 public class AppLifecycleObserver implements LifecycleObserver {
 
     public static final String TAG = AppLifecycleObserver.class.getName();
@@ -16,12 +19,25 @@ public class AppLifecycleObserver implements LifecycleObserver {
     CacheMgr cacheMgr = CacheMgr.getInstance();
     public static int count = 0; // test
 
+    /// -----------this class is used onlyn for testing at the moment..-----------
+
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onEnterForeground() {
         Log.d("Handlers", "onstart");
         cacheMgr.initializeAllServices();
-        /*
-        runnableCode = new Runnable() {
+        cacheMgr.loginJob(new OnLogin() {     //------ this needs work! exception "Could not execute method for android:onClick"
+            @Override
+            public void OnLoginSuccess(User user) {
+                Log.d("login", "Asynchronous login was successful");
+            }
+
+            @Override
+            public void OnLoginFailure() {
+                Log.d("login", "Asynchronous login failed");
+            }
+        });
+
+        /*runnableCode = new Runnable() {   ------- this is a test run for the ServerPerioicJob.
             @Override
             public void run() {
                 // Do something here on the main thread
@@ -38,8 +54,8 @@ public class AppLifecycleObserver implements LifecycleObserver {
 
         };
         // Start the initial runnable task by posting through the handler
-        handler.post(runnableCode);
-        */
+        handler.post(runnableCode);*/
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)

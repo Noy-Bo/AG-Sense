@@ -2,18 +2,16 @@ package com.tsofen.agsenceapp.BackgroundServices;
 
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Message;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 import com.tsofen.agsenceapp.dataServices.OnDevicesReadyHandler;
+import com.tsofen.agsenceapp.dataServices.OnLogin;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.User;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -21,7 +19,8 @@ public class CacheMgr {
     private static CacheMgr cacheMgr = null;
 
     //handles
-    private HandlerThread handlerThread = new HandlerThread("serverPeriodicJobHandler");
+    private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
+    private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
     private Handler threadHandler;
     private CacheMgr() {}
 
@@ -34,7 +33,7 @@ public class CacheMgr {
     }
 
 
-    public class getDevicesRunnable implements Runnable
+    public class getDevicesRunnable implements Runnable // TODO - transform to anonymous class
     {
         private OnDevicesReadyHandler handler;
         @Override
@@ -43,7 +42,7 @@ public class CacheMgr {
                 TextDownloader downloader = new TextDownloader();
                 downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() { // specifying a new handler for textDownloader
                     @Override
-                    public void onDataDownloadCompleted(String downloadedData) { // overriding the method when finished.
+                    public void onDataDownloadCompleted(String downloadedData) { // creating a new OnDataReadyHandler, and inserting it to downloader as handler.
                         Log.d("DOWNLOAD","Download text is "+downloadedData);
 
                         // we have  results at downloadedData, but we now presenting dummy data.
@@ -73,7 +72,7 @@ public class CacheMgr {
                         devices.add(new Devices(0,1,1,"Device",date,date1,true));
 
                         if (handler != null) {
-                            handler.onDevicesReady(devices); // updating the main handler that devices are ready ---changing
+                            handler.onDevicesReady(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
                         }
                     }
                 });
@@ -84,75 +83,40 @@ public class CacheMgr {
     }
 
 
-   /*  -------IMPLEMENTATION WITHOUT HANDLER. --------
-   public void getDevices(final OnDevicesReadyHandler handler)
-    {
-
-        TextDownloader downloader = new TextDownloader();
-        downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() { // specifying a new handler for textDownloader
-            @Override
-            public void onDataDownloadCompleted(String downloadedData) { // overriding the method when finished.
-                Log.d("DOWNLOAD","Download text is "+downloadedData);
-
-                // we have  results at downloadedData, but we now presenting dummy data.
-
-                Date date = new Date();
-                date.getTime();
-                Date date1 = new Date();
-                date.setTime(20102020);
-
-                List<Devices> devices = new ArrayList<>();
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                devices.add(new Devices(0,1,1,"Device",date,date1,true));
-
-                if (handler != null) {
-                    handler.onDevicesReady(devices); // updating the main handler that devices are ready
-                }
-            }
-        });
-       //Thread t = new Thread(downloader);
-       //t.start();
-        // return dummy data.
-
-
-
-
-        //end
-    }*/
-
     public void initializeAllServices() // remove public
     {
         //initializing the serverPeriodJob
-        handlerThread.start();
-        threadHandler = new Handler(handlerThread.getLooper());
-        serverPeriodicJob();
+        handlerThreadLogin.start();
+        threadHandler = new Handler(handlerThreadLogin.getLooper());
+
 
     }
 
-    public void serverPeriodicJob() // remove public
-    {
-            threadHandler.post(new getDevicesRunnable());
+   // public void serverPeriodicJob()
+   // {
+            //threadHandler.post(new getDevicesRunnable());
 
             //threadHandler.post(new WaitPeriod());
 
+   // }
+
+   public void loginJob(final OnLogin handler)
+    {
+        threadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                TextDownloader downloader = new TextDownloader();
+                downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
+                    @Override
+                    public void onDataDownloadCompleted(String downloadedData) {
+                        User user = new User(1, "Rami", "rami@gmail.com", "Account");
+                        handler.OnLoginSuccess(user);
+                    }
+                });
+                downloader.getText("https://www.google.com");
+
+            }
+        });
     }
-
-
-
 
 }

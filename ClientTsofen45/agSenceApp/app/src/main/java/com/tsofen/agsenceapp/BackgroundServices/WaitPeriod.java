@@ -7,6 +7,6 @@ public class WaitPeriod implements Runnable {
     @Override
     public void run() {
         sleep(2000);
-        cacheMgr.serverPeriodicJob();
+        //cacheMgr.serverPeriodicJob();
     }
 }

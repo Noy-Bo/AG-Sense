@@ -105,7 +105,7 @@
                 android:textAllCaps="false"
                 android:textSize="@dimen/large_text_size"
                 android:textColor="@color/orange"
-                android:onClick="login"/>
+                android:onClick="loginButton"/>
 
             <View
                 android:layout_width="match_parent"
