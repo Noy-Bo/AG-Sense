@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
 public class TextDownloader{
     OnDataReadyHandler handler = null;
 
@@ -21,10 +22,12 @@ public class TextDownloader{
             while ((input = in.readLine()) != null) {
                 str += input;
             }
+
             if(this.handler!=null) // if there is a handler, we want to activate the completed downloaded
             {
                 this.handler.onDataDownloadCompleted(str); // activating handlers function to set result(str)
             }
+
             in.close();
             return str;
         } catch (MalformedURLException e) {

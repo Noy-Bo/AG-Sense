@@ -18,6 +18,7 @@ public class SliderAdapter extends PagerAdapter {
     public static final String TAG = "SliderAdapter:";
     //Arrays for slider-layouts..
 
+
     public SliderAdapter(Context context){
         this.context=context;
     }
@@ -27,6 +28,7 @@ public class SliderAdapter extends PagerAdapter {
         Log.d(TAG,"getCount()");
         return 3;
     }
+
 
     //Determines whether a page View is associated with a specific key object as returned by instantiateItem(ViewGroup, int).
     // This method is required for a PagerAdapter to function properly.

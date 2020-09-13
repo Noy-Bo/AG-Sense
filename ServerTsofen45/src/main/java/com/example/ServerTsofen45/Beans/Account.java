@@ -16,16 +16,18 @@ public class Account {
 	String Text;
 	int Id;
 	List<Device> devices;
-
-    private UserAccount account;
 	
-    @ManyToOne
-    @JoinColumn(name = "sys_id", nullable = false)
-	public UserAccount getAccount() {
-		return account;
+
+	
+  
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public void setAccount(UserAccount account) {
-		this.account = account;
+	public Account(String text, int id) {
+		super();
+		Text = text;
+		Id = id;
 	}
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
@@ -33,9 +35,6 @@ public class Account {
 	@OneToMany
 	public List<Device> getDevices() {
 		return devices;
-	}
-	public void setDevices(ArrayList<Device> devices) {
-		this.devices = devices;
 	}
 	@Column
 	public String getText() {

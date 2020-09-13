@@ -51,5 +51,16 @@ public class DeviceBL {
 		return devices;
 
 	}
+	public ArrayList<Device> getDeviceRelatedToAccount(int id,int start , int num ){
+		ArrayList<Device> devices;
+		if(start==0 && num==0) {
+			devices = deviceRepository.findAll();
+			return devices;
+		}
+		devices = deviceRepository.findByaccountId(id);
+		ArrayList<Device> sublist = (ArrayList<Device>) devices.subList(start, start+num);
+		return sublist;
+		
+	}
 
 }

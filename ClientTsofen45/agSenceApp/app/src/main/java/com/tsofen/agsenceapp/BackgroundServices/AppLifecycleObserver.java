@@ -25,15 +25,17 @@ public class AppLifecycleObserver implements LifecycleObserver {
     public void onEnterForeground() {
         Log.d("Handlers", "onstart");
         cacheMgr.initializeAllServices();
-        cacheMgr.loginJob(new OnLogin() {     //------ this needs work! exception "Could not execute method for android:onClick"
+        cacheMgr.loginJob(new OnLogin() {
             @Override
-            public void OnLoginSuccess(User user) {
+            public void onLoginSuccess(User user) {
                 Log.d("login", "Asynchronous login was successful");
+
             }
 
             @Override
-            public void OnLoginFailure() {
+            public void onLoginFailure() {
                 Log.d("login", "Asynchronous login failed");
+
             }
         });
 

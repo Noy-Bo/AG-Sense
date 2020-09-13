@@ -8,6 +8,7 @@ import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 import com.tsofen.agsenceapp.dataServices.OnDevicesReadyHandler;
 import com.tsofen.agsenceapp.dataServices.OnLogin;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.User;
 
@@ -109,8 +110,8 @@ public class CacheMgr {
                 downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
                     @Override
                     public void onDataDownloadCompleted(String downloadedData) {
-                        User user = new User(1, "Rami", "rami@gmail.com", "Account");
-                        handler.OnLoginSuccess(user);
+                        Account user = new Account(1, "Rami", "rami@gmail.com", false,12);
+                        handler.onLoginSuccess(user);
                     }
                 });
                 downloader.getText("https://www.google.com");

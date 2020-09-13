@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.BL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,12 @@ public class UserBL {
 
 	
 	   public User LogIn(String Username,String password){
-	       UserAccount byUserName = accountRepository.findByUserName(Username);
-	       if(byUserName.validate(password))
+
+
+	    User byUserName = userRepository.findByUserName(Username);
+	       if(byUserName!=null &&byUserName.validate(password))
 	       {
+	    	   byUserName.updateType();
 
 	    	   return byUserName;
 	       }
@@ -38,18 +42,16 @@ public class UserBL {
 	    
 	    public ArrayList<UserAccount> findall() 
 	    {
-	    	return accountRepository.findAll();
-	    	/*ArrayList<Account> allaccounts=accountRepository.findAll();
-	    	String jsonstr="";
-	    	for(Account a:allaccounts)
-	    		jsonstr+= (mapper.writerWithDefaultPrettyPrinter().writeValueAsString(a)+" ");
-	    	
-	    	return jsonstr;*/
+
+
+	    	return accountRepository.findAllByOrderBySysIdDesc();
+
+
 	    }
 
 
 
-		public ArrayList<UserAccount> findallByName(String Name) {
+		public List<UserAccount> findallByName(String Name) {
 			return accountRepository. findByNameContaining(Name);
 
 		}
