@@ -28,10 +28,9 @@ import com.tsofen.agsenceapp.entities.User;
 public class LoginActivity extends AppCompatActivity {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-    public static User user ;
+    public static User user;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-
 
 
     @Override
@@ -46,14 +45,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
     public void login(View view) {
 
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         EditText password = (EditText) findViewById(R.id.passTxt);
-final String pass = password.getText().toString();
+        final String pass = password.getText().toString();
 
 
         progressBar.setVisibility(View.VISIBLE);
@@ -61,7 +59,7 @@ final String pass = password.getText().toString();
         hideKeyboard(this);
 
 
-        UserDataAdapter.userLogin(username, pass, new onUserLoginHandler() {
+        UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
@@ -78,18 +76,13 @@ final String pass = password.getText().toString();
 
             @Override
             public void onUserLoginFailed() {
-                Toast.makeText(LoginActivity.this,"Please enter a valid username",Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
             }
 
         });
 
 
-
-
-
     }
-
-
 
 
     public static void hideKeyboard(Activity activity) {
