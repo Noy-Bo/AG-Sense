@@ -14,10 +14,11 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	ArrayList<Device> findByName(String name);
 
-	ArrayList<Device> findAll();
+	ArrayList<Device> findAllByOrderByIdDesc();
 
 	ArrayList<Device> findByType(String type);
 	
 	ArrayList<Device> findByaccountId(int id);
-
+	
+	ArrayList<Device> findAll();
 }

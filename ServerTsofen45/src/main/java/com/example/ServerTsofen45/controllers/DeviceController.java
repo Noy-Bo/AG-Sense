@@ -93,6 +93,12 @@ public class DeviceController {
 		locations = deviceBL.getRecentLocationRelatedToDevice(id, start, num);
 		return locations;
 	}
+	@GetMapping("getDevices")
+	public ArrayList<Device> getDevices(@RequestParam int start, @RequestParam int num){
+		ArrayList<Device> devices = new ArrayList<>();
+		devices = deviceBL.getDevices(start, num);
+		return devices;
+	}
 	
 
 }
