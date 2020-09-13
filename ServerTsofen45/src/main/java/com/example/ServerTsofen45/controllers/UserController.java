@@ -48,10 +48,11 @@ public class UserController {
 	//	*return all userProfiles in Database
 	@SuppressWarnings("unchecked")
 	@GetMapping("AllAccounts")
-
 	JSONArray getAllAccounts(@RequestParam int start,@RequestParam int num) 
 	{
 		List<UserAccount> res= userBL.findall();
+		if(res==null)
+			return null;
 		if(start+num>res.size())
 			return null ;
 	    JSONArray jsonArray = new JSONArray();
