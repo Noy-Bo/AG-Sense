@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.BL;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class DeviceBL {
 	public ArrayList<Device> getDeviceRelatedToAccount(int id, int start, int num) {
 		ArrayList<Device> devices;
 		if (start == 0 && num == 0) {
-			devices = deviceRepository.findAll();
+			devices = deviceRepository.findByaccountId(id);
 			return devices;
 		}
 		devices = deviceRepository.findByaccountId(id);
@@ -94,5 +95,10 @@ public class DeviceBL {
 	    	return locations;
 	    
 	}
+	public ArrayList<Device> getDevices(int start, int num) {
+		ArrayList<Device> devices = deviceRepository.findAllByOrderByIdDesc();
+		return (ArrayList<Device>) devices.subList(start, devices.size()-1);
+	}
+
 
 }

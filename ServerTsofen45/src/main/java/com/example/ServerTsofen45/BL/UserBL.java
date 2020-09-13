@@ -12,7 +12,6 @@ import com.example.ServerTsofen45.Repo.UserAccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
 import com.example.ServerTsofen45.Repo.SupportRepository;
 import com.example.ServerTsofen45.Repo.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class UserBL {

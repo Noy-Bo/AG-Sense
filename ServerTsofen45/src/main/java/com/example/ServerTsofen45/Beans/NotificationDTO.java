@@ -1,6 +1,5 @@
 package com.example.ServerTsofen45.Beans;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import Enums.Severity;
