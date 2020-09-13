@@ -20,10 +20,15 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 			  +"INNER JOIN errors AS e "
 			  + "ON n.error_code=e.code "
 			  + "ORDER BY n.date_time DESC;")
-	public List<NotificationDTO> findAll1();
-	public Notification findById(int id);
-	public List<Notification> findAll();
-	public List<Notification> findByDeviceId(int deviceId);
+	public List<NotificationDTO> getAll();
+	@Query(nativeQuery = true, value ="SELECT n.id , n.date_time , n.readed, n.severity, n.user_id, "
+			+ "n.device_id, n.device_imei, e.code, e.message"
+			  + " FROM notifications AS n "
+			  +"INNER JOIN errors AS e "
+			  + "ON n.error_code=e.code "
+			  + "WHERE n.device_id = ?1 " + 
+			  "ORDER BY n.date_time DESC;")
+	public List<NotificationDTO> findByDeviceId(int deviceId);
 	@Query(nativeQuery = true, value ="SELECT n.id , n.date_time , n.readed, n.severity, n.user_id, "
 			+ "n.device_id, n.device_imei, e.code, e.message"
 			  + " FROM notifications AS n "
@@ -32,6 +37,7 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 			  + "WHERE n.user_id = ?1 " + 
 			  "ORDER BY n.date_time DESC;")
 	public List<NotificationDTO> findByUserId(int UserId);
+	public Notification findById(int id);
 	public List<Notification> findBySeverity(Severity severity);
 	public List<Notification> findByDeviceImei(long deviceImei);
 	public List<Notification> findByDeviceImeiAndDeviceId(long deviceImei, int deviceId);
