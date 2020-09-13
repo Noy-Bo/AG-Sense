@@ -53,10 +53,10 @@ public class UserController {
 	JSONArray getAllAccounts(@RequestParam int start,@RequestParam int num) 
 	{
 		List<UserAccount> res= userBL.findall();
-		if(start+num>res.size())
-			return null ;
 	    JSONArray jsonArray = new JSONArray();
-	    if(!(start==0&&num==0))
+		if(start+num>res.size())
+			res=res.subList(start, res.size()-1);
+		else if(!(start==0&&num==0))
 			res=  res.subList(start, start+num);
 	    for(int i=0;i<res.size();i++)
 	    {
@@ -70,12 +70,28 @@ public class UserController {
 	
 	//search user names in userProfiles table by name and returns UserProfile arraylist with names whose name contain the string given
 	@GetMapping("SpecificAccountsByName")
-	ArrayList<UserAccount> getSpecificAccountsByName(@RequestParam String name) 
+	JSONArray getSpecificAccountsByName(@RequestParam String name,@RequestParam int start,@RequestParam int num) 
 	{
-		return userBL.findallByName(name);
+		List<UserAccount> res= userBL.findallByName(name);
+	    JSONArray jsonArray = new JSONArray();
+		if(start+num>res.size())
+			res=res.subList(start, res.size()-1);
+		else if(!(start==0&&num==0))
+			res=  res.subList(start, start+num);
+			
+			
+	    for(int i=0;i<res.size();i++)
+	    {
+	    	jsonArray.add(res.get(i).toJson());
+	    }
+		 return jsonArray;
+			
 	}
 
-	
+
+
+
+
 	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
