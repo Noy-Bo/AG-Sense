@@ -1,6 +1,5 @@
 package com.tsofen.agsenceapp.activities;
 
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
@@ -10,14 +9,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
 import com.tsofen.agsenceapp.R;
 
-public class DeviceSetting extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Float.parseFloat;
+
+public class DeviceSetting extends BackBaseActivity {
 
 
     EditText longitude, latitude, speed, fence_radius_m;
@@ -27,12 +26,10 @@ public class DeviceSetting extends AppCompatActivity {
     Spinner FenceTypeSpinner;
 
     @SuppressLint("CutPasteId")
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_setting);
-
         Spinner spinner = (Spinner) findViewById(R.id.FenceTypeSpinner);
         List<String> type = new ArrayList<>();
         type.add(0, "Choose Type");
@@ -160,6 +157,7 @@ public class DeviceSetting extends AppCompatActivity {
                 Toast toast = Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT);
                 toast.show();
             }
+
                 else
                 {
                     Toast.makeText(this, "One or more Argument is invalid", Toast.LENGTH_SHORT).show();
@@ -168,6 +166,5 @@ public class DeviceSetting extends AppCompatActivity {
 
 
         }
-
     }
 }

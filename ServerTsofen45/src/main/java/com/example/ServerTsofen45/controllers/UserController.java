@@ -16,9 +16,8 @@ import com.example.ServerTsofen45.Beans.UserAccount;
 import com.example.ServerTsofen45.Beans.Account;
 import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
+import com.example.ServerTsofen45.Repo.AdminRepository;
 import com.example.ServerTsofen45.Repo.UserAccountRepository;
-
-
 
 @RestController
 @RequestMapping("User")
@@ -28,8 +27,10 @@ public class UserController {
 	@Autowired
 	UserAccountRepository useraccountRepository;
 	@Autowired
-	AccountRepository accountRepository;
-	
+	AdminRepository adminRepository;
+	@Autowired
+	AccountRepository accountrepo;
+
 	@GetMapping("Login")
 	public JSONObject Login(@RequestParam String username, @RequestParam String password)
 	{
@@ -48,11 +49,10 @@ public class UserController {
 	//	*return all userProfiles in Database
 	@SuppressWarnings("unchecked")
 	@GetMapping("AllAccounts")
+
 	JSONArray getAllAccounts(@RequestParam int start,@RequestParam int num) 
 	{
 		List<UserAccount> res= userBL.findall();
-		if(res==null)
-			return null;
 		if(start+num>res.size())
 			return null ;
 	    JSONArray jsonArray = new JSONArray();
@@ -79,9 +79,8 @@ public class UserController {
 	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
-
 		Account ac= new Account("delek",1);
-		accountRepository.save(ac);
+		accountrepo.save(ac);
 		//Admin ibra=new Admin(email ,name, Username, pass);
 	///	adminRepository.save(ibra);
 		UserAccount ibra=new UserAccount(email ,name, Username, pass,null);

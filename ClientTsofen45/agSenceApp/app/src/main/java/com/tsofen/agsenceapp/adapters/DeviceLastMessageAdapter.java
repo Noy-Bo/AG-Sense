@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.DeviceLastMessage;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class DeviceLastMessageAdapter extends ArrayAdapter<DeviceLastMessage> {
@@ -25,6 +23,8 @@ public class DeviceLastMessageAdapter extends ArrayAdapter<DeviceLastMessage> {
         super(context, 0, objects);
         inflater = LayoutInflater.from(context);
     }
+
+
 
 
 

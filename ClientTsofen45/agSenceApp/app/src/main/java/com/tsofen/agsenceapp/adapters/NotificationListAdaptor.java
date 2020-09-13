@@ -23,10 +23,12 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
     public NotificationListAdaptor(Context context, ArrayList<Notification> notificationArray)
     {
 
+
         super(context,0,notificationArray);
         inflater = LayoutInflater.from(context);
         Log.d("IN ADAPTER","IN CONSTRUCTOR");
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)

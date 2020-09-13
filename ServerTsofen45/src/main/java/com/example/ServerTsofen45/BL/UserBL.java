@@ -27,11 +27,11 @@ public class UserBL {
 	
 	   public User LogIn(String Username,String password){
 
+
 	    User byUserName = userRepository.findByUserName(Username);
 	       if(byUserName!=null &&byUserName.validate(password))
 	       {
 	    	   byUserName.updateType();
-
 
 	    	   return byUserName;
 	       }
@@ -41,6 +41,7 @@ public class UserBL {
 	    
 	    public ArrayList<UserAccount> findall() 
 	    {
+
 
 	    	return accountRepository.findAllByOrderBySysIdDesc();
 

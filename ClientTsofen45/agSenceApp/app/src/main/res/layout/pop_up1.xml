@@ -9,160 +9,168 @@
     android:id="@+id/filter">
 
 
-<LinearLayout
-    android:background="#FFFF"
-    android:layout_width="350dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="match_parent"
+
+
+    <LinearLayout
+        android:background="#FFFF"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:background="@color/dark_blue"
-        >
-        <TextView
+        android:orientation="vertical">
+        <Toolbar
+            android:id="@+id/toolbar2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/Filter"
-            android:textSize="30dp"
-            android:textColor="#FFFF"
-            android:gravity="center"
-            ></TextView>
-    </Toolbar>
-    <Space
-        android:layout_height="20dp"
-        android:layout_width="match_parent"/>
+            android:layout_height="wrap_content"
+            android:background="@color/dark_blue"
+            >
+            <ImageView
+                android:id="@+id/closePopUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"></ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/Filter"
+                android:textSize="30dp"
+                android:textColor="#FFFF"
+                android:layout_gravity="center"
+                ></TextView>
+        </Toolbar>
+        <Space
+            android:layout_height="20dp"
+            android:layout_width="match_parent"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:paddingEnd="50dp"
-        android:paddingStart="60dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:paddingEnd="50dp"
+            android:paddingStart="60dp">
 
 
-        <TextView
+            <TextView
 
-            android:id="@+id/read_button"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="7dp"
-            android:onClick="displayReadNotifications"
-            android:layout_weight="1"
-            android:background="@drawable/blue_shape_squares"
-            android:gravity="center"
-            android:text="@string/read"
-            android:textColor="@color/dark_blue"></TextView>
+                android:id="@+id/read_button"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_margin="7dp"
+                android:onClick="displayReadNotifications"
+                android:layout_weight="1"
+                android:background="@drawable/blue_shape_squares"
+                android:gravity="center"
+                android:text="@string/read"
+                android:textColor="@color/dark_blue"></TextView>
 
-        <TextView
+            <TextView
 
-            android:id="@+id/unread_button"
-            android:onClick="displayUnreadNotifications"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_margin="7dp"
-            android:layout_weight="1"
-            android:background="@drawable/blue_shape_squares"
-            android:gravity="center"
-            android:text="@string/unread"
-            android:textColor="@color/dark_blue"></TextView>
+                android:id="@+id/unread_button"
+                android:onClick="displayUnreadNotifications"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_shape_squares"
+                android:gravity="center"
+                android:text="@string/unread"
+                android:textColor="@color/dark_blue"></TextView>
+
+        </LinearLayout>
+        <Space
+            android:layout_height="20dp"
+            android:layout_width="match_parent"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/fromDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/fromDate"
+                    android:layout_margin="10dp"/>
+
+                <ImageView
+                    android:id="@+id/fromDateCalender"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/calender_icon"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/toDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:hint="@string/toDate"/>
+                <ImageView
+                    android:id="@+id/toDateCalender"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/calender_icon"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <Space
+            android:layout_height="20dp"
+            android:layout_width="match_parent"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+            <Button
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/orange"
+                android:id="@+id/filterSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/search"
+                android:onClick="search"
+                android:layout_gravity="center"/>
+
+
+            <Button
+
+                android:layout_marginLeft="10dp"
+
+                android:id="@+id/filterResetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reset"
+                android:background="@android:color/transparent"
+                android:textColor="@color/orange"
+                android:onClick="reset"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <View
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/gradient_color_background" />
 
     </LinearLayout>
-    <Space
-        android:layout_height="20dp"
-        android:layout_width="match_parent"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-    <TextView
-        android:id="@+id/fromDate"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:hint="@string/fromDate"
-        android:layout_margin="10dp"/>
-
-    <ImageView
-
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_margin="10dp"
-        android:onClick="listen"
-        android:src="@drawable/calender_icon"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:gravity="center">
-    <TextView
-        android:id="@+id/toDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:hint="@string/toDate"/>
-    <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:src="@drawable/calender_icon"
-        android:onClick="listen1" />
-
-    </LinearLayout>
-
-</LinearLayout>
-    <Space
-        android:layout_height="20dp"
-        android:layout_width="match_parent"/>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    >
-    <Button
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/orange"
-        android:id="@+id/filterSearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:text="@string/search"
-        android:onClick="search"
-        android:layout_gravity="center"/>
-
-
-    <Button
-
-        android:layout_marginLeft="10dp"
-
-        android:id="@+id/filterResetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reset"
-        android:background="@android:color/transparent"
-        android:textColor="@color/orange"
-        android:onClick="reset"
-        android:layout_gravity="center"/>
-       </LinearLayout>
-    <View
-        android:layout_marginRight="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@drawable/gradient_color_background" />
-
-</LinearLayout>
 
 </RelativeLayout>

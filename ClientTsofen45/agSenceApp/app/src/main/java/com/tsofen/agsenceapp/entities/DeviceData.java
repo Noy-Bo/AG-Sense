@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class DeviceData  implements Serializable {
+
+
     protected int id;
     protected long Deviceimei2;
     protected int Deviceid2;
