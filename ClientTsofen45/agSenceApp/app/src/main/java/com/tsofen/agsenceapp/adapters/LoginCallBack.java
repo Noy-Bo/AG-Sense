@@ -1,4 +1,7 @@
-package com.tsofen.agsenceapp;
+package com.tsofen.agsenceapp.adapters;
 
-public class LoginCallBack {
+public interface LoginCallBack {
+    void onAdminLoginSuccess();
+    void onUserLoginSuccess();
+    void onLoginFail();
 }
