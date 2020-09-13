@@ -1,7 +1,9 @@
 package com.tsofen.agsenceapp.activities;
 
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -9,34 +11,41 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
+
+import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
-import com.tsofen.agsenceapp.dataServices.ServicesName;
-import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
+import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public CacheMgr cacheMgr = CacheMgr.getInstance();
+    public static User user ;
 
-    public static User user;
+    @RequiresApi(api = Build.VERSION_CODES.O)
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Map<String,String> params = new HashMap<>();
-        params.put("username","Admin");
-        params.put("password","1234");
-        String url = UrlConnectionMaker.ctreatUrl(ServicesName.Login,params);
+
+        // observer registeration for onforeground. -- read AppLifeCycleObserver.
+        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
 
     }
+
 
 
     public void login(View view) {
@@ -55,16 +64,16 @@ final String pass = password.getText().toString();
 
         UserDataAdapter.userLogin(username, pass, new onUserLoginHandler() {
             @Override
-            public void onAdminLoginSuccess(User user) {
+            public void onAdminLoginSuccess(Admin user) {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-                AppBaseActivity.setUserType(username);
+                AppBaseActivity.setUserType(user.getUsername());
                 startActivity(intent);
             }
 
             @Override
-            public void onAccountLoginSuccess(User user) {
+            public void onAccountLoginSuccess(Account user) {
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
-                AppBaseActivity.setUserType(username);
+                AppBaseActivity.setUserType(user.getUsername());
                 startActivity(intent);
             }
 
@@ -72,12 +81,17 @@ final String pass = password.getText().toString();
             public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this,"Please enter a valid username",Toast.LENGTH_LONG).show();
             }
+
         });
 
 
 
 
+
     }
+
+
+
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

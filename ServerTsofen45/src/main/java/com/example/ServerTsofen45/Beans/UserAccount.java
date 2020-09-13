@@ -27,7 +27,7 @@ public class UserAccount extends User{
     		this.setUserName(string3);
     		//this.setHashPassword(string4);
     		this.hashPassword=hashPassword(string4);
-
+    		this.setType("Account");
     		this.setAccount(ac);
     	}
 	@SuppressWarnings("unchecked")

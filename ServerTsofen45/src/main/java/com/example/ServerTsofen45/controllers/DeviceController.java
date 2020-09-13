@@ -1,7 +1,6 @@
 package com.example.ServerTsofen45.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,6 +92,12 @@ public class DeviceController {
 
 		locations = deviceBL.getRecentLocationRelatedToDevice(id, start, num);
 		return locations;
+	}
+	@GetMapping("getDevices")
+	public ArrayList<Device> getDevices(@RequestParam int start, @RequestParam int num){
+		ArrayList<Device> devices = new ArrayList<>();
+		devices = deviceBL.getDevices(start, num);
+		return devices;
 	}
 	
 
