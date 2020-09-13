@@ -77,6 +77,12 @@ public class DeviceController {
 		devices = deviceBL.findByType(type);
 		return devices;
 	}
+	@GetMapping("getDeviceRelatedToAccount")
+	public ArrayList<Device> getDeviceRelatedToAccount(@RequestParam int id,@RequestParam int start,@RequestParam int num){
+		ArrayList<Device> devices = new ArrayList<Device>();
+		devices = deviceBL.getDeviceRelatedToAccount(id, start, num);
+		return devices;
+	}
 	
 	
 

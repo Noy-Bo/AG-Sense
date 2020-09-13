@@ -4,6 +4,8 @@
     <string name="pass_hint">Password</string>
     <string name="login_btn_text">Login</string>
 
+
+
     <string name="account_dashboard_title">AgSense - Account Name Dashboard</string>
     <string name="AdminNotification">Admin Notifications</string>
 
@@ -69,6 +71,19 @@
     <string name="authorized_num_2">Authorized Num 2</string>
     <string name="authorized_num_3">Authorized Num 3</string>
     <string name="update_btn_device_settings">Update</string>
+    <string name="heading_dir_deg">Heading dir.(deg)</string>
+    <string name="distance_m">Distance (m)</string>
+    <string name="tracking_interval_2_s">Tracking interval 2 (s)</string>
+    <string name="tracking_interval_1_s">Tracking interval 1 (s)</string>
+    <string name="_numbersdevicesettings">0-65535</string>
+    <string name="devicesettingsspeed">0-255 km/h</string>
+    <string name="longitude">longitude</string>
+    <string name="latitude">latitude</string>
+    <string name="device_settings_degree">0-359</string>
+    <string name="longitudelimit">000-0000-000 - 999-9999-999</string>
+    <string name="latitudelimit">00.000000 - 99.999999</string>
+    <string name="devicesettingslimit">000.0000000 - 999.999999</string>
+    <string name="settings">Settings</string>
 
 
 </resources>

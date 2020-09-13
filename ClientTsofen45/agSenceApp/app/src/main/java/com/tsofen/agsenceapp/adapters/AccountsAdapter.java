@@ -5,9 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
@@ -15,7 +14,6 @@ import com.tsofen.agsenceapp.activities.LoginActivity;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class AccountsAdapter extends ArrayAdapter<User> implements Serializable {
     LayoutInflater inflater;
@@ -24,6 +22,8 @@ public class AccountsAdapter extends ArrayAdapter<User> implements Serializable 
         super(context, resource, users);
         inflater = LayoutInflater.from(context);
     }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

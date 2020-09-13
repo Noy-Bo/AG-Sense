@@ -17,6 +17,7 @@ import com.tsofen.agsenceapp.R;
 
 public class AppBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
     protected DrawerLayout drawer;
     protected NavigationView navigationView;
     protected Toolbar toolbar;
@@ -44,7 +45,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             hideAdminOptions();
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

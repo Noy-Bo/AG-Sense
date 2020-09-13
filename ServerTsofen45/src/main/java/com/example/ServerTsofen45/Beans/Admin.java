@@ -13,12 +13,14 @@ public class Admin extends User {
     		this.setUserName(string3);
     		//this.setHashPassword(string4);
     		this.hashPassword=hashPassword(string4);
+    		this.setAccount(null);
     	}
 
 	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}	
+
 
 
 }

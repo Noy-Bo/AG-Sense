@@ -9,18 +9,18 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.UserMap;
 
-import java.io.Serializable;
 import java.util.Date;
 
 
 public class DeviceStatus extends SearchBaseActivity{
     UserMap userMap = new UserMap("Map");
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

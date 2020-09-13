@@ -11,7 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
+import com.tsofen.agsenceapp.dataServices.ServicesName;
+import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
 import com.tsofen.agsenceapp.entities.User;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     public static User user;
@@ -20,7 +25,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Map<String,String> params = new HashMap<>();
+        params.put("username","Admin");
+        params.put("password","1234");
+        String url = UrlConnectionMaker.ctreatUrl(ServicesName.Login,params);
+
     }
+
+
 
     public void login(View view) {
         EditText editText = (EditText) findViewById(R.id.usernameTxt);

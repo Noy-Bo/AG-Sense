@@ -13,6 +13,7 @@ public abstract class User implements Serializable {
         this.email = email;
     }
 
+
     public int getId() {
         return id;
     }

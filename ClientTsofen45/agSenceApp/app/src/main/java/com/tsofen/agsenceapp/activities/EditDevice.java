@@ -14,4 +14,6 @@ public class EditDevice extends AppCompatActivity {
         setContentView(R.layout.activity_edit_device);
 
     }
+
+
 }

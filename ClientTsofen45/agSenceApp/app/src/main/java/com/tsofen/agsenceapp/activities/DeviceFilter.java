@@ -1,13 +1,10 @@
 package com.tsofen.agsenceapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 
@@ -18,6 +15,8 @@ public class DeviceFilter extends BackBaseActivity {
     boolean type2Toggle = false;
     boolean type3Toggle = false;
     private int help;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

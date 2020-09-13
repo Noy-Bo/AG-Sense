@@ -13,9 +13,11 @@ import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.entities.Account;
 import java.io.Serializable;
+
 public class AccountStatusFilter extends AppBaseActivity implements Serializable {
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

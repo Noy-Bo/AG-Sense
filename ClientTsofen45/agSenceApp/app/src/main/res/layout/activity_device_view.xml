@@ -8,6 +8,8 @@
     android:orientation="vertical"
     tools:context=".activities.DeviceView">
 
+
+
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
@@ -313,12 +315,12 @@
                                 android:id="@+id/status_list_textview"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="0.5"
+                                android:layout_weight="0.33"
                                 android:gravity="center"
                                 android:text="Status List"
                                 android:textColor="@color/orange"
-                                android:textSize="16sp"
-                                android:layout_margin="4dp"
+                                android:textSize="14sp"
+                                android:layout_margin="2dp"
                                 android:background="@drawable/rounded_white_background_frame"
                                 ></Button>
 
@@ -326,12 +328,25 @@
                                 android:id="@+id/deviceStatusActivity_notification_button"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="0.5"
+                                android:layout_weight="0.33"
                                 android:gravity="center"
                                 android:text="Notifications"
                                 android:textColor="@color/orange"
-                                android:textSize="16sp"
-                                android:layout_margin="4dp"
+                                android:textSize="14sp"
+                                android:layout_margin="2dp"
+                                android:background="@drawable/rounded_white_background_frame"
+                                ></Button>
+                            <Button
+                                android:id="@+id/devicestatussettings"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.33"
+                                android:gravity="center"
+                                android:text="@string/settings"
+                                android:textColor="@color/orange"
+                                android:textSize="14sp"
+                                android:layout_margin="2dp"
+                                android:onClick="GoToSettingsPage"
                                 android:background="@drawable/rounded_white_background_frame"
                                 ></Button>
 
