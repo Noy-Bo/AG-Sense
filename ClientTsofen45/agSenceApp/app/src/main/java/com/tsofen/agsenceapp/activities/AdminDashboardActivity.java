@@ -11,6 +11,7 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.onDeviceDataLoadedHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,15 @@ public class AdminDashboardActivity extends SearchBaseActivity {
             backtoast.show();
         }
         backPressedTime = System.currentTimeMillis();
+    }
+
+    public void openMap(View view) {
+        UserMap userMap = new UserMap("Map");
+        //userMap.addPlace(new Place(name, description, lat, lng));
+        Intent intent = new Intent(this, MapsActivity.class);
+        //intent.putExtra("flag", true);
+        intent.putExtra("user_map", userMap);
+        startActivity(intent);
     }
 
 

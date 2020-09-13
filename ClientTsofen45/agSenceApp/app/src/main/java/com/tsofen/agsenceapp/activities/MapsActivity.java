@@ -24,8 +24,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private UserMap userMap;
     ArrayList<LatLng> latLngList = new ArrayList<>();
-
-
+    LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+       // LatLngBounds.Builder builder = new LatLngBounds.Builder();
         int counter = 0;
         for (int i = 0; i < userMap.getPlaces().size(); i++) {
             LatLng latLng = new LatLng(userMap.getPlaces().get(i).getLatitude(), userMap.getPlaces().get(i).getLongitude());
@@ -61,7 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             counter++;
         }
         //add static places
-        //Misken
         LatLng latLng = new LatLng(32.7582555, 35.0278015);
         builder.include(latLng);
         latLngList.add(latLng);
@@ -92,7 +90,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     latLng1 = latLng2;
                 }
             }
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+                }
+            });
+
         }
     }
 
