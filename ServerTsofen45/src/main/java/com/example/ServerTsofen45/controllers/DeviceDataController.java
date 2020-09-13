@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ServerTsofen45.BL.DeviceBL;
 import com.example.ServerTsofen45.BL.DeviceDataBL;
-import com.example.ServerTsofen45.Beans.Device;
 import com.example.ServerTsofen45.Beans.DeviceData;
 
 @RestController

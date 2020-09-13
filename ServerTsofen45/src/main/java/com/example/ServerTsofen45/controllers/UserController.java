@@ -1,6 +1,5 @@
 package com.example.ServerTsofen45.controllers;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
 import java.util.List;
 
@@ -69,6 +68,7 @@ public class UserController {
 	}
 	
 	//search user names in userProfiles table by name and returns UserProfile arraylist with names whose name contain the string given
+	@SuppressWarnings("unchecked")
 	@GetMapping("SpecificAccountsByName")
 	JSONArray getSpecificAccountsByName(@RequestParam String name,@RequestParam int start,@RequestParam int num) 
 	{
