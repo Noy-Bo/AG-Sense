@@ -12,7 +12,7 @@ public class UserDataAdapter {
 
     public static void userLogin(String username, String password , final onUserLoginHandler handler){
         CacheMgr cacheManager = CacheMgr.getInstance();
-        cacheManager.loginJob(new OnLogin() {
+        cacheManager.loginJob(username, password , new OnLogin() {
             @Override
             public void onLoginSuccess(User user) {
                 if(user instanceof Admin)

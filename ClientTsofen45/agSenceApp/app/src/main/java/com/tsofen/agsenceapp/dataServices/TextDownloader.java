@@ -31,8 +31,10 @@ public class TextDownloader{
             in.close();
             return str;
         } catch (MalformedURLException e) {
+            this.handler.onDownloadError();
             return null;
         } catch (IOException e) {
+            this.handler.onDownloadError();
             return null;
         }
     }
