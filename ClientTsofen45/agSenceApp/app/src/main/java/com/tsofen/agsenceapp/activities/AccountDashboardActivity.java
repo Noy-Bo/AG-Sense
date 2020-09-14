@@ -24,11 +24,14 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
+import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.entities.Notification;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class AccountDashboardActivity extends SearchBaseActivity {
@@ -57,7 +60,16 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
 
-        java.util.Date date = new Date();
+
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(LoginActivity.account.accountId, 0, 0, new NotificationsDataRequestHandler() {
+            @Override
+            public void onNotificationsReceived(List<Notification> notifications) {
+                notificationArray.addAll(notifications);
+            }
+        });
+
+
+        /*java.util.Date date = new Date();
         date.setTime(20102020);
         notificationArray.add(new Notification(15, 25, 25, 10, date,
                 58, false, "Hey this is error message1", 15));
@@ -78,7 +90,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         notificationArray.add(new Notification(15, 25, 25, 10, date,
                 58, false, "Hey this is error message9", 15));
         notificationArray.add(new Notification(15, 25, 25, 10, date,
-                58, false, "Hey this is error message10", 15));
+                58, false, "Hey this is error message10", 15));*/
 
 
         notificationArrayAdapter = new ArrayAdapter<Notification>(this, R.layout.notifictation_item_shape);

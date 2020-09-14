@@ -28,7 +28,8 @@ import com.tsofen.agsenceapp.entities.User;
 public class LoginActivity extends AppCompatActivity {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-    public static User user;
+    public static Admin admin;
+    public static Account account;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
 
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
+                setAdmin(user);
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 AppBaseActivity.setUserType("Admin");
                 startActivity(intent);
@@ -69,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onAccountLoginSuccess(Account user) {
+                setAccount(user);
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
                 AppBaseActivity.setUserType("Account");
                 startActivity(intent);
@@ -84,6 +87,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public static void setAdmin(Admin admin) {
+        LoginActivity.admin = admin;
+    }
+
+    public static void setAccount(Account account) {
+        LoginActivity.account = account;
+    }
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
