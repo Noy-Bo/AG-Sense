@@ -40,18 +40,19 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     public void accountNotification(View view) {
 
 
-        final ArrayList<Notification> notifications = new ArrayList<>();
+        final ArrayList<Notification> _notifications = new ArrayList<>();
+
         NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
             @Override
-            public void onNotificationsReceived(List<Notification> _notifications) {
-                notifications.addAll(_notifications);
+            public void onNotificationsReceived(List<Notification> notifications) {
+                _notifications.addAll(notifications);
             }
         });
 
 
 
         Intent intent = new Intent(this, AdminNotification.class);
-        intent.putExtra("notifications",notifications);
+        intent.putExtra("notifications",_notifications);
         startActivity(intent);
     }
 

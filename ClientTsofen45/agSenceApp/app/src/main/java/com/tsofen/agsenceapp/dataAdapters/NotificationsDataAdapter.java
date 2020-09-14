@@ -59,6 +59,8 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                 notificationArray.add(new Notification(16, 5, 5, 1, date,
                         58, false, "Hey this is error message16", 15));
 
+                handler.onNotificationsReceived(notificationArray);
+
             }
 
             @Override
