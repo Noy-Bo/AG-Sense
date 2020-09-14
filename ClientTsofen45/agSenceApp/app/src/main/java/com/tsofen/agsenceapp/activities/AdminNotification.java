@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class AdminNotification extends SearchBaseActivity {
         navigationView.setCheckedItem(R.id.nav_admin_notifications);
         popUpDialog = new Dialog(this);
         java.util.Date date = new Date();
-        date.setTime(20102020);
+      /*  date.setTime(20102020);
         notificationArray.add( new Notification(15,25,25,10,date,
                 58,false,"Hey this is error message1" , 15));
         notificationArray.add( new Notification(15,25,25,10,date,
@@ -75,7 +76,14 @@ public class AdminNotification extends SearchBaseActivity {
         notificationArrayAdapter = new NotificationListAdaptor(this,notificationArray);
         notificationList.setAdapter(notificationArrayAdapter);
 
+*/
+        ListView NotificationsListView = findViewById(R.id.notification_list);
+        ArrayList<Notification> notifications = (ArrayList<Notification>) getIntent().getSerializableExtra("notifications");
+        System.out.println(notifications);
 
+
+        ListAdapter myAdapter = new NotificationListAdaptor(this,0, notifications) ;
+        NotificationsListView.setAdapter(myAdapter);
     }
 
     public void DeviceView(View view) {

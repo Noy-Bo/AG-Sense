@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class NotificationListAdaptor extends ArrayAdapter<Notification> {
     LayoutInflater inflater;
 
-    public NotificationListAdaptor(Context context, ArrayList<Notification> notificationArray)
+    public NotificationListAdaptor(Context context,int resource, ArrayList<Notification> notificationArray)
     {
 
 
