@@ -73,7 +73,7 @@ public class DeviceController {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
 
-		devices = deviceBL.findByType(type);
+	//	devices = deviceBL.findByType(type);
 		return devices;
 	}
 	

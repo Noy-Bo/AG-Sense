@@ -16,9 +16,11 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	ArrayList<Device> findAllByOrderByIdDesc();
 
-	ArrayList<Device> findByType(String type);
-	
+	ArrayList<Device> findByIdAndType(int id ,int type);
+
 	ArrayList<Device> findByaccountId(int id);
-	
+
 	ArrayList<Device> findAll();
+	
+	ArrayList<Device> findByIdAndFaultyAndType(int id,boolean faulty,String type);
 }
