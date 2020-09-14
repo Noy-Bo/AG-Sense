@@ -23,7 +23,8 @@ public class AppLifecycleObserver implements LifecycleObserver {
     Handler handler = new Handler();
     CacheMgr cacheMgr = CacheMgr.getInstance();
     public static int count = 0; // test
-
+    /*
+    private final static int waitInterval = 10000;
     // periodic task design
     private DevicesHandler handlerForRepeatedJob  = new DevicesHandler() {
         @Override
@@ -32,7 +33,7 @@ public class AppLifecycleObserver implements LifecycleObserver {
             cacheMgr.getThreadHandlerForServerPeriod().post(new Runnable() {
                 @Override
                 public void run() {
-                    SystemClock.sleep(10000);
+                    SystemClock.sleep(waitInterval);
                     cacheMgr.getDevicesJob(handlerForRepeatedJob);
                 }
             });
@@ -43,6 +44,8 @@ public class AppLifecycleObserver implements LifecycleObserver {
 
         }
     };
+    */
+
 
 
     /// -----------this class is used only for testing at the moment..-----------
@@ -50,7 +53,33 @@ public class AppLifecycleObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onEnterForeground() {
 
-    cacheMgr.getDevicesJob(handlerForRepeatedJob);
+   //test for periodicjob
+   // cacheMgr.getDevicesJob(handlerForRepeatedJob);
+
+   cacheMgr.getDevicesJob(0, 0, new DevicesHandler() {
+       @Override
+       public void onDevicesDownloadFinished(List<Devices> devices) {
+           Log.d("innerclasstest","onDevicesDownloadFinished");
+       }
+
+       @Override
+       public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
+           Log.d("innerclasstest","onDevicesRelatedToAccountDownloadFinished");
+       }
+   });
+        /*cacheMgr.getThreadHandlerForGetDevices().post(cacheMgr.getDevicesJob(0, 0, new DevicesHandler() {
+            @Override
+            public void onDevicesDownloadFinished(List<Devices> devices) {
+
+            }
+
+            @Override
+            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
+
+            }
+        });)*/
+
+
 
     }
 

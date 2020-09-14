@@ -26,24 +26,28 @@ import java.util.List;
 public class CacheMgr implements CacheManagerAPI {
     private static CacheMgr cacheMgr = null;
 
+    private CacheMgr() {
+        initializeAllServices();
+    }
 
+    //handlers
 
-    //handles
-    public Runnable mainThread;
     private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
+    private HandlerThread handlerThreadGetDevices = new HandlerThread("handlerThreadGetDevices");
     private Handler threadHandlerForLogin;
+    private Handler threadHandlerForServerPeriod;
+    private Handler threadHandlerForGetDevices;
+
+
+    public Handler getThreadHandlerForGetDevices() {
+        return threadHandlerForGetDevices;
+    }
 
     public Handler getThreadHandlerForServerPeriod() {
         return threadHandlerForServerPeriod;
     }
 
-    private Handler threadHandlerForServerPeriod;
-
-    
-    private CacheMgr() {
-        initializeAllServices();
-    }
 
     public static CacheMgr getInstance()
     {
@@ -52,6 +56,8 @@ public class CacheMgr implements CacheManagerAPI {
 
         return cacheMgr;
     }
+
+
 
     private void initializeAllServices() // remove public
     {
@@ -62,18 +68,189 @@ public class CacheMgr implements CacheManagerAPI {
         handlerThreadServerPeriodic.start();
         threadHandlerForServerPeriod = new Handler(handlerThreadServerPeriodic.getLooper());
 
+        handlerThreadGetDevices.start();
+        threadHandlerForGetDevices = new Handler(handlerThreadGetDevices.getLooper());
+
     }
 
 
 
+   public class GetDevicesJobRunnable implements Runnable{
+       private DevicesHandler handler;
+       private int start;
+       private int num;
 
-    public void getDevicesJob(final DevicesHandler handler) // result in OnDevicesReadyHandler
+       public GetDevicesJobRunnable( int start, int num, DevicesHandler handler) {
+           this.handler = handler;
+           this.start = start;
+           this.num = num;
+       }
+
+       @Override
+       public void run() {
+           TextDownloader downloader = new TextDownloader();
+
+           downloader.getText("https://www.google.com/", new OnDataReadyHandler() {
+               @Override
+               public void onDataDownloadCompleted(String downloadedData) {
+                   Log.d("innerclasstest","onDataDownloadCompleted");
+
+                   // we have  results at downloadedData, but we now presenting dummy data.
+
+                   Date date = new Date();
+                   date.getTime();
+                   Date date1 = new Date();
+                   date.setTime(20102020);
+
+                   List<Devices> devices = new ArrayList<>();
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
+
+                   if (handler != null) {
+                       handler.onDevicesDownloadFinished(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
+                   }
+
+               }
+
+               @Override
+               public void onDownloadError() {
+                   //code this case.
+               }
+           });
+
+       }
+   }
+
+
+
+    private class LoginJobRunnable implements Runnable {
+        private String username;
+        private String password;
+        private LoginHandler handler;
+
+        public LoginJobRunnable(String username, String password, LoginHandler handler) {
+            this.username = username;
+            this.password = password;
+            this.handler = handler;
+        }
+
+        @Override
+        public void run() {
+            TextDownloader downloader = new TextDownloader();
+            downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username="+username+"&password="+password, new OnDataReadyHandler() {
+                @Override
+                public void onDataDownloadCompleted(String downloadedData) {
+                    try {
+                        //parsing json
+                        JSONObject userJSON = new JSONObject(downloadedData);
+                        User user;
+                        //{"accountid":8,"id":9,"type":"account","email":"ibra123@gmail.com","username":"ibra"}
+
+                        if(userJSON.getString("type").equals("account"))
+                        {
+                            user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
+                        }
+                        else {
+                            user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
+                        }
+                        handler.onLoginSuccess(user);
+                    }
+                    catch (Exception e)
+                    {
+                        handler.onLoginFailure();
+                    }
+                }
+
+                @Override
+                public void onDownloadError() {
+                    handler.onLoginFailure();
+                }
+            });
+        }
+    }
+
+
+    // API -
+
+    @Override
+    public void loginJob(final String username, final String password, final LoginHandler handler) {
+        LoginJobRunnable runnable = new LoginJobRunnable(username,password,handler);
+        threadHandlerForLogin.post(runnable);
+
+    }
+
+    @Override
+    public void getAccountsJob(int start, int num, AccountsHandler handler) {
+
+        handler.onAccountsDownloadFinished(new ArrayList<Account>());
+    }
+
+    @Override
+    public void getDevicesJob(int start, int num, DevicesHandler handler) {
+
+        GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
+        threadHandlerForGetDevices.post(runnable);
+
+
+
+    }
+
+    @Override
+    public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
+        System.out.println("Inside getNotificationsJob");
+        handler.onNotificationsDownloadFinished(new ArrayList<Notification>());
+    }
+
+    @Override
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, DevicesHandler handler) {
+
+    }
+
+    @Override
+    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, NotificationsHandler handler) {
+
+    }
+
+    @Override
+    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, NotificationsHandler handler) {
+
+    }
+
+    @Override
+    public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
+
+    }
+
+}
+
+
+
+
+
+
+  /*
+   public void getDevicesJob(final DevicesHandler handler) // result in OnDevicesReadyHandler
         {
 
 
             threadHandlerForServerPeriod.post(new Runnable() {
 
-                private DevicesHandler handler;
+
                 @Override
                 public void run() {
 
@@ -126,93 +303,4 @@ public class CacheMgr implements CacheManagerAPI {
         }
 
 
-
-
-
-   // public void serverPeriodicJob()
-   // {
-            //threadHandler.post(new getDevicesRunnable());
-
-            //threadHandler.post(new WaitPeriod());
-
-   // }
-
-   public void loginJob(final String username, final String password, final LoginHandler handler)
-
-    {
-        threadHandlerForLogin.post(new Runnable() {
-            @Override
-            public void run() {
-                TextDownloader downloader = new TextDownloader();
-                downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
-                    @Override
-                    public void onDataDownloadCompleted(String downloadedData) {
-                        try {
-                            //parsing json
-                            JSONObject userJSON = new JSONObject(downloadedData);
-                            User user;
-                            //{"accountid":8,"id":9,"type":"account","email":"ibra123@gmail.com","username":"ibra"}
-
-                            if(userJSON.getString("type").equals("account"))
-                            {
-                                user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
-                            }
-                            else { 
-                                user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
-                            }
-                            handler.onLoginSuccess(user);
-                        }
-                        catch (Exception e)
-                        {
-                            handler.onLoginFailure();
-                        }
-                    }
-
-                    @Override
-                    public void onDownloadError() {
-                        handler.onLoginFailure();
-                    }
-                });
-                downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username="+username+"&password="+password);
-            }
-        });
-    }
-
-
-    @Override
-    public void getAccountsJob(int start, int num, AccountsHandler handler) {
-        handler.onAccountsDownloadFinished(new ArrayList<Account>());
-    }
-
-    @Override
-    public void getDevicesJob(int start, int num, DevicesHandler handler) {
-        handler.onDevicesDownloadFinished(new ArrayList<Devices>());
-    }
-
-    @Override
-    public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
-        System.out.println("Inside getNotificationsJob");
-        handler.onNotificationsDownloadFinished(new ArrayList<Notification>());
-    }
-
-    @Override
-    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, DevicesHandler handler) {
-
-    }
-
-    @Override
-    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, NotificationsHandler handler) {
-
-    }
-
-    @Override
-    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, NotificationsHandler handler) {
-
-    }
-
-    @Override
-    public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
-
-    }
-
-}
+*/
