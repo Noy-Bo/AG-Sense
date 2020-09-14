@@ -7,6 +7,7 @@ import android.util.Log;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 import com.tsofen.agsenceapp.dataServices.OnDevicesReadyHandler;
 import com.tsofen.agsenceapp.dataServices.OnLogin;
+import com.tsofen.agsenceapp.dataServices.OnMainThreadFinished;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
@@ -22,10 +23,18 @@ import java.util.List;
 public class CacheMgr {
     private static CacheMgr cacheMgr = null;
 
+
+
     //handles
+    public Runnable mainThread;
     private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
     private Handler threadHandlerForLogin;
+
+    public Handler getThreadHandlerForServerPeriod() {
+        return threadHandlerForServerPeriod;
+    }
+
     private Handler threadHandlerForServerPeriod;
 
     
@@ -54,11 +63,12 @@ public class CacheMgr {
 
     }
 
-    public void getDevicesJob(final String urlAddress) // param - url to download. result - at OnDevicesReadyHandler
+
+    public void getDevicesJob(final OnDevicesReadyHandler handler) // result in OnDevicesReadyHandler
         {
 
+
             threadHandlerForServerPeriod.post(new Runnable() {
-                private OnDevicesReadyHandler handler;
                 @Override
                 public void run() {
 
@@ -97,6 +107,7 @@ public class CacheMgr {
                             if (handler != null) {
                                 handler.onDevicesReady(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
                             }
+
                         }
 
                         @Override
@@ -104,21 +115,13 @@ public class CacheMgr {
                             //code this case.
                         }
                     });
-                    downloader.getText(urlAddress);
+                    downloader.getText("https://www.google.com/");
                 }
             });
         }
 
 
 
-
-   // public void serverPeriodicJob()
-   // {
-            //threadHandler.post(new getDevicesRunnable());
-
-            //threadHandler.post(new WaitPeriod());
-
-   // }
 
    public void loginJob(final String username, final String password, final OnLogin handler)
     {
@@ -156,7 +159,6 @@ public class CacheMgr {
                     }
                 });
                 downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username="+username+"&password="+password);
-
             }
         });
     }
