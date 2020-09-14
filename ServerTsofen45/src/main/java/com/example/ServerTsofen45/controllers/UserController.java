@@ -93,18 +93,18 @@ public class UserController {
 
 
 
-	/*@GetMapping("Add")
+	@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
-		Account ac= new Account("delek");
+		Account ac= new Account("bank");
 		accountrepo.save(ac);
 		//Admin ibra=new Admin(email ,name, Username, pass);
 		//adminRepository.save(ibra);
-		UserAccount ibra=new UserAccount(email ,name, Username, pass,ac);
-		useraccountRepository.save(ibra);
+		UserAccount account=new UserAccount(email ,name, Username, pass,ac);
+		useraccountRepository.save(account);
 
 
-	}*/
+	}
 	
 	
 	
