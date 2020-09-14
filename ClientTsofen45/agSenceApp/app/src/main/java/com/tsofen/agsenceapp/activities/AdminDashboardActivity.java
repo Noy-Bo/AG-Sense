@@ -10,8 +10,11 @@ import android.widget.Toast;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 
@@ -52,8 +55,31 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         startActivity(intent);
     }
 
-    public void GoToAccountStatus(View view) {
+    public void goToFaultyAccounts(View view) {
+        final ArrayList<Account> faulty = new ArrayList<>();
+        AccountsDataAdapter.getInstance().getFaultyAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                faulty.addAll(accounts);
+                System.out.println("Faulty accounts: "+faulty);
+            }
+        });
         Intent intent = new Intent(this, AccountStatusFilter.class);
+        intent.putExtra("accounts",faulty);
+        startActivity(intent);
+    }
+
+    public void goToHealthyAccounts(View view) {
+        final ArrayList<Account> healthy = new ArrayList<>();
+        AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                healthy.addAll(accounts);
+                System.out.println("Faulty accounts: "+healthy);
+            }
+        });
+        Intent intent = new Intent(this, AccountStatusFilter.class);
+        intent.putExtra("accounts",healthy);
         startActivity(intent);
     }
 
