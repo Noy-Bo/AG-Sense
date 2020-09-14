@@ -29,7 +29,7 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
 
         View layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
         Devices devices = getItem(position);
-        TextView name = layout.findViewById(R.id.devicename);
+        TextView name = layout.findViewById(R.id.accountname);
         TextView devicetypeid = layout.findViewById((R.id.deviceidtype));
         TextView faultytime = layout.findViewById((R.id.devicefaultTime));
         TextView lastupdate = layout.findViewById(R.id.devicelastUpdate);
@@ -37,7 +37,7 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         imageView.setImageResource(R.drawable.faulty_devices_icon);
 
 
-        //name.setText( LoginActivity.user.getUsername());
+        name.setText( String.valueOf(devices.getUserid()));
         devicetypeid.setText((devices.getDeviceType()));
         faultytime.setText(String.valueOf(devices.getFaultTime()));
         lastupdate.setText(String.valueOf(devices.getLastUpdate()));

@@ -14,15 +14,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
 import com.tsofen.agsenceapp.entities.Notification;
 
@@ -83,7 +80,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
         notificationArrayAdapter = new ArrayAdapter<Notification>(this, R.layout.notifictation_item_shape);
         ListView notificationList = findViewById(R.id.notification_list);
-        notificationArrayAdapter = new NotificationListAdaptor(this, notificationArray);
+        notificationArrayAdapter = new NotificationListAdaptor(this,0, notificationArray);
         notificationList.setAdapter(notificationArrayAdapter);
 
     }

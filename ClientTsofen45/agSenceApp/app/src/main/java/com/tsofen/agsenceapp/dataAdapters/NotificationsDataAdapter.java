@@ -9,7 +9,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class NotificationsDataAdapter extends BaseDataAdapter implements NotificationsDataAdapterAPI {
-
+    private static  NotificationsDataAdapter instance;
+    private NotificationsDataAdapter(){}
+    public static NotificationsDataAdapter getInstance(){
+        if(instance == null)
+            instance = new NotificationsDataAdapter();
+        return  instance;
+    }
     @Override
     public void getAllNotifications(int start, int num, final NotificationsDataRequestHandler handler) {
         cacheManager.getNotificationsJob(0, 0, new NotificationsHandler() {
@@ -52,6 +58,8 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                         58, false, "Hey this is error message15", 15));
                 notificationArray.add(new Notification(16, 5, 5, 1, date,
                         58, false, "Hey this is error message16", 15));
+
+                handler.onNotificationsReceived(notificationArray);
 
             }
 
