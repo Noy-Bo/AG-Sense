@@ -9,8 +9,11 @@ import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Notification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +35,20 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void accountNotification(View view) {
+
+
+        final ArrayList<Notification> notifications = new ArrayList<>();
+        NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
+            @Override
+            public void onNotificationsReceived(List<Notification> _notifications) {
+                notifications.addAll(_notifications);
+            }
+        });
+
+
+
         Intent intent = new Intent(this, AdminNotification.class);
+        intent.putExtra("notifications",notifications);
         startActivity(intent);
     }
 

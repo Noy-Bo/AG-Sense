@@ -4,7 +4,13 @@ import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 
 public class NotificationsDataAdapter extends BaseDataAdapter implements NotificationsDataAdapterAPI {
-
+    private static  NotificationsDataAdapter instance;
+    private NotificationsDataAdapter(){}
+    public static NotificationsDataAdapter getInstance(){
+        if(instance == null)
+            instance = new NotificationsDataAdapter();
+        return  instance;
+    }
     @Override
     public void getAllNotifications(int start, int num, NotificationsDataRequestHandler handler) {
 
