@@ -30,6 +30,7 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
                 newData.add(new Account(1,"Lama Ghantous", "lama@gmail.com",true, 1));
                 newData.add(new Account(1,"Ayat Taha", "ayat@gmail.com",false, 2));
 
+                
                 handler.onAccountsDownloadFinished(newData);
             }
         });

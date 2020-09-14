@@ -192,7 +192,7 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
             @Override
             public void onNotificationsRelatedToDeviceDownloadFinished(ArrayList<Notification> notifications) {
 
-                
+
             }
         });
     }
