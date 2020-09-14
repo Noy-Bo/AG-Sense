@@ -4,22 +4,25 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
+import com.tsofen.agsenceapp.CacheManagerAPI;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
+import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
-import com.tsofen.agsenceapp.dataServices.OnDevicesReadyHandler;
-import com.tsofen.agsenceapp.dataServices.OnLogin;
+import com.tsofen.agsenceapp.dataServices.DevicesHandler;
+import com.tsofen.agsenceapp.dataServices.LoginHandler;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CacheMgr {
+public class CacheMgr implements CacheManagerAPI {
     private static CacheMgr cacheMgr = null;
 
     //handles
@@ -50,15 +53,15 @@ public class CacheMgr {
         handlerThreadServerPeriodic.start();
         threadHandlerForServerPeriod = new Handler(handlerThreadServerPeriodic.getLooper());
 
-
-
     }
+
+
 
     public void getDevicesJob(final String urlAddress) // param - url to download. result - at OnDevicesReadyHandler
         {
 
             threadHandlerForServerPeriod.post(new Runnable() {
-                private OnDevicesReadyHandler handler;
+                private DevicesHandler handler;
                 @Override
                 public void run() {
 
@@ -95,7 +98,7 @@ public class CacheMgr {
                             devices.add(new Devices(0,1,1,"Device",date,date1,true));
 
                             if (handler != null) {
-                                handler.onDevicesReady(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
+                                handler.onDevicesDownloadFinished(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
                             }
                         }
 
@@ -120,7 +123,7 @@ public class CacheMgr {
 
    // }
 
-   public void loginJob(final String username, final String password, final OnLogin handler)
+   public void loginJob(final String username, final String password, final LoginHandler handler)
     {
         threadHandlerForLogin.post(new Runnable() {
             @Override
@@ -162,62 +165,40 @@ public class CacheMgr {
     }
 
 
+    @Override
+    public void getAccountsJob(int start, int num, AccountsHandler handler) {
+        handler.onAccountsDownloadFinished(new ArrayList<Account>());
+    }
 
+    @Override
+    public void getDevicesJob(int start, int num, DevicesHandler handler) {
+        handler.onDevicesDownloadFinished(new ArrayList<Devices>());
+    }
 
-     /*public class getDevicesRunnable implements Runnable // TODO - transform to anonymous class
-    {
-        private OnDevicesReadyHandler handler;
-        @Override
-        public void run()
-        {
-                TextDownloader downloader = new TextDownloader();
-                downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() { // specifying a new handler for textDownloader
-                    @Override
-                    public void onDataDownloadCompleted(String downloadedData) { // creating a new OnDataReadyHandler, and inserting it to downloader as handler.
-                        Log.d("DOWNLOAD","Download text is "+downloadedData);
+    @Override
+    public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
+        System.out.println("Inside getNotificationsJob");
+        handler.onNotificationsDownloadFinished(new ArrayList<Notification>());
+    }
 
-                        // we have  results at downloadedData, but we now presenting dummy data.
+    @Override
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, DevicesHandler handler) {
 
-                        Date date = new Date();
-                        date.getTime();
-                        Date date1 = new Date();
-                        date.setTime(20102020);
+    }
 
-                        List<Devices> devices = new ArrayList<>();
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
+    @Override
+    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, NotificationsHandler handler) {
 
-                        if (handler != null) {
-                            handler.onDevicesReady(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
-                        }
-                    }
+    }
 
-                    @Override
-                    public void onDownloadError() {
+    @Override
+    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, NotificationsHandler handler) {
 
-                    }
-                });
-                downloader.getText("https://www.google.com"); // TODO create the URL in getDevicesRunnable Ctor. // via field.
+    }
 
+    @Override
+    public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
 
-        }
-    }*/
-
-
+    }
 
 }

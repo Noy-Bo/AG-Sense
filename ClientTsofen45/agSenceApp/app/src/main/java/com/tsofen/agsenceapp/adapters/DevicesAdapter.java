@@ -9,15 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.activities.LoginActivity;
 import com.tsofen.agsenceapp.entities.Devices;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
 
-    public DevicesAdapter(Context context, int resource, Devices[] devices) {
+    public DevicesAdapter(Context context, int resource, ArrayList<Devices> devices) {
         super(context, resource, devices);
         inflater = LayoutInflater.from(context);
     }
@@ -36,7 +36,8 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         ImageView imageView = layout.findViewById(R.id.device_status_imageview);
         imageView.setImageResource(R.drawable.faulty_devices_icon);
 
-        name.setText( LoginActivity.user.getUsername());
+
+        //name.setText( LoginActivity.user.getUsername());
         devicetypeid.setText((devices.getDeviceType()));
         faultytime.setText(String.valueOf(devices.getFaultTime()));
         lastupdate.setText(String.valueOf(devices.getLastUpdate()));
