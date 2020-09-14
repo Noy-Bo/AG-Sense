@@ -1,13 +1,14 @@
 package com.tsofen.agsenceapp.dataAdapters;
 
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.CacheManager;
 
 public class BaseDataAdapter {
-    static CacheManager cacheManager;
+    static CacheMgr cacheManager;
     static
     {
-        cacheManager = CacheManager.getInstance();
-        cacheManager.start();
+        cacheManager = CacheMgr.getInstance();
+        //cacheManager.start();
     }
 
 

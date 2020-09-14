@@ -9,7 +9,7 @@ import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
 
-public class UserDataAdapter implements UserDataAdapterAPI {
+public class UserDataAdapter extends BaseDataAdapter implements UserDataAdapterAPI {
 
     private static  UserDataAdapter instance;
     private UserDataAdapter(){}
@@ -21,7 +21,6 @@ public class UserDataAdapter implements UserDataAdapterAPI {
 
     @Override
     public void userLogin(String username, String password , final onUserLoginHandler handler){
-        CacheMgr cacheManager = CacheMgr.getInstance();
         cacheManager.loginJob(username, password , new LoginHandler() {
             @Override
             public void onLoginSuccess(User user) {

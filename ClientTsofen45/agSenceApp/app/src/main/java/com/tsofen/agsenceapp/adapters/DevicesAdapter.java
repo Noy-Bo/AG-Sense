@@ -12,11 +12,12 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.Devices;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
 
-    public DevicesAdapter(Context context, int resource, Devices[] devices) {
+    public DevicesAdapter(Context context, int resource, ArrayList<Devices> devices) {
         super(context, resource, devices);
         inflater = LayoutInflater.from(context);
     }
