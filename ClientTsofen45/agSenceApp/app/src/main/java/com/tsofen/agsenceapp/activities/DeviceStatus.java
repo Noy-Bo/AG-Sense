@@ -15,7 +15,6 @@ import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class DeviceStatus extends SearchBaseActivity{
@@ -67,7 +66,7 @@ public class DeviceStatus extends SearchBaseActivity{
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
         ListView devicesList = contentView.findViewById(R.id.listOfDevices);
-        //Devices[] devices1 = (Devices[]) getIntent().getSerializableExtra("extra");
+
         ListAdapter myAdapter = new DevicesAdapter(this,0, devices) ;
         devicesList.setAdapter(myAdapter);
 

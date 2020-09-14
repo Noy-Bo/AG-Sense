@@ -1,4 +1,5 @@
 package com.tsofen.agsenceapp.activities;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +8,15 @@ import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import androidx.core.content.ContextCompat;
+
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.entities.User;
-import com.tsofen.agsenceapp.entities.Account;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class AccountStatusFilter extends AppBaseActivity implements Serializable {
     boolean displayFaultyDevice = true;
@@ -26,7 +30,7 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
         ListView NewsListView = findViewById(R.id.listofaccounts);
-        Account user = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
+       /* Account user = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
         Account user1 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
         Account user2 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
         Account user3 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
@@ -46,6 +50,17 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         Accounts[7] = user7;
         Accounts[8] = user8;
         ListAdapter myAdapter = new AccountsAdapter(this,0, Accounts) ;
+        NewsListView.setAdapter(myAdapter);*/
+
+
+
+
+        ArrayList<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
+        System.out.println(accounts);
+
+       // ListView accountlist = contentView.findViewById(R.id.listofaccounts);
+       // User[] accounts1 = (User[]) getIntent().getSerializableExtra("faulty");
+        ListAdapter myAdapter = new AccountsAdapter(this,0, accounts) ;
         NewsListView.setAdapter(myAdapter);
     }
     public void displayFaultyClicked(View view) {
