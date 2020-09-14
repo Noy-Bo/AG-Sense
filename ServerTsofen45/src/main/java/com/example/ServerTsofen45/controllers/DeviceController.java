@@ -100,5 +100,15 @@ public class DeviceController {
 		return devices;
 	}
 	
+	@GetMapping("SpicificDeviceByFilter")
+	public 	ArrayList<Device> getSpicificDeviceByFilter(@RequestParam int id, @RequestParam boolean healthy, @RequestParam boolean faulty , 
+			@RequestParam boolean bank, @RequestParam boolean gps , @RequestParam boolean tank , @RequestParam int start , @RequestParam int num) {
 
+		ArrayList<Device> devices = new ArrayList<Device>();
+		devices = deviceBL.getSpicificDeviceByFilter( id,  healthy,  faulty , 
+				 bank,  gps ,  tank ,  start ,  num);
+		return devices;
+	}
+
+	
 }
