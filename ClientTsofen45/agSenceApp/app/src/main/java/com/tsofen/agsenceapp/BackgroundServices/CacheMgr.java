@@ -3,7 +3,8 @@ package com.tsofen.agsenceapp.BackgroundServices;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
@@ -17,12 +18,12 @@ import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CacheMgr implements CacheManagerAPI {
     private static CacheMgr cacheMgr = null;
@@ -31,12 +32,12 @@ public class CacheMgr implements CacheManagerAPI {
     private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
     private Handler threadHandler;
+
     private CacheMgr() {
         initializeAllServices();
     }
 
-    public static CacheMgr getInstance()
-    {
+    public static CacheMgr getInstance() {
         if (cacheMgr == null)
             cacheMgr = new CacheMgr(); // TODO - add synchronized.
 
@@ -47,52 +48,52 @@ public class CacheMgr implements CacheManagerAPI {
     public class getDevicesRunnable implements Runnable // TODO - transform to anonymous class
     {
         private DevicesHandler handler;
+
         @Override
-        public void run()
-        {
-                TextDownloader downloader = new TextDownloader();
-                downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() { // specifying a new handler for textDownloader
-                    @Override
-                    public void onDataDownloadCompleted(String downloadedData) { // creating a new OnDataReadyHandler, and inserting it to downloader as handler.
-                        Log.d("DOWNLOAD","Download text is "+downloadedData);
+        public void run() {
+            TextDownloader downloader = new TextDownloader();
+            downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() { // specifying a new handler for textDownloader
+                @Override
+                public void onDataDownloadCompleted(String downloadedData) { // creating a new OnDataReadyHandler, and inserting it to downloader as handler.
+                    Log.d("DOWNLOAD", "Download text is " + downloadedData);
 
-                        // we have  results at downloadedData, but we now presenting dummy data.
+                    // we have  results at downloadedData, but we now presenting dummy data.
 
-                        Date date = new Date();
-                        date.getTime();
-                        Date date1 = new Date();
-                        date.setTime(20102020);
+                    Date date = new Date();
+                    date.getTime();
+                    Date date1 = new Date();
+                    date.setTime(20102020);
 
-                        List<Devices> devices = new ArrayList<>();
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                        devices.add(new Devices(0,1,1,"Device",date,date1,true));
+                    List<Devices> devices = new ArrayList<>();
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
+                    devices.add(new Devices(0, 1, 1, "Device", date, date1, true));
 
-                        if (handler != null) {
-                            handler.onDevicesDownloadFinished(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
-                        }
+                    if (handler != null) {
+                        handler.onDevicesDownloadFinished(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
                     }
+                }
 
-                    @Override
-                    public void onDownloadError() {
+                @Override
+                public void onDownloadError() {
 
-                    }
-                });
-                downloader.getText("https://www.google.com"); // TODO create the URL in getDevicesRunnable Ctor. // via field.
+                }
+            });
+            downloader.getText("https://www.google.com"); // TODO create the URL in getDevicesRunnable Ctor. // via field.
 
 
         }
@@ -108,16 +109,15 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
-   // public void serverPeriodicJob()
-   // {
-            //threadHandler.post(new getDevicesRunnable());
+    // public void serverPeriodicJob()
+    // {
+    //threadHandler.post(new getDevicesRunnable());
 
-            //threadHandler.post(new WaitPeriod());
+    //threadHandler.post(new WaitPeriod());
 
-   // }
+    // }
 
-   public void loginJob(final String username, final String password, final LoginHandler handler)
-    {
+    public void loginJob(final String username, final String password, final LoginHandler handler) {
         threadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -125,23 +125,18 @@ public class CacheMgr implements CacheManagerAPI {
                 downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
                     @Override
                     public void onDataDownloadCompleted(String downloadedData) {
+                        Gson gson = new Gson();
                         try {
                             //parsing json
-                            JSONObject userJSON = new JSONObject(downloadedData);
+                            JSONObject userJSON =  parseToOneJsonObject(downloadedData);
                             User user;
-                            //{"accountid":8,"id":9,"type":"account","email":"ibra123@gmail.com","username":"ibra"}
-
-                            if(userJSON.getString("type").equals("account"))
-                            {
-                                user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
-                            }
-                            else { 
-                                user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
+                            if (userJSON.getString("type").equals("account")) {
+                                user = gson.fromJson(downloadedData,Account.class);
+                            } else {
+                                user = gson.fromJson(downloadedData,Admin.class);
                             }
                             handler.onLoginSuccess(user);
-                        }
-                        catch (Exception e)
-                        {
+                        } catch (Exception e) {
                             handler.onLoginFailure();
                         }
                     }
@@ -151,7 +146,7 @@ public class CacheMgr implements CacheManagerAPI {
                         handler.onLoginFailure();
                     }
                 });
-                downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username="+username+"&password="+password);
+                downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username=" + username + "&password=" + password);
 
             }
         });
@@ -193,4 +188,20 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
+        JSONObject jObj = null;
+        jObj = new JSONObject(jsonStr);
+        if(jObj==null)
+            throw new JSONException("json allocation failed");
+        return jObj;
+
+    }
+
+public JSONArray parseToJsonArray(String jsonStr) throws JSONException{
+    JSONArray jArr = new JSONArray(jsonStr);
+    if(jArr==null)
+        throw new JSONException("json allocation failed");
+    return jArr;
+
+}
 }
