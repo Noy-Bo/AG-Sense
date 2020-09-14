@@ -42,7 +42,15 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyDevices(View view) {
+        final ArrayList<Devices> healthy = new ArrayList<>();
+        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
+            @Override
+            public void onDeviceDataLoaded(List<Devices> devices) {
+                healthy.addAll(devices);
+            }
+        });
         Intent intent = new Intent(this, DeviceStatus.class);
+        intent.putExtra("devices",healthy);
         startActivity(intent);
     }
 
@@ -52,9 +60,11 @@ public class AdminDashboardActivity extends SearchBaseActivity {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
                 faulty.addAll(devices);
+                System.out.println("Faulty devices: "+faulty);
             }
         });
         Intent intent = new Intent(this, DeviceStatus.class);
+        intent.putExtra("devices",faulty);
         startActivity(intent);
     }
 

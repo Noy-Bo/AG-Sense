@@ -78,7 +78,8 @@
                     android:background="@color/white"
                     android:hint="@string/pass_hint"
                     android:textStyle="italic"
-                    android:textSize="@dimen/small_text_size"/>
+                    android:textSize="@dimen/small_text_size"
+                    android:password="true"/>
             </LinearLayout>
 
             <View
@@ -101,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:background="@null"
                 android:text="@string/login_btn_text"
                 android:textAllCaps="false"

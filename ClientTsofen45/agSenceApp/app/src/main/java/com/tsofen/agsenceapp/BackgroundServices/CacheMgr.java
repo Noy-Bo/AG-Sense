@@ -15,6 +15,7 @@ import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
 
 import org.json.JSONObject;
@@ -158,17 +159,18 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getAccountsJob(int start, int num, AccountsHandler handler) {
-
+        handler.onAccountsDownloadFinished(new ArrayList<Account>());
     }
 
     @Override
     public void getDevicesJob(int start, int num, DevicesHandler handler) {
-
+        handler.onDevicesDownloadFinished(new ArrayList<Devices>());
     }
 
     @Override
     public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
-
+        System.out.println("Inside getNotificationsJob");
+        handler.onNotificationsDownloadFinished(new ArrayList<Notification>());
     }
 
     @Override
