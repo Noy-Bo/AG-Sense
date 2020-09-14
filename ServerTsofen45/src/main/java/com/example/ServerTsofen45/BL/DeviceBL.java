@@ -49,12 +49,20 @@ public class DeviceBL {
 			return devices;
 	}
 
-	public ArrayList<Device> findByType(String type) {
+	public ArrayList<Device> findByType(int id,int type) {
 
-		ArrayList<Device> devices = deviceRepository.findByType(type);
+		ArrayList<Device> devices = deviceRepository.findByIdAndType(id,type);
 		return devices;
 
 	}
+	
+	public ArrayList<Device> findByFaulty(int id,boolean faulty) {
+
+	//	ArrayList<Device> devices = deviceRepository.findByIdAndFaulty(id,faulty);
+	//	return devices;
+return null;
+	}
+	
 
 	public ArrayList<Device> findAll() {
 
@@ -76,29 +84,62 @@ public class DeviceBL {
 	}
 
 	public ArrayList<String> getRecentLocationRelatedToDevice(int id, int start, int num) {
-	
+
 		Device device = deviceRepository.findById(id);
 		List<DeviceData> deviceDatas = device.getDeviceData();
-	    ArrayList<String> locations = new ArrayList<String>();
-	    
-	    for(DeviceData deviceData : deviceDatas)
-	    {
-	    	String location = "'"+deviceData.getLat()+","+deviceData.getLon()+","+deviceData.getDateAndTime()+"'";
-	    	locations.add(location);
-	    }
+		ArrayList<String> locations = new ArrayList<String>();
 
-	    if(locations.size()>start&&locations.size()>(start+num))
-	    {
-	    	return (ArrayList<String>) (locations.subList(start, start+num));
-	    }
-	    else
-	    	return locations;
-	    
+		for (DeviceData deviceData : deviceDatas) {
+			String location = "'" + deviceData.getLat() + "," + deviceData.getLon() + "," + deviceData.getDateAndTime()
+					+ "'";
+			locations.add(location);
+		}
+
+		if (start + num > locations.size())
+			return (ArrayList<String>) (locations.subList(start, locations.size() - 1));
+
+		if (!(start == 0 && num == 0)) {
+			return (ArrayList<String>) (locations.subList(start, start + num));
+		} else
+			return locations;
+
 	}
+
 	public ArrayList<Device> getDevices(int start, int num) {
 		ArrayList<Device> devices = deviceRepository.findAllByOrderByIdDesc();
-		return (ArrayList<Device>) devices.subList(start, devices.size()-1);
+		return (ArrayList<Device>) devices.subList(start, devices.size() - 1);
 	}
-
-
+	
+	
+	
+	public ArrayList<Device> filterDevices(int accountId , boolean healthy , boolean faulty , boolean bank , boolean gps ,
+			boolean tank , int start , int num)
+	{
+	
+		ArrayList<Device> devices = new ArrayList<Device>();
+		if(healthy==true && faulty==true)
+		{
+		  if(bank==true && gps==true && tank==true)
+		  {
+			  devices= deviceRepository.findByaccountId(accountId);
+			  return devices;
+		  }
+		 
+		
+		}
+		
+		if(healthy==false&&faulty==true)
+		{
+			
+		}
+		if(healthy==true&&faulty==false)
+		{
+			
+		}
+		
+		return null;
+		
+		
+		
+	}
 }
