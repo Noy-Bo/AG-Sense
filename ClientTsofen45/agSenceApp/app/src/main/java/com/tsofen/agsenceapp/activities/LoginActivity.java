@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
 
     }
-
 
 
     public void login(View view) {
@@ -61,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         hideKeyboard(this);
 
 
-        UserDataAdapter.userLogin(username, pass, new onUserLoginHandler() {
+        UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
@@ -78,18 +76,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onUserLoginFailed() {
-                Toast.makeText(LoginActivity.this,"Please enter a valid username",Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
             }
 
         });
 
 
-
-
-
     }
-
-
 
 
     public static void hideKeyboard(Activity activity) {

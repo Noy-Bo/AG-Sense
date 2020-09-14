@@ -9,9 +9,11 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.tsofen.agsenceapp.dataServices.OnDevicesReadyHandler;
+
+import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.entities.Devices;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppLifecycleObserver implements LifecycleObserver {
@@ -23,9 +25,9 @@ public class AppLifecycleObserver implements LifecycleObserver {
     public static int count = 0; // test
 
     // periodic task design
-    private OnDevicesReadyHandler handlerForRepeatedJob  = new OnDevicesReadyHandler() {
+    private DevicesHandler handlerForRepeatedJob  = new DevicesHandler() {
         @Override
-        public void onDevicesReady(List<Devices> devices) {
+        public void onDevicesDownloadFinished(List<Devices> devices) {
             Log.d("repeated","repeated task completed");
             cacheMgr.getThreadHandlerForServerPeriod().post(new Runnable() {
                 @Override
@@ -34,6 +36,11 @@ public class AppLifecycleObserver implements LifecycleObserver {
                     cacheMgr.getDevicesJob(handlerForRepeatedJob);
                 }
             });
+        }
+
+        @Override
+        public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
+
         }
     };
 

@@ -3,6 +3,6 @@ import com.tsofen.agsenceapp.entities.Devices;
 
 import java.util.List;
 
-public interface onDeviceDataLoadedHandler {
-    public void deviceDataLoaded(List<Devices> devices);
+public interface DeviceDataRequestHandler {
+    public void onDeviceDataLoaded(List<Devices> devices);
 }
