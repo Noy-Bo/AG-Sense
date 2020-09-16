@@ -27,7 +27,12 @@ public class Account {
 	public Account(String text) {
 		super();
 		Text = text;
+		devices= new ArrayList<Device>() ;
 	}
+	public void Adddevice(Device devices) {
+		this.devices.add(devices) ;
+	}
+	
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
 	}

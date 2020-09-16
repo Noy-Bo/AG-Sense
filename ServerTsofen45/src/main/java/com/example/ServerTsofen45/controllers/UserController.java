@@ -17,6 +17,7 @@ import com.example.ServerTsofen45.Beans.Admin;
 import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
+import com.example.ServerTsofen45.Repo.DeviceRepository;
 import com.example.ServerTsofen45.Repo.UserAccountRepository;
 
 @RestController
@@ -30,6 +31,9 @@ public class UserController {
 	AdminRepository adminRepository;
 	@Autowired
 	AccountRepository accountrepo;
+	@Autowired
+	DeviceRepository drepo;
+	
 
 	@GetMapping("Login")
 	public JSONObject Login(@RequestParam String username, @RequestParam String password)
@@ -93,10 +97,11 @@ public class UserController {
 
 
 
-	@GetMapping("Add")
+	/*@GetMapping("Add")
 	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
 	{
 		Account ac= new Account("bank");
+		ac.Adddevice(drepo.findById(1065024894));
 		accountrepo.save(ac);
 		//Admin ibra=new Admin(email ,name, Username, pass);
 		//adminRepository.save(ibra);
@@ -104,7 +109,7 @@ public class UserController {
 		useraccountRepository.save(account);
 
 
-	}
+	}*/
 	
 	
 	

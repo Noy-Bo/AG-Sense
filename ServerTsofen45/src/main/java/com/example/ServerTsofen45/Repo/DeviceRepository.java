@@ -26,6 +26,9 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 	ArrayList<Device> findByaccountId(int id);
 	
 	ArrayList<Device> findAll();
+	ArrayList<Device> findAllByOrderByLastUpdateDesc();
+
+	
 	
 	@Query(nativeQuery = true, value =" SELECT " + 
 			"			 * " + 

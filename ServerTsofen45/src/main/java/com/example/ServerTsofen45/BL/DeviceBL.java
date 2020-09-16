@@ -69,7 +69,7 @@ return null;
 
 	public ArrayList<Device> findAll() {
 
-		ArrayList<Device> devices = deviceRepository.findAll();
+		ArrayList<Device> devices = deviceRepository.findAllByOrderByLastUpdateDesc();
 		return devices;
 
 	}
