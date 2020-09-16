@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.ServerTsofen45.Beans.Device;
 import com.example.ServerTsofen45.Beans.DeviceData;
 import com.example.ServerTsofen45.Beans.Notification;
+import com.example.ServerTsofen45.Beans.NotificationDTO;
 import com.example.ServerTsofen45.Repo.DeviceRepository;
 import com.example.ServerTsofen45.Repo.NotificationRepository;
 
@@ -114,38 +115,38 @@ return null;
 	
 	
 	
-	public ArrayList<Device> filterDevices(int accountId , boolean healthy , boolean faulty , boolean bank , boolean gps ,
-			boolean tank , int start , int num)
-	{
-	
-		ArrayList<Device> devices = new ArrayList<Device>();
-		if(healthy==true && faulty==true)
-		{
-		  if(bank==true && gps==true && tank==true)
-		  {
-			  devices= deviceRepository.findByaccountId(accountId);
-			  return devices;
-		  }
-		 
-		
-		}
-		
-		if(healthy==false&&faulty==true)
-		{
-			
-		}
-		if(healthy==true&&faulty==false)
-		{
-			
-		}
-		
-		return null;
-		
-		
-		
-	}
+//	public ArrayList<Device> filterDevices(int accountId , boolean healthy , boolean faulty , boolean bank , boolean gps ,
+//			boolean tank , int start , int num)
+//	{
+//	
+//		ArrayList<Device> devices = new ArrayList<Device>();
+//		if(healthy==true && faulty==true)
+//		{
+//		  if(bank==true && gps==true && tank==true)
+//		  {
+//			  devices= deviceRepository.findByaccountId(accountId);
+//			  return devices;
+//		  }
+//		 
+//		
+//		}
+//		
+//		if(healthy==false&&faulty==true)
+//		{
+//			
+//		}
+//		if(healthy==true&&faulty==false)
+//		{
+//			
+//		}
+//		
+//		return null;
+//		
+//		
+//		
+//	}
 
-	public ArrayList<Device> getSpicificDeviceByFilter(int id, boolean healthy, boolean faulty, boolean bank,
+	public List<Device> getSpicificDeviceByFilter(int id, boolean healthy, boolean faulty, boolean bank,
 			boolean gps, boolean tank, int start, int num) {
 		
 		
@@ -161,8 +162,17 @@ return null;
 		if(gps == true) _gpsForPersonal = 1;
 		if (tank == true) _lequidHeightForTanks = 2;
 		
-		return deviceRepository.findFilterdDevices(_faulty, _healthy, _sensorsForBanks, _gpsForPersonal, _lequidHeightForTanks, id);
 		
+		List<Device> devices = deviceRepository.findFilterdDevices(_faulty, _healthy, _sensorsForBanks, _gpsForPersonal, _lequidHeightForTanks, id);
+		
+		if (start == 0 && num == 0) return devices;
+		
+		 if ((start) > devices.size()) start = devices.size();
+		 int end = start + num;
+		if ((start + num) > devices.size()) end = devices.size();
+			
+		List<Device> sublist = devices.subList(start, end);
+		return  sublist;
 		
 	
 	}
