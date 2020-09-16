@@ -102,9 +102,11 @@ public class NotificationsController {
 		}
 	  
 	  @GetMapping("AddNotification")
-	  public void AddNotification (@RequestParam String password, @RequestParam long imei, @RequestParam String massege, String optional )
+	  public String AddNotification (@RequestParam String password, @RequestParam long imei, @RequestParam String massege, String optional )
 		{
-		  		  
+		  			System.out.println(massege);
+		  		return massege;
+		  		
 			  
 		}
 	

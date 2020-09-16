@@ -12,6 +12,7 @@ public interface DeviceDataRepository extends CrudRepository<DeviceData, Integer
 	
 	DeviceData findByID(int deviceId);
 	ArrayList<DeviceData> findAllByID(int id);
-
+	ArrayList<DeviceData> findById(int id);
+	ArrayList<DeviceData> findByDeviceId(int id);
 
 }
