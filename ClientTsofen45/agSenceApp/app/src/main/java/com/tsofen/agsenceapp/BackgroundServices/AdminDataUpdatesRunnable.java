@@ -15,8 +15,8 @@ public class AdminDataUpdatesRunnable implements Runnable {
 
     @Override
     public void run() {
-       final CacheMgr c = CacheMgr.getInstance();
-        c.getAccountsJob(0, 0,  new AccountsHandler() {
+        final CacheMgr c = CacheMgr.getInstance();
+        c.getAccountsJob(0, 0, new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
                 c.setAccounts(accounts);
@@ -28,34 +28,18 @@ public class AdminDataUpdatesRunnable implements Runnable {
             public void onDevicesDownloadFinished(List<Devices> devices) {
                 c.setDevices(devices);
             }
-
-            @Override
-            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
-
-            }
         });
 
 
-        for (Devices device : c.getDevices()) {
+        c.getNotificationsJob(0, 0, new NotificationsHandler() {
+            @Override
+            public void onNotificationsDownloadFinished(List<Notification> notifications) {
+                c.setNotifications(notifications);
+            }
 
-            c.getNotificationRelatedToDeviceJob(device.getId(), 0, 0, new NotificationsHandler() {
-                @Override
-                public void onNotificationsDownloadFinished(ArrayList<Notification> notifications) {
-                    c.setNotifications(notifications);
-                }
+        });
 
-                @Override
-                public void onNotificationsRelatedToAccountDownloadFinished(ArrayList<Notification> notifications) {
 
-                }
-
-                @Override
-                public void onNotificationsRelatedToDeviceDownloadFinished(ArrayList<Notification> notifications) {
-
-                }
-            });
-
-        }
     }
 
 

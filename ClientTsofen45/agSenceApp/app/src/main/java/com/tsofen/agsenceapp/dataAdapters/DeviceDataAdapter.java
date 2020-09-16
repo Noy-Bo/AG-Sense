@@ -87,7 +87,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
         cacheManager.getDevicesRelatedToAccountJob(accountId, 0, 0, new AccountDevicesHandler() {
 
             @Override
-            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
+            public void onDevicesRelatedToAccountDownloadFinished(List<Devices> devices) {
                 // handler.onDeviceDataLoaded(devices);
                 List<Devices> newData = new ArrayList<>();
                 Date date = new Date();
@@ -136,7 +136,11 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
         handler.onDeviceDataLoaded(newData);
 
+    }
 
+    @Override
+    public void getDeviceDataList(int deviceId, DeviceDataRequestHandler handler) {
+        
     }
 
 
