@@ -21,16 +21,23 @@ import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.lang.reflect.Type;
+
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 public class CacheMgr implements CacheManagerAPI {
-    private static CacheMgr cacheMgr = null;
+    private static CacheMgr cacheMgr;
+    private List<Notification> notifications;
+    private List<Account> accounts;
+    private List<Devices> devices;
+
 
     //handles
     private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
@@ -39,6 +46,33 @@ public class CacheMgr implements CacheManagerAPI {
 
     private CacheMgr() {
         initializeAllServices();
+        notifications = new ArrayList<>();
+        accounts = new ArrayList<>();
+        notifications = new ArrayList<>();
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public List<Devices> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Devices> devices) {
+        this.devices = devices;
     }
 
     public static CacheMgr getInstance() {
@@ -118,38 +152,38 @@ public class CacheMgr implements CacheManagerAPI {
 
     public void loginJob(final String username, final String password, final LoginHandler handler) {
 
-          threadHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    TextDownloader downloader = new TextDownloader();
-                    downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
-                        @Override
-                        public void onDataDownloadCompleted(String downloadedData) {
-                            Gson gson = new Gson();
-                            try {
-                                //parsing json
-                                JSONObject userJSON =  parseToOneJsonObject(downloadedData);
-                                User user;
-                                if (userJSON.getString("type").equals("account")) {
-                                    user = gson.fromJson(downloadedData,Account.class);
-                                } else {
-                                    user = gson.fromJson(downloadedData,Admin.class);
-                                }
-                                handler.onLoginSuccess(user);
-                            } catch (Exception e) {
-                                handler.onLoginFailure();
+        threadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                TextDownloader downloader = new TextDownloader();
+                downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
+                    @Override
+                    public void onDataDownloadCompleted(String downloadedData) {
+                        Gson gson = new Gson();
+                        try {
+                            //parsing json
+                            JSONObject userJSON = parseToOneJsonObject(downloadedData);
+                            User user;
+                            if (userJSON.getString("type").equals("account")) {
+                                user = gson.fromJson(downloadedData, Account.class);
+                            } else {
+                                user = gson.fromJson(downloadedData, Admin.class);
                             }
-                        }
-
-                        @Override
-                        public void onDownloadError() {
+                            handler.onLoginSuccess(user);
+                        } catch (Exception e) {
                             handler.onLoginFailure();
                         }
-                    });
-                    downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username=" + username + "&password=" + password);
+                    }
 
-                }
-            });
+                    @Override
+                    public void onDownloadError() {
+                        handler.onLoginFailure();
+                    }
+                });
+                downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username=" + username + "&password=" + password);
+
+            }
+        });
     }
 
     @Override
@@ -196,19 +230,6 @@ public class CacheMgr implements CacheManagerAPI {
         return jObj;
 
     }
-
-    /*public List<type> parseToJsonArray(String jsonStr,Class type) throws JSONException {
-        /*JSONArray jArr = new JSONArray(jsonStr);
-        if (jArr == null)
-            throw new JSONException("json allocation failed");
-        return jArr;
-        type listType = new TypeToken<ArrayList<type>>() {}.getType();
-        List<type> list = new Gson().fromJson(jsonStr, listType);
-        return list;
-*/
-    public <T> List<T> parseToJsonArray(String jsonArray, Class<T> clazz) {
-        Type typeOfT = TypeToken.getParameterized(List.class, clazz).getType();
-        return new Gson().fromJson(jsonArray, typeOfT);
-    }
-    }
+    
+}
 
