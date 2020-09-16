@@ -9,8 +9,10 @@ import java.util.Map;
 
 
 public class UrlConnectionMaker {
-    static String baseurl = "http://206.72.198.59:8080/ServerTsofen45v3";
-    public static String ctreatUrl(ServicesName serviceName, Map<String, String> params) {
+    //http://206.72.198.59:8080/ServerTsofen45/User/Login?password=123123&userName=admin&
+    //http://206.72.198.59:8080/ServerTsofen45/User/Login?password=123123&username=admin
+    static String baseurl = "http://206.72.198.59:8080/ServerTsofen45";
+    public static String createUrl(ServicesName serviceName, Map<String, String> params) {
         String url = baseurl+serviceName.getServiceName()+"?";
         for(String key : params.keySet())
         {

@@ -24,6 +24,11 @@ public class Devices implements Serializable {
     public void setFaulty(Boolean faulty) {
         isFaulty = faulty;
     }
+    public Devices()
+    {
+
+
+    }
 
     public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty, List<DeviceData> deviceData, List<Notification> notifications) {
         this.imei = imei;
@@ -36,6 +41,7 @@ public class Devices implements Serializable {
         this.deviceData = deviceData;
         this.notifications = notifications;
     }
+
 
     public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty) {
         this.imei = imei;

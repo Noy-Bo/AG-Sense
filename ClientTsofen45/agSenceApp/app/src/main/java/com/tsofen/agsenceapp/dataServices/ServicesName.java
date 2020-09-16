@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.dataServices;
 
 public enum ServicesName {
+
     Login("/User/Login"),
     AddToDb("/User/Add"),
     getAllAccounts("/User/AllAccounts"),
