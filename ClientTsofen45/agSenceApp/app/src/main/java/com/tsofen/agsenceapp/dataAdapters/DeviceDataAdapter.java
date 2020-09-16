@@ -152,5 +152,10 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
     }
 
+    @Override
+    public void getDeviceDataList(int deviceId, DeviceDataRequestHandler handler) {
+        
+    }
+
 
 }
