@@ -15,6 +15,7 @@ import com.tsofen.agsenceapp.dataServices.LoginHandler;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
+import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
@@ -170,22 +171,22 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getDevicesRelatedToAccountJob(int accountId, int start, int num, DevicesHandler handler) {
-
+        handler.onDevicesRelatedToAccountDownloadFinished(new ArrayList<Devices>());
     }
 
     @Override
     public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, NotificationsHandler handler) {
-
+         handler.onNotificationsRelatedToDeviceDownloadFinished(new ArrayList<Notification>());
     }
 
     @Override
     public void getNotificationRelatedToAccountJob(int accountId, int start, int num, NotificationsHandler handler) {
-
+        handler.onNotificationsRelatedToAccountDownloadFinished(new ArrayList<Notification>());
     }
 
     @Override
     public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
-
+        handler.onDeviceDataRelatedToDeviceDownloadFinished(new ArrayList<DeviceData>());
     }
 
     public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {

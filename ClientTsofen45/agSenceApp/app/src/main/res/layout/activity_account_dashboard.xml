@@ -33,12 +33,16 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/account_faulty_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:onClick="goToDevicesStatus"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:id="@+id/num_of_faulty_devices"
@@ -67,7 +71,6 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="4dp"
                         android:gravity="center"
-                        android:onClick="DeviceView"
                         android:text="@string/faultyDevicesString"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/small_text_size" />
@@ -80,12 +83,16 @@
                     android:background="@android:color/darker_gray" />
 
                 <LinearLayout
+                    android:id="@+id/account_healthy_devices"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:onClick="goToDevicesStatus"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:id="@+id/num_of_healthy_devices"
@@ -120,7 +127,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="8dp"
-                        android:onClick="DeviceView"
                         android:text="@string/healthyDevicesString"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/small_text_size">
