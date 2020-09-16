@@ -73,7 +73,7 @@ public class DeviceController {
 
 		ArrayList<Device> devices = new ArrayList<Device>();
 
-		devices = deviceBL.findByType(type);
+	//	devices = deviceBL.findByType(type);
 		return devices;
 	}
 	
@@ -100,5 +100,18 @@ public class DeviceController {
 		return devices;
 	}
 	
+	
+	
+	//http://localhost:8080/Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=0&gps=0&tank=1&start=0&num=0
+	@GetMapping("SpicificDeviceByFilter")
+	public 	ArrayList<Device> getSpicificDeviceByFilter(@RequestParam int id, @RequestParam boolean healthy, @RequestParam boolean faulty , 
+			@RequestParam boolean bank, @RequestParam boolean gps , @RequestParam boolean tank , @RequestParam int start , @RequestParam int num) {
 
+		ArrayList<Device> devices = new ArrayList<Device>();
+		devices = deviceBL.getSpicificDeviceByFilter( id,  healthy,  faulty , 
+				 bank,  gps ,  tank ,  start ,  num);
+		return devices;
+	}
+
+	
 }

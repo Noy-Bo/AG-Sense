@@ -46,7 +46,7 @@
                     android:contextClickable="true"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:longClickable="true"
-                    android:onClick="GoToAccountStatus"
+                    android:onClick="goToFaultyAccounts"
                     android:orientation="vertical">
 
                     <TextView
@@ -87,7 +87,7 @@
                     android:background="@drawable/rounded_white_background_frame"
                     android:clickable="true"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
-                    android:onClick="GoToAccountStatus"
+                    android:onClick="goToHealthyAccounts"
                     android:orientation="vertical">
 
                     <TextView

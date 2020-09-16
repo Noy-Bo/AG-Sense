@@ -8,10 +8,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.adaptersInterfaces.onDeviceDataLoadedHandler;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.UserMap;
+import com.tsofen.agsenceapp.entities.Notification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,29 +39,76 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void accountNotification(View view) {
+
+
+        final ArrayList<Notification> _notifications = new ArrayList<>();
+
+        NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
+            @Override
+            public void onNotificationsReceived(List<Notification> notifications) {
+                _notifications.addAll(notifications);
+            }
+        });
+
+
+
         Intent intent = new Intent(this, AdminNotification.class);
+        intent.putExtra("notifications",_notifications);
         startActivity(intent);
     }
 
-    public void GoToAccountStatus(View view) {
+    public void goToFaultyAccounts(View view) {
+        final ArrayList<Account> faulty = new ArrayList<>();
+        AccountsDataAdapter.getInstance().getFaultyAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                faulty.addAll(accounts);
+                System.out.println("Faulty accounts: "+faulty);
+            }
+        });
         Intent intent = new Intent(this, AccountStatusFilter.class);
+        intent.putExtra("accounts",faulty);
+        startActivity(intent);
+    }
+
+    public void goToHealthyAccounts(View view) {
+        final ArrayList<Account> healthy = new ArrayList<>();
+        AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                healthy.addAll(accounts);
+                System.out.println("Faulty accounts: "+healthy);
+            }
+        });
+        Intent intent = new Intent(this, AccountStatusFilter.class);
+        intent.putExtra("accounts",healthy);
         startActivity(intent);
     }
 
     public void goToHealthyDevices(View view) {
+        final ArrayList<Devices> healthy = new ArrayList<>();
+        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
+            @Override
+            public void onDeviceDataLoaded(List<Devices> devices) {
+                healthy.addAll(devices);
+            }
+        });
         Intent intent = new Intent(this, DeviceStatus.class);
+        intent.putExtra("devices",healthy);
         startActivity(intent);
     }
 
     public void goToFaultyDevices(View view) {
         final ArrayList<Devices> faulty = new ArrayList<>();
-        DeviceDataAdapter.getFaultyDevices(new onDeviceDataLoadedHandler() {
+        DeviceDataAdapter.getInstance().getFaultyDevices(new DeviceDataRequestHandler() {
             @Override
-            public void deviceDataLoaded(List<Devices> devices) {
+            public void onDeviceDataLoaded(List<Devices> devices) {
                 faulty.addAll(devices);
+                System.out.println("Faulty devices: "+faulty);
             }
         });
         Intent intent = new Intent(this, DeviceStatus.class);
+        intent.putExtra("devices",faulty);
         startActivity(intent);
     }
 

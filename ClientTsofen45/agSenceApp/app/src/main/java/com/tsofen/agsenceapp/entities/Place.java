@@ -1,26 +1,26 @@
 package com.tsofen.agsenceapp.entities;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
 import java.io.Serializable;
 
-public class Place implements Serializable {
+public class Place implements Serializable, ClusterItem {
     private String title;
     private String snippet;
-    private Double latitude;
-    private Double longitude;
+    private LatLng location;
 
     public Place(Double latitude, Double longitude) {
         this.title = "";
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = new LatLng(latitude, longitude);
     }
-
-
 
     public Place(String title, String snippet, Double latitude, Double longitude) {
         this.snippet = snippet;
         this.title = title;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = new LatLng(latitude, longitude);
     }
 
     public String getSnippet() {
@@ -39,19 +39,17 @@ public class Place implements Serializable {
         this.title = title;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public LatLng getLocation() {
+        return location;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    @NonNull
+    @Override
+    public LatLng getPosition() {
+        return location;
     }
 }

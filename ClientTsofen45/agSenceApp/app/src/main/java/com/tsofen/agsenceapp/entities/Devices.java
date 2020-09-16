@@ -2,7 +2,7 @@ package com.tsofen.agsenceapp.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import java.util.List;
 public class Devices implements Serializable {
 
 
@@ -14,6 +14,8 @@ public class Devices implements Serializable {
     protected Date faultTime;
     protected Date lastUpdate;
     protected Boolean isFaulty;
+    protected List<DeviceData> deviceData;
+    protected List<Notification> notifications;
 
     public Boolean getFaulty() {
         return isFaulty;
@@ -21,6 +23,18 @@ public class Devices implements Serializable {
 
     public void setFaulty(Boolean faulty) {
         isFaulty = faulty;
+    }
+
+    public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty, List<DeviceData> deviceData, List<Notification> notifications) {
+        this.imei = imei;
+        this.id = id;
+        Userid = userid;
+        this.deviceType = deviceType;
+        this.faultTime = faultTime;
+        this.lastUpdate = lastUpdate;
+        this.isFaulty = isFaulty;
+        this.deviceData = deviceData;
+        this.notifications = notifications;
     }
 
     public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty) {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tsofen.agsenceapp.R;
@@ -12,11 +13,12 @@ import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class AccountsAdapter extends ArrayAdapter<User> implements Serializable {
     LayoutInflater inflater;
 
-    public AccountsAdapter(Context context, int resource, User[] users) {
+    public AccountsAdapter(Context context, int resource, ArrayList<User> users) {
         super(context, resource, users);
         inflater = LayoutInflater.from(context);
     }
@@ -31,9 +33,12 @@ public class AccountsAdapter extends ArrayAdapter<User> implements Serializable 
         TextView name = layout.findViewById(R.id.accountname);
         TextView amountofdevices = layout.findViewById((R.id.amountofdevices));
         TextView accountlastupdate = layout.findViewById((R.id.accountlastupdate));
-
+        ImageView imageView = layout.findViewById(R.id.account_status_imageview);
+        imageView.setImageResource(R.drawable.faulty_accounts_icon);
 
         name.setText(account.getUsername());
+       // amountofdevices.setText(account.);
+        //name.setText(account.getUsername());
         return layout;
     }
 }
