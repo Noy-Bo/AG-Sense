@@ -23,6 +23,12 @@ public class DeviceDataBL {
 		return devices;
 
 	}
+
+
+	public ArrayList<DeviceData> getSpecificDeviceDataById(int id) {
+		ArrayList<DeviceData> devices = deviceDataRepository.findByDeviceId(id);
+		return devices;
+	}
 	
 
 
