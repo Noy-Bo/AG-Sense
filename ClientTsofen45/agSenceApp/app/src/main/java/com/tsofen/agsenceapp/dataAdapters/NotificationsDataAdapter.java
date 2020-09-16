@@ -145,7 +145,7 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
     }
 
     @Override
-    public void getNotificationsBySpecificAccount(final int accountId, int start, int num, NotificationsDataRequestHandler handler) {
+    public void getNotificationsBySpecificAccount(final int accountId, int start, int num, final NotificationsDataRequestHandler handler) {
         cacheManager.getNotificationRelatedToAccountJob(accountId, 0, 0, new NotificationsHandler() {
             @Override
             public void onNotificationsDownloadFinished(ArrayList<Notification> notifications) {
@@ -194,6 +194,7 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                             58, false, "Hey this is error message5", 15));
                 }
 
+                handler.onNotificationsReceived(notificationArray);
 
             }
 

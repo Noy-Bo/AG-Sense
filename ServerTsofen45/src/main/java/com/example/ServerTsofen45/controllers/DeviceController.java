@@ -1,6 +1,7 @@
 package com.example.ServerTsofen45.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,5 +101,18 @@ public class DeviceController {
 		return devices;
 	}
 	
+	
+	
+	//http://localhost:8080/Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=0&gps=0&tank=1&start=0&num=0
+	@GetMapping("SpicificDeviceByFilter")
+	public 	List<Device> getSpicificDeviceByFilter(@RequestParam int id, @RequestParam boolean healthy, @RequestParam boolean faulty , 
+			@RequestParam boolean bank, @RequestParam boolean gps , @RequestParam boolean tank , @RequestParam int start , @RequestParam int num) {
 
+		List<Device> devices = new ArrayList<Device>();
+		devices = deviceBL.getSpicificDeviceByFilter( id,  healthy,  faulty , 
+				 bank,  gps ,  tank ,  start ,  num);
+		return devices;
+	}
+
+	
 }
