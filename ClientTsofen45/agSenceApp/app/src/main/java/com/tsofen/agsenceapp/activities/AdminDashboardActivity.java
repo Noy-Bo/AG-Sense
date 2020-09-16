@@ -38,8 +38,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void accountNotification(View view) {
-
-
         final ArrayList<Notification> _notifications = new ArrayList<>();
 
         NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
@@ -48,7 +46,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
                 _notifications.addAll(notifications);
             }
         });
-
 
 
         Intent intent = new Intent(this, AdminNotification.class);
