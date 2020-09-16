@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
@@ -24,6 +25,8 @@ import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.User;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
@@ -63,6 +66,8 @@ public class CacheMgr implements CacheManagerAPI {
     private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
     private HandlerThread handlerThreadGetDevices = new HandlerThread("handlerThreadGetDevices");
+    private HandlerThread handlerThreadGetSpecificDeviceDataById = new HandlerThread("handlerThreadGetSpecificDeviceDataById");
+    private Handler threadHandlerForGetSpecificDeviceDataById;
     private Handler threadHandlerForGetDevices;
     private Handler threadHandlerForLogin;
     private Handler threadHandlerForServerPeriod;
@@ -87,6 +92,9 @@ public class CacheMgr implements CacheManagerAPI {
 
         handlerThreadGetDevices.start();
         threadHandlerForGetDevices = new Handler(handlerThreadGetDevices.getLooper());
+
+        handlerThreadGetSpecificDeviceDataById.start();
+        threadHandlerForGetSpecificDeviceDataById = new Handler(handlerThreadGetSpecificDeviceDataById.getLooper());
 
 
     }
@@ -149,8 +157,8 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     //OLD FUNCTIONS, MOVED TO WORK WITH GENERIC BaseRunnable<E>
-
     /*
+
     public static class GetDevicesJobRunnable implements Runnable {
        private DevicesHandler handler;
        private int start;
@@ -351,13 +359,19 @@ public class CacheMgr implements CacheManagerAPI {
                     Log.d("generics","onDataDownloadCompleted");
                     // JSON Parser
 
-                   List<E> retrievedEntitiesList = new ArrayList<>();
 
+                    List<E> retrievedEntitiesList;
 
                     if (handler instanceof DevicesHandler)
                     {
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
                         ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
+                    }
+                    if(handler instanceof DeviceDataHandler)
+                    {
+
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
+                        ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
                     }
                     // else if () other handler cases.
 
@@ -425,6 +439,12 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("num",Integer.toString(num));
+        params.put("id",Integer.toString(deviceId));
+        params.put("start",Integer.toString(start));
+        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
+        threadHandlerForGetSpecificDeviceDataById.post(runnableGeneric);
     }
 
     public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
