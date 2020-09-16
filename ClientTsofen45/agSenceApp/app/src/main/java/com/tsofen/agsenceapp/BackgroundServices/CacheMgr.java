@@ -7,9 +7,12 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
+import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
+import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 
@@ -409,17 +412,17 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, DevicesHandler handler) {
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler) {
 
     }
 
     @Override
-    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, NotificationsHandler handler) {
+    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, DeviceNotificationsHandler handler) {
 
     }
 
     @Override
-    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, NotificationsHandler handler) {
+    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, AccountNotificationsHandler handler) {
 
     }
 
