@@ -11,7 +11,7 @@ import com.tsofen.agsenceapp.entities.Notification;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminDataUpdates implements Runnable {
+public class AdminDataUpdatesRunnable implements Runnable {
 
     @Override
     public void run() {

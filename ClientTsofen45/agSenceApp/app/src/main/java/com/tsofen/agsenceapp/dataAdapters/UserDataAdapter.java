@@ -1,6 +1,8 @@
 package com.tsofen.agsenceapp.dataAdapters;
 
 
+import android.util.Log;
+
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.adaptersInterfaces.UserDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
@@ -25,7 +27,7 @@ public class UserDataAdapter extends BaseDataAdapter implements UserDataAdapterA
             @Override
             public void onLoginSuccess(User user) {
                 if(user instanceof Admin)
-                    handler.onAdminLoginSuccess((Admin)user);
+                    handler.onAdminLoginSuccess((Admin) user);
                 else
                     handler.onAccountLoginSuccess((Account)user);
             }

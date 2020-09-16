@@ -1,6 +1,6 @@
 package com.tsofen.agsenceapp.dataAdapters;
 
-import com.tsofen.agsenceapp.CacheManager;
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
@@ -52,7 +52,6 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
             }
         });
-
     }
 
     @Override
@@ -67,7 +66,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 //                        newData.add(device);
 //                }
 
-                Date date = new Date();
+               Date date = new Date();
                 date.getTime();
                 Date date1 = new Date();
                 date.setTime(20102020);
@@ -89,6 +88,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
             }
         });
+
     }
 
     @Override
@@ -148,6 +148,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
         newData.add(new Devices(15,15,1,"Device3",date,date1,false));
 
         handler.onDeviceDataLoaded(newData);
+
 
     }
 

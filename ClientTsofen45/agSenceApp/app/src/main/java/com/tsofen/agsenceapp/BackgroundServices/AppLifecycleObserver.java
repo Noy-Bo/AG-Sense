@@ -1,53 +1,66 @@
 package com.tsofen.agsenceapp.BackgroundServices;
 
-
-import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
-
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.dataServices.DevicesHandler;
+import com.tsofen.agsenceapp.entities.Devices;
+import java.util.ArrayList;
+import java.util.List;
+
+
+//  ============= MAIN PERIODIC THREAD HERE + OBSERVER FORGOUNRD \ BACKGROUND ================
+
+
 public class AppLifecycleObserver implements LifecycleObserver {
 
     public static final String TAG = AppLifecycleObserver.class.getName();
-    Runnable runnableCode;
-    Handler handler = new Handler();
-    CacheMgr cacheMgr = CacheMgr.getInstance();
-    public static int count = 0; // test
+    private CacheMgr cacheMgr = CacheMgr.getInstance();
+    private final static int waitInterval = 30000;
 
-    /// -----------this class is used onlyn for testing at the moment..-----------
+    // periodic task design
+    private DevicesHandler handlerForRepeatedJob  = new DevicesHandler() {
+        @Override
+        public void onDevicesDownloadFinished(List<Devices> devices) {
+            Log.d("repeated","repeated task completed");
+            cacheMgr.getThreadHandlerForServerPeriod().post(new Runnable() {
+                @Override
+                public void run() {
+                    SystemClock.sleep(waitInterval);
+                    cacheMgr.getThreadHandlerForServerPeriod().post(mainThread);
+                }
+            });
+        }
+
+        @Override
+        public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
+        }
+    };
+    private Runnable mainThread;
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
+
+    //Test
     public void onEnterForeground() {
 
 
-        /*runnableCode = new Runnable() {   ------- this is a test run for the ServerPerioicJob.
-            @Override
-            public void run() {
-                // Do something here on the main thread
-                Log.d("Handlers", "thread "+ count + " launched succesfully");
-                count++;
-
-                // Repeat this the same runnable code block again another 2 seconds
-                // 'this' is referencing the Runnable object
-                handler.postDelayed(this, 2000);
-
-
-
-
-
-        };
-        // Start the initial runnable task by posting through the handler
-        handler.post(runnableCode);*/
-
+       /* mainThread = new CacheMgr.GetDevicesJobRunnable(0, 5, handlerForRepeatedJob);
+        cacheMgr.getThreadHandlerForServerPeriod().post(mainThread);*/
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+   @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onEnterBackground() {
         Log.d("Handlers", "onstop");
-        handler.removeCallbacks(runnableCode);
+        /*
+        cacheMgr.gethandlerThreadServerPeriodic().interrupt();
 
+         */
     }
 
 }
