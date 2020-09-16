@@ -33,7 +33,7 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 			"			 devices  " + 
 			"			  where  faulty in (?1, ?2) AND type in (?3, ?4, ?5) AND account_id = ?6 " + 
 			"   ;" )
-	ArrayList<Device> findFilterdDevices(boolean faulty, boolean healthy,
+	List<Device> findFilterdDevices(boolean faulty, boolean healthy,
 		int sensorsForBanks, int gpsForPersonal, int lequidHeightForTanks, long id);
 	
 	
