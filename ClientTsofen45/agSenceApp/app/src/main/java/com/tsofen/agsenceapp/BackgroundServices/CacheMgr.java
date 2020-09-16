@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
@@ -21,21 +20,29 @@ import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
+import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.User;
 import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 public class CacheMgr implements CacheManagerAPI {
 
     private static CacheMgr cacheMgr = null;
@@ -44,8 +51,7 @@ public class CacheMgr implements CacheManagerAPI {
         initializeAllServices();
     }
 
-    public static CacheMgr getInstance()
-    {
+    public static CacheMgr getInstance() {
         if (cacheMgr == null)
             cacheMgr = new CacheMgr(); // TODO - add synchronized.
 
@@ -69,14 +75,10 @@ public class CacheMgr implements CacheManagerAPI {
         return threadHandlerForServerPeriod;
     }
 
-
-
-
-
     private void initializeAllServices() // remove public
     {
 
-            //initializing the handlers
+        //initializing the handlers
         handlerThreadServerPeriodic.start();
         threadHandlerForServerPeriod = new Handler(handlerThreadServerPeriodic.getLooper());
 
@@ -88,6 +90,7 @@ public class CacheMgr implements CacheManagerAPI {
 
 
     }
+
 
 
     private class LoginJobRunnable implements Runnable {
@@ -112,7 +115,7 @@ public class CacheMgr implements CacheManagerAPI {
             params.put("password",this.password);
 
 
-            downloader.getText(urlConnectionMaker.createUrl(ServicesName.login,params), new OnDataReadyHandler() {
+            downloader.getText(urlConnectionMaker.createUrl(ServicesName.Login,params), new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
                     try {
@@ -144,9 +147,10 @@ public class CacheMgr implements CacheManagerAPI {
             });
         }
     }
-    /*
-    OLD FUNCTIONS, MOVED TO WORK WITH GENERIC BaseRunnable<E>
 
+    //OLD FUNCTIONS, MOVED TO WORK WITH GENERIC BaseRunnable<E>
+
+    /*
     public static class GetDevicesJobRunnable implements Runnable {
        private DevicesHandler handler;
        private int start;
@@ -233,7 +237,7 @@ public class CacheMgr implements CacheManagerAPI {
             params.put("start",Integer.toString(start));
 
 
-            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getAccounts,params), new OnDataReadyHandler() {
+            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getAllAccounts,params), new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
                     // code what to do when we get the string of accounts.
@@ -320,11 +324,13 @@ public class CacheMgr implements CacheManagerAPI {
             });
         }
     }
-    */
+
+
+     */
 
 
     // general runnable generic class. -in development.
-    private class BaseRunnable<E>  implements Runnable {
+     class BaseRunnable<E>  implements Runnable {
         private BaseHandler handler;
         Map<String, String> params;
         ServicesName serviceName;
@@ -339,7 +345,7 @@ public class CacheMgr implements CacheManagerAPI {
         public void run() {
             UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker(); //TODO static
             //downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
-            downloader.getText("http://206.72.198.59:8080/ServerTsofen45/Device/AllDevices", new OnDataReadyHandler() {
+            downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
                     Log.d("generics","onDataDownloadCompleted");
@@ -365,18 +371,7 @@ public class CacheMgr implements CacheManagerAPI {
         }
     }
 
-    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
-        try {
-            Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
-            return new GsonBuilder().setDateFormat("hh:mm:ss").create().fromJson(jsonArray, typeOfT);
 
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     // API -
 
@@ -430,9 +425,32 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
+    }
+
+    public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
+        JSONObject jObj = null;
+        jObj = new JSONObject(jsonStr);
+        if (jObj == null)
+            throw new JSONException("json allocation failed");
+        return jObj;
 
     }
 
-}
 
+    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
+        try {
+            Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
+            return new GsonBuilder().setDateFormat("hh:mm:ss").create().fromJson(jsonArray, typeOfT);
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+}
 

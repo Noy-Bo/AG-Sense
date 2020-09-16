@@ -32,7 +32,11 @@ public class NotificationsController {
 		  List<NotificationDTO> notifications = new ArrayList<NotificationDTO>();
 			 notifications = notificationBL.getAllNotifications();
 			
-			 List<NotificationDTO> sublist = notifications.subList(start, start + num);
+			 if ((start) > notifications.size()) start = notifications.size();
+			 int end = start + num;
+			if ((start + num) > notifications.size()) end = notifications.size();
+				
+			 List<NotificationDTO> sublist = notifications.subList(start, end);
 			return  sublist;
 		 
 		}
@@ -52,7 +56,11 @@ public class NotificationsController {
 		  List<NotificationDTO> notifications = new ArrayList<NotificationDTO>();
 			 notifications = notificationBL.getNotificationRelatedToDevice(id);
 			
-			 List<NotificationDTO> sublist = notifications.subList(start, start + num);
+			 if ((start) > notifications.size()) start = notifications.size();
+			 int end = start + num;
+			if ((start + num) > notifications.size()) end = notifications.size();
+			 
+			 List<NotificationDTO> sublist = notifications.subList(start, end);
 			return  sublist;
 		}
 	  
@@ -71,7 +79,11 @@ public class NotificationsController {
 		  List<NotificationDTO> notifications = new ArrayList<NotificationDTO>();
 			 notifications = notificationBL.getNotificationsRelatedToUser(id);
 			
-			 List<NotificationDTO> sublist = notifications.subList(start, start + num);
+			 if ((start) > notifications.size()) start = notifications.size();
+			 int end = start + num;
+			if ((start + num) > notifications.size()) end = notifications.size();
+			 
+			 List<NotificationDTO> sublist = notifications.subList(start, end);
 			return  sublist;
 		  
 		 

@@ -1,16 +1,37 @@
 package com.tsofen.agsenceapp.entities;
 
+import android.bluetooth.BluetoothClass;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class Account extends User implements Serializable {
 
     private boolean isFaulty;
     public int accountId;
+    private List<Devices> devices;
 
-    public Account(int id, String userName, String email, boolean isFaulty, int accountId) {
-        super(id, userName, email);
+
+    public Account(int id, String username, String email, boolean isFaulty, int accountId) {
+        super(id, username, email);
         this.isFaulty = isFaulty;
         this.accountId = accountId;
+    }
+
+    public Account(int id, String username, String email, boolean isFaulty, int accountId, List<Devices> devices) {
+        super(id, username, email);
+        this.isFaulty = isFaulty;
+        this.accountId = accountId;
+        this.devices = devices;
+    }
+
+    public List<Devices> getDevices() {
+        return devices;
+    }
+
+    public Account setDevices(List<Devices> devices) {
+        this.devices = devices;
+        return this;
     }
 
     public boolean isFaulty() {
@@ -27,5 +48,16 @@ public class Account extends User implements Serializable {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "isFaulty=" + isFaulty +
+                ", accountId=" + accountId +
+                ", id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
