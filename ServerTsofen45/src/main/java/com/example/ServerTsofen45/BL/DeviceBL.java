@@ -146,7 +146,7 @@ return null;
 //		
 //	}
 
-	public ArrayList<Device> getSpicificDeviceByFilter(int id, boolean healthy, boolean faulty, boolean bank,
+	public List<Device> getSpicificDeviceByFilter(int id, boolean healthy, boolean faulty, boolean bank,
 			boolean gps, boolean tank, int start, int num) {
 		
 		
@@ -169,7 +169,7 @@ return null;
 		 int end = start + num;
 		if ((start + num) > devices.size()) end = devices.size();
 			
-		ArrayList<Device> sublist = (ArrayList<Device>) devices.subList(start, end);
+		List<Device> sublist = devices.subList(start, end);
 		return  sublist;
 		
 	
