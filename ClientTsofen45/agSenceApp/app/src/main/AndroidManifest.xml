@@ -4,41 +4,26 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AccountStatusFilterUser"></activity>
-        <activity android:name=".activities.BackBaseActivity" />
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.BackBaseActivity"/>
         <activity android:name=".activities.SearchBaseActivity" />
-        <activity
-            android:name=".activities.AdminNotification"
-            android:label="@string/AdminNotification" />
-        <activity
-            android:name=".activities.DeviceSetting"
-            android:label="Device Settings" />
-        <activity
-            android:name=".activities.AccountStatusFilter"
-            android:label="Accounts Status" />
-        <activity
-            android:name=".activities.EditAccount"
-            android:label="@string/EditAccount" />
-        <activity
-            android:name=".activities.EditDevice"
-            android:label="@string/EditDevice" />
-        <activity
-            android:name=".activities.HealthCareDashboard"
-            android:label="@string/healthCareReportsString" />
-        <activity
-            android:name=".activities.NewAccount"
-            android:label="@string/NewAccount" />
-        <activity
-            android:name=".activities.NewDevice"
-            android:label="@string/NewDevice" />
+        <activity android:name=".activities.AdminNotification" android:label="@string/AdminNotification"/>
+        <activity android:name=".activities.DeviceSetting" android:label="Device Settings"/>
+        <activity android:name=".activities.AccountStatusFilter" android:label="Accounts Status"/>
+
+        <activity android:name=".activities.EditAccount" android:label="@string/EditAccount"/>
+        <activity android:name=".activities.EditDevice" android:label="@string/EditDevice"/>
+        <activity android:name=".activities.HealthCareDashboard" android:label="@string/healthCareReportsString"/>
+        <activity android:name=".activities.NewAccount" android:label="@string/NewAccount"/>
+        <activity android:name=".activities.NewDevice" android:label="@string/NewDevice"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -50,25 +35,14 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity android:name=".activities.DeviceStatusList" android:label="Device Status List"/>
+        <activity android:name=".activities.DeviceView" android:label="Device View"/>
+        <activity android:name=".activities.DeviceFilter" android:label="@string/Filter"/>
+        <activity android:name=".activities.AdminDashboardActivity" android:label="Admin Dashboard"/>
         <activity
-            android:name=".activities.DeviceStatusList"
-            android:label="Device Status List" />
-        <activity
-            android:name=".activities.DeviceView"
-            android:label="Device View" />
-        <activity
-            android:name=".activities.DeviceFilter"
-            android:label="@string/Filter" />
-        <activity
-            android:name=".activities.AdminDashboardActivity"
-            android:label="Admin Dashboard" />
-        <activity
-            android:name=".activities.AccountDashboardActivity"
-            android:label="Account Dashboard"
+            android:name=".activities.AccountDashboardActivity" android:label="Account Dashboard"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activities.DeviceStatus"
-            android:label="Device Status" />
+        <activity android:name=".activities.DeviceStatus" android:label="Device Status"/>
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

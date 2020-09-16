@@ -1,6 +1,6 @@
 package com.tsofen.agsenceapp.dataServices;
 
-public interface OnDataReadyHandler  {
+public interface OnDataReadyHandler {
 
     void onDataDownloadCompleted(String downloadedData);
     void onDownloadError();

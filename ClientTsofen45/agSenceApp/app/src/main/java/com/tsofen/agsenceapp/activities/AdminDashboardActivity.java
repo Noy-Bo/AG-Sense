@@ -82,18 +82,16 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyDevices(View view) {
-
+        final ArrayList<Devices> healthy = new ArrayList<>();
         DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
-                ArrayList<Devices> healthy = new ArrayList<>();
                 healthy.addAll(devices);
-                Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
-                intent.putExtra("devices",healthy);
-                startActivity(intent);
             }
         });
-
+        Intent intent = new Intent(this, DeviceStatus.class);
+        intent.putExtra("devices",healthy);
+        startActivity(intent);
     }
 
     public void goToFaultyDevices(View view) {

@@ -7,33 +7,10 @@
     android:orientation="vertical"
     tools:context=".activities.DeviceFilter">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/back_toolbar"
+    <include
+        layout="@layout/activity_back_base"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/dark_blue"
-        android:elevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="7dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_margin="10dp"
-            android:clickable="true"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:onClick="returnResults"/>
-        <TextView
-            android:id="@+id/back_activity_back"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:layout_marginStart="15dp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/medium_text_size"/>
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="wrap_content" />
 
 
 

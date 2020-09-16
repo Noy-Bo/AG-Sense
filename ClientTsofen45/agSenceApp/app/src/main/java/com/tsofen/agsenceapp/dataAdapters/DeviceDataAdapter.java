@@ -1,9 +1,8 @@
 package com.tsofen.agsenceapp.dataAdapters;
 
-import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
+import com.tsofen.agsenceapp.CacheManager;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
-import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.entities.Devices;
 
@@ -47,7 +46,13 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
                 newData.add(new Devices(6,6,1,"Device2",date,date1,true));
                 handler.onDeviceDataLoaded(newData);
             }
+
+            @Override
+            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
+
+            }
         });
+
     }
 
     @Override
@@ -62,7 +67,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 //                        newData.add(device);
 //                }
 
-               Date date = new Date();
+                Date date = new Date();
                 date.getTime();
                 Date date1 = new Date();
                 date.setTime(20102020);
@@ -78,16 +83,24 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
                 handler.onDeviceDataLoaded(newData);
             }
-        });
 
+            @Override
+            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
+
+            }
+        });
     }
 
     @Override
     public void getDevicesRelatedToAccount(final int accountId, int start, int num, final DeviceDataRequestHandler handler) {
-        cacheManager.getDevicesRelatedToAccountJob(accountId, 0, 0, new AccountDevicesHandler() {
+        cacheManager.getDevicesRelatedToAccountJob(accountId, 0, 0, new DevicesHandler() {
+            @Override
+            public void onDevicesDownloadFinished(List<Devices> devices) {
+
+            }
 
             @Override
-            public void onDevicesRelatedToAccountDownloadFinished(List<Devices> devices) {
+            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
                 // handler.onDeviceDataLoaded(devices);
                 List<Devices> newData = new ArrayList<>();
                 Date date = new Date();
@@ -136,11 +149,6 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
         handler.onDeviceDataLoaded(newData);
 
-    }
-
-    @Override
-    public void getDeviceDataList(int deviceId, DeviceDataRequestHandler handler) {
-        
     }
 
 

@@ -2,14 +2,11 @@ package com.tsofen.agsenceapp.dataAdapters;
 
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
-import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
-import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.entities.Notification;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class NotificationsDataAdapter extends BaseDataAdapter implements NotificationsDataAdapterAPI {
     private static  NotificationsDataAdapter instance;
@@ -23,7 +20,7 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
     public void getAllNotifications(int start, int num, final NotificationsDataRequestHandler handler) {
         cacheManager.getNotificationsJob(0, 0, new NotificationsHandler() {
             @Override
-            public void onNotificationsDownloadFinished(List<Notification> notifications) {
+            public void onNotificationsDownloadFinished(ArrayList<Notification> notifications) {
 //                handler.onNotificationsReceived(notifications);
                 java.util.Date date = new Date();
                 date.setTime(20102020);
@@ -65,14 +62,34 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                 handler.onNotificationsReceived(notificationArray);
 
             }
+
+            @Override
+            public void onNotificationsRelatedToAccountDownloadFinished(ArrayList<Notification> notifications) {
+
+            }
+
+            @Override
+            public void onNotificationsRelatedToDeviceDownloadFinished(ArrayList<Notification> notifications) {
+
+            }
         });
     }
 
     @Override
     public void getNotificationsBySpecificDevice(final int deviceId, int start, int num, NotificationsDataRequestHandler handler) {
-        cacheManager.getNotificationRelatedToDeviceJob(deviceId, 0, 0, new DeviceNotificationsHandler() {
+        cacheManager.getNotificationRelatedToDeviceJob(deviceId, 0, 0, new NotificationsHandler() {
             @Override
-            public void onNotificationsRelatedToDeviceDownloadFinished(List<Notification> notifications) {
+            public void onNotificationsDownloadFinished(ArrayList<Notification> notifications) {
+
+            }
+
+            @Override
+            public void onNotificationsRelatedToAccountDownloadFinished(ArrayList<Notification> notifications) {
+
+            }
+
+            @Override
+            public void onNotificationsRelatedToDeviceDownloadFinished(ArrayList<Notification> notifications) {
 
                 java.util.Date date = new Date();
                 ArrayList<Notification> notificationArray = new ArrayList<>();
@@ -129,10 +146,14 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
 
     @Override
     public void getNotificationsBySpecificAccount(final int accountId, int start, int num, final NotificationsDataRequestHandler handler) {
-        cacheManager.getNotificationRelatedToAccountJob(accountId, 0, 0, new AccountNotificationsHandler() {
+        cacheManager.getNotificationRelatedToAccountJob(accountId, 0, 0, new NotificationsHandler() {
+            @Override
+            public void onNotificationsDownloadFinished(ArrayList<Notification> notifications) {
+
+            }
 
             @Override
-            public void onNotificationsRelatedToAccountDownloadFinished(List<Notification> notifications) {
+            public void onNotificationsRelatedToAccountDownloadFinished(ArrayList<Notification> notifications) {
                 java.util.Date date = new Date();
                 date.setTime(20102020);
                 ArrayList<Notification> notificationArray = new ArrayList<>();
@@ -174,6 +195,12 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                 }
 
                 handler.onNotificationsReceived(notificationArray);
+
+            }
+
+            @Override
+            public void onNotificationsRelatedToDeviceDownloadFinished(ArrayList<Notification> notifications) {
+
 
             }
         });

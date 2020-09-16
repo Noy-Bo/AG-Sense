@@ -5,6 +5,8 @@ import com.tsofen.agsenceapp.entities.Devices;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface DevicesHandler  extends  BaseHandler{
+public interface DevicesHandler {
+
     void onDevicesDownloadFinished(List<Devices> devices);
+    void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices);
 }

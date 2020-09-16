@@ -14,12 +14,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
-import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-import com.tsofen.agsenceapp.entities.Account;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -60,32 +54,8 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.nav_account_dashboard) {
             startActivity(new Intent(getApplicationContext(), AccountDashboardActivity.class));
         } else if (id == R.id.nav_accounts_status) {
-            final ArrayList<Account> all = new ArrayList<>();
-            AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
-                @Override
-                public void onAccountsDownloadFinished(List<Account> accounts) {
-                    all.addAll(accounts);
-                    System.out.println("Faulty accounts: "+all);
-                }
-            });
-            Intent intent = new Intent(this, AccountStatusFilter.class);
-            intent.putExtra("accounts",all);
-            startActivity(intent);
-
-
-        } else if (id == R.id.nav_accounts_status_user) {
-            final ArrayList<Account> all = new ArrayList<>();
-            AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
-                @Override
-                public void onAccountsDownloadFinished(List<Account> accounts) {
-                    all.addAll(accounts);
-                    System.out.println("Faulty accounts: "+all);
-                }
-            });
-            Intent intent = new Intent(this, AccountStatusFilterUser.class);
-            intent.putExtra("accounts",all);
-            startActivity(intent);
-        }  else if (id == R.id.nav_admin_notifications) {
+            startActivity(new Intent(getApplicationContext(), AccountStatusFilter.class));
+        } else if (id == R.id.nav_admin_notifications) {
             startActivity(new Intent(getApplicationContext(), AdminNotification.class));
         }   else if (id == R.id.nav_device_status) {
             startActivity(new Intent(getApplicationContext(), DeviceStatus.class));
@@ -100,14 +70,12 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
 
     public void hideAdminOptions() {
         Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.nav_accounts_status).setVisible(false);
         nav_Menu.findItem(R.id.nav_admin_dashboard).setVisible(false);
         nav_Menu.findItem(R.id.nav_admin_notifications).setVisible(false);
     }
 
     public void hideAccountOptions() {
         Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.nav_accounts_status_user).setVisible(false);
         nav_Menu.findItem(R.id.nav_account_dashboard).setVisible(false);
     }
 
