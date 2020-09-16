@@ -397,26 +397,27 @@ public class CacheMgr implements CacheManagerAPI {
         @Override
         public void run() {
             UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker(); //TODO static
-            //downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
-            downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
+            downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
+            //downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
                     Log.d("generics","onDataDownloadCompleted");
                     // JSON Parser
 
 
-                    List<E> retrievedEntitiesList;
+                    List<E> retrievedEntitiesList = new ArrayList<>();
 
                     if (handler instanceof DevicesHandler)
                     {
-                        retrievedEntitiesList = (List<E>) parseToJsonArray(downloadedData, new Object());
+
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
                         ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
                     if(handler instanceof DeviceDataHandler)
                     {
 
-                        //retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
-                        //((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
+                        ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
                     }
                     // else if () other handler cases.
 
@@ -455,9 +456,9 @@ public class CacheMgr implements CacheManagerAPI {
 
 
         Map<String, String> params = new HashMap<>();
-        params.put("num",Integer.toString(num));
-        params.put("start",Integer.toString(start));
-        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getDevices);
+//        params.put("num",Integer.toString(num));
+//        params.put("start",Integer.toString(start));
+        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getAllDevices);
         threadHandlerForGetDevices.post(runnableGeneric);
 
 
@@ -484,11 +485,9 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
+    public void getSpecificDeviceDataByIdJob(int deviceId, DeviceDataHandler handler) {
         Map<String, String> params = new HashMap<>();
-        params.put("num",Integer.toString(num));
         params.put("id",Integer.toString(deviceId));
-        params.put("start",Integer.toString(start));
         BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
         threadHandlerForGetSpecificDeviceDataById.post(runnableGeneric);
     }
@@ -503,10 +502,10 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
-    public <T> List<T> parseToJsonArray(String jsonArray, T clazz) {
+    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
         try {
             Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
-            return new GsonBuilder().setDateFormat("hh:mm:ss").create().fromJson(jsonArray, typeOfT);
+            return new GsonBuilder().create().fromJson(jsonArray, typeOfT);
 
         }
         catch(Exception e)

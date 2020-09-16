@@ -1,4 +1,4 @@
 package com.tsofen.agsenceapp.dataServices;
 
-public interface BaseHandler<T> {
+public interface BaseHandler{
 }

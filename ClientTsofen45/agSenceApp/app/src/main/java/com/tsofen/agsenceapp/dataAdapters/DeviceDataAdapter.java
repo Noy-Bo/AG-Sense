@@ -3,8 +3,11 @@ package com.tsofen.agsenceapp.dataAdapters;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceInfoDataRequestHandler;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
+import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 
 import java.util.ArrayList;
@@ -55,7 +58,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
         cacheManager.getDevicesJob(0, 0, new DevicesHandler() {
             @Override
             public void onDevicesDownloadFinished(List<Devices> devices) {
-               List<Devices> newData = new ArrayList<>();
+             /*  List<Devices> newData = new ArrayList<>();
 //
 //                for(Devices device : devices){
 //                    if(!device.getFaulty())
@@ -74,7 +77,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
                 newData.add(new Devices(12,12,2,"Device2",date,date1,false));
                 newData.add(new Devices(13,13,1,"Device3",date,date1,false));
                 newData.add(new Devices(14,14,2,"Device1",date,date1,false));
-                newData.add(new Devices(15,15,1,"Device3",date,date1,false));
+                newData.add(new Devices(15,15,1,"Device3",date,date1,false));*/
                 handler.onDeviceDataLoaded(devices);
             }
         });
@@ -138,8 +141,13 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
     }
 
     @Override
-    public void getDeviceDataList(int deviceId, DeviceDataRequestHandler handler) {
-        
+    public void getDeviceDataList(int deviceId,final DeviceInfoDataRequestHandler handler) {
+        cacheManager.getSpecificDeviceDataByIdJob(deviceId,  new DeviceDataHandler() {
+            @Override
+            public void onDeviceDataRelatedToDeviceDownloadFinished(List<DeviceData> deviceData) {
+                handler.getDeviceDataInfo(deviceData);
+            }
+        });
     }
 
 

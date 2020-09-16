@@ -13,6 +13,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.SliderAdapter;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceInfoDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.entities.DeviceData;
+import com.tsofen.agsenceapp.entities.Devices;
+
+import java.util.List;
 
 public class DeviceView extends AppBaseActivity {
 
@@ -58,15 +64,30 @@ public class DeviceView extends AppBaseActivity {
                 startActivity(intent);
             }
         });
+        final Devices device = (Devices) getIntent().getSerializableExtra("device");
+        DeviceDataAdapter.getInstance().getDeviceDataList(device.getId(), new DeviceInfoDataRequestHandler() {
+            @Override
+            public void getDeviceDataInfo(List<DeviceData> deviceDataList) {
+                TextView status = findViewById(R.id.device_view_status);
+                TextView lastUpdate = findViewById(R.id.device_view_last_update);
+                TextView coordinations = findViewById(R.id.device_view_coordination);
+                TextView isMoving = findViewById(R.id.device_view_is_moving);
+                DeviceData deviceData = device.getDeviceData().get(0);
+                status.setText(String.format("Device Status: %s",device.getFaulty()?"healthy":"faulty"));
+                lastUpdate.setText("last updated: "+device.getLastUpdate());
+                coordinations.setText(String.format("Lat: %d Long: %d ",deviceData.getLat(),deviceData.get_long())); // no height
+                isMoving.setText(String.format("Moving: %s",((deviceData.isMoving())?"Yes":"No")));
+            }
+        });
 
     }
 
     //for indentifying the current-dot (in the dot-scroller) we're positioned on..
-    public void addDotsIndicator(int position){
+    public void addDotsIndicator(int position) {
         mDots = new TextView[3];
         dotslinearLayout.removeAllViews();
 
-        for(int i =0; i<mDots.length; i++){
+        for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             // HTML = This class processes HTML strings into displayable styled text.
             mDots[i].setText(Html.fromHtml("&#8226;"));
@@ -75,7 +96,7 @@ public class DeviceView extends AppBaseActivity {
             dotslinearLayout.addView(mDots[i]);
         }
 
-        if(mDots.length > 0){ //changes Dot color!
+        if (mDots.length > 0) { //changes Dot color!
             mDots[position].setTextColor(getResources().getColor(R.color.orange));
         }
 
