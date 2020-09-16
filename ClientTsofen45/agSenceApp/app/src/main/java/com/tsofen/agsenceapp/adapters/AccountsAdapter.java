@@ -13,11 +13,12 @@ import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class AccountsAdapter extends ArrayAdapter<User> implements Serializable {
     LayoutInflater inflater;
 
-    public AccountsAdapter(Context context, int resource, User[] users) {
+    public AccountsAdapter(Context context, int resource, ArrayList<User> users) {
         super(context, resource, users);
         inflater = LayoutInflater.from(context);
     }
@@ -36,6 +37,8 @@ public class AccountsAdapter extends ArrayAdapter<User> implements Serializable 
         imageView.setImageResource(R.drawable.faulty_accounts_icon);
 
         name.setText(account.getUsername());
+       // amountofdevices.setText(account.);
+        //name.setText(account.getUsername());
         return layout;
     }
 }
