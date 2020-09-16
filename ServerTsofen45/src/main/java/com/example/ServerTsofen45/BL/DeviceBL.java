@@ -163,7 +163,7 @@ return null;
 		if (tank == true) _lequidHeightForTanks = 2;
 		
 		
-		ArrayList<Device> devices = deviceRepository.findFilterdDevices(_faulty, _healthy, _sensorsForBanks, _gpsForPersonal, _lequidHeightForTanks, id);
+		List<Device> devices = deviceRepository.findFilterdDevices(_faulty, _healthy, _sensorsForBanks, _gpsForPersonal, _lequidHeightForTanks, id);
 		
 		 if ((start) > devices.size()) start = devices.size();
 		 int end = start + num;
