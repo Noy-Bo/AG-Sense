@@ -26,13 +26,17 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 	ArrayList<Device> findByaccountId(int id);
 	
 	ArrayList<Device> findAll();
+	ArrayList<Device> findAllByOrderByLastUpdateDesc();
+
+	
 	
 	@Query(nativeQuery = true, value =" SELECT " + 
 			"			 * " + 
 			"			 FROM  " + 
 			"			 devices  " + 
 			"			  where  faulty in (?1, ?2) AND type in (?3, ?4, ?5) AND account_id = ?6 " + 
-			"   ;" )
+		 
+			"  ORDER BY last_update DESC ;" )
 	List<Device> findFilterdDevices(boolean faulty, boolean healthy,
 		int sensorsForBanks, int gpsForPersonal, int lequidHeightForTanks, long id);
 	

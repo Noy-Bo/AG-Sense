@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 
 import org.json.simple.JSONObject;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
