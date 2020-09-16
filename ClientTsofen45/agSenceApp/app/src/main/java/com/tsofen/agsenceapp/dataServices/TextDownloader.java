@@ -1,5 +1,9 @@
 package com.tsofen.agsenceapp.dataServices;
 
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
+
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,8 +11,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class TextDownloader{
+public class TextDownloader {
 
+
+
+    private static TextDownloader textDownloader = null;
+
+    private TextDownloader() { }
+
+    public static TextDownloader getInstance()
+    {
+        if (textDownloader == null)
+            textDownloader = new TextDownloader(); // TODO - add synchronized.
+
+        return textDownloader;
+    }
 
 
     public String getText(String urlAddress, OnDataReadyHandler handler) {
@@ -35,6 +52,7 @@ public class TextDownloader{
             handler.onDownloadError();
             return null;
         } catch (IOException e) {
+            e.printStackTrace();
             handler.onDownloadError();
             return null;
         }

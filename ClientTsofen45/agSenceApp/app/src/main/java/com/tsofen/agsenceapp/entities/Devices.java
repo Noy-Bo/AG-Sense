@@ -22,7 +22,10 @@ public class Devices implements Serializable {
     public void setFaulty(Boolean faulty) {
         isFaulty = faulty;
     }
+    public Devices()
+    {
 
+    }
     public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty) {
         this.imei = imei;
         this.id = id;

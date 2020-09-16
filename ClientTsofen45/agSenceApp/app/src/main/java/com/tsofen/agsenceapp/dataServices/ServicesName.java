@@ -1,7 +1,7 @@
 package com.tsofen.agsenceapp.dataServices;
 
 public enum ServicesName {
-    Login("/User/Login"),
+    login("/User/Login"),
     getAccounts("/User/AllAccounts"),
     getDevices(""), getNotifications(""),
     getNotificationRelatedToDevice(""),
@@ -15,7 +15,7 @@ public enum ServicesName {
     getRecentLocationRelatedToDevice(""),
     getSpicificDeviceByFilter(""),
     markNotificationAsRead(""),
-    GetDeviceSetting(""),
+    getDeviceSetting(""),
     setDeviceSettingAlertGeoForce(""),
     setDeviceSettingAuthorizedNumber(""),
     setDeviceSettingInterval("");

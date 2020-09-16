@@ -4,50 +4,45 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
+import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
+import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
-import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CacheMgr implements CacheManagerAPI {
+
     private static CacheMgr cacheMgr = null;
 
     private CacheMgr() {
         initializeAllServices();
     }
-
-    //handlers
-
-    private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
-    private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
-    private HandlerThread handlerThreadGetDevices = new HandlerThread("handlerThreadGetDevices");
-    private Handler threadHandlerForLogin;
-    private Handler threadHandlerForServerPeriod;
-    private Handler threadHandlerForGetDevices;
-
-
-    public Handler getThreadHandlerForGetDevices() {
-        return threadHandlerForGetDevices;
-    }
-
-    public Handler getThreadHandlerForServerPeriod() {
-        return threadHandlerForServerPeriod;
-    }
-
 
     public static CacheMgr getInstance()
     {
@@ -57,25 +52,102 @@ public class CacheMgr implements CacheManagerAPI {
         return cacheMgr;
     }
 
+    // handlers and loopers.
 
+    private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
+    private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
+    private HandlerThread handlerThreadGetDevices = new HandlerThread("handlerThreadGetDevices");
+    private Handler threadHandlerForGetDevices;
+    private Handler threadHandlerForLogin;
+    private Handler threadHandlerForServerPeriod;
+    private TextDownloader downloader = TextDownloader.getInstance();
 
-    private void initializeAllServices() // remove public
-    {
-        //initializing the handlers
-        handlerThreadLogin.start();
-        threadHandlerForLogin = new Handler(handlerThreadLogin.getLooper());
-
-        handlerThreadServerPeriodic.start();
-        threadHandlerForServerPeriod = new Handler(handlerThreadServerPeriodic.getLooper());
-
-        handlerThreadGetDevices.start();
-        threadHandlerForGetDevices = new Handler(handlerThreadGetDevices.getLooper());
-
+    public HandlerThread gethandlerThreadServerPeriodic(){
+        return handlerThreadServerPeriodic;
+    }
+    public Handler getThreadHandlerForServerPeriod() {
+        return threadHandlerForServerPeriod;
     }
 
 
 
-   public class GetDevicesJobRunnable implements Runnable{
+
+
+    private void initializeAllServices() // remove public
+    {
+
+            //initializing the handlers
+        handlerThreadServerPeriodic.start();
+        threadHandlerForServerPeriod = new Handler(handlerThreadServerPeriodic.getLooper());
+
+        handlerThreadLogin.start();
+        threadHandlerForLogin = new Handler(handlerThreadLogin.getLooper());
+
+        handlerThreadGetDevices.start();
+        threadHandlerForGetDevices = new Handler(handlerThreadGetDevices.getLooper());
+
+
+    }
+
+
+    private class LoginJobRunnable implements Runnable {
+        private String username;
+        private String password;
+        private LoginHandler handler;
+
+        public LoginJobRunnable(String username, String password, LoginHandler handler) {
+            this.username = username;
+            this.password = password;
+            this.handler = handler;
+        }
+
+        @Override
+        public void run() {
+
+
+            //URL Connection.
+            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+            Map<String, String> params = new HashMap<>();
+            params.put("username",this.username);
+            params.put("password",this.password);
+
+
+            downloader.getText(urlConnectionMaker.createUrl(ServicesName.login,params), new OnDataReadyHandler() {
+                @Override
+                public void onDataDownloadCompleted(String downloadedData) {
+                    try {
+
+                        //parsing json
+                        JSONObject userJSON = new JSONObject(downloadedData);
+                        User user;
+                        //{"accountid":8,"id":9,"type":"account","email":"ibra123@gmail.com","username":"ibra"}
+
+                        if(userJSON.getString("type").equals("account"))
+                        {
+                            user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
+                        }
+                        else {
+                            user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
+                        }
+                        handler.onLoginSuccess(user);
+                    }
+                    catch (Exception e)
+                    {
+                        handler.onLoginFailure();
+                    }
+                }
+
+                @Override
+                public void onDownloadError() {
+                    handler.onLoginFailure();
+                }
+            });
+        }
+    }
+    /*
+    OLD FUNCTIONS, MOVED TO WORK WITH GENERIC BaseRunnable<E>
+
+    public static class GetDevicesJobRunnable implements Runnable {
        private DevicesHandler handler;
        private int start;
        private int num;
@@ -88,8 +160,12 @@ public class CacheMgr implements CacheManagerAPI {
 
        @Override
        public void run() {
-           TextDownloader downloader = new TextDownloader();
-
+           //URL Connection.
+           TextDownloader downloader = TextDownloader.getInstance();
+           UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+           Map<String, String> params = new HashMap<>();
+           params.put("num",Integer.toString(num));
+           params.put("start",Integer.toString(start));
            downloader.getText("https://www.google.com/", new OnDataReadyHandler() {
                @Override
                public void onDataDownloadCompleted(String downloadedData) {
@@ -136,54 +212,171 @@ public class CacheMgr implements CacheManagerAPI {
        }
    }
 
+    private class GetAccountsJobRunnable implements Runnable {
 
+        private int start;
+        private int num;
+        private AccountsHandler handler;
 
-    private class LoginJobRunnable implements Runnable {
-        private String username;
-        private String password;
-        private LoginHandler handler;
-
-        public LoginJobRunnable(String username, String password, LoginHandler handler) {
-            this.username = username;
-            this.password = password;
+        public GetAccountsJobRunnable(int start, int num, AccountsHandler handler) {
+            this.start = start;
+            this.num = num;
             this.handler = handler;
         }
 
         @Override
         public void run() {
-            TextDownloader downloader = new TextDownloader();
-            downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username="+username+"&password="+password, new OnDataReadyHandler() {
+            //TextDownloader downloader = new TextDownloader();  //URL Connection.
+            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+            Map<String, String> params = new HashMap<>();
+            params.put("num",Integer.toString(num));
+            params.put("start",Integer.toString(start));
+
+
+            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getAccounts,params), new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
-                    try {
-                        //parsing json
-                        JSONObject userJSON = new JSONObject(downloadedData);
-                        User user;
-                        //{"accountid":8,"id":9,"type":"account","email":"ibra123@gmail.com","username":"ibra"}
-
-                        if(userJSON.getString("type").equals("account"))
-                        {
-                            user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
-                        }
-                        else {
-                            user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
-                        }
-                        handler.onLoginSuccess(user);
-                    }
-                    catch (Exception e)
-                    {
-                        handler.onLoginFailure();
-                    }
+                    // code what to do when we get the string of accounts.
                 }
 
                 @Override
                 public void onDownloadError() {
-                    handler.onLoginFailure();
+                    // code what to do on error
                 }
             });
         }
     }
 
+    private class  getSpecificDeviceDataByIdJobRunnable implements Runnable{
+
+        private int deviceId;
+        private int start;
+        private int num;
+        private DeviceDataHandler handler;
+
+        public getSpecificDeviceDataByIdJobRunnable(int deviceId, int start, int num, DeviceDataHandler handler) {
+            this.deviceId = deviceId;
+            this.start = start;
+            this.num = num;
+            this.handler = handler;
+        }
+
+        @Override
+        public void run() {
+            TextDownloader downloader = TextDownloader.getInstance();
+            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+            Map<String, String> params = new HashMap<>();
+            params.put("num",Integer.toString(num));
+            params.put("start",Integer.toString(start));
+            params.put("deviceid",Integer.toString(deviceId));
+
+
+
+            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getSpecificDeviceDataById,params), new OnDataReadyHandler() {
+                @Override
+                public void onDataDownloadCompleted(String downloadedData) {
+                    // code what to do when we get the string of deviceata
+                }
+
+                @Override
+                public void onDownloadError() {
+                    // code what to do on error
+                }
+            });
+        }
+    }
+
+    private class GetNotificationsJobRunnable implements Runnable{
+
+        private int start;
+        private int num;
+        private NotificationsHandler handler;
+
+        public GetNotificationsJobRunnable(int start, int num, NotificationsHandler handler) {
+            this.start = start;
+            this.num = num;
+            this.handler = handler;
+        }
+
+        @Override
+        public void run() {
+            TextDownloader downloader = TextDownloader.getInstance();
+            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+            Map<String, String> params = new HashMap<>();
+            params.put("num",Integer.toString(num));
+            params.put("start",Integer.toString(start));
+
+
+            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getNotifications,params), new OnDataReadyHandler() {
+                @Override
+                public void onDataDownloadCompleted(String downloadedData) {
+                    // code what to do when we get the string of Notifications.
+                }
+
+                @Override
+                public void onDownloadError() {
+                    // code what to do on error
+                }
+            });
+        }
+    }
+    */
+
+
+    // general runnable generic class. -in development.
+    private class BaseRunnable<E>  implements Runnable {
+        private BaseHandler handler;
+        Map<String, String> params;
+        ServicesName serviceName;
+
+        public BaseRunnable(BaseHandler handler, Map<String, String> params,ServicesName serviceName) {
+            this.serviceName = serviceName;
+            this.handler = handler;
+            this.params = params;
+        }
+
+        @Override
+        public void run() {
+            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker(); //TODO static
+            //downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
+            downloader.getText("http://206.72.198.59:8080/ServerTsofen45/Device/AllDevices", new OnDataReadyHandler() {
+                @Override
+                public void onDataDownloadCompleted(String downloadedData) {
+                    Log.d("generics","onDataDownloadCompleted");
+                    // JSON Parser
+
+                   List<E> retrievedEntitiesList = new ArrayList<>();
+
+
+                    if (handler instanceof DevicesHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
+                    }
+                    // else if () other handler cases.
+
+                }
+
+                @Override
+                public void onDownloadError() {
+
+                }
+            });
+        }
+    }
+
+    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
+        try {
+            Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
+            return new GsonBuilder().setDateFormat("hh:mm:ss").create().fromJson(jsonArray, typeOfT);
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     // API -
 
@@ -197,23 +390,27 @@ public class CacheMgr implements CacheManagerAPI {
     @Override
     public void getAccountsJob(int start, int num, AccountsHandler handler) {
 
-        handler.onAccountsDownloadFinished(new ArrayList<Account>());
     }
 
     @Override
     public void getDevicesJob(int start, int num, DevicesHandler handler) {
+       /*GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
+        runnable.run();
+        */
 
-        GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
-        threadHandlerForGetDevices.post(runnable);
 
+        Map<String, String> params = new HashMap<>();
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getDevices);
+        threadHandlerForGetDevices.post(runnableGeneric);
 
 
     }
 
     @Override
     public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
-        System.out.println("Inside getNotificationsJob");
-        handler.onNotificationsDownloadFinished(new ArrayList<Notification>());
+
     }
 
     @Override
@@ -239,68 +436,3 @@ public class CacheMgr implements CacheManagerAPI {
 }
 
 
-
-
-
-
-  /*
-   public void getDevicesJob(final DevicesHandler handler) // result in OnDevicesReadyHandler
-        {
-
-
-            threadHandlerForServerPeriod.post(new Runnable() {
-
-
-                @Override
-                public void run() {
-
-                    TextDownloader downloader = new TextDownloader();
-                    downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
-                        @Override
-                        public void onDataDownloadCompleted(String downloadedData) {
-                            Log.d("DOWNLOAD","Download text is "+downloadedData);
-
-                            // we have  results at downloadedData, but we now presenting dummy data.
-
-                            Date date = new Date();
-                            date.getTime();
-                            Date date1 = new Date();
-                            date.setTime(20102020);
-
-                            List<Devices> devices = new ArrayList<>();
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                            devices.add(new Devices(0,1,1,"Device",date,date1,true));
-
-                            if (handler != null) {
-                                handler.onDevicesDownloadFinished(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
-                            }
-
-                        }
-
-                        @Override
-                        public void onDownloadError() {
-                            //code this case.
-                        }
-                    });
-                    downloader.getText("https://www.google.com/");
-                }
-            });
-        }
-
-
-*/
