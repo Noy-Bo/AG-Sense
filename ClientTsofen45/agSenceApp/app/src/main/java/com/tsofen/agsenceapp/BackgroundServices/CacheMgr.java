@@ -468,6 +468,7 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler) {
+
     }
 
     public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
