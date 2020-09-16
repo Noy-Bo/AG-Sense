@@ -3,6 +3,7 @@ package com.tsofen.agsenceapp.dataAdapters;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.entities.Devices;
 
@@ -46,11 +47,6 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
                 newData.add(new Devices(6,6,1,"Device2",date,date1,true));
                 handler.onDeviceDataLoaded(newData);
             }
-
-            @Override
-            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
-
-            }
         });
     }
 
@@ -82,22 +78,13 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
                 handler.onDeviceDataLoaded(newData);
             }
-
-            @Override
-            public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
-
-            }
         });
 
     }
 
     @Override
     public void getDevicesRelatedToAccount(final int accountId, int start, int num, final DeviceDataRequestHandler handler) {
-        cacheManager.getDevicesRelatedToAccountJob(accountId, 0, 0, new DevicesHandler() {
-            @Override
-            public void onDevicesDownloadFinished(List<Devices> devices) {
-
-            }
+        cacheManager.getDevicesRelatedToAccountJob(accountId, 0, 0, new AccountDevicesHandler() {
 
             @Override
             public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {

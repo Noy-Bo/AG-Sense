@@ -7,9 +7,12 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
+import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
+import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 
@@ -19,6 +22,8 @@ import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Notification;
+
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
@@ -31,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -40,15 +46,50 @@ import java.util.List;
 
 import java.util.Map;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 public class CacheMgr implements CacheManagerAPI {
 
-    private static CacheMgr cacheMgr = null;
+    private static CacheMgr cacheMgr=null;
+    private List<Notification> notifications;
+    private List<Account> accounts;
+    private List<Devices> devices;
+
+
+
 
     private CacheMgr() {
         initializeAllServices();
+        notifications = new ArrayList<>();
+        accounts = new ArrayList<>();
+        notifications = new ArrayList<>();
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public List<Devices> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Devices> devices) {
+        this.devices = devices;
     }
 
     public static CacheMgr getInstance() {
@@ -311,6 +352,7 @@ public class CacheMgr implements CacheManagerAPI {
             params.put("start",Integer.toString(start));
 
 
+
             downloader.getText(urlConnectionMaker.createUrl(ServicesName.getNotifications,params), new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
@@ -380,6 +422,7 @@ public class CacheMgr implements CacheManagerAPI {
         LoginJobRunnable runnable = new LoginJobRunnable(username,password,handler);
         threadHandlerForLogin.post(runnable);
 
+
     }
 
     @Override
@@ -409,17 +452,17 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, DevicesHandler handler) {
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler) {
 
     }
 
     @Override
-    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, NotificationsHandler handler) {
+    public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, DeviceNotificationsHandler handler) {
 
     }
 
     @Override
-    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, NotificationsHandler handler) {
+    public void getNotificationRelatedToAccountJob(int accountId, int start, int num, AccountNotificationsHandler handler) {
 
     }
 
@@ -450,6 +493,7 @@ public class CacheMgr implements CacheManagerAPI {
         }
 
     }
+
 
 
 }
