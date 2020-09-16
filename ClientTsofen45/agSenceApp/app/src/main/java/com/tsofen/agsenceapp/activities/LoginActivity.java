@@ -25,6 +25,7 @@ import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
 
+
 public class LoginActivity extends AppCompatActivity {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         // observer registeration for onforeground. -- read AppLifeCycleObserver.
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
 
     }
 

@@ -3,6 +3,7 @@ package com.tsofen.agsenceapp.BackgroundServices;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
@@ -19,13 +20,16 @@ import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
+
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 public class CacheMgr implements CacheManagerAPI {
     private static CacheMgr cacheMgr = null;
 
@@ -95,19 +99,14 @@ public class CacheMgr implements CacheManagerAPI {
                 }
             });
             downloader.getText("https://www.google.com"); // TODO create the URL in getDevicesRunnable Ctor. // via field.
-
-
         }
     }
-
 
     private void initializeAllServices() // remove public
     {
         //initializing the serverPeriodJob
         handlerThreadLogin.start();
         threadHandler = new Handler(handlerThreadLogin.getLooper());
-
-
     }
 
     // public void serverPeriodicJob()
@@ -119,38 +118,39 @@ public class CacheMgr implements CacheManagerAPI {
     // }
 
     public void loginJob(final String username, final String password, final LoginHandler handler) {
-        threadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                TextDownloader downloader = new TextDownloader();
-                downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
-                    @Override
-                    public void onDataDownloadCompleted(String downloadedData) {
-                        Gson gson = new Gson();
-                        try {
-                            //parsing json
-                            JSONObject userJSON =  parseToOneJsonObject(downloadedData);
-                            User user;
-                            if (userJSON.getString("type").equals("account")) {
-                                user = gson.fromJson(downloadedData,Account.class);
-                            } else {
-                                user = gson.fromJson(downloadedData,Admin.class);
+
+          threadHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    TextDownloader downloader = new TextDownloader();
+                    downloader.setOnDownloadCompletedListener(new OnDataReadyHandler() {
+                        @Override
+                        public void onDataDownloadCompleted(String downloadedData) {
+                            Gson gson = new Gson();
+                            try {
+                                //parsing json
+                                JSONObject userJSON =  parseToOneJsonObject(downloadedData);
+                                User user;
+                                if (userJSON.getString("type").equals("account")) {
+                                    user = gson.fromJson(downloadedData,Account.class);
+                                } else {
+                                    user = gson.fromJson(downloadedData,Admin.class);
+                                }
+                                handler.onLoginSuccess(user);
+                            } catch (Exception e) {
+                                handler.onLoginFailure();
                             }
-                            handler.onLoginSuccess(user);
-                        } catch (Exception e) {
+                        }
+
+                        @Override
+                        public void onDownloadError() {
                             handler.onLoginFailure();
                         }
-                    }
+                    });
+                    downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username=" + username + "&password=" + password);
 
-                    @Override
-                    public void onDownloadError() {
-                        handler.onLoginFailure();
-                    }
-                });
-                downloader.getText("http://206.72.198.59:8080/ServerTsofen45/User/Login?username=" + username + "&password=" + password);
-
-            }
-        });
+                }
+            });
     }
 
     @Override
@@ -192,17 +192,24 @@ public class CacheMgr implements CacheManagerAPI {
     public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
         JSONObject jObj = null;
         jObj = new JSONObject(jsonStr);
-        if(jObj==null)
+        if (jObj == null)
             throw new JSONException("json allocation failed");
         return jObj;
 
     }
 
-public JSONArray parseToJsonArray(String jsonStr) throws JSONException{
-    JSONArray jArr = new JSONArray(jsonStr);
-    if(jArr==null)
-        throw new JSONException("json allocation failed");
-    return jArr;
+    /*public List<type> parseToJsonArray(String jsonStr,Class type) throws JSONException {
+        /*JSONArray jArr = new JSONArray(jsonStr);
+        if (jArr == null)
+            throw new JSONException("json allocation failed");
+        return jArr;
+        type listType = new TypeToken<ArrayList<type>>() {}.getType();
+        List<type> list = new Gson().fromJson(jsonStr, listType);
+        return list;
+*/
+    public <T> List<T> parseToJsonArray(String jsonArray, Class<T> clazz) {
+        Type typeOfT = TypeToken.getParameterized(List.class, clazz).getType();
+        return new Gson().fromJson(jsonArray, typeOfT);
+    }
+    }
 
-}
-}

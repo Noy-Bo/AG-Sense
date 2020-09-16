@@ -1,5 +1,6 @@
 package com.example.ServerTsofen45.Beans;
 
+import java.beans.Transient;
 import java.sql.Time;
 import java.util.List;
 
@@ -122,7 +123,7 @@ public class Device {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	@Transient
 	@OneToMany
 	public List<Notification> getNotifications() {
 		return notifications;
@@ -131,7 +132,7 @@ public class Device {
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
 	}
-
+	@Transient
 	@OneToMany
 	public List<DeviceData> getDeviceData() {
 		return deviceData;
