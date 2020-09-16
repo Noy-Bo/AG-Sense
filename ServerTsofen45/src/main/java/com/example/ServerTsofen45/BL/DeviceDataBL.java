@@ -15,24 +15,13 @@ public class DeviceDataBL {
 	
 	@Autowired
 	DeviceDataRepository deviceDataRepository;
-	@Autowired
-	DeviceRepository deviceRepository;
+	
 
 	public ArrayList<DeviceData> findAll() {
 
 		ArrayList<DeviceData> devices = deviceDataRepository.findAll();
 		return devices;
 
-	}
-	public ArrayList<DeviceData> getSpecificDeviceDataById(int id, int start , int num){
-
-		if(start == 0 && num == 0 ) {
-			ArrayList<DeviceData> devices = (ArrayList<DeviceData>) deviceDataRepository.findAll();
-			return devices;
-		}
-		ArrayList<DeviceData> devicedata = deviceDataRepository.findAllByID(id);
-		ArrayList<DeviceData> sublist = (ArrayList<DeviceData>) devicedata.subList(start, start + num);
-		return sublist;
 	}
 	
 

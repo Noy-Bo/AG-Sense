@@ -6,4 +6,5 @@ public interface DeviceDataAdapterAPI {
     void getHealthyDevices(DeviceDataRequestHandler handler);
     void getDevicesRelatedToAccount(int accountId,int start, int num, DeviceDataRequestHandler handler);
     void getAllDevices(int start, int num, DeviceDataRequestHandler handler);
+
 }

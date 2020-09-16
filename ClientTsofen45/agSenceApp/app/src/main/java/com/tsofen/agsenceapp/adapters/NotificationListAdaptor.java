@@ -9,10 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tsofen.agsenceapp.activities.LoginActivity;
-import com.tsofen.agsenceapp.utils.ColorStatus;
-import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.utils.ColorStatus;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 public class NotificationListAdaptor extends ArrayAdapter<Notification> {
     LayoutInflater inflater;
 
-    public NotificationListAdaptor(Context context, ArrayList<Notification> notificationArray)
+    public NotificationListAdaptor(Context context,int resource, ArrayList<Notification> notificationArray)
     {
 
 
@@ -54,7 +53,7 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
 
         deviceNameDeviceTypeBox.setText(notification.getDeviceid()+" "+notification.getDeviceid());
         errorMessageBox.setText(notification.getErrorMessage());
-        accountNameBox.setText(LoginActivity.user.getUsername());
+
         timeBox.setText(String.valueOf(notification.getDateTime()));
 
         return layout;

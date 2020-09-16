@@ -1,6 +1,8 @@
 package com.example.ServerTsofen45.Beans;
 
+import java.beans.Transient;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,7 +22,7 @@ public class Device {
 	String name;
 	int accountId;
 	DeviceType type;
-	Time lastUpdate;
+	Timestamp lastUpdate;
 	double logitude;
 	double latitude;
 	boolean isRegistered;
@@ -32,7 +34,7 @@ public class Device {
 		super();
 	}
 
-	public Device(int id, long imei, String name, int accountId, DeviceType type, Time lastUpdate, double logitude,
+	public Device(int id, long imei, String name, int accountId, DeviceType type, Timestamp lastUpdate, double logitude,
 			double altitude, boolean isRegistered, List<Notification> notifications, List<DeviceData> deviceData) {
 		super();
 		this.id = id;
@@ -85,11 +87,11 @@ public class Device {
 	}
 
 	@Column
-	public Time getLastUpdate() {
+	public Timestamp getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(Time lastUpdate) {
+	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -122,7 +124,7 @@ public class Device {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	@Transient
 	@OneToMany
 	public List<Notification> getNotifications() {
 		return notifications;
@@ -131,7 +133,7 @@ public class Device {
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
 	}
-
+	@Transient
 	@OneToMany
 	public List<DeviceData> getDeviceData() {
 		return deviceData;

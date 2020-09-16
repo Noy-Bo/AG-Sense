@@ -50,7 +50,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@color/white"
+                    android:inputType="textPersonName"
                     android:hint="@string/username_hint"
+                    android:imeOptions="actionNext"
                     android:textStyle="italic"
                     android:textSize="@dimen/small_text_size"/>
             </LinearLayout>
@@ -78,7 +80,9 @@
                     android:background="@color/white"
                     android:hint="@string/pass_hint"
                     android:textStyle="italic"
+                   android:imeOptions="actionDone"
                     android:textSize="@dimen/small_text_size"
+                    android:inputType="textPassword"
                     android:password="true"/>
             </LinearLayout>
 
