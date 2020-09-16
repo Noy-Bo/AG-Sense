@@ -45,38 +45,8 @@ public class AdminNotification extends SearchBaseActivity {
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_notifications);
         popUpDialog = new Dialog(this);
-        java.util.Date date = new Date();
-      /*  date.setTime(20102020);
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message1" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message2" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message3" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message4" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message5" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message6" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message7" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message8" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message9" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message10" , 15));
 
 
-
-
-        notificationArrayAdapter = new ArrayAdapter<Notification>(this,R.layout.notifictation_item_shape);
-        ListView notificationList = findViewById(R.id.notification_list);
-        notificationArrayAdapter = new NotificationListAdaptor(this,notificationArray);
-        notificationList.setAdapter(notificationArrayAdapter);
-
-*/
         ListView NotificationsListView = findViewById(R.id.notification_list);
         ArrayList<Notification> notifications = (ArrayList<Notification>) getIntent().getSerializableExtra("notifications");
         System.out.println(notifications);
