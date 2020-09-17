@@ -485,11 +485,14 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
+
     public void getSpecificDeviceDataByIdJob(int deviceId, DeviceDataHandler handler) {
+
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
         BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
         threadHandlerForGetSpecificDeviceDataById.post(runnableGeneric);
+
     }
 
     public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
