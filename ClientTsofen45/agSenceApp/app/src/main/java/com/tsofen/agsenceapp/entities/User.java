@@ -7,6 +7,7 @@ public abstract class User implements Serializable {
     protected String username;
     protected String email;
 
+    public User(){}
     public User(int id, String username, String email) {
         this.id = id;
         this.username = username;
