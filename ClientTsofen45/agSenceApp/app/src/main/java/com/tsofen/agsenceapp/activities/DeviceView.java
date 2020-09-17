@@ -75,7 +75,7 @@ public class DeviceView extends AppBaseActivity {
                 DeviceData deviceData = device.getDeviceData().get(0);
                 status.setText(String.format("Device Status: %s",device.getFaulty()?"healthy":"faulty"));
                 lastUpdate.setText("last updated: "+device.getLastUpdate());
-                coordinations.setText(String.format("Lat: %d Long: %d ",deviceData.getLat(),deviceData.get_long())); // no height
+                coordinations.setText(String.format("Lat: %d Long: %d ",deviceData.getLat(),deviceData.getLon())); // no height
                 isMoving.setText(String.format("Moving: %s",((deviceData.isMoving())?"Yes":"No")));
             }
         });
