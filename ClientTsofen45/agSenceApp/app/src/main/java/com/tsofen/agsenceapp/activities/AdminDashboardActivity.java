@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
@@ -38,23 +39,28 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void accountNotification(View view) {
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
+        progressBar.setVisibility(View.VISIBLE);
         final ArrayList<Notification> _notifications = new ArrayList<>();
 
         NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
                 _notifications.addAll(notifications);
+
+        Intent intent = new Intent(AdminDashboardActivity.this, AdminNotification.class);
+        intent.putExtra("notifications",_notifications);
+        startActivity(intent);
             }
         });
 
 
-        Intent intent = new Intent(this, AdminNotification.class);
-        intent.putExtra("notifications",_notifications);
-        startActivity(intent);
+
     }
 
     public void goToFaultyAccounts(View view) {
-
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
+        progressBar.setVisibility(View.VISIBLE);
         AccountsDataAdapter.getInstance().getFaultyAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
@@ -70,7 +76,8 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyAccounts(View view) {
-
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
+        progressBar.setVisibility(View.VISIBLE);
         AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
@@ -86,7 +93,8 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyDevices(View view) {
-
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
+        progressBar.setVisibility(View.VISIBLE);
         DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
@@ -101,6 +109,9 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToFaultyDevices(View view) {
+
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
+        progressBar.setVisibility(View.VISIBLE);
         DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
