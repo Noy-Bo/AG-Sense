@@ -36,10 +36,6 @@ public class AppLifecycleObserver implements LifecycleObserver {
                 }
             });
         }
-
-        @Override
-        public void onDevicesRelatedToAccountDownloadFinished(ArrayList<Devices> devices) {
-        }
     };
     private Runnable mainThread;
 

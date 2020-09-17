@@ -87,6 +87,7 @@
                             ></ImageView>
 
                         <TextView
+                            android:id="@+id/device_view_status"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.9"
@@ -94,8 +95,7 @@
                             android:paddingLeft="10dp"
                             android:text="Device Status (Healthy/Faulty)"
                             android:textColor="@color/light_blue"
-                            android:textSize="16sp"
-                            ></TextView>
+                            android:textSize="16sp"/>
 
                     </LinearLayout>
 
@@ -128,6 +128,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
+                            android:id="@+id/device_view_last_update"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.9"
@@ -135,8 +136,7 @@
                             android:paddingLeft="10dp"
                             android:text="Device Status (Healthy/Faulty)\nElpassed time: ..."
                             android:textColor="@color/light_blue"
-                            android:textSize="16sp"
-                            ></TextView>
+                            android:textSize="16sp"/>
 
                     </LinearLayout>
 
@@ -155,6 +155,7 @@
                             ></ImageView>
 
                         <TextView
+                            android:id="@+id/device_view_coordination"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.9"
@@ -182,6 +183,7 @@
                             ></ImageView>
 
                         <TextView
+                            android:id="@+id/device_view_is_moving"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.9"

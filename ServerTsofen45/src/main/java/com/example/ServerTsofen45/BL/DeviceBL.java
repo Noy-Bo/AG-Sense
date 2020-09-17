@@ -69,7 +69,7 @@ return null;
 
 	public ArrayList<Device> findAll() {
 
-		ArrayList<Device> devices = deviceRepository.findAll();
+		ArrayList<Device> devices = deviceRepository.findAllByOrderByLastUpdateDesc();
 		return devices;
 
 	}
@@ -164,8 +164,6 @@ return null;
 		
 		
 		List<Device> devices = deviceRepository.findFilterdDevices(_faulty, _healthy, _sensorsForBanks, _gpsForPersonal, _lequidHeightForTanks, id);
-		
-		if (start == 0 && num == 0) return devices;
 		
 		 if ((start) > devices.size()) start = devices.size();
 		 int end = start + num;

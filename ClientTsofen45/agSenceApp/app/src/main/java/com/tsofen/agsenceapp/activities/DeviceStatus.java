@@ -51,7 +51,7 @@ public class DeviceStatus extends SearchBaseActivity {
         System.out.println(devices);
 
 
-        ListAdapter myAdapter = new DevicesAdapter(this,0, devices) ;
+        final ListAdapter myAdapter = new DevicesAdapter(this,0, devices) ;
         //Ends here
 
         devicesList.setAdapter(myAdapter);
@@ -62,6 +62,8 @@ public class DeviceStatus extends SearchBaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO: To apply a better activity-transfer (in the future)...
                 Intent intent = new Intent(getApplicationContext(), DeviceView.class);
+                Devices device = (Devices) myAdapter.getItem(i);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
@@ -72,13 +74,21 @@ public class DeviceStatus extends SearchBaseActivity {
 
     public void filterDevices(View view) {
         Intent intent = new Intent(this, DeviceFilter.class);
-        startActivity(intent);
+        startActivityForResult(intent, 123);
     }
 
-    public void map(View view) {
-        //userMap.addPlace(new Place(name, description, lat, lng));
-        Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("user_map", userMap);
-        startActivity(intent);
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 123 &&
+                resultCode == RESULT_OK) {
+            boolean tm1 = intent.getBooleanExtra("type1" ,false);
+            boolean tm2 = intent.getBooleanExtra("type2" ,false);
+            boolean tm3 = intent.getBooleanExtra("type3" ,false);
+            boolean tm4 = intent.getBooleanExtra("healthyDevices" ,false);
+            boolean tm5 =  intent.getBooleanExtra("faultyDevices" ,false);
+        }
     }
 }
