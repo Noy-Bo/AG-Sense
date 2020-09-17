@@ -358,7 +358,7 @@ public class CacheMgr implements CacheManagerAPI {
 
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
-        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
+        BaseRunnable<DeviceData> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
         threadHandlerForGetSpecificDeviceDataById.post(runnableGeneric);
 
     }

@@ -7,28 +7,29 @@ public class DeviceData implements Serializable {
 
 
     protected int id;
-    protected long Deviceimei2;
-    protected int Deviceid2;
+    protected long imei;
+
     protected String latitudeIndecator;
     protected String status;
     protected boolean isMoving;
     protected boolean gpsType;
     protected String gpsValid;
-    protected Date deviceDateAndTime;
+    protected Date dateAndTime;
+    protected Date updateTime;
     protected int lat;
-    protected int _long;
-    protected String logintudeIndecator;
+    protected int lon;
+    protected String lonIndicator;
     protected int speed;
-    protected int orintation;
+    protected int orientation;
     protected int altitude;
     protected int mileage;
-    protected int satellites;
+    protected int satelites;
     protected int hdop;
     protected int gsmSignal;
     protected boolean externalPowerOn;
     protected boolean externalPowerLow;
     protected boolean internalBatteryLow;
-    protected boolean internalBatteryReharging;
+    protected boolean internalBatteryCharching;
     protected boolean customInputBit0;
     protected boolean customInputBit1;
     protected boolean customInputBit2;
@@ -70,30 +71,30 @@ public class DeviceData implements Serializable {
     public DeviceData() {
     }
 
-    public DeviceData(int id, long deviceimei2, int deviceid2, String latitudeIndecator, String status, boolean isMoving, boolean gpsType, String gpsValid, Date deviceDateAndTime, int lat, int _long, String logintudeIndecator, int speed, int orintation, int altitude, int mileage, int satellites, int hdop, int gsmSignal, boolean externalPowerOn, boolean externalPowerLow, boolean internalBatteryLow, boolean internalBatteryReharging, boolean customInputBit0, boolean customInputBit1, boolean customInputBit2, boolean customInputBit3, boolean powerCut, boolean fuelCut, boolean doorLocked, boolean doorUnlocked, boolean moveAlertActive, boolean speedingAlterActive, boolean outOfGeoFenceAlertActive, boolean intoGeoFenceAlertActive, boolean customAlertBit0, boolean customAlertBit1, boolean customAlertBit2, boolean customAlertBit3, boolean workingMode1, boolean workingMode2, boolean workingMode3, boolean workingMode4, boolean harshBrake, boolean harshAccelerate, boolean harshTurnRight, boolean harshTurnLeft, int externalPower, int internalBatteryPercent, float internalBatteryPower, float temperatureInsideDevice, float temperatureExternal, int fuelVoltage, int humidity, float analog1, float analog2, boolean input1Activated, boolean switch1Activated, boolean switch2Activated, boolean sesmoActivated) {
+    public DeviceData(int id, long imei, int deviceid2, String latitudeIndecator, String status, boolean isMoving, boolean gpsType, String gpsValid, Date dateAndTime, int lat, int lon, String lonIndicator, int speed, int orientation, int altitude, int mileage, int satelites, int hdop, int gsmSignal, boolean externalPowerOn, boolean externalPowerLow, boolean internalBatteryLow, boolean internalBatteryCharching, boolean customInputBit0, boolean customInputBit1, boolean customInputBit2, boolean customInputBit3, boolean powerCut, boolean fuelCut, boolean doorLocked, boolean doorUnlocked, boolean moveAlertActive, boolean speedingAlterActive, boolean outOfGeoFenceAlertActive, boolean intoGeoFenceAlertActive, boolean customAlertBit0, boolean customAlertBit1, boolean customAlertBit2, boolean customAlertBit3, boolean workingMode1, boolean workingMode2, boolean workingMode3, boolean workingMode4, boolean harshBrake, boolean harshAccelerate, boolean harshTurnRight, boolean harshTurnLeft, int externalPower, int internalBatteryPercent, float internalBatteryPower, float temperatureInsideDevice, float temperatureExternal, int fuelVoltage, int humidity, float analog1, float analog2, boolean input1Activated, boolean switch1Activated, boolean switch2Activated, boolean sesmoActivated) {
         this.id = id;
-        Deviceimei2 = deviceimei2;
-        Deviceid2 = deviceid2;
+        this.imei = imei;
+
         this.latitudeIndecator = latitudeIndecator;
         this.status = status;
         this.isMoving = isMoving;
         this.gpsType = gpsType;
         this.gpsValid = gpsValid;
-        this.deviceDateAndTime = deviceDateAndTime;
+        this.dateAndTime = dateAndTime;
         this.lat = lat;
-        this._long = _long;
-        this.logintudeIndecator = logintudeIndecator;
+        this.lon = lon;
+        this.lonIndicator = lonIndicator;
         this.speed = speed;
-        this.orintation = orintation;
+        this.orientation = orientation;
         this.altitude = altitude;
         this.mileage = mileage;
-        this.satellites = satellites;
+        this.satelites = satelites;
         this.hdop = hdop;
         this.gsmSignal = gsmSignal;
         this.externalPowerOn = externalPowerOn;
         this.externalPowerLow = externalPowerLow;
         this.internalBatteryLow = internalBatteryLow;
-        this.internalBatteryReharging = internalBatteryReharging;
+        this.internalBatteryCharching = internalBatteryCharching;
         this.customInputBit0 = customInputBit0;
         this.customInputBit1 = customInputBit1;
         this.customInputBit2 = customInputBit2;
@@ -141,20 +142,12 @@ public class DeviceData implements Serializable {
         this.id = id;
     }
 
-    public long getDeviceimei2() {
-        return Deviceimei2;
+    public long getImei() {
+        return imei;
     }
 
-    public void setDeviceimei2(long deviceimei2) {
-        Deviceimei2 = deviceimei2;
-    }
-
-    public int getDeviceid2() {
-        return Deviceid2;
-    }
-
-    public void setDeviceid2(int deviceid2) {
-        Deviceid2 = deviceid2;
+    public void setImei(long imei) {
+        this.imei = imei;
     }
 
     public String getLatitudeIndecator() {
@@ -197,12 +190,12 @@ public class DeviceData implements Serializable {
         this.gpsValid = gpsValid;
     }
 
-    public Date getDeviceDateAndTime() {
-        return deviceDateAndTime;
+    public Date getDateAndTime() {
+        return dateAndTime;
     }
 
-    public void setDeviceDateAndTime(Date deviceDateAndTime) {
-        this.deviceDateAndTime = deviceDateAndTime;
+    public void setDateAndTime(Date dateAndTime) {
+        this.dateAndTime = dateAndTime;
     }
 
     public int getLat() {
@@ -213,20 +206,20 @@ public class DeviceData implements Serializable {
         this.lat = lat;
     }
 
-    public int get_long() {
-        return _long;
+    public int getLon() {
+        return lon;
     }
 
-    public void set_long(int _long) {
-        this._long = _long;
+    public void setLon(int lon) {
+        this.lon = lon;
     }
 
-    public String getLogintudeIndecator() {
-        return logintudeIndecator;
+    public String getLonIndicator() {
+        return lonIndicator;
     }
 
-    public void setLogintudeIndecator(String logintudeIndecator) {
-        this.logintudeIndecator = logintudeIndecator;
+    public void setLonIndicator(String lonIndicator) {
+        this.lonIndicator = lonIndicator;
     }
 
     public int getSpeed() {
@@ -237,12 +230,12 @@ public class DeviceData implements Serializable {
         this.speed = speed;
     }
 
-    public int getOrintation() {
-        return orintation;
+    public int getOrientation() {
+        return orientation;
     }
 
-    public void setOrintation(int orintation) {
-        this.orintation = orintation;
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
     }
 
     public int getAltitude() {
@@ -261,12 +254,12 @@ public class DeviceData implements Serializable {
         this.mileage = mileage;
     }
 
-    public int getSatellites() {
-        return satellites;
+    public int getSatelites() {
+        return satelites;
     }
 
-    public void setSatellites(int satellites) {
-        this.satellites = satellites;
+    public void setSatelites(int satelites) {
+        this.satelites = satelites;
     }
 
     public int getHdop() {
@@ -309,12 +302,12 @@ public class DeviceData implements Serializable {
         this.internalBatteryLow = internalBatteryLow;
     }
 
-    public boolean isInternalBatteryReharging() {
-        return internalBatteryReharging;
+    public boolean isInternalBatteryCharching() {
+        return internalBatteryCharching;
     }
 
-    public void setInternalBatteryReharging(boolean internalBatteryReharging) {
-        this.internalBatteryReharging = internalBatteryReharging;
+    public void setInternalBatteryCharching(boolean internalBatteryCharching) {
+        this.internalBatteryCharching = internalBatteryCharching;
     }
 
     public boolean isCustomInputBit0() {
@@ -611,5 +604,13 @@ public class DeviceData implements Serializable {
 
     public void setSesmoActivated(boolean sesmoActivated) {
         this.sesmoActivated = sesmoActivated;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

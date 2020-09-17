@@ -11,6 +11,7 @@ public class Devices implements Serializable {
     protected int id;
     protected int accountId;
     protected String type;
+    protected String name;
     protected Date faultTime;  //
     protected Date lastUpdate;
     protected Boolean faulty;
@@ -127,5 +128,13 @@ public class Devices implements Serializable {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
