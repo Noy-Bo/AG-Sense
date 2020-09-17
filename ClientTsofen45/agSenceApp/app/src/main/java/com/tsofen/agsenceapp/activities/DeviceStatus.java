@@ -51,7 +51,7 @@ public class DeviceStatus extends SearchBaseActivity {
         System.out.println(devices);
 
 
-        ListAdapter myAdapter = new DevicesAdapter(this,0, devices) ;
+        final ListAdapter myAdapter = new DevicesAdapter(this,0, devices) ;
         //Ends here
 
         devicesList.setAdapter(myAdapter);
@@ -62,6 +62,8 @@ public class DeviceStatus extends SearchBaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO: To apply a better activity-transfer (in the future)...
                 Intent intent = new Intent(getApplicationContext(), DeviceView.class);
+                Devices device = (Devices) myAdapter.getItem(i);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });

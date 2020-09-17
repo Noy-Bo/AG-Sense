@@ -15,6 +15,15 @@ public class Devices implements Serializable {
     protected Date lastUpdate;
     protected Boolean isFaulty;
     protected List<DeviceData> deviceData;
+
+    public List<DeviceData> getDeviceData() {
+        return deviceData;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
     protected List<Notification> notifications;
 
     public Boolean getFaulty() {

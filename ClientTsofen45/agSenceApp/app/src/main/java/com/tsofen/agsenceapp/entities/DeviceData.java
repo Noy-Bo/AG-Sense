@@ -66,7 +66,7 @@ public class DeviceData  implements Serializable {
     protected boolean switch1Activated;
     protected boolean switch2Activated;
     protected boolean sesmoActivated;
-
+    public DeviceData() {}
     public DeviceData(int id, long deviceimei2, int deviceid2, String latitudeIndecator, String status, boolean isMoving, boolean gpsType, String gpsValid, Date deviceDateAndTime, int lat, int _long, String logintudeIndecator, int speed, int orintation, int altitude, int mileage, int satellites, int hdop, int gsmSignal, boolean externalPowerOn, boolean externalPowerLow, boolean internalBatteryLow, boolean internalBatteryReharging, boolean customInputBit0, boolean customInputBit1, boolean customInputBit2, boolean customInputBit3, boolean powerCut, boolean fuelCut, boolean doorLocked, boolean doorUnlocked, boolean moveAlertActive, boolean speedingAlterActive, boolean outOfGeoFenceAlertActive, boolean intoGeoFenceAlertActive, boolean customAlertBit0, boolean customAlertBit1, boolean customAlertBit2, boolean customAlertBit3, boolean workingMode1, boolean workingMode2, boolean workingMode3, boolean workingMode4, boolean harshBrake, boolean harshAccelerate, boolean harshTurnRight, boolean harshTurnLeft, int externalPower, int internalBatteryPercent, float internalBatteryPower, float temperatureInsideDevice, float temperatureExternal, int fuelVoltage, int humidity, float analog1, float analog2, boolean input1Activated, boolean switch1Activated, boolean switch2Activated, boolean sesmoActivated) {
         this.id = id;
         Deviceimei2 = deviceimei2;
