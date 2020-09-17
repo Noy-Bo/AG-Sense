@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class AccountStatusFilterUser  extends AppBaseActivity implements Serializable {
+public class AccountStatusFilterUser  extends AppBaseActivity {
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
     @Override
