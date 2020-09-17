@@ -54,31 +54,35 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToFaultyAccounts(View view) {
-        final ArrayList<Account> faulty = new ArrayList<>();
+
         AccountsDataAdapter.getInstance().getFaultyAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
+                final ArrayList<Account> faulty = new ArrayList<>();
                 faulty.addAll(accounts);
                 System.out.println("Faulty accounts: "+faulty);
+                Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+                intent.putExtra("accounts",faulty);
+                startActivity(intent);
             }
         });
-        Intent intent = new Intent(this, AccountStatusFilter.class);
-        intent.putExtra("accounts",faulty);
-        startActivity(intent);
+
     }
 
     public void goToHealthyAccounts(View view) {
-        final ArrayList<Account> healthy = new ArrayList<>();
+
         AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
+                final ArrayList<Account> healthy = new ArrayList<>();
                 healthy.addAll(accounts);
-                System.out.println("Faulty accounts: "+healthy);
+                System.out.println("Healthy accounts: "+healthy);
+                Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+                intent.putExtra("accounts",healthy);
+                startActivity(intent);
             }
         });
-        Intent intent = new Intent(this, AccountStatusFilter.class);
-        intent.putExtra("accounts",healthy);
-        startActivity(intent);
+
     }
 
     public void goToHealthyDevices(View view) {
@@ -97,17 +101,16 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToFaultyDevices(View view) {
-        final ArrayList<Devices> faulty = new ArrayList<>();
-        DeviceDataAdapter.getInstance().getFaultyDevices(new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
+                ArrayList<Devices> faulty = new ArrayList<>();
                 faulty.addAll(devices);
-                System.out.println("Faulty devices: "+faulty);
+                Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
+                intent.putExtra("devices",faulty);
+                startActivity(intent);
             }
         });
-        Intent intent = new Intent(this, DeviceStatus.class);
-        intent.putExtra("devices",faulty);
-        startActivity(intent);
     }
 
 
