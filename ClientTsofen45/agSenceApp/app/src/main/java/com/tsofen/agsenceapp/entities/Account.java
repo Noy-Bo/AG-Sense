@@ -11,6 +11,9 @@ public class Account extends User implements Serializable {
     public int accountId;
     private List<Devices> devices;
 
+    public Account(){
+        super();
+    }
 
     public Account(int id, String username, String email, boolean isFaulty, int accountId) {
         super(id, username, email);
