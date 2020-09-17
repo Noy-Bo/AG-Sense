@@ -477,7 +477,7 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
-    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
+    public <T> List<T> parseToJsonArray(String jsonArray, <T> clazz) {
         try {
             Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
             return new GsonBuilder().setDateFormat("hh:mm:ss").create().fromJson(jsonArray, typeOfT);
