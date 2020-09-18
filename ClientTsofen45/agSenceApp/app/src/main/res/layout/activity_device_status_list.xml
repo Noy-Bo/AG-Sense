@@ -78,21 +78,159 @@
                 android:background="@drawable/rounded_white_background_frame"
                 android:layout_weight="0.62">
 
+                <LinearLayout
+                    android:id="@+id/device_view_titles"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.997"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.33"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:gravity="center_vertical"
+                                android:paddingStart="4dp"
+                                android:text="@string/device_view_update_time"
+                                android:textColor="@color/light_blue"
+                                android:textSize="16sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical"
+                                android:weightSum="1">
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/update_time_sort_down"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:src="@drawable/ic_arrow_down_8" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.005"
+                        android:background="@drawable/blue_horizontal_divider" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.33"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:gravity="center_vertical"
+                                android:paddingStart="4dp"
+                                android:text="@string/device_view_time_elapsed"
+                                android:textColor="@color/light_blue"
+                                android:textSize="16sp" />
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical"
+                                android:weightSum="1">
+
+                                <ImageView
+                                    android:id="@+id/time_ellapsed_sort_up"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:src="@drawable/ic_arrow_up" />
+
+                                <ImageView
+                                    android:id="@+id/time_ellapsed_sort_down"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:src="@drawable/ic_arrow_down_8" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.005"
+                        android:background="@drawable/blue_horizontal_divider" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.33"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingStart="4dp"
+                            android:text="@string/device_view_other_info"
+                            android:textColor="@color/light_blue"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <ListView
-                    android:id="@+id/last_messages_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:dividerHeight="1dp"
+                    android:id="@+id/device_data_list_view"
+                    android:layout_width="400dp"
+                    android:layout_height="511dp"
                     android:divider="@drawable/blue_horizontal_divider"
-                    app:layout_constraintHeight_percent="0.98"
-                    app:layout_constraintWidth_percent="0.98"
+                    android:dividerHeight="1dp"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.98"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-                </ListView>
+                    app:layout_constraintTop_toBottomOf="@id/device_view_titles"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintWidth_percent="0.98" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

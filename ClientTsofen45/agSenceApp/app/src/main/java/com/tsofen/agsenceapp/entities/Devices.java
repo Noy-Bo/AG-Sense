@@ -23,6 +23,10 @@ public class Devices implements Serializable {
         return deviceData;
     }
 
+    public void setDeviceData(List<DeviceData> deviceData) {
+        this.deviceData = deviceData;
+    }
+
     public List<Notification> getNotifications() {
         return notifications;
     }

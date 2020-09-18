@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class DeviceView extends AppBaseActivity {
     private LinearLayout dotslinearLayout;
     private SliderAdapter sliderAdapter;
     private TextView[] mDots;
+    Devices device;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,38 +47,22 @@ public class DeviceView extends AppBaseActivity {
 
         sliderViewPager.addOnPageChangeListener(viewListener);
 
-        //applying logic to Status_list button (transfers to DeviceStatusListActivity)
-        final TextView status_list_button = findViewById(R.id.status_list_textview);
-        status_list_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DeviceStatusList.class);
-                startActivity(intent);
-            }
-        });
 
-        final TextView notification_button = findViewById(R.id.deviceStatusActivity_notification_button);
-        notification_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: CHANGE INTENT PARAMTERS TO NotificationActivity!!!
-                Intent intent = new Intent(getApplicationContext(), DeviceStatusList.class);
-                startActivity(intent);
-            }
-        });
-        final Devices device = (Devices) getIntent().getSerializableExtra("device");
+        device = (Devices) getIntent().getSerializableExtra("device");
         DeviceDataAdapter.getInstance().getDeviceDataList(device.getId(), new DeviceInfoDataRequestHandler() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void getDeviceDataInfo(List<DeviceData> deviceDataList) {
                 TextView status = findViewById(R.id.device_view_status);
                 TextView lastUpdate = findViewById(R.id.device_view_last_update);
                 TextView coordinations = findViewById(R.id.device_view_coordination);
                 TextView isMoving = findViewById(R.id.device_view_is_moving);
-                DeviceData deviceData = device.getDeviceData().get(0);
-                status.setText(String.format("Device Status: %s",device.getFaulty()?"healthy":"faulty"));
-                lastUpdate.setText("last updated: "+device.getLastUpdate());
-                coordinations.setText(String.format("Lat: %d Long: %d ",deviceData.getLat(),deviceData.getLon())); // no height
-                isMoving.setText(String.format("Moving: %s",((deviceData.isMoving())?"Yes":"No")));
+                DeviceData deviceData = deviceDataList.get(0);
+                device.setDeviceData(deviceDataList);
+                status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
+                lastUpdate.setText("last updated: " + device.getLastUpdate());
+                coordinations.setText(String.format("Lat: %f Long: %f ", deviceData.getLat(), deviceData.getLon())); // no height
+                isMoving.setText(String.format("Moving: %s", ((deviceData.getMoving()) ? "Yes" : "No")));
             }
         });
 
@@ -125,5 +111,21 @@ public class DeviceView extends AppBaseActivity {
     public void GoToSettingsPage(View view) {
         Intent intent = new Intent(this, DeviceSetting.class);
         startActivity(intent);
+    }
+
+    //applying logic to Status_list button (transfers to DeviceStatusListActivity)
+
+    public void openStatusListActivity(View view) {
+        Intent intent = new Intent(this, DeviceStatusList.class);
+        intent.putExtra("device",device);
+        startActivity(intent);
+    }
+
+
+    public void openNotificationsActivity(View view) {
+        Intent intent = new Intent(this, DeviceStatusList.class);
+        intent.putExtra("device",device);
+        startActivity(intent);
+
     }
 }
