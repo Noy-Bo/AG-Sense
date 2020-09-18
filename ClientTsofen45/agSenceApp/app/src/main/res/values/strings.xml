@@ -83,6 +83,16 @@
     <string name="latitudelimit">00.000000 - 99.999999</string>
     <string name="devicesettingslimit">000.0000000 - 999.999999</string>
     <string name="settings">Settings</string>
+    <string name="device_view_properties">Properties</string>
+    <string name="device_view_connected_to">Connected To</string>
+    <string name="device_view_battery_status">Battery Status</string>
+    <string name="device_view_analog_1">Analog 1</string>
+    <string name="device_view_analog2">Analog 2</string>
+    <string name="device_view_dialog_1">Dialog 1</string>
+    <string name="status_list">Status List</string>
+    <string name="device_view_other_info">Other\nInfo</string>
+    <string name="device_view_time_elapsed">Time\nElapsed</string>
+    <string name="device_view_update_time">Update\nTime</string>
 
 
 </resources>

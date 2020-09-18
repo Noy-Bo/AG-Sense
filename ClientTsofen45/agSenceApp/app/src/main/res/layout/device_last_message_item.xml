@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="1"
-        >
-
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/update_time_column"
@@ -22,16 +20,13 @@
             android:layout_weight="0.33"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/light_blue"
-            >
-        </TextView>
+            android:textColor="@color/light_blue"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.005"
-            android:background="@drawable/blue_horizontal_divider"
-            ></View>
+            android:background="@drawable/blue_horizontal_divider"/>
 
         <TextView
             android:id="@+id/time_ellapsed_column"
@@ -40,16 +35,13 @@
             android:layout_weight="0.33"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/light_blue"
-            >
-        </TextView>
+            android:textColor="@color/light_blue"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.005"
-            android:background="@drawable/blue_horizontal_divider"
-            ></View>
+            android:background="@drawable/blue_horizontal_divider"/>
 
         <TextView
             android:id="@+id/other_info_column"
@@ -58,9 +50,7 @@
             android:layout_weight="0.33"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/light_blue"
-            >
-        </TextView>
+            android:textColor="@color/light_blue"/>
 
     </LinearLayout>
 
