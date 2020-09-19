@@ -5,13 +5,15 @@ import android.os.HandlerThread;
 import android.util.Log;
 
 import com.google.gson.GsonBuilder;
-import com.tsofen.agsenceapp.CacheManagerAPI;
 
+
+import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
+import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-import com.tsofen.agsenceapp.dataServices.BaseHandler;
+
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
@@ -19,6 +21,7 @@ import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
+
 import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
