@@ -236,39 +236,39 @@ public class CacheMgr implements CacheManagerAPI {
                     if (handler instanceof DevicesHandler)
                     {
 
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices().getClass());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
                         ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
                     else if (handler instanceof AccountDevicesHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices().getClass());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
                         ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
                     else if(handler instanceof DeviceDataHandler)
                     {
 
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData().getClass());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
 
                         ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
                     }
                     else if(handler instanceof AccountsHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account().getClass());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
                         ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
                     }
                     else if (handler instanceof AccountNotificationsHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification().getClass());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
                         ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
                     else if (handler instanceof DeviceNotificationsHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification().getClass());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
                         ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
                     else if (handler instanceof NotificationsHandler)
                     {
-                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification().getClass());
+                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
                         ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
 
@@ -375,7 +375,7 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
-    public <T> List<T> parseToJsonArray(String jsonArray, Class clazz) {
+    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
         try {
             Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
             return new GsonBuilder().create().fromJson(jsonArray, typeOfT);

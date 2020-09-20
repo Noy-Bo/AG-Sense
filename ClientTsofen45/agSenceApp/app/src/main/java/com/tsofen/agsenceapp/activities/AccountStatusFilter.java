@@ -35,6 +35,22 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
         NewsListView = findViewById(R.id.account_devices_list);
+
+
+        //update buttons color according to filter
+        String filter = getIntent().getExtras().getString("filter");
+        if(filter != null) {
+            if (filter.equals("faulty")) {
+                TextView displayFaultyBox = findViewById(R.id.display_healthy_button);
+                displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+                displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            }else{
+                TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
+                displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+                displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            }
+        }
+
         AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(final List<Account> accounts) {
@@ -44,11 +60,29 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
                     public void run() {
                         ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this,0, accountsArr) ;
                         NewsListView.setAdapter(myAdapter);
+
+                        //update Listview using the filter given
+                        String filter = getIntent().getExtras().getString("filter");
+                        if(filter != null) {
+                            if (filter.equals("faulty")) {
+                                displayFaultyAccounts = true;
+                                displayHealthyAccounts = false;
+
+
+                            }else{
+                                displayFaultyAccounts = false;
+                                displayHealthyAccounts = true;
+                            }
+                            updateList();
+                        }
                     }
                 });
 
             }
         });
+
+
+
     }
     public void displayFaultyClicked(View view) {
         TextView displayFaultyBox = view.findViewById(R.id.display_faulty_button);
@@ -89,13 +123,15 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
     }
 
     public void updateList(){
+
         ArrayList<Account> filteredAccounts = new ArrayList<>();
         for (Account account :  accountsArr) {
-            if((account.isFaulty() && displayFaultyAccounts) || (!account.isFaulty() && displayHealthyAccounts)){
+            if(( displayFaultyAccounts && account.isFaulty()==true ) ||
+                    ( displayHealthyAccounts && account.isFaulty()==false )){
                 filteredAccounts.add(account);
             }
         }
-        ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this,0, accountsArr) ;
+        ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this,0, filteredAccounts) ;
         NewsListView.setAdapter(myAdapter);
     }
 }
