@@ -4,11 +4,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tsofen.agsenceapp.CacheManagerAPI;
-
-import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
@@ -34,28 +31,16 @@ import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.User;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
-import org.json.JSONArray;
+
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
-
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class CacheMgr implements CacheManagerAPI {
 
@@ -111,8 +96,18 @@ public class CacheMgr implements CacheManagerAPI {
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
     private HandlerThread handlerThreadGetDevices = new HandlerThread("handlerThreadGetDevices");
     private HandlerThread handlerThreadGetSpecificDeviceDataById = new HandlerThread("handlerThreadGetSpecificDeviceDataById");
+    private HandlerThread handlerThreadGetSpecificDevicesByAccount = new HandlerThread("handlerThreadGetSpecificDevicesByAccount");
+    private HandlerThread handlerThreadGetSpecificNotificationsByAccount = new HandlerThread("handlerThreadGetSpecificNotificationsByAccount");
+    private HandlerThread handlerThreadGetSpecificNotificationsByDevice = new HandlerThread("handlerThreadGetSpecificNotificationsByDevice");
+    private HandlerThread handlerThreadGetNotifications = new HandlerThread("handlerThreadGetNotifications");
+    private HandlerThread handlerThreadGetAccounts = new HandlerThread("handlerThreadGetAccounts");
     private Handler threadHandlerForGetSpecificDeviceDataById;
+    private Handler threadHandlerForGetSpecificDevicesByAccount;
+    private Handler threadHandlerForGetSpecificNotificationsByAccount;
+    private Handler threadHandlerForGetSpecificNotificationsByDevice;
     private Handler threadHandlerForGetDevices;
+    private Handler threadHandlerForGetAccounts;
+    private Handler threadHandlerForGetNotifications;
     private Handler threadHandlerForLogin;
     private Handler threadHandlerForServerPeriod;
     private TextDownloader downloader = TextDownloader.getInstance();
@@ -140,7 +135,20 @@ public class CacheMgr implements CacheManagerAPI {
         handlerThreadGetSpecificDeviceDataById.start();
         threadHandlerForGetSpecificDeviceDataById = new Handler(handlerThreadGetSpecificDeviceDataById.getLooper());
 
+        handlerThreadGetSpecificDevicesByAccount.start();
+        threadHandlerForGetSpecificDevicesByAccount = new Handler(handlerThreadGetSpecificDevicesByAccount.getLooper());
 
+        handlerThreadGetSpecificNotificationsByAccount.start();
+        threadHandlerForGetSpecificNotificationsByAccount = new Handler(handlerThreadGetSpecificNotificationsByAccount.getLooper());
+
+        handlerThreadGetSpecificNotificationsByDevice.start();
+        threadHandlerForGetSpecificNotificationsByDevice = new Handler(handlerThreadGetSpecificNotificationsByDevice.getLooper());
+
+        handlerThreadGetNotifications.start();
+        threadHandlerForGetNotifications = new Handler(handlerThreadGetNotifications.getLooper());
+
+        handlerThreadGetAccounts.start();
+        threadHandlerForGetAccounts = new Handler(handlerThreadGetAccounts.getLooper());
     }
 
 
@@ -200,188 +208,6 @@ public class CacheMgr implements CacheManagerAPI {
         }
     }
 
-    //OLD FUNCTIONS, MOVED TO WORK WITH GENERIC BaseRunnable<E>
-    /*
-
-    public static class GetDevicesJobRunnable implements Runnable {
-       private DevicesHandler handler;
-       private int start;
-       private int num;
-
-       public GetDevicesJobRunnable( int start, int num, DevicesHandler handler) {
-           this.handler = handler;
-           this.start = start;
-           this.num = num;
-       }
-
-       @Override
-       public void run() {
-           //URL Connection.
-           TextDownloader downloader = TextDownloader.getInstance();
-           UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
-           Map<String, String> params = new HashMap<>();
-           params.put("num",Integer.toString(num));
-           params.put("start",Integer.toString(start));
-           downloader.getText("https://www.google.com/", new OnDataReadyHandler() {
-               @Override
-               public void onDataDownloadCompleted(String downloadedData) {
-                   Log.d("innerclasstest","onDataDownloadCompleted");
-
-                   // we have  results at downloadedData, but we now presenting dummy data.
-
-                   Date date = new Date();
-                   date.getTime();
-                   Date date1 = new Date();
-                   date.setTime(20102020);
-
-                   List<Devices> devices = new ArrayList<>();
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-                   devices.add(new Devices(0,1,1,"Device",date,date1,true));
-
-                   if (handler != null) {
-                       handler.onDevicesDownloadFinished(devices); //  chaining the handlers. -> updating the main handler that devices are ready ---changing
-                   }
-
-               }
-
-               @Override
-               public void onDownloadError() {
-                   //code this case.
-               }
-           });
-
-       }
-   }
-
-    private class GetAccountsJobRunnable implements Runnable {
-
-        private int start;
-        private int num;
-        private AccountsHandler handler;
-
-        public GetAccountsJobRunnable(int start, int num, AccountsHandler handler) {
-            this.start = start;
-            this.num = num;
-            this.handler = handler;
-        }
-
-        @Override
-        public void run() {
-            //TextDownloader downloader = new TextDownloader();  //URL Connection.
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
-            Map<String, String> params = new HashMap<>();
-            params.put("num",Integer.toString(num));
-            params.put("start",Integer.toString(start));
-
-
-            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getAllAccounts,params), new OnDataReadyHandler() {
-                @Override
-                public void onDataDownloadCompleted(String downloadedData) {
-                    // code what to do when we get the string of accounts.
-                }
-
-                @Override
-                public void onDownloadError() {
-                    // code what to do on error
-                }
-            });
-        }
-    }
-
-    private class  getSpecificDeviceDataByIdJobRunnable implements Runnable{
-
-        private int deviceId;
-        private int start;
-        private int num;
-        private DeviceDataHandler handler;
-
-        public getSpecificDeviceDataByIdJobRunnable(int deviceId, int start, int num, DeviceDataHandler handler) {
-            this.deviceId = deviceId;
-            this.start = start;
-            this.num = num;
-            this.handler = handler;
-        }
-
-        @Override
-        public void run() {
-            TextDownloader downloader = TextDownloader.getInstance();
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
-            Map<String, String> params = new HashMap<>();
-            params.put("num",Integer.toString(num));
-            params.put("start",Integer.toString(start));
-            params.put("deviceid",Integer.toString(deviceId));
-
-
-
-            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getSpecificDeviceDataById,params), new OnDataReadyHandler() {
-                @Override
-                public void onDataDownloadCompleted(String downloadedData) {
-                    // code what to do when we get the string of deviceata
-                }
-
-                @Override
-                public void onDownloadError() {
-                    // code what to do on error
-                }
-            });
-        }
-    }
-
-    private class GetNotificationsJobRunnable implements Runnable{
-
-        private int start;
-        private int num;
-        private NotificationsHandler handler;
-
-        public GetNotificationsJobRunnable(int start, int num, NotificationsHandler handler) {
-            this.start = start;
-            this.num = num;
-            this.handler = handler;
-        }
-
-        @Override
-        public void run() {
-            TextDownloader downloader = TextDownloader.getInstance();
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
-            Map<String, String> params = new HashMap<>();
-            params.put("num",Integer.toString(num));
-            params.put("start",Integer.toString(start));
-
-
-
-            downloader.getText(urlConnectionMaker.createUrl(ServicesName.getNotifications,params), new OnDataReadyHandler() {
-                @Override
-                public void onDataDownloadCompleted(String downloadedData) {
-                    // code what to do when we get the string of Notifications.
-                }
-
-                @Override
-                public void onDownloadError() {
-                    // code what to do on error
-                }
-            });
-        }
-    }
-
-
-     */
-
-
     // general runnable generic class. -in development.
      class BaseRunnable<E>  implements Runnable {
         private BaseHandler handler;
@@ -413,13 +239,38 @@ public class CacheMgr implements CacheManagerAPI {
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices().getClass());
                         ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
-                    if(handler instanceof DeviceDataHandler)
+                    else if (handler instanceof AccountDevicesHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
+                    }
+                    else if(handler instanceof DeviceDataHandler)
                     {
 
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData().getClass());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
+
                         ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
                     }
-                    // else if () other handler cases.
+                    else if(handler instanceof AccountsHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
+                        ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
+                    }
+                    else if (handler instanceof AccountNotificationsHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
+                    }
+                    else if (handler instanceof DeviceNotificationsHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
+                    }
+                    else if (handler instanceof NotificationsHandler)
+                    {
+                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
+                    }
 
                 }
 
@@ -445,7 +296,11 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getAccountsJob(int start, int num, AccountsHandler handler) {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        BaseRunnable<Account> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getAllAccounts);
+        threadHandlerForGetAccounts.post(runnableGeneric);
     }
 
     @Override
@@ -453,35 +308,50 @@ public class CacheMgr implements CacheManagerAPI {
        /*GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
         runnable.run();
         */
-
-
         Map<String, String> params = new HashMap<>();
 //        params.put("num",Integer.toString(num));
 //        params.put("start",Integer.toString(start));
         BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getAllDevices);
         threadHandlerForGetDevices.post(runnableGeneric);
-
-
     }
 
     @Override
     public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        BaseRunnable<Notification> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getNotifications);
+        threadHandlerForGetNotifications.post(runnableGeneric);
     }
 
     @Override
     public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler) {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("id",Integer.toString(accountId));
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getDeviceRelatedToAccount);
+        threadHandlerForGetSpecificDevicesByAccount.post(runnableGeneric);
     }
 
     @Override
     public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, DeviceNotificationsHandler handler) {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("id",Integer.toString(deviceId));
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        BaseRunnable<Notification> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getNotificationRelatedToDevice);
+        threadHandlerForGetSpecificNotificationsByDevice.post(runnableGeneric);
     }
 
     @Override
     public void getNotificationRelatedToAccountJob(int accountId, int start, int num, AccountNotificationsHandler handler) {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("id",Integer.toString(accountId));
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        BaseRunnable<Notification> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getNotificationsRelatedToAccount);
+        threadHandlerForGetSpecificNotificationsByAccount.post(runnableGeneric);
     }
 
     @Override
@@ -490,7 +360,7 @@ public class CacheMgr implements CacheManagerAPI {
 
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
-        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
+        BaseRunnable<DeviceData> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
         threadHandlerForGetSpecificDeviceDataById.post(runnableGeneric);
 
     }

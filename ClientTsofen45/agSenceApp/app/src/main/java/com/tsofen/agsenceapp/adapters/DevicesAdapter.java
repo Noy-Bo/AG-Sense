@@ -13,11 +13,12 @@ import com.tsofen.agsenceapp.entities.Devices;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
 
-    public DevicesAdapter(Context context, int resource, ArrayList<Devices> devices) {
+    public DevicesAdapter(Context context, int resource, List<Devices> devices) {
         super(context, resource, devices);
         inflater = LayoutInflater.from(context);
     }
@@ -37,8 +38,8 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         imageView.setImageResource(R.drawable.faulty_devices_icon);
 
 
-        name.setText( String.valueOf(devices.getUserid()));
-        devicetypeid.setText((devices.getDeviceType()));
+        name.setText( String.valueOf(devices.getAccountId()));
+        devicetypeid.setText((devices.getType()));
         faultytime.setText(String.valueOf(devices.getFaultTime()));
         lastupdate.setText(String.valueOf(devices.getLastUpdate()));
 

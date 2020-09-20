@@ -11,8 +11,8 @@
     <string name="accountSearchHint">Search account.....</string>
     <string name="searchDeviceHint">Search device...</string>
 
-    <string name="accountFaultyString">Account faults</string>
-    <string name="healthyAccounts">Healthy accounts</string>
+    <string name="faultyAccountsString">Faulty accounts</string>
+    <string name="healthyAccountsString">Healthy accounts</string>
     <string name="faultyDevicesString">Faulty devices</string>
     <string name="healthyDevicesString">Healthy devices</string>
     <string name="healthCareReportsString">Healthcare reports</string>
@@ -83,6 +83,16 @@
     <string name="latitudelimit">00.000000 - 99.999999</string>
     <string name="devicesettingslimit">000.0000000 - 999.999999</string>
     <string name="settings">Settings</string>
+    <string name="device_view_properties">Properties</string>
+    <string name="device_view_connected_to">Connected To</string>
+    <string name="device_view_battery_status">Battery Status</string>
+    <string name="device_view_analog_1">Analog 1</string>
+    <string name="device_view_analog2">Analog 2</string>
+    <string name="device_view_dialog_1">Dialog 1</string>
+    <string name="status_list">Status List</string>
+    <string name="device_view_other_info">Other\nInfo</string>
+    <string name="device_view_time_elapsed">Time\nElapsed</string>
+    <string name="device_view_update_time">Update\nTime</string>
 
 
     <string name="send_msg_again">Please send the message again</string>

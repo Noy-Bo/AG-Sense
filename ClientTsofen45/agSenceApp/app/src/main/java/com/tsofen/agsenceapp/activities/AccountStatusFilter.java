@@ -13,10 +13,14 @@ import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
+import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccountStatusFilter extends AppBaseActivity implements Serializable {
     boolean displayFaultyDevice = true;
@@ -29,39 +33,20 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         View contentView = inflater.inflate(R.layout.activity_accountstatusfilter, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
-        ListView NewsListView = findViewById(R.id.listofaccounts);
-       /* Account user = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user1 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user2 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user3 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user4 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user5 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user6 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user7 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user8 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account[] Accounts = new Account[9];
-        Accounts[0] = user;
-        Accounts[1] = user1;
-        Accounts[2] = user2;
-        Accounts[3] = user3;
-        Accounts[4] = user4;
-        Accounts[5] = user5;
-        Accounts[6] = user6;
-        Accounts[7] = user7;
-        Accounts[8] = user8;
-        ListAdapter myAdapter = new AccountsAdapter(this,0, Accounts) ;
-        NewsListView.setAdapter(myAdapter);*/
+        final ListView NewsListView = findViewById(R.id.account_devices_list);
+        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(final List<Account> accounts) {
+                AccountStatusFilter.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this,0, accounts) ;
+                        NewsListView.setAdapter(myAdapter);
+                    }
+                });
 
-
-
-
-        ArrayList<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
-        System.out.println(accounts);
-
-       // ListView accountlist = contentView.findViewById(R.id.listofaccounts);
-       // User[] accounts1 = (User[]) getIntent().getSerializableExtra("faulty");
-        ListAdapter myAdapter = new AccountsAdapter(this,0, accounts) ;
-        NewsListView.setAdapter(myAdapter);
+            }
+        });
     }
     public void displayFaultyClicked(View view) {
         TextView displayFaultyBox = view.findViewById(R.id.display_faulty_button);
