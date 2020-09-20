@@ -10,20 +10,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-
-
 
 import com.tsofen.agsenceapp.R;
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.telephony.SmsManager;
 import android.os.Build;
 import android.Manifest;
-import android.widget.Toast;
+
 import static java.lang.Float.parseFloat;
 
 public class DeviceSetting extends BackBaseActivity {
@@ -179,7 +173,7 @@ public class DeviceSetting extends BackBaseActivity {
     public void sendMsg(String phoneNumber, String message) {
         SmsManager smsMgr;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
-            if (ContextCompat.checkSelfPermission(Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
+            if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
             {
                 try {
 
