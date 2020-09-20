@@ -1,110 +1,106 @@
 package com.tsofen.agsenceapp.entities;
 
-import com.tsofen.agsenceapp.utils.ColorStatus;
+import com.tsofen.agsenceapp.utils.Severity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Notification implements Serializable {
-    private  ColorStatus imageStatus; //1-4 for color
-    protected int id;
-    protected long Deviceimei;
-    protected int Deviceid;
-    protected int Userid;
-    protected Date dateTime;
-    protected int severity;
-    protected boolean isRead;
-    protected String errorMessage;
-    protected int errorCode;
+    protected Integer id;
+    protected Long device_imei;
+    protected Integer device_id;
+    protected Integer user_id;
+    protected Timestamp date_time;
+    protected Severity severity;
+    protected Boolean readed;
+    protected String message;
+    protected Integer code;
 
 
     public Notification(){}
 
-    public ColorStatus getImageStatus() {
-        return imageStatus;
-    }
 
-    public Notification(int id, long deviceimei, int deviceid, int userid, Date dateTime, int severity, boolean isRead, String errorMessage, int errorCode) {
+    public Notification(Integer id, Long device_imei, Integer device_id, Integer user_id, Timestamp date_time, Severity severity, Boolean readed, String message, Integer code) {
         this.id = id;
-        Deviceimei = deviceimei;
-        Deviceid = deviceid;
-        Userid = userid;
-        this.dateTime = dateTime;
+        this.device_imei = device_imei;
+        this.device_id = device_id;
+        this.user_id = user_id;
+        this.date_time = date_time;
         this.severity = severity;
-        this.isRead = isRead;
-        this.errorMessage = errorMessage;
-        this.errorCode = errorCode;
+        this.readed = readed;
+        this.message = message;
+        this.code = code;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getDeviceimei() {
-        return Deviceimei;
+    public Long getDevice_imei() {
+        return device_imei;
     }
 
-    public void setDeviceimei(long deviceimei) {
-        Deviceimei = deviceimei;
+    public void setDevice_imei(Long device_imei) {
+        this.device_imei = device_imei;
     }
 
-    public int getDeviceid() {
-        return Deviceid;
+    public Integer getDevice_id() {
+        return device_id;
     }
 
-    public void setDeviceid(int deviceid) {
-        Deviceid = deviceid;
+    public void setDevice_id(Integer device_id) {
+        this.device_id = device_id;
     }
 
-    public int getUserid() {
-        return Userid;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setUserid(int userid) {
-        Userid = userid;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public Timestamp getDate_time() {
+        return date_time;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDate_time(Timestamp date_time) {
+        this.date_time = date_time;
     }
 
-    public int getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
-    public void setSeverity(int severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 
-    public boolean isRead() {
-        return isRead;
+    public Boolean getReaded() {
+        return readed;
     }
 
-    public void setRead(boolean read) {
-        isRead = read;
+    public void setReaded(Boolean readed) {
+        this.readed = readed;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public int getErrorCode() {
-        return errorCode;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

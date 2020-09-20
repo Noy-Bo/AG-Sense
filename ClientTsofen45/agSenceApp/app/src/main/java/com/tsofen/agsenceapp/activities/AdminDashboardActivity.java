@@ -16,6 +16,7 @@ import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 
@@ -24,9 +25,8 @@ import java.util.List;
 
 public class AdminDashboardActivity extends SearchBaseActivity {
 
-    private  long backPressedTime;
+    private long backPressedTime;
     private Toast backtoast;
-
 
 
     @Override
@@ -38,22 +38,17 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         navigationView.setCheckedItem(R.id.nav_admin_dashboard);
     }
 
-    public void accountNotification(View view) {
+    public void goToNotifications(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        final ArrayList<Notification> _notifications = new ArrayList<>();
-
         NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
-                _notifications.addAll(notifications);
-
-        Intent intent = new Intent(AdminDashboardActivity.this, AdminNotification.class);
-        intent.putExtra("notifications",_notifications);
-        startActivity(intent);
+                Intent intent = new Intent(AdminDashboardActivity.this, NotificationsActivity.class);
+                intent.putExtra("obj", (Admin)AppBaseActivity.user);
+                startActivity(intent);
             }
         });
-
 
 
     }
@@ -61,50 +56,32 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     public void goToFaultyAccounts(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        AccountsDataAdapter.getInstance().getFaultyAccounts(new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                final ArrayList<Account> faulty = new ArrayList<>();
-                faulty.addAll(accounts);
-                System.out.println("Faulty accounts: "+faulty);
-                Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
-                intent.putExtra("accounts",faulty);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+        intent.putExtra("filter", "faulty");
+        startActivity(intent);
 
     }
 
     public void goToHealthyAccounts(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                final ArrayList<Account> healthy = new ArrayList<>();
-                healthy.addAll(accounts);
-                System.out.println("Healthy accounts: "+healthy);
-                Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
-                intent.putExtra("accounts",healthy);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+        intent.putExtra("filter", "healthy");
+        startActivity(intent);
+
 
     }
 
     public void goToHealthyDevices(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
-            @Override
-            public void onDeviceDataLoaded(List<Devices> devices) {
-                ArrayList<Devices> healthy = new ArrayList<>();
-                healthy.addAll(devices);
-                Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
-                intent.putExtra("devices",healthy);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
+        intent.putExtra("filter", "healthy");
+        startActivity(intent);
+
 
     }
 
@@ -112,30 +89,25 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
-            @Override
-            public void onDeviceDataLoaded(List<Devices> devices) {
-                ArrayList<Devices> faulty = new ArrayList<>();
-                faulty.addAll(devices);
-                Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
-                intent.putExtra("devices",faulty);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
+        intent.putExtra("filter", "faulty");
+        startActivity(intent);
+
     }
 
 
     public void GoToAccountSettings(View view) {
-        Intent intent = new Intent(this,DeviceSetting.class);
+        Intent intent = new Intent(this, DeviceSetting.class);
         startActivity(intent);
     }
 
-    public void onBackPressed(){
-        if(backPressedTime+2000>System.currentTimeMillis()){
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
             backtoast.cancel();
             super.finishAffinity();
             return;
-        }else{
+        } else {
             backtoast = Toast.makeText(getBaseContext(), "press back again to exit", Toast.LENGTH_SHORT);
             backtoast.show();
         }
@@ -148,4 +120,5 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.INVISIBLE);
     }
+
 }

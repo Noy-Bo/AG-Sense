@@ -32,7 +32,10 @@ public class DeviceStatusList extends BackBaseActivity {
         setContentView(R.layout.activity_device_status_list);
         device = (Devices) getIntent().getSerializableExtra("device");
         deviceData = device.getDeviceData();
-
+        if (deviceData == null) {
+            Toast.makeText(this, "No device data to show", Toast.LENGTH_LONG).show();
+            return;
+        }
         final ListView lastMessagesListView = findViewById(R.id.device_data_list_view);
         final DeviceDataListAdapter myAdapter = new DeviceDataListAdapter(this, deviceData);
         lastMessagesListView.setAdapter(myAdapter);

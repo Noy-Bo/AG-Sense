@@ -166,14 +166,6 @@ public class DeviceData implements Serializable {
         this.status = status;
     }
 
-    public Boolean getMoving() {
-        return moveAlertActive;
-    }
-
-    public void setMoving(Boolean moving) {
-        moveAlertActive = moving;
-    }
-
     public Integer getGpsType() {
         return gpsType;
     }
