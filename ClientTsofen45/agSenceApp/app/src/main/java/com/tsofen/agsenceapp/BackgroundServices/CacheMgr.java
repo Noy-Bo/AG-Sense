@@ -236,7 +236,7 @@ public class CacheMgr implements CacheManagerAPI {
                     if (handler instanceof DevicesHandler)
                     {
 
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices().getClass());
                         ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
                     else if (handler instanceof AccountDevicesHandler)
@@ -246,7 +246,9 @@ public class CacheMgr implements CacheManagerAPI {
                     }
                     else if(handler instanceof DeviceDataHandler)
                     {
+
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
+
                         ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
                     }
                     else if(handler instanceof AccountsHandler)
@@ -373,7 +375,7 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
-    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
+    public <T> List<T> parseToJsonArray(String jsonArray, Class clazz) {
         try {
             Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
             return new GsonBuilder().create().fromJson(jsonArray, typeOfT);

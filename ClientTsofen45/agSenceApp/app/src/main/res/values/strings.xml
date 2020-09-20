@@ -95,4 +95,9 @@
     <string name="device_view_update_time">Update\nTime</string>
 
 
+    <string name="send_msg_again">Please send the message again</string>
+    <string name="error_send_msg">Error sending message!</string>
+    <string name="msg_sent">message sent</string>
+
+
 </resources>
