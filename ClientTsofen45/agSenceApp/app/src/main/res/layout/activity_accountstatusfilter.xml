@@ -92,7 +92,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/listofaccounts"
+            android:id="@+id/account_devices_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"

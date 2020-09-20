@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AccountStatusFilterUser"></activity>
+        <activity android:name=".activities.AccountDevicesStatus"></activity>
         <activity android:name=".activities.BackBaseActivity" />
         <activity android:name=".activities.SearchBaseActivity" />
         <activity
-            android:name=".activities.AdminNotification"
+            android:name=".activities.NotificationsActivity"
             android:label="@string/AdminNotification" />
         <activity
             android:name=".activities.DeviceSetting"

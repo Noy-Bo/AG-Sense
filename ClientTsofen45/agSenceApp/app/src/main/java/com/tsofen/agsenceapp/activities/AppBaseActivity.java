@@ -65,31 +65,28 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
                 @Override
                 public void onAccountsDownloadFinished(List<Account> accounts) {
                     all.addAll(accounts);
-                    System.out.println("Faulty accounts: "+all);
                 }
             });
             Intent intent = new Intent(this, AccountStatusFilter.class);
             intent.putExtra("accounts",all);
             startActivity(intent);
-
-
-        } else if (id == R.id.nav_accounts_status_user) {
+        } else if (id == R.id.nav_account_devices_status) {
             final ArrayList<Account> all = new ArrayList<>();
             AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
                 @Override
                 public void onAccountsDownloadFinished(List<Account> accounts) {
                     all.addAll(accounts);
-                    System.out.println("Faulty accounts: "+all);
                 }
             });
-            Intent intent = new Intent(this, AccountStatusFilterUser.class);
+            Intent intent = new Intent(this, AccountDevicesStatus.class);
             intent.putExtra("accounts",all);
             startActivity(intent);
         }  else if (id == R.id.nav_admin_notifications) {
-            startActivity(new Intent(getApplicationContext(), AdminNotification.class));
+            startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
         }   else if (id == R.id.nav_device_status) {
             startActivity(new Intent(getApplicationContext(), DeviceStatus.class));
         } else if (id == R.id.nav_logout) {
+            finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
 
@@ -107,7 +104,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
 
     public void hideAccountOptions() {
         Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.nav_accounts_status_user).setVisible(false);
+        nav_Menu.findItem(R.id.nav_account_devices_status).setVisible(false);
         nav_Menu.findItem(R.id.nav_account_dashboard).setVisible(false);
     }
 
