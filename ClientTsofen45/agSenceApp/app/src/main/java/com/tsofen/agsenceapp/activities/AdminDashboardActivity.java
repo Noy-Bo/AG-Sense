@@ -142,6 +142,10 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         backPressedTime = System.currentTimeMillis();
     }
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 }
