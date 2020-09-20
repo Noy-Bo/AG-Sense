@@ -17,27 +17,35 @@
         <activity android:name=".activities.SearchBaseActivity" />
         <activity
             android:name=".activities.NotificationsActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/AdminNotification" />
         <activity
             android:name=".activities.DeviceSetting"
+            android:windowSoftInputMode="adjustPan"
             android:label="Device Settings" />
         <activity
             android:name=".activities.AccountStatusFilter"
+            android:windowSoftInputMode="adjustPan"
             android:label="Accounts Status" />
         <activity
             android:name=".activities.EditAccount"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/EditAccount" />
         <activity
             android:name=".activities.EditDevice"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/EditDevice" />
         <activity
             android:name=".activities.HealthCareDashboard"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/healthCareReportsString" />
         <activity
             android:name=".activities.NewAccount"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/NewAccount" />
         <activity
             android:name=".activities.NewDevice"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/NewDevice" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -49,18 +57,23 @@
         -->
         <activity
             android:name=".activities.MapsActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".activities.DeviceStatusList"
+            android:windowSoftInputMode="adjustPan"
             android:label="Device Status List" />
         <activity
             android:name=".activities.DeviceView"
+            android:windowSoftInputMode="adjustPan"
             android:label="Device View" />
         <activity
             android:name=".activities.DeviceFilter"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/Filter" />
         <activity
             android:name=".activities.AdminDashboardActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="Admin Dashboard" />
         <activity
             android:name=".activities.AccountDashboardActivity"
@@ -68,6 +81,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.DeviceStatus"
+            android:windowSoftInputMode="adjustPan"
             android:label="Device Status" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>

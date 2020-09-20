@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.activities;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,9 +25,10 @@ import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.utils.FailedLogin;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
 
@@ -50,16 +52,16 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         EditText password = (EditText) findViewById(R.id.passTxt);
         final String pass = password.getText().toString();
 
-
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.VISIBLE);
 
         hideKeyboard(this);
 
-
+        UserDataAdapter.getInstance().setContext(this);
+        UserDataAdapter.getInstance().setCallback(this);
         UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
@@ -78,6 +80,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UserDataAdapter.getInstance().getCallback().Failed();
+                    }
+                });
+
             }
 
         });
@@ -94,5 +103,11 @@ public class LoginActivity extends AppCompatActivity {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void Failed() {
+        ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }
