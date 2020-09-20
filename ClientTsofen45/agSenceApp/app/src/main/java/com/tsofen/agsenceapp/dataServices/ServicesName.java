@@ -1,16 +1,17 @@
 package com.tsofen.agsenceapp.dataServices;
 
 public enum ServicesName {
+
     Login("/User/Login"),
     AddToDb("/User/Add"),
     getAllAccounts("/User/AllAccounts"),
     getDevices("/Device/getDevices"),
-    getAllDevices("/Device/getAllDevices"),
+    getAllDevices("/Device/AllDevices"),
     getNotifications("/Notifications/getNotifications"),
     getNotificationRelatedToDevice("/Notifications/NotificationRelatedToDevice"),
     getNotificationsRelatedToAccount("/Notifications/NotificationsRelatedToAccount"),
     getDeviceRelatedToAccount("/Device/getDeviceRelatedToAccount"),
-    getSpecificDeviceDataById(""),
+    getSpecificDeviceDataById("/DeviceData/AllDevicesDataById"),
     getSpecificAccountByName("/User/SpecificAccountsByName"),
     getSpicificDeviceByname(""),
     getFaultyDevices("/Device/FaultyDevices"),

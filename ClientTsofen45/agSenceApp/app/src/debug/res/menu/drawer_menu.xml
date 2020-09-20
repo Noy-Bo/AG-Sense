@@ -8,7 +8,6 @@
             android:title="Admin Dashboard" />
 
 
-
         <item
             android:id="@+id/nav_account_dashboard"
             android:icon="@drawable/user_white_icon"
@@ -28,6 +27,10 @@
             android:id="@+id/nav_accounts_status"
             android:icon="@drawable/user_white_icon"
             android:title="Accounts Status" />
+        <item
+            android:id="@+id/nav_account_devices_status"
+            android:icon="@drawable/user_white_icon"
+            android:title="Account Devices" />
 
     </group>
 

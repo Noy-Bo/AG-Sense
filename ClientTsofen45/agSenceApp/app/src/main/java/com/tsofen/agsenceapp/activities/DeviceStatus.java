@@ -31,7 +31,7 @@ public class DeviceStatus extends SearchBaseActivity {
         View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
         ListView devicesList = contentView.findViewById(R.id.listOfDevices);
 
-        String filterString = getIntent().getStringExtra("filter");
+   /*     String filterString = getIntent().getStringExtra("filter");
         ArrayList<Devices> toShow = new ArrayList<>();
         if (filterString.equals("faulty")) {
             for (Devices device : devices) {
@@ -44,8 +44,16 @@ public class DeviceStatus extends SearchBaseActivity {
                     toShow.add(device);
             }
         }
+          ListAdapter myAdapter = new DevicesAdapter(this, 0, toShow);
+          */ // This part of code is not working, Couldn't find where 'filter' has been sent as extra in intent therefore removed it- Ameer
+        //if its unfinished code, I'll simply add where my code started and ended --- 16-09-2020
+       //My code starts here
+        System.out.println(devices);
 
-        ListAdapter myAdapter = new DevicesAdapter(this, 0, toShow);
+
+        final ListAdapter myAdapter = new DevicesAdapter(this,0, devices) ;
+        //Ends here
+
         devicesList.setAdapter(myAdapter);
 
         //applying listener that transfers us to a new activity (DeviceView)
@@ -54,6 +62,8 @@ public class DeviceStatus extends SearchBaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO: To apply a better activity-transfer (in the future)...
                 Intent intent = new Intent(getApplicationContext(), DeviceView.class);
+                Devices device = (Devices) myAdapter.getItem(i);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
@@ -64,13 +74,21 @@ public class DeviceStatus extends SearchBaseActivity {
 
     public void filterDevices(View view) {
         Intent intent = new Intent(this, DeviceFilter.class);
-        startActivity(intent);
+        startActivityForResult(intent, 123);
     }
 
-    public void map(View view) {
-        //userMap.addPlace(new Place(name, description, lat, lng));
-        Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("user_map", userMap);
-        startActivity(intent);
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 123 &&
+                resultCode == RESULT_OK) {
+            boolean tm1 = intent.getBooleanExtra("type1" ,false);
+            boolean tm2 = intent.getBooleanExtra("type2" ,false);
+            boolean tm3 = intent.getBooleanExtra("type3" ,false);
+            boolean tm4 = intent.getBooleanExtra("healthyDevices" ,false);
+            boolean tm5 =  intent.getBooleanExtra("faultyDevices" ,false);
+        }
     }
 }

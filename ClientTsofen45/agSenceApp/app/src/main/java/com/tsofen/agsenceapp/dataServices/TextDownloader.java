@@ -1,5 +1,9 @@
 package com.tsofen.agsenceapp.dataServices;
 
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
+
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,10 +11,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class TextDownloader{
-    OnDataReadyHandler handler = null;
+public class TextDownloader {
 
-    public String getText(String urlAddress) {
+
+
+    private static TextDownloader textDownloader = null;
+
+    private TextDownloader() { }
+
+    public static TextDownloader getInstance()
+    {
+        if (textDownloader == null)
+            textDownloader = new TextDownloader(); // TODO - add synchronized.
+
+        return textDownloader;
+    }
+
+
+    public String getText(String urlAddress, OnDataReadyHandler handler) {
         try {
             // Create a URL for the desired page
             URL url = new URL(urlAddress);
@@ -23,25 +41,23 @@ public class TextDownloader{
                 str += input;
             }
 
-            if(this.handler!=null) // if there is a handler, we want to activate the completed downloaded
+            if(handler!=null) // if there is a handler, we want to activate the completed downloaded
             {
-                this.handler.onDataDownloadCompleted(str); // activating handlers function to set result(str)
+                handler.onDataDownloadCompleted(str); // activating handlers function to set result(str)
             }
 
             in.close();
             return str;
         } catch (MalformedURLException e) {
-            this.handler.onDownloadError();
+            handler.onDownloadError();
             return null;
         } catch (IOException e) {
-            this.handler.onDownloadError();
+            e.printStackTrace();
+            handler.onDownloadError();
             return null;
         }
     }
 
-    public void setOnDownloadCompletedListener(OnDataReadyHandler handler)
-    {
-        this.handler = handler;
-    }
+
 
 }

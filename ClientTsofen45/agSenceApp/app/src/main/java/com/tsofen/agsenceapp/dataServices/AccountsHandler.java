@@ -4,7 +4,7 @@ import com.tsofen.agsenceapp.entities.Account;
 
 import java.util.List;
 
-public interface AccountsHandler {
+public interface AccountsHandler extends BaseHandler{
 
     void onAccountsDownloadFinished(List<Account> accounts);
 }

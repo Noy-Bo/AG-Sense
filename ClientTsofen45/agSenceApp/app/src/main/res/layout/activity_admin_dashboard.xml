@@ -260,7 +260,7 @@
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical"
-                    android:onClick="accountNotification">
+                    android:onClick="goToNotifications">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -363,7 +363,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.3"
-                android:orientation="horizontal" />
+                android:orientation="horizontal">
+
+
+                <ProgressBar
+                    android:id="@+id/adminProgressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

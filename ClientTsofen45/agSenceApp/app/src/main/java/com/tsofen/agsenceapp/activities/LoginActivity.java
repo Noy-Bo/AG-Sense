@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 setAdmin(user);
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 AppBaseActivity.setUserType("Admin");
+                intent.putExtra("admin",user);
                 startActivity(intent);
             }
 
