@@ -2,18 +2,28 @@ package com.tsofen.agsenceapp.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import androidx.core.content.ContextCompat;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+
+
 
 import com.tsofen.agsenceapp.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.telephony.SmsManager;
+import android.os.Build;
+import android.Manifest;
+import android.widget.Toast;
 import static java.lang.Float.parseFloat;
 
 public class DeviceSetting extends BackBaseActivity {
@@ -38,7 +48,6 @@ public class DeviceSetting extends BackBaseActivity {
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(dataAdapter);
 
 
@@ -167,4 +176,27 @@ public class DeviceSetting extends BackBaseActivity {
 
         }
     }
+    public void sendMsg(String phoneNumber, String message) {
+        SmsManager smsMgr;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
+            if (ContextCompat.checkSelfPermission(Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
+            {
+                try {
+
+                  smsMgr = SmsManager.getDefault();
+                    smsMgr.sendTextMessage(phoneNumber, null, message, null, null);
+                    Toast.makeText(this,R.string.msg_sent, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this,R.string.error_send_msg, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
+                Toast.makeText(this,R.string.send_msg_again, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    }
+
 }

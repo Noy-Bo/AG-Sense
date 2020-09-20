@@ -1,16 +1,17 @@
 package com.tsofen.agsenceapp.activities;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ProcessLifecycleOwner;
@@ -43,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         // observer registeration for onforeground. -- read AppLifeCycleObserver.
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
-
 
     }
 
@@ -107,4 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
+
 }
