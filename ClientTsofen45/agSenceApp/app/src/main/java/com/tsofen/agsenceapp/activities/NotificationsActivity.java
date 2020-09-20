@@ -28,6 +28,7 @@ import com.tsofen.agsenceapp.entities.Notification;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -39,9 +40,12 @@ public class NotificationsActivity extends SearchBaseActivity {
     Button reset;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
+    Date after ;
+    Date before ;
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
+    View contentView;
 
     Object obj;
 
@@ -49,7 +53,7 @@ public class NotificationsActivity extends SearchBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_notifications, null, false);
+        contentView = inflater.inflate(R.layout.activity_notifications, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_notifications);
         popUpDialog = new Dialog(this);
@@ -70,7 +74,8 @@ public class NotificationsActivity extends SearchBaseActivity {
                                 Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notifications);
+                            notificationArray = (ArrayList<Notification>) notifications;
+                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notificationArray);
                             notificationListView.setAdapter(notificationArrayAdapter);
                         }
                     });
@@ -90,7 +95,8 @@ public class NotificationsActivity extends SearchBaseActivity {
                                 Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notifications);
+                            notificationArray = (ArrayList<Notification>) notifications;
+                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notificationArray);
                             notificationListView.setAdapter(notificationArrayAdapter);
                         }
                     });
@@ -103,7 +109,19 @@ public class NotificationsActivity extends SearchBaseActivity {
     }
 
     public void search(View view) {
-        setContentView(R.layout.activity_account_dashboard);
+        ArrayList<Notification> filterArr = new ArrayList<>();
+        for (Notification notification: notificationArray) {
+            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                    ((notification.getReaded()==true && displayReadNotifications) ||
+                            (notification.getReaded()==false &&  displayUnreadNotifications))){
+                filterArr.add(notification);
+            }
+        }
+        notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, filterArr);
+        notificationListView.setAdapter(notificationArrayAdapter);
+        updateUI(filterArr.size());
+        popUpDialog.cancel();
+
     }
 
     public void displayReadNotifications(final View view) {
@@ -186,6 +204,7 @@ public class NotificationsActivity extends SearchBaseActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
+                        after = new Date(i, i1, i2);
                         textView.setText(i + "/" + i1 + "/" + i2);
                     }
                 }, year, month, day);
@@ -204,6 +223,7 @@ public class NotificationsActivity extends SearchBaseActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
+                        before = new Date(i, i1, i2);
                         textView.setText(i + "/" + i1 + "/" + i2);
                     }
                 }, year, month, day);
@@ -224,6 +244,16 @@ public class NotificationsActivity extends SearchBaseActivity {
         displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
         displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
         displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+    }
+
+
+    public void updateUI(int notificationNumber){
+
+        TextView textView = contentView.findViewById(R.id.textView4);
+        if(textView!=null){
+            textView.setText(String.valueOf(notificationNumber));
+        }
+
     }
 
 }
