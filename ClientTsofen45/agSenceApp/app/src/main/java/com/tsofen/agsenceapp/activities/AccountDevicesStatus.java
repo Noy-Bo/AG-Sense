@@ -13,10 +13,15 @@ import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
+import com.tsofen.agsenceapp.adapters.DevicesAdapter;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AccountDevicesStatus extends SearchBaseActivity {
@@ -30,14 +35,15 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
-        ListView NewsListView = findViewById(R.id.account_devices_list);
-        ArrayList<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
-
-
-        ListAdapter myAdapter = new AccountsAdapter(this,0, accounts) ;
-        NewsListView.setAdapter(myAdapter);
-
-
+        final ListView devicesList = findViewById(R.id.account_devices_list);
+        account = (Account)getIntent().getSerializableExtra("account");
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountId(), 0, 0, new DeviceDataRequestHandler() {
+            @Override
+            public void onDeviceDataLoaded(List<Devices> devices) {
+                ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this,0, devices) ;
+                devicesList.setAdapter(myAdapter);
+            }
+        });
     }
 
     public void GoToMap(View view) {

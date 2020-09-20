@@ -16,6 +16,7 @@ import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 
@@ -44,7 +45,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
                 Intent intent = new Intent(AdminDashboardActivity.this, NotificationsActivity.class);
-                intent.putExtra("obj", getIntent().getSerializableExtra("admin"));
+                intent.putExtra("obj", (Admin)AppBaseActivity.user);
                 startActivity(intent);
             }
         });
@@ -55,50 +56,32 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     public void goToFaultyAccounts(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        AccountsDataAdapter.getInstance().getFaultyAccounts(new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                final ArrayList<Account> faulty = new ArrayList<>();
-                faulty.addAll(accounts);
-                System.out.println("Faulty accounts: " + faulty);
-                Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
-                intent.putExtra("accounts", faulty);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+        intent.putExtra("filter", "faulty");
+        startActivity(intent);
 
     }
 
     public void goToHealthyAccounts(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                final ArrayList<Account> healthy = new ArrayList<>();
-                healthy.addAll(accounts);
-                System.out.println("Healthy accounts: " + healthy);
-                Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
-                intent.putExtra("accounts", healthy);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+        intent.putExtra("filter", "healthy");
+        startActivity(intent);
+
 
     }
 
     public void goToHealthyDevices(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
-            @Override
-            public void onDeviceDataLoaded(List<Devices> devices) {
-                ArrayList<Devices> healthy = new ArrayList<>();
-                healthy.addAll(devices);
-                Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
-                intent.putExtra("devices", healthy);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
+        intent.putExtra("filter", "healthy");
+        startActivity(intent);
+
 
     }
 
@@ -106,16 +89,11 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
-        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
-            @Override
-            public void onDeviceDataLoaded(List<Devices> devices) {
-                ArrayList<Devices> faulty = new ArrayList<>();
-                faulty.addAll(devices);
-                Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
-                intent.putExtra("devices", faulty);
-                startActivity(intent);
-            }
-        });
+
+        Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
+        intent.putExtra("filter", "faulty");
+        startActivity(intent);
+
     }
 
 
