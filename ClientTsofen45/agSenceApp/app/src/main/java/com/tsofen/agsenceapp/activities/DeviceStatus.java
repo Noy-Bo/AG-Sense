@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,17 +20,18 @@ import java.util.ArrayList;
 
 public class DeviceStatus extends SearchBaseActivity {
     UserMap userMap = new UserMap("Map");
+    ArrayList<Devices> devices = new ArrayList<>();
+    LayoutInflater inflater ;
+    View contentView;
+    ListView devicesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        ArrayList<Devices> devices = (ArrayList<Devices>) getIntent().getSerializableExtra("devices");
-
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
-        ListView devicesList = contentView.findViewById(R.id.listOfDevices);
+        inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        contentView = inflater.inflate(R.layout.activity_device_status, null, false);
+        devicesList = contentView.findViewById(R.id.listOfDevices);
+        devices = (ArrayList<Devices>) getIntent().getSerializableExtra("devices");
 
    /*     String filterString = getIntent().getStringExtra("filter");
         ArrayList<Devices> toShow = new ArrayList<>();
@@ -78,17 +80,36 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent intent) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        boolean type1 = false;
+        boolean type3 = false;
+        boolean type2 = false;
+        boolean healthyDevices = false;
+        boolean faultyDevices = false;
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 123 &&
                 resultCode == RESULT_OK) {
-            boolean tm1 = intent.getBooleanExtra("type1" ,false);
-            boolean tm2 = intent.getBooleanExtra("type2" ,false);
-            boolean tm3 = intent.getBooleanExtra("type3" ,false);
-            boolean tm4 = intent.getBooleanExtra("healthyDevices" ,false);
-            boolean tm5 =  intent.getBooleanExtra("faultyDevices" ,false);
+            type1 = intent.getBooleanExtra("type1" ,false);
+            type2 = intent.getBooleanExtra("type2" ,false);
+            type3 = intent.getBooleanExtra("type3" ,false);
+            healthyDevices = intent.getBooleanExtra("healthyDevices" ,false);
+            faultyDevices =  intent.getBooleanExtra("faultyDevices" ,false);
         }
+        ArrayList<Devices> filteredDevices= new ArrayList<>();
+        //filtering
+        for (Devices device :  devices)
+        {
+           if((    (device.getFaulty()==true && faultyDevices)                              ||
+               (device.getFaulty()==false && healthyDevices)                            )
+                   &&((device.getType().equals(Devices.DeviceType.GPS.toString())&& type1)        ||
+                       (device.getType().equals(Devices.DeviceType.STRING_TWO.toString()) && type2)    ||
+                       (device.getType().equals(Devices.DeviceType.STRING_THREE.toString()) && type3)   )  ){
+               filteredDevices.add(device);
+           }
+        }
+        //
+        final ListAdapter myAdapter = new DevicesAdapter(this,0, filteredDevices) ;
+        //Ends here
+        devicesList.setAdapter(myAdapter);
     }
 }

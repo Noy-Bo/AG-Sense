@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.dataAdapters;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
@@ -14,6 +15,7 @@ import com.tsofen.agsenceapp.entities.User;
 public class UserDataAdapter extends BaseDataAdapter implements UserDataAdapterAPI {
 
     private static  UserDataAdapter instance;
+    private static Context context = null;
     private UserDataAdapter(){}
     public static UserDataAdapter getInstance(){
         if(instance == null)
@@ -39,4 +41,11 @@ public class UserDataAdapter extends BaseDataAdapter implements UserDataAdapterA
         } );
     }
 
+    public  Context getContext() {
+        return context;
+    }
+
+    public  void setContext(Context context) {
+        this.context = context;
+    }
 }

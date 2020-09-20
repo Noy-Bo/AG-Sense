@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.activities;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -57,11 +58,11 @@ public class LoginActivity extends AppCompatActivity {
         final String pass = password.getText().toString();
 
 
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
 
         hideKeyboard(this);
 
-
+        UserDataAdapter.getInstance().setContext(this);
         UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
@@ -82,6 +83,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+//                Context context = UserDataAdapter.getInstance().getContext();
+//                Activity activity = (Activity) context;
+//                ProgressBar progressBar = (ProgressBar) activity.findViewById((R.id.progressBar));
+//                progressBar.setVisibility(View.INVISIBLE);
+
             }
 
         });

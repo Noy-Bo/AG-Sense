@@ -40,11 +40,7 @@ public class Devices implements Serializable {
     public void setFaulty(Boolean faulty) {
         this.faulty = faulty;
     }
-    public Devices()
-    {
-
-
-    }
+    public Devices() { }
 
     public Devices(long imei, int id, int accountId, String type, Date faultTime, Date lastUpdate, Boolean faulty, List<DeviceData> deviceData, List<Notification> notifications) {
         this.imei = imei;
@@ -67,6 +63,30 @@ public class Devices implements Serializable {
         this.faultTime = faultTime;
         this.lastUpdate = lastUpdate;
         this.faulty = faulty;
+    }
+
+
+    public enum DeviceType {
+        GPS("GpsForPersonal"),
+        STRING_TWO("SensorForBanks"),
+        STRING_THREE("lequidHeightForTanks");
+
+        private final String text;
+
+        /**
+         * @param text
+         */
+        DeviceType(final String text) {
+            this.text = text;
+        }
+
+        /* (non-Javadoc)
+         * @see java.lang.Enum#toString()
+         */
+        @Override
+        public String toString() {
+            return text;
+        }
     }
 
     public long getImei() {
