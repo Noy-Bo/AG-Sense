@@ -11,9 +11,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.UserMap;
 
@@ -145,4 +147,5 @@ public class DeviceStatus extends SearchBaseActivity {
         final ListAdapter myAdapter = new DevicesAdapter(DeviceStatus.this, 0, filteredDevices);
         devicesList.setAdapter(myAdapter);
     }
+
 }

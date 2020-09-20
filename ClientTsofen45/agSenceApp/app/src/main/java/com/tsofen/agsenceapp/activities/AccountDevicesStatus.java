@@ -12,18 +12,23 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class AccountDevicesStatus extends SearchBaseActivity {
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
+    ArrayList<Devices> devicesArr = new ArrayList<>();
+     ListView devicesList;
     Account account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +37,12 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
-        final ListView devicesList = findViewById(R.id.account_devices_list);
-        account = (Account)getIntent().getSerializableExtra("account");
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
-            @Override
-            public void onDeviceDataLoaded(List<Devices> devices) {
-                ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this,0, devices) ;
-                devicesList.setAdapter(myAdapter);
-            }
-        });
+        devicesList = findViewById(R.id.account_devices_list);
+        account = (Account)AppBaseActivity.user;
+        devicesArr = (ArrayList<Devices>) Objects.requireNonNull(getIntent().getExtras()).getSerializable("devices");
+
+        final ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this, 0, devicesArr);
+        devicesList.setAdapter(myAdapter);
     }
 
     public void GoToMap(View view) {
@@ -62,6 +64,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
             displayHealthyDevice = true;
         }
+        updateList();
     }
 
     public void displayFaultyClicked(View view) {
@@ -78,5 +81,20 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
             displayFaultyDevice = true;
         }
+        updateList();
+    }
+
+
+    public void updateList(){
+
+        ArrayList<Devices> filteredDevices = new ArrayList<>();
+        for (Devices device :  devicesArr) {
+            if(( displayFaultyDevice && account.isFaulty()==true ) ||
+                    ( displayHealthyDevice && account.isFaulty()==false )){
+                filteredDevices.add(device);
+            }
+        }
+        ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this,0, filteredDevices) ;
+        devicesList.setAdapter(myAdapter);
     }
 }

@@ -77,6 +77,7 @@ public class NotificationsActivity extends SearchBaseActivity {
                             notificationArray = (ArrayList<Notification>) notifications;
                             notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notificationArray);
                             notificationListView.setAdapter(notificationArrayAdapter);
+                            initialUpdateUI();
                         }
                     });
                     return;
@@ -98,6 +99,7 @@ public class NotificationsActivity extends SearchBaseActivity {
                             notificationArray = (ArrayList<Notification>) notifications;
                             notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notificationArray);
                             notificationListView.setAdapter(notificationArrayAdapter);
+                            initialUpdateUI();
                         }
                     });
 
@@ -256,4 +258,10 @@ public class NotificationsActivity extends SearchBaseActivity {
 
     }
 
+    public  void initialUpdateUI(){
+        TextView notification = findViewById(R.id.textView4);
+        if(notification!=null){
+            notification.setText(String.valueOf(notificationArray.size()));
+        }
+    }
 }
