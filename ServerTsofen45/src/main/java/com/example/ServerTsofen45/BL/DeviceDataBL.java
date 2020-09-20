@@ -25,8 +25,8 @@ public class DeviceDataBL {
 	}
 
 
-	public ArrayList<DeviceData> getSpecificDeviceDataById(int id) {
-		ArrayList<DeviceData> devices = deviceDataRepository.findByDeviceId(id);
+	public ArrayList<DeviceData> getSpecificDeviceDataById(long id) {
+		ArrayList<DeviceData> devices = deviceDataRepository.findByimei(id);
 		return devices;
 	}
 	
