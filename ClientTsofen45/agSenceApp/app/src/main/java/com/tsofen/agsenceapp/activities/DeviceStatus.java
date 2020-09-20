@@ -23,8 +23,8 @@ import java.util.List;
 
 public class DeviceStatus extends SearchBaseActivity {
     UserMap userMap = new UserMap("Map");
-    ArrayList<Devices> devices = new ArrayList<>();
-    LayoutInflater inflater ;
+    ArrayList<Devices> devicesArr = new ArrayList<>();
+    LayoutInflater inflater;
     View contentView;
     ListView devicesList;
 
@@ -33,7 +33,7 @@ public class DeviceStatus extends SearchBaseActivity {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
-        final ListView devicesList = contentView.findViewById(R.id.listOfDevices);
+        devicesList = contentView.findViewById(R.id.listOfDevices);
 
 
    /*     String filterString = getIntent().getStringExtra("filter");
@@ -52,7 +52,7 @@ public class DeviceStatus extends SearchBaseActivity {
           ListAdapter myAdapter = new DevicesAdapter(this, 0, toShow);
           */ // This part of code is not working, Couldn't find where 'filter' has been sent as extra in intent therefore removed it- Ameer
         //if its unfinished code, I'll simply add where my code started and ended --- 16-09-2020
-       //My code starts here
+        //My code starts here
 
         DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
             @Override
@@ -60,8 +60,8 @@ public class DeviceStatus extends SearchBaseActivity {
                 DeviceStatus.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        final ListAdapter myAdapter = new DevicesAdapter(DeviceStatus.this,0, devices) ;
-                        devicesList.setAdapter(myAdapter);
+                        devicesArr = (ArrayList<Devices>) devices;
+                        updatingUI();
                     }
                 });
 
@@ -76,7 +76,7 @@ public class DeviceStatus extends SearchBaseActivity {
                 //TODO: To apply a better activity-transfer (in the future)...
                 Intent intent = new Intent(getApplicationContext(), DeviceView.class);
                 Devices device = (Devices) (devicesList.getAdapter()).getItem(i);
-                intent.putExtra("device",device);
+                intent.putExtra("device", device);
                 startActivity(intent);
             }
         });
@@ -100,27 +100,49 @@ public class DeviceStatus extends SearchBaseActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 123 &&
                 resultCode == RESULT_OK) {
-            type1 = intent.getBooleanExtra("type1" ,false);
-            type2 = intent.getBooleanExtra("type2" ,false);
-            type3 = intent.getBooleanExtra("type3" ,false);
-            healthyDevices = intent.getBooleanExtra("healthyDevices" ,false);
-            faultyDevices =  intent.getBooleanExtra("faultyDevices" ,false);
+            type1 = intent.getBooleanExtra("type1", false);
+            type2 = intent.getBooleanExtra("type2", false);
+            type3 = intent.getBooleanExtra("type3", false);
+            healthyDevices = intent.getBooleanExtra("healthyDevices", false);
+            faultyDevices = intent.getBooleanExtra("faultyDevices", false);
         }
-        ArrayList<Devices> filteredDevices= new ArrayList<>();
+        ArrayList<Devices> filteredDevices = new ArrayList<>();
         //filtering
-        for (Devices device :  devices)
-        {
-           if((    (device.getFaulty()==true && faultyDevices)                              ||
-               (device.getFaulty()==false && healthyDevices)                            )
-                   &&((device.getType().equals(Devices.DeviceType.GPS.toString())&& type1)        ||
-                       (device.getType().equals(Devices.DeviceType.STRING_TWO.toString()) && type2)    ||
-                       (device.getType().equals(Devices.DeviceType.STRING_THREE.toString()) && type3)   )  ){
-               filteredDevices.add(device);
-           }
+        for (Devices device : devicesArr) {
+            if (((device.getFaulty() == true && faultyDevices) ||
+                    (device.getFaulty() == false && healthyDevices))
+                    && ((device.getType().equals(Devices.DeviceType.GPS.toString()) && type1) ||
+                    (device.getType().equals(Devices.DeviceType.STRING_TWO.toString()) && type2) ||
+                    (device.getType().equals(Devices.DeviceType.STRING_THREE.toString()) && type3))) {
+                filteredDevices.add(device);
+            }
         }
         //
-        final ListAdapter myAdapter = new DevicesAdapter(this,0, filteredDevices) ;
+        final ListAdapter myAdapter = new DevicesAdapter(this, 0, filteredDevices);
         //Ends here
+        devicesList.setAdapter(myAdapter);
+    }
+
+    private void updatingUI() {
+        ArrayList<Devices> filteredDevices = new ArrayList<>();
+        String filter = getIntent().getExtras().getString("filter");
+        if (filter != null) {
+            if (filter.equals("faulty") ) {
+                for (Devices device : devicesArr) {
+                    if (device.getFaulty() == true){
+                        filteredDevices.add(device);
+                    }
+                }
+            }else{
+                for (Devices device : devicesArr) {
+                    if (device.getFaulty() == false){
+                        filteredDevices.add(device);
+                    }
+                }
+            }
+
+        }
+        final ListAdapter myAdapter = new DevicesAdapter(DeviceStatus.this, 0, filteredDevices);
         devicesList.setAdapter(myAdapter);
     }
 }

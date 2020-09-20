@@ -24,6 +24,9 @@ public class DeviceFilter extends BackBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_filter);
     }
+
+
+
     public void finishTask(View view) {
         finish();
     }
@@ -174,4 +177,6 @@ public class DeviceFilter extends BackBaseActivity {
     setResult(RESULT_OK, intent);
     finish();
     }
+
+
 }
