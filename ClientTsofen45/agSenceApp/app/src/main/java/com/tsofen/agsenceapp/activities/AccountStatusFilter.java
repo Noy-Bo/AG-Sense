@@ -29,7 +29,7 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         View contentView = inflater.inflate(R.layout.activity_accountstatusfilter, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
-        ListView NewsListView = findViewById(R.id.listofaccounts);
+        ListView NewsListView = findViewById(R.id.account_devices_list);
        /* Account user = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
         Account user1 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
         Account user2 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
@@ -56,7 +56,6 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
 
 
         ArrayList<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
-        System.out.println(accounts);
 
        // ListView accountlist = contentView.findViewById(R.id.listofaccounts);
        // User[] accounts1 = (User[]) getIntent().getSerializableExtra("faulty");

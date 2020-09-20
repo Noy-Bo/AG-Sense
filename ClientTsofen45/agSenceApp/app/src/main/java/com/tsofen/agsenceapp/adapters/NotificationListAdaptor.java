@@ -11,28 +11,25 @@ import android.widget.TextView;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.Notification;
-import com.tsofen.agsenceapp.utils.ColorStatus;
+import com.tsofen.agsenceapp.utils.Severity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class NotificationListAdaptor extends ArrayAdapter<Notification> {
     LayoutInflater inflater;
 
-    public NotificationListAdaptor(Context context,int resource, ArrayList<Notification> notificationArray)
+    public NotificationListAdaptor(Context context,int resource, List<Notification> notificationArray)
     {
-
 
         super(context,0,notificationArray);
         inflater = LayoutInflater.from(context);
-        Log.d("IN ADAPTER","IN CONSTRUCTOR");
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        Log.d("IN ADAPTER","IN GETVIEW");
         View layout = this.inflater.inflate(R.layout.notifictation_item_shape,null);
         Notification notification = getItem(position);
 
@@ -42,19 +39,19 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
         TextView accountNameBox = layout.findViewById(R.id.account_name);
         TextView timeBox = layout.findViewById((R.id.date_time));
 
-        if ( notification.getImageStatus() == ColorStatus.blue)
+        if ( notification.getSeverity() == Severity.MODERATE)
             notificationIconBox.setImageResource(R.drawable.notification_icon_blue);
-        else if ( notification.getImageStatus() == ColorStatus.green)
+        else if ( notification.getSeverity() == Severity.LOW)
             notificationIconBox.setImageResource(R.drawable.notification_icon_green);
-        else if ( notification.getImageStatus() == ColorStatus.yellow)
+        else if ( notification.getSeverity() == Severity.MAJOR)
             notificationIconBox.setImageResource(R.drawable.notification_icon_yellow);
-        else if ( notification.getImageStatus() == ColorStatus.red)
+        else if ( notification.getSeverity() == Severity.CRITICAL)
             notificationIconBox.setImageResource(R.drawable.notification_icon_red);
 
-        deviceNameDeviceTypeBox.setText(notification.getDeviceid()+" "+notification.getDeviceid());
-        errorMessageBox.setText(notification.getErrorMessage());
+        deviceNameDeviceTypeBox.setText(notification.getDevice_id()+" "+notification.getDevice_id());
+        errorMessageBox.setText(notification.getMessage());
 
-        timeBox.setText(String.valueOf(notification.getDateTime()));
+        timeBox.setText(String.valueOf(notification.getDate_time()));
 
         return layout;
     }

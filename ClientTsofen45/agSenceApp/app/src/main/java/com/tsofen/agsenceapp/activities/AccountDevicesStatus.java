@@ -13,25 +13,25 @@ import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.User;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class AccountStatusFilterUser  extends AppBaseActivity {
+public class AccountDevicesStatus extends SearchBaseActivity {
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
+    Account account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_account_status_filter_user, null, false);
+        View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
-        ListView NewsListView = findViewById(R.id.listofaccounts);
+        ListView NewsListView = findViewById(R.id.account_devices_list);
         ArrayList<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
-        System.out.println(accounts);
 
 
         ListAdapter myAdapter = new AccountsAdapter(this,0, accounts) ;

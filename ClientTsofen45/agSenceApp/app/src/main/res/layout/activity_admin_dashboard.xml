@@ -260,7 +260,7 @@
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical"
-                    android:onClick="accountNotification">
+                    android:onClick="goToNotifications">
 
                     <TextView
                         android:layout_width="wrap_content"
