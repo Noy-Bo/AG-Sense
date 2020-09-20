@@ -14,9 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AccountDevicesStatus"></activity>
-        <activity android:name=".activities.BackBaseActivity" />
-        <activity android:name=".activities.SearchBaseActivity" />
+        <activity android:name=".activities.AccountDevicesStatus"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activities.BackBaseActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activities.SearchBaseActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.NotificationsActivity"
             android:windowSoftInputMode="adjustPan"
