@@ -12,15 +12,12 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
-import com.tsofen.agsenceapp.entities.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,7 +34,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         navigationView.setCheckedItem(R.id.nav_accounts_status);
         final ListView devicesList = findViewById(R.id.account_devices_list);
         account = (Account)getIntent().getSerializableExtra("account");
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountId(), 0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
                 ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this,0, devices) ;

@@ -1,30 +1,28 @@
 package com.tsofen.agsenceapp.entities;
 
-import android.bluetooth.BluetoothClass;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class Account extends User implements Serializable {
 
     private boolean isFaulty;
-    public int accountId;
+    public int accountid;
     private List<Devices> devices;
 
     public Account(){
         super();
     }
 
-    public Account(int id, String username, String email, boolean isFaulty, int accountId) {
+    public Account(int id, String username, String email, boolean isFaulty, int accountid) {
         super(id, username, email);
         this.isFaulty = isFaulty;
-        this.accountId = accountId;
+        this.accountid = accountid;
     }
 
-    public Account(int id, String username, String email, boolean isFaulty, int accountId, List<Devices> devices) {
+    public Account(int id, String username, String email, boolean isFaulty, int accountid, List<Devices> devices) {
         super(id, username, email);
         this.isFaulty = isFaulty;
-        this.accountId = accountId;
+        this.accountid = accountid;
         this.devices = devices;
     }
 
@@ -41,23 +39,23 @@ public class Account extends User implements Serializable {
         return isFaulty;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public int getAccountid() {
+        return accountid;
     }
 
     public void setFaulty(boolean faulty) {
         isFaulty = faulty;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setAccountid(int accountid) {
+        this.accountid = accountid;
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "isFaulty=" + isFaulty +
-                ", accountId=" + accountId +
+                ", accountId=" + accountid +
                 ", id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +

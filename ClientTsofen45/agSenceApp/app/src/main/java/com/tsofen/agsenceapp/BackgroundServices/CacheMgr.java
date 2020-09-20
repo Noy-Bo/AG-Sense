@@ -241,34 +241,34 @@ public class CacheMgr implements CacheManagerAPI {
                     }
                     else if (handler instanceof AccountDevicesHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices().getClass());
                         ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
                     else if(handler instanceof DeviceDataHandler)
                     {
 
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData().getClass());
 
                         ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
                     }
                     else if(handler instanceof AccountsHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account().getClass());
                         ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
                     }
                     else if (handler instanceof AccountNotificationsHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification().getClass());
                         ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
                     else if (handler instanceof DeviceNotificationsHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification().getClass());
                         ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
                     else if (handler instanceof NotificationsHandler)
                     {
-                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification().getClass());
                         ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
 
