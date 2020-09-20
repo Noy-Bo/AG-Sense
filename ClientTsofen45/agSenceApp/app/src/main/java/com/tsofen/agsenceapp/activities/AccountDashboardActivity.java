@@ -25,6 +25,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 
@@ -61,7 +62,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         popUpDialog = new Dialog(this);
 
 
-        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(LoginActivity.account.accountId, 0, 0, new NotificationsDataRequestHandler() {
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Account)AppBaseActivity.user).getAccountId(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
                 notificationArray.addAll(notifications);
@@ -76,9 +77,9 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToDevicesStatus(View view) {
-        Intent intent = new Intent(this, DeviceStatus.class);
+        Intent intent = new Intent(this, AccountDevicesStatus.class);
         final ArrayList<Devices> devicesList = new ArrayList<>();
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(LoginActivity.account.getAccountId(),0,0,new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountId(),0,0,new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
                 for(Devices device : devices)

@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -54,24 +56,46 @@ public class NotificationsActivity extends SearchBaseActivity {
         notificationListView = findViewById(R.id.notification_list);
         obj = getIntent().getSerializableExtra("obj");
 
-        if(obj instanceof Devices){
+        if (obj instanceof Devices) {
             obj = ((Devices) obj);
-            setTitle(((Devices) obj).getName()+ " Notifications");
+            setTitle(((Devices) obj).getName() + " Notifications");
             NotificationsDataAdapter.getInstance().getNotificationsBySpecificDevice(((Devices) obj).getId(), 0, 0, new NotificationsDataRequestHandler() {
                 @Override
-                public void onNotificationsReceived(List<Notification> notifications) {
-                    notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notifications);
-                    notificationListView.setAdapter(notificationArrayAdapter);
+                public void onNotificationsReceived(final List<Notification> notifications) {
+
+                    (NotificationsActivity.this).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (notifications == null) {
+                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notifications);
+                            notificationListView.setAdapter(notificationArrayAdapter);
+                        }
+                    });
+                    return;
                 }
             });
-        }else if(obj instanceof Admin){
+        } else if (obj instanceof Admin) {
             obj = ((Admin) obj);
             setTitle("Admin Notifications");
-            NotificationsDataAdapter.getInstance().getAllNotifications(0,0,new NotificationsDataRequestHandler() {
+            NotificationsDataAdapter.getInstance().getAllNotifications(0, 0, new NotificationsDataRequestHandler() {
                 @Override
-                public void onNotificationsReceived(List<Notification> notifications) {
-                    notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notifications);
-                    notificationListView.setAdapter(notificationArrayAdapter);
+                public void onNotificationsReceived(final List<Notification> notifications) {
+                    (NotificationsActivity.this).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (notifications == null) {
+                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notifications);
+                            notificationListView.setAdapter(notificationArrayAdapter);
+                        }
+                    });
+
+
                 }
             });
         }

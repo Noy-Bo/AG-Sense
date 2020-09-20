@@ -21,7 +21,6 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
 
     public NotificationListAdaptor(Context context,int resource, List<Notification> notificationArray)
     {
-
         super(context,0,notificationArray);
         inflater = LayoutInflater.from(context);
     }

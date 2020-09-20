@@ -14,12 +14,13 @@ import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class AccountsAdapter extends ArrayAdapter<User> implements Serializable {
+public class AccountsAdapter extends ArrayAdapter<Account> implements Serializable {
     LayoutInflater inflater;
 
-    public AccountsAdapter(Context context, int resource, ArrayList<User> users) {
-        super(context, resource, users);
+    public AccountsAdapter(Context context, int resource, List<Account> users) {
+        super(context, 0, users);
         inflater = LayoutInflater.from(context);
     }
 
