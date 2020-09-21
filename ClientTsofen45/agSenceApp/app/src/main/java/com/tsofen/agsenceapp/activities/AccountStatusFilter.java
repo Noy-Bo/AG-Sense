@@ -21,7 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountStatusFilter extends AppBaseActivity implements Serializable {
+public class AccountStatusFilter extends SearchBaseActivity implements Serializable {
     boolean displayFaultyAccounts = true;
     boolean displayHealthyAccounts = true;
     ListView NewsListView;
@@ -41,10 +41,17 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         String filter = getIntent().getExtras().getString("filter");
         if(filter != null) {
             if (filter.equals("faulty")) {
-                TextView displayFaultyBox = findViewById(R.id.display_healthy_button);
+                TextView displayHealthyBox = findViewById(R.id.display_healthy_button);
+                displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+                displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            }else if(filter.equals("healthy")){
+                TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
                 displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
                 displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
             }else{
+                TextView displayHealthyBox = findViewById(R.id.display_healthy_button);
+                displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+                displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
                 TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
                 displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
                 displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
@@ -68,9 +75,11 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
                                 displayFaultyAccounts = true;
                                 displayHealthyAccounts = false;
 
-
-                            }else{
+                            }else if(filter.equals("healthy")){
                                 displayFaultyAccounts = false;
+                                displayHealthyAccounts = true;
+                            }else {
+                                displayFaultyAccounts = true;
                                 displayHealthyAccounts = true;
                             }
                             updateList();

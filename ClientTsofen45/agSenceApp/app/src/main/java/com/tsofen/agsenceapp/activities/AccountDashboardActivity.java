@@ -69,14 +69,21 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Account)AppBaseActivity.user).getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
-            public void onNotificationsReceived(List<Notification> notifications) {
-                notificationArray.addAll(notifications);
+            public void onNotificationsReceived(final List<Notification> notifications) {
+                AccountDashboardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notificationArray.clear();
+                        notificationArray.addAll(notifications);
+                        notificationListView = findViewById(R.id.notification_list);
+                        notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this,0, notificationArray);
+                        notificationListView.setAdapter(notificationArrayAdapter);
+                    }
+                });
+
             }
         });
-        notificationArrayAdapter = new ArrayAdapter<Notification>(this, R.layout.notifictation_item_shape);
-        notificationListView = findViewById(R.id.notification_list);
-        notificationArrayAdapter = new NotificationListAdaptor(this,0, notificationArray);
-        notificationListView.setAdapter(notificationArrayAdapter);
+
 
 
         DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountid(),0,0,new DeviceDataRequestHandler() {
@@ -95,7 +102,6 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     public void goToDevicesStatus(View view) {
         Intent intent = new Intent(this, AccountDevicesStatus.class);
-        intent.putExtra("devices",devicesList);
         String filterString;
         if(view.getId() == R.id.account_faulty_devices)
             filterString = "faulty";
