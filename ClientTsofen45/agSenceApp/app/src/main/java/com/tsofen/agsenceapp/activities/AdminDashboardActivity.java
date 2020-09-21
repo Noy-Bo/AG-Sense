@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.lifecycle.ProcessLifecycleOwner;
+
+import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
@@ -33,6 +36,10 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         View contentView = inflater.inflate(R.layout.activity_admin_dashboard, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_dashboard);
+
+        // observer registeration for onforeground. -- read AppLifeCycleObserver.
+        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
     }
 
     public void goToNotifications(View view) {
@@ -46,7 +53,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
                 startActivity(intent);
             }
         });
-
 
     }
 
