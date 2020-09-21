@@ -7,6 +7,9 @@ public class UserMap implements Serializable {
     private String title;
     private ArrayList<Place> places = new ArrayList<>();
 
+    public UserMap() {
+    }
+
     public UserMap(String title) {
         this.title = title;
     }

@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
+        final ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         EditText password = (EditText) findViewById(R.id.passTxt);
         final String pass = password.getText().toString();
 
@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
         });

@@ -17,6 +17,11 @@ public class Place implements Serializable, ClusterItem {
         this.location = new LatLng(latitude, longitude);
     }
 
+    public Place(String title, Double latitude, Double longitude) {
+        this.title = title;
+        this.location = new LatLng(latitude, longitude);
+    }
+
     public Place(String title, String snippet, Double latitude, Double longitude) {
         this.snippet = snippet;
         this.title = title;

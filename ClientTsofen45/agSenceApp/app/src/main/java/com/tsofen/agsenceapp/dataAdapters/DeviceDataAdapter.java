@@ -1,5 +1,7 @@
 package com.tsofen.agsenceapp.dataAdapters;
 
+import android.util.Log;
+
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
@@ -80,7 +82,7 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
                 newData.add(new Devices(14,14,2,"Device1",date,date1,false));
                 newData.add(new Devices(15,15,1,"Device3",date,date1,false));
 
-                handler.onDeviceDataLoaded(newData);
+                handler.onDeviceDataLoaded(devices);
             }
 
             @Override

@@ -1,19 +1,21 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.Cluster;
@@ -22,11 +24,16 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.ClusterRenderer;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.entities.DeviceData;
+import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
+import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         ClusterManager.OnClusterItemClickListener<Place>,
@@ -35,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private UserMap userMap;
     private ClusterManager<Place> mClusterManager;
-    private ClusterRenderer<Place> mRenderer;
+    private Renderer mRenderer;
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
     @Override
@@ -47,7 +54,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Intent intent = getIntent();
-        userMap = (UserMap) intent.getSerializableExtra("user_map");
+        userMap = new UserMap();
+        Date date = new Date();
+        date.getTime();
+        Date date1 = new Date();
+        date.setTime(20102020);
+//        List<Devices> newData = (List<Devices>) intent.getSerializableExtra("devices");
+        List<Devices> newData = new ArrayList<>();
+        newData.add(new Devices(7,7,2,"Device3",date,date1,false));
+        newData.add(new Devices(8,8,2,"Device3",date,date1,false));
+        newData.add(new Devices(9,9,1,"Device1",date,date1,false));
+        newData.add(new Devices(10,10,1,"Device1",date,date1,false));
+        newData.add(new Devices(11,11,1,"Device1",date,date1,false));
+        newData.add(new Devices(12,12,2,"Device2",date,date1,false));
+        newData.add(new Devices(13,13,1,"Device3",date,date1,false));
+        newData.add(new Devices(14,14,2,"Device1",date,date1,false));
+        newData.add(new Devices(15,15,1,"Device3",date,date1,false));
+
+        for (Devices device : newData) {
+            userMap.addPlace(new Place(device.getDeviceType(), device.getImei()+"",28.7582555, 30.0278015));
+        }
+//        userMap = (UserMap) intent.getSerializableExtra("user_map");
     }
 
     /**
@@ -69,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
         mClusterManager = new ClusterManager<Place>(this, mMap);
-        mRenderer = new DefaultClusterRenderer(this, mMap, mClusterManager);
+        mRenderer = new Renderer(this, mMap, mClusterManager);
         mClusterManager.setRenderer(mRenderer);
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
@@ -86,19 +113,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
     private void addItems() {
+        List<Devices> data = new ArrayList<>();
+        data.add(new Devices());
+        for(Devices device : data)
+        {
+            userMap.addPlace(new Place(device.getDeviceType(), device.getImei()+"",28.7582555, 30.0278015));
+        }
+//        userMap.addPlace(new Place("AAA", "aaa",28.7582555, 30.0278015));
+//        userMap.addPlace(new Place("BBB","bbb",31.7582555, 33.0278015));
+//        userMap.addPlace(new Place("CCC","ccc", 32.7582555, 35.0278015));
+//        userMap.addPlace(new Place("DDD","ddd", 32.7885608,35.0071756));
+//        userMap.addPlace(new Place("EEE","eee", 32.7793361,35.0165388));
+//        userMap.addPlace(new Place("FFF","fff", 32.8278888,34.978133));
+
         mClusterManager.addItems(userMap.getPlaces());
-        mClusterManager.addItem(new Place(28.7582555, 30.0278015));
-        mClusterManager.addItem(new Place(31.7582555, 33.0278015));
-        mClusterManager.addItem(new Place(32.7582555, 35.0278015));
-        mClusterManager.addItem(new Place(32.7885608,35.0071756));
-        mClusterManager.addItem(new Place(32.7793361,35.0165388));
-        mClusterManager.addItem(new Place(32.8278888,34.978133));
-        userMap.addPlace(new Place(28.7582555, 30.0278015));
-        userMap.addPlace(new Place(31.7582555, 33.0278015));
-        userMap.addPlace(new Place(32.7582555, 35.0278015));
-        userMap.addPlace(new Place(32.7885608,35.0071756));
-        userMap.addPlace(new Place(32.7793361,35.0165388));
-        userMap.addPlace(new Place(32.8278888,34.978133));
     }
 
     private void animateZoomIn(LatLng latLng) {
@@ -128,9 +156,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onClusterItemClick(Place item) {
-        //animateZoomIn(item.getPosition());
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(item.getLocation(), 15));
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+        Marker marker = mRenderer.getMarker(item);
+        marker.setTitle(item.getTitle());
+        marker.setSnippet(item.getSnippet());
+        marker.showInfoWindow();
         return true;
     }
 
@@ -138,5 +168,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onClusterClick(Cluster<Place> cluster) {
         animateZoomIn(cluster.getPosition());
         return true;
+    }
+/////////////////////////////////////////////////renderer class////////////////////////////////////////////////////
+    static class Renderer extends DefaultClusterRenderer {
+
+        public Renderer(Context context, GoogleMap map, ClusterManager<Place> clusterManager) {
+            super(context, map, clusterManager);
+        }
+
+        @Override
+        public Marker getMarker(Cluster cluster) {
+            return super.getMarker(cluster);
+        }
     }
 }
