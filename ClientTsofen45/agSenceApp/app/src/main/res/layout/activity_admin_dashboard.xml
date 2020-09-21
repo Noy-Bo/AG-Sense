@@ -339,8 +339,7 @@
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical"
-                    android:onClick="openMap">
-
+                    android:onClick="GoToOther">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
