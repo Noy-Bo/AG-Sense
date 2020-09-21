@@ -42,7 +42,6 @@ public class DeviceController {
 	}
 
 	@GetMapping("AllDevices")
-
 	public ArrayList<Device> getAllDevices() {
 
 		ArrayList<Device> devices = new ArrayList<Device>();

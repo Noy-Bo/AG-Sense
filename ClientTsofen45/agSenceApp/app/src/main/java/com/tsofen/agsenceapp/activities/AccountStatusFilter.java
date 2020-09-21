@@ -13,14 +13,19 @@ import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
-import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.entities.Account;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccountStatusFilter extends AppBaseActivity implements Serializable {
-    boolean displayFaultyDevice = true;
-    boolean displayHealthyDevice = true;
+    boolean displayFaultyAccounts = true;
+    boolean displayHealthyAccounts = true;
+    ListView NewsListView;
+    ArrayList<Account> accountsArr = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,72 +34,104 @@ public class AccountStatusFilter extends AppBaseActivity implements Serializable
         View contentView = inflater.inflate(R.layout.activity_accountstatusfilter, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
-        ListView NewsListView = findViewById(R.id.listofaccounts);
-       /* Account user = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user1 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user2 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user3 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user4 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user5 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user6 = new Account(10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user7 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account user8 = new Account (10,"Tsofen","Tsofen@Tsofen.Tsofen",true,1);
-        Account[] Accounts = new Account[9];
-        Accounts[0] = user;
-        Accounts[1] = user1;
-        Accounts[2] = user2;
-        Accounts[3] = user3;
-        Accounts[4] = user4;
-        Accounts[5] = user5;
-        Accounts[6] = user6;
-        Accounts[7] = user7;
-        Accounts[8] = user8;
-        ListAdapter myAdapter = new AccountsAdapter(this,0, Accounts) ;
-        NewsListView.setAdapter(myAdapter);*/
+        NewsListView = findViewById(R.id.account_devices_list);
+
+
+        //update buttons color according to filter
+        String filter = getIntent().getExtras().getString("filter");
+        if(filter != null) {
+            if (filter.equals("faulty")) {
+                TextView displayFaultyBox = findViewById(R.id.display_healthy_button);
+                displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+                displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            }else{
+                TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
+                displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
+                displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            }
+        }
+
+        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(final List<Account> accounts) {
+                accountsArr= (ArrayList<Account>) accounts;
+                AccountStatusFilter.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this,0, accountsArr) ;
+                        NewsListView.setAdapter(myAdapter);
+
+                        //update Listview using the filter given
+                        String filter = getIntent().getExtras().getString("filter");
+                        if(filter != null) {
+                            if (filter.equals("faulty")) {
+                                displayFaultyAccounts = true;
+                                displayHealthyAccounts = false;
+
+
+                            }else{
+                                displayFaultyAccounts = false;
+                                displayHealthyAccounts = true;
+                            }
+                            updateList();
+                        }
+                    }
+                });
+
+            }
+        });
 
 
 
-
-        ArrayList<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
-        System.out.println(accounts);
-
-       // ListView accountlist = contentView.findViewById(R.id.listofaccounts);
-       // User[] accounts1 = (User[]) getIntent().getSerializableExtra("faulty");
-        ListAdapter myAdapter = new AccountsAdapter(this,0, accounts) ;
-        NewsListView.setAdapter(myAdapter);
     }
     public void displayFaultyClicked(View view) {
         TextView displayFaultyBox = view.findViewById(R.id.display_faulty_button);
-        if (displayFaultyDevice == true) // do not display faulty devices.
+        if (displayFaultyAccounts == true) // do not display faulty devices.
         {
             displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
             displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
-            displayFaultyDevice = false;
+            displayFaultyAccounts = false;
+
         }
-        else if (displayFaultyDevice == false) // displaying the faulty device.
+        else if (displayFaultyAccounts == false) // displaying the faulty device.
         {
             displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
             displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
-            displayFaultyDevice = true;
+            displayFaultyAccounts = true;
         }
+        updateList();
     }
     public void displayHealthyClicked(View view) {
         TextView displayHealthyBox = view.findViewById(R.id.display_healthy_button);
-        if (displayHealthyDevice == true) // do not display healthy devices.
+        if (displayHealthyAccounts == true) // do not display healthy devices.
         {
             displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
             displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
-            displayHealthyDevice = false;
+            displayHealthyAccounts = false;
         }
-        else if (displayHealthyDevice == false) // displaying the healthy device.
+        else if (displayHealthyAccounts == false) // displaying the healthy device.
         {
             displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
             displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
-            displayHealthyDevice = true;
+            displayHealthyAccounts = true;
         }
+        updateList();
     }
     public void createAccount(View view) {
         Intent intent = new Intent(this, NewAccount.class);
         startActivity(intent);
+    }
+
+    public void updateList(){
+
+        ArrayList<Account> filteredAccounts = new ArrayList<>();
+        for (Account account :  accountsArr) {
+            if(( displayFaultyAccounts && account.isFaulty()==true ) ||
+                    ( displayHealthyAccounts && account.isFaulty()==false )){
+                filteredAccounts.add(account);
+            }
+        }
+        ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this,0, filteredAccounts) ;
+        NewsListView.setAdapter(myAdapter);
     }
 }

@@ -12,20 +12,24 @@ import java.util.Date;
 import java.util.List;
 
 public class NotificationsDataAdapter extends BaseDataAdapter implements NotificationsDataAdapterAPI {
-    private static  NotificationsDataAdapter instance;
-    private NotificationsDataAdapter(){}
-    public static NotificationsDataAdapter getInstance(){
-        if(instance == null)
-            instance = new NotificationsDataAdapter();
-        return  instance;
+    private static NotificationsDataAdapter instance;
+
+    private NotificationsDataAdapter() {
     }
+
+    public static NotificationsDataAdapter getInstance() {
+        if (instance == null)
+            instance = new NotificationsDataAdapter();
+        return instance;
+    }
+
     @Override
     public void getAllNotifications(int start, int num, final NotificationsDataRequestHandler handler) {
         cacheManager.getNotificationsJob(0, 0, new NotificationsHandler() {
             @Override
             public void onNotificationsDownloadFinished(List<Notification> notifications) {
-//                handler.onNotificationsReceived(notifications);
-                java.util.Date date = new Date();
+                handler.onNotificationsReceived(notifications);
+                /*java.util.Date date = new Date();
                 date.setTime(20102020);
                 ArrayList<Notification> notificationArray = new ArrayList<>();
 
@@ -62,19 +66,21 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                 notificationArray.add(new Notification(16, 5, 5, 1, date,
                         58, false, "Hey this is error message16", 15));
 
-                handler.onNotificationsReceived(notificationArray);
+                handler.onNotificationsReceived(notificationArray); */
 
             }
         });
     }
 
     @Override
-    public void getNotificationsBySpecificDevice(final int deviceId, int start, int num, NotificationsDataRequestHandler handler) {
+    public void getNotificationsBySpecificDevice(final int deviceId, int start, int num, final NotificationsDataRequestHandler handler) {
         cacheManager.getNotificationRelatedToDeviceJob(deviceId, 0, 0, new DeviceNotificationsHandler() {
             @Override
             public void onNotificationsRelatedToDeviceDownloadFinished(List<Notification> notifications) {
 
-                java.util.Date date = new Date();
+                handler.onNotificationsReceived(notifications);
+
+               /* java.util.Date date = new Date();
                 ArrayList<Notification> notificationArray = new ArrayList<>();
                 date.setTime(20102020);
                 switch (deviceId) {
@@ -122,7 +128,7 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                         notificationArray.add(new Notification(15, 6, 6, 1, date,
                                 58, false, "Hey this is error message15", 15));
                         break;
-                }
+                }*/
             }
         });
     }
@@ -133,7 +139,9 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
 
             @Override
             public void onNotificationsRelatedToAccountDownloadFinished(List<Notification> notifications) {
-                java.util.Date date = new Date();
+                handler.onNotificationsReceived(notifications);
+
+               /* java.util.Date date = new Date();
                 date.setTime(20102020);
                 ArrayList<Notification> notificationArray = new ArrayList<>();
 
@@ -172,8 +180,8 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
                     notificationArray.add(new Notification(5, 5, 5, 2, date,
                             58, false, "Hey this is error message5", 15));
                 }
+              handler.onNotificationsReceived(notificationArray); */
 
-                handler.onNotificationsReceived(notificationArray);
 
             }
         });

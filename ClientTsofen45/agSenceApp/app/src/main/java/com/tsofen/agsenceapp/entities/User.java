@@ -6,7 +6,9 @@ public abstract class User implements Serializable {
     protected int id;
     protected String username;
     protected String email;
+    protected String type;
 
+    public User(){}
     public User(int id, String username, String email) {
         this.id = id;
         this.username = username;
@@ -38,4 +40,11 @@ public abstract class User implements Serializable {
         this.email = email;
     }
 
-  }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+}

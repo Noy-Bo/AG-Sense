@@ -25,8 +25,10 @@ import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.utils.updateDeviceNotifNumbers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,15 +38,19 @@ import java.util.List;
 
 public class AccountDashboardActivity extends SearchBaseActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
-    ArrayAdapter<Notification> notificationArrayAdapter;
+    ArrayAdapter<Notification> notificationArrayAdapter ;
+    ArrayList<Devices> devicesList = new ArrayList<>();
     Dialog popUpDialog;
-    View popupView;
+    boolean displayReadNotifications = false;
+    boolean displayUnreadNotifications = false;
+    Date after ;
+    Date before ;
+    View contentView;
+    ListView notificationListView;
     Button reset; //?
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
-    boolean displayReadNotifications = false;
-    boolean displayUnreadNotifications = false;
     private  long backPressedTime;
     private Toast backtoast;
 
@@ -55,36 +61,40 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);
+        contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
 
 
-        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(LoginActivity.account.accountId, 0, 0, new NotificationsDataRequestHandler() {
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Account)AppBaseActivity.user).getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
                 notificationArray.addAll(notifications);
             }
         });
-
         notificationArrayAdapter = new ArrayAdapter<Notification>(this, R.layout.notifictation_item_shape);
-        ListView notificationList = findViewById(R.id.notification_list);
+        notificationListView = findViewById(R.id.notification_list);
         notificationArrayAdapter = new NotificationListAdaptor(this,0, notificationArray);
-        notificationList.setAdapter(notificationArrayAdapter);
+        notificationListView.setAdapter(notificationArrayAdapter);
+
+
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountid(),0,0,new DeviceDataRequestHandler() {
+            @Override
+            public void onDeviceDataLoaded(List<Devices> devices) {
+                for(Devices device : devices){
+                    devicesList.add(device);
+                }
+                initialUpdateUI();
+            }
+        });
 
     }
 
+
+
     public void goToDevicesStatus(View view) {
-        Intent intent = new Intent(this, DeviceStatus.class);
-        final ArrayList<Devices> devicesList = new ArrayList<>();
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(LoginActivity.account.getAccountId(),0,0,new DeviceDataRequestHandler() {
-            @Override
-            public void onDeviceDataLoaded(List<Devices> devices) {
-                for(Devices device : devices)
-                    devicesList.add(device);
-            }
-        });
+        Intent intent = new Intent(this, AccountDevicesStatus.class);
         intent.putExtra("devices",devicesList);
         String filterString;
         if(view.getId() == R.id.account_faulty_devices)
@@ -137,6 +147,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
+                        after = new Date(i, i1, i2);
                         textView.setText(i + "/" + i1 + "/" + i2);
                     }
                 }, year, month, day);
@@ -155,6 +166,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
+                        before = new Date(i, i1, i2);
                         textView.setText(i + "/" + i1 + "/" + i2);
                     }
                 }, year, month, day);
@@ -178,7 +190,18 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     }
 
     public void search(View view) {
-        setContentView(R.layout.activity_account_dashboard);
+        ArrayList<Notification> filterArr = new ArrayList<>();
+        for (Notification notification: notificationArray) {
+            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                    ((notification.getReaded()==true && displayReadNotifications) ||
+                            (notification.getReaded()==false &&  displayUnreadNotifications))){
+                filterArr.add(notification);
+            }
+        }
+        notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this, 0, filterArr);
+        notificationListView.setAdapter(notificationArrayAdapter);
+        updateUIAfterSearch(filterArr.size());
+        popUpDialog.cancel();
     }
 
     public void displayReadNotifications(final View view) {
@@ -246,5 +269,29 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     }
 
+    private void initialUpdateUI() {
+
+        int healthy =0;
+        int faulty =0;
+        for (Devices device: devicesList) {
+            if(device.getFaulty()==true){
+                faulty++;
+            }else{
+                healthy++;
+            }
+        }
+        runOnUiThread(new updateDeviceNotifNumbers(healthy,faulty, notificationArray.size(), this));
+
+
+    }
+
+    public void updateUIAfterSearch(int notificationNumber){
+
+        TextView textView = contentView.findViewById(R.id.textView4);
+        if(textView!=null){
+            textView.setText(String.valueOf(notificationNumber));
+        }
+
+    }
 }
 

@@ -30,7 +30,7 @@ public interface CacheManagerAPI {
     // Account methods
     void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, DeviceNotificationsHandler handler);
     void getNotificationRelatedToAccountJob(int accountId, int start, int num, AccountNotificationsHandler handler);
-    void getSpecificDeviceDataByIdJob(int deviceId, int start, int num, DeviceDataHandler handler);
+    void getSpecificDeviceDataByIdJob(int deviceId,DeviceDataHandler handler);
 
 
 

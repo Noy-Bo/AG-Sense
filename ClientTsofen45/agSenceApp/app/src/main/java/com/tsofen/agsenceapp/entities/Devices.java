@@ -9,48 +9,84 @@ public class Devices implements Serializable {
 
     protected long imei;
     protected int id;
-    protected int Userid;
-    protected String deviceType;
-    protected Date faultTime;
+    protected int accountId;
+    protected String type;
+    protected String name;
+    protected Date faultTime;  //
     protected Date lastUpdate;
-    protected Boolean isFaulty;
+    protected Boolean faulty;
+    protected  double logitude;  //
+    protected  double latitude;  //
     protected List<DeviceData> deviceData;
+
+    public List<DeviceData> getDeviceData() {
+        return deviceData;
+    }
+
+    public void setDeviceData(List<DeviceData> deviceData) {
+        this.deviceData = deviceData;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
     protected List<Notification> notifications;
 
     public Boolean getFaulty() {
-        return isFaulty;
+        return faulty;
     }
 
     public void setFaulty(Boolean faulty) {
-        isFaulty = faulty;
+        this.faulty = faulty;
     }
-    public Devices()
-    {
+    public Devices() { }
 
-
-    }
-
-    public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty, List<DeviceData> deviceData, List<Notification> notifications) {
+    public Devices(long imei, int id, int accountId, String type, Date faultTime, Date lastUpdate, Boolean faulty, List<DeviceData> deviceData, List<Notification> notifications) {
         this.imei = imei;
         this.id = id;
-        Userid = userid;
-        this.deviceType = deviceType;
+        this.accountId = accountId;
+        this.type = type;
         this.faultTime = faultTime;
         this.lastUpdate = lastUpdate;
-        this.isFaulty = isFaulty;
+        this.faulty = faulty;
         this.deviceData = deviceData;
         this.notifications = notifications;
     }
 
 
-    public Devices(long imei, int id, int userid, String deviceType, Date faultTime, Date lastUpdate, Boolean isFaulty) {
+    public Devices(long imei, int id, int accountId, String type, Date faultTime, Date lastUpdate, Boolean faulty) {
         this.imei = imei;
         this.id = id;
-        Userid = userid;
-        this.deviceType = deviceType;
+        this.accountId = accountId;
+        this.type = type;
         this.faultTime = faultTime;
         this.lastUpdate = lastUpdate;
-        this.isFaulty = isFaulty;
+        this.faulty = faulty;
+    }
+
+
+    public enum DeviceType {
+        GPS("GpsForPersonal"),
+        STRING_TWO("SensorForBanks"),
+        STRING_THREE("lequidHeightForTanks");
+
+        private final String text;
+
+        /**
+         * @param text
+         */
+        DeviceType(final String text) {
+            this.text = text;
+        }
+
+        /* (non-Javadoc)
+         * @see java.lang.Enum#toString()
+         */
+        @Override
+        public String toString() {
+            return text;
+        }
     }
 
     public long getImei() {
@@ -69,20 +105,20 @@ public class Devices implements Serializable {
         this.id = id;
     }
 
-    public int getUserid() {
-        return Userid;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setUserid(int userid) {
-        Userid = userid;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
-    public String getDeviceType() {
-        return deviceType;
+    public String getType() {
+        return type;
     }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Date getFaultTime() {
@@ -99,5 +135,30 @@ public class Devices implements Serializable {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+
+    public double getLogitude() {
+        return logitude;
+    }
+
+    public void setLogitude(double logitude) {
+        this.logitude = logitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

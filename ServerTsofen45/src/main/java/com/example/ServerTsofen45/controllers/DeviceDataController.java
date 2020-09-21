@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ServerTsofen45.BL.DeviceBL;
@@ -18,11 +19,12 @@ public class DeviceDataController {
 	
 	@Autowired
 	DeviceDataBL deviceDataBL;
+	@Autowired
+	DeviceBL deviceBL;
 	
 	
 	
 	@GetMapping("AllDevicesData")
-
 	public ArrayList<DeviceData> getAllDevices() {
 
 		ArrayList<DeviceData> devices = new ArrayList<DeviceData>();
@@ -30,6 +32,15 @@ public class DeviceDataController {
 		return devices;
 	}
 	
+	@GetMapping("	")
+	public ArrayList<DeviceData> getAllDeviceDataByid(@RequestParam int id) {
+
+		ArrayList<DeviceData> devices = new ArrayList<DeviceData>();
+		
+		Device d=deviceBL.getDeviceById(id);
+		devices = deviceDataBL.getSpecificDeviceDataById(d.getImei());
+		return devices;
+	}
 	
 
 }
