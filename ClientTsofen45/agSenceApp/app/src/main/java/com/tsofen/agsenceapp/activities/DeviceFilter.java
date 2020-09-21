@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +24,9 @@ public class DeviceFilter extends BackBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_filter);
     }
+
+
+
     public void finishTask(View view) {
         finish();
     }
@@ -162,4 +166,17 @@ public class DeviceFilter extends BackBaseActivity {
 
 
     }
+
+    public void returnResults(View view) {
+    Intent intent = new Intent();
+    intent.putExtra("type1",type1Toggle );
+    intent.putExtra("type2",type2Toggle );
+    intent.putExtra("type3",type3Toggle );
+    intent.putExtra("faultyDevices",displayFaultyDevice );
+    intent.putExtra("healthyDevices",displayHealthyDevice );
+    setResult(RESULT_OK, intent);
+    finish();
+    }
+
+
 }

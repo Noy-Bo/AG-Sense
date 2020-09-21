@@ -13,31 +13,36 @@ import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
-import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.adapters.DevicesAdapter;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Devices;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
-public class AccountStatusFilterUser  extends AppBaseActivity implements Serializable {
+public class AccountDevicesStatus extends SearchBaseActivity {
     boolean displayFaultyDevice = true;
     boolean displayHealthyDevice = true;
+    ArrayList<Devices> devicesArr = new ArrayList<>();
+     ListView devicesList;
+    Account account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_account_status_filter_user, null, false);
+        View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
-        ListView NewsListView = findViewById(R.id.listofaccounts);
-        ArrayList<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
-        System.out.println(accounts);
+        devicesList = findViewById(R.id.account_devices_list);
+        account = (Account)AppBaseActivity.user;
+        devicesArr = (ArrayList<Devices>) Objects.requireNonNull(getIntent().getExtras()).getSerializable("devices");
 
-
-        ListAdapter myAdapter = new AccountsAdapter(this,0, accounts) ;
-        NewsListView.setAdapter(myAdapter);
-
-
+        final ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this, 0, devicesArr);
+        devicesList.setAdapter(myAdapter);
     }
 
     public void GoToMap(View view) {
@@ -59,6 +64,7 @@ public class AccountStatusFilterUser  extends AppBaseActivity implements Seriali
             displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
             displayHealthyDevice = true;
         }
+        updateList();
     }
 
     public void displayFaultyClicked(View view) {
@@ -75,5 +81,20 @@ public class AccountStatusFilterUser  extends AppBaseActivity implements Seriali
             displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
             displayFaultyDevice = true;
         }
+        updateList();
+    }
+
+
+    public void updateList(){
+
+        ArrayList<Devices> filteredDevices = new ArrayList<>();
+        for (Devices device :  devicesArr) {
+            if(( displayFaultyDevice && account.isFaulty()==true ) ||
+                    ( displayHealthyDevice && account.isFaulty()==false )){
+                filteredDevices.add(device);
+            }
+        }
+        ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this,0, filteredDevices) ;
+        devicesList.setAdapter(myAdapter);
     }
 }

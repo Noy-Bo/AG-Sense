@@ -100,5 +100,15 @@ public class NotificationsController {
 		    return true;
 			  
 		}
+	  
+	  @GetMapping("AddNotification")
+	  public String AddNotification (@RequestParam String password, @RequestParam long imei, @RequestParam String massege, String optional )
+		{
+		  			System.out.println(massege);
+		  		return massege;
+		  		
+			  
+		}
+	
 	
 }

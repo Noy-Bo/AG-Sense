@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,88 +12,118 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
+import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
+import com.tsofen.agsenceapp.entities.Admin;
+import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
-
-public class AdminNotification extends SearchBaseActivity {
+public class NotificationsActivity extends SearchBaseActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
     ArrayAdapter<Notification> notificationArrayAdapter;
+    ListView notificationListView;
     Dialog popUpDialog;
-    Button reset ;
+    Button reset;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
+    Date after ;
+    Date before ;
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
+    View contentView;
+
+    Object obj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_admin_notification, null, false);
+        contentView = inflater.inflate(R.layout.activity_notifications, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_notifications);
         popUpDialog = new Dialog(this);
-        java.util.Date date = new Date();
-      /*  date.setTime(20102020);
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message1" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message2" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message3" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message4" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message5" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message6" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message7" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message8" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message9" , 15));
-        notificationArray.add( new Notification(15,25,25,10,date,
-                58,false,"Hey this is error message10" , 15));
+        notificationListView = findViewById(R.id.notification_list);
+        obj = getIntent().getSerializableExtra("obj");
+
+        if (obj instanceof Devices) {
+            obj = ((Devices) obj);
+            setTitle(((Devices) obj).getName() + " Notifications");
+            NotificationsDataAdapter.getInstance().getNotificationsBySpecificDevice(((Devices) obj).getId(), 0, 0, new NotificationsDataRequestHandler() {
+                @Override
+                public void onNotificationsReceived(final List<Notification> notifications) {
+
+                    (NotificationsActivity.this).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (notifications == null) {
+                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            notificationArray = (ArrayList<Notification>) notifications;
+                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notificationArray);
+                            notificationListView.setAdapter(notificationArrayAdapter);
+                            initialUpdateUI();
+                        }
+                    });
+                    return;
+                }
+            });
+        } else if (obj instanceof Admin) {
+            obj = ((Admin) obj);
+            setTitle("Admin Notifications");
+            NotificationsDataAdapter.getInstance().getAllNotifications(0, 0, new NotificationsDataRequestHandler() {
+                @Override
+                public void onNotificationsReceived(final List<Notification> notifications) {
+                    (NotificationsActivity.this).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (notifications == null) {
+                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            notificationArray = (ArrayList<Notification>) notifications;
+                            notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, notificationArray);
+                            notificationListView.setAdapter(notificationArrayAdapter);
+                            initialUpdateUI();
+                        }
+                    });
 
 
+                }
+            });
+        }
 
-
-        notificationArrayAdapter = new ArrayAdapter<Notification>(this,R.layout.notifictation_item_shape);
-        ListView notificationList = findViewById(R.id.notification_list);
-        notificationArrayAdapter = new NotificationListAdaptor(this,notificationArray);
-        notificationList.setAdapter(notificationArrayAdapter);
-
-*/
-        ListView NotificationsListView = findViewById(R.id.notification_list);
-        ArrayList<Notification> notifications = (ArrayList<Notification>) getIntent().getSerializableExtra("notifications");
-        System.out.println(notifications);
-
-
-        ListAdapter myAdapter = new NotificationListAdaptor(this,0, notifications) ;
-        NotificationsListView.setAdapter(myAdapter);
-    }
-
-    public void DeviceView(View view) {
-        Intent intent = new Intent(this, DeviceStatus.class);
-        startActivity(intent);
     }
 
     public void search(View view) {
-        setContentView(R.layout.activity_account_dashboard);
+        ArrayList<Notification> filterArr = new ArrayList<>();
+        for (Notification notification: notificationArray) {
+            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                    ((notification.getReaded()==true && displayReadNotifications) ||
+                            (notification.getReaded()==false &&  displayUnreadNotifications))){
+                filterArr.add(notification);
+            }
+        }
+        notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, filterArr);
+        notificationListView.setAdapter(notificationArrayAdapter);
+        updateUI(filterArr.size());
+        popUpDialog.cancel();
+
     }
 
     public void displayReadNotifications(final View view) {
@@ -100,14 +131,13 @@ public class AdminNotification extends SearchBaseActivity {
 
         if (displayReadNotifications == true) // do not display faulty devices.
         {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
             displayReadNotifications = false;
-        }
-        else if (displayReadNotifications == false) // displaying the faulty device.
+        } else if (displayReadNotifications == false) // displaying the faulty device.
         {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
+            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
             displayReadNotifications = true;
         }
     }
@@ -117,18 +147,18 @@ public class AdminNotification extends SearchBaseActivity {
 
         if (displayUnreadNotifications == true) // do not display healthy devices.
         {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
+            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
             displayUnreadNotifications = false;
-        }
-        else if (displayUnreadNotifications == false) // displaying the healthy device.
+        } else if (displayUnreadNotifications == false) // displaying the healthy device.
         {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
+            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
             displayUnreadNotifications = true;
         }
 
     }
+
     public void create(View view) {
         Intent intent = new Intent(this, NewAccount.class);
         startActivity(intent);
@@ -176,6 +206,7 @@ public class AdminNotification extends SearchBaseActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
+                        after = new Date(i, i1, i2);
                         textView.setText(i + "/" + i1 + "/" + i2);
                     }
                 }, year, month, day);
@@ -194,6 +225,7 @@ public class AdminNotification extends SearchBaseActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1++;
+                        before = new Date(i, i1, i2);
                         textView.setText(i + "/" + i1 + "/" + i2);
                     }
                 }, year, month, day);
@@ -216,4 +248,20 @@ public class AdminNotification extends SearchBaseActivity {
         displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
     }
 
+
+    public void updateUI(int notificationNumber){
+
+        TextView textView = contentView.findViewById(R.id.textView4);
+        if(textView!=null){
+            textView.setText(String.valueOf(notificationNumber));
+        }
+
+    }
+
+    public  void initialUpdateUI(){
+        TextView notification = findViewById(R.id.textView4);
+        if(notification!=null){
+            notification.setText(String.valueOf(notificationArray.size()));
+        }
+    }
 }

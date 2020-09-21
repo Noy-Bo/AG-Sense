@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.viewpager.widget.ViewPager;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.SliderAdapter;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceInfoDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.entities.DeviceData;
+import com.tsofen.agsenceapp.entities.Devices;
+
+import java.util.List;
 
 public class DeviceView extends AppBaseActivity {
 
@@ -20,6 +28,7 @@ public class DeviceView extends AppBaseActivity {
     private LinearLayout dotslinearLayout;
     private SliderAdapter sliderAdapter;
     private TextView[] mDots;
+    Devices device;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,35 +47,42 @@ public class DeviceView extends AppBaseActivity {
         addDotsIndicator(0);
 
         sliderViewPager.addOnPageChangeListener(viewListener);
+        device = (Devices) getIntent().getSerializableExtra("device");
 
-        //applying logic to Status_list button (transfers to DeviceStatusListActivity)
-        final TextView status_list_button = findViewById(R.id.status_list_textview);
-        status_list_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), DeviceStatusList.class);
-                startActivity(intent);
-            }
-        });
+        setTitle("Device '" + device.getName() + "' view");
 
-        final TextView notification_button = findViewById(R.id.deviceStatusActivity_notification_button);
-        notification_button.setOnClickListener(new View.OnClickListener() {
+        DeviceDataAdapter.getInstance().getDeviceDataList(device.getId(), new DeviceInfoDataRequestHandler() {
+            @SuppressLint("DefaultLocale")
             @Override
-            public void onClick(View view) {
-                //TODO: CHANGE INTENT PARAMTERS TO NotificationActivity!!!
-                Intent intent = new Intent(getApplicationContext(), DeviceStatusList.class);
-                startActivity(intent);
+            public void getDeviceDataInfo(List<DeviceData> deviceDataList) {
+                TextView status = findViewById(R.id.device_view_status);
+                TextView lastUpdate = findViewById(R.id.device_view_last_update);
+                TextView coordinations = findViewById(R.id.device_view_coordination);
+                TextView isMoving = findViewById(R.id.device_view_is_moving);
+                if(deviceDataList.size() == 0){
+                    status.setText("Device Status: ----");
+                    lastUpdate.setText("last updated: ----");
+                    coordinations.setText("Lat: ---- Long: ---- "); // no height
+                    isMoving.setText("Moving: ----");
+                    return;
+                }
+                DeviceData deviceData = deviceDataList.get(0);
+                device.setDeviceData(deviceDataList);
+                status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
+                lastUpdate.setText("last updated: " + device.getLastUpdate());
+                coordinations.setText(String.format("Lat: %f Long: %f ", deviceData.getLat(), deviceData.getLon())); // no height
+                isMoving.setText(String.format("Moving: %s", ((deviceData.getMoveAlertActive()) ? "Yes" : "No")));
             }
         });
 
     }
 
     //for indentifying the current-dot (in the dot-scroller) we're positioned on..
-    public void addDotsIndicator(int position){
+    public void addDotsIndicator(int position) {
         mDots = new TextView[3];
         dotslinearLayout.removeAllViews();
 
-        for(int i =0; i<mDots.length; i++){
+        for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             // HTML = This class processes HTML strings into displayable styled text.
             mDots[i].setText(Html.fromHtml("&#8226;"));
@@ -75,7 +91,7 @@ public class DeviceView extends AppBaseActivity {
             dotslinearLayout.addView(mDots[i]);
         }
 
-        if(mDots.length > 0){ //changes Dot color!
+        if (mDots.length > 0) { //changes Dot color!
             mDots[position].setTextColor(getResources().getColor(R.color.orange));
         }
 
@@ -104,5 +120,21 @@ public class DeviceView extends AppBaseActivity {
     public void GoToSettingsPage(View view) {
         Intent intent = new Intent(this, DeviceSetting.class);
         startActivity(intent);
+    }
+
+    //applying logic to Status_list button (transfers to DeviceStatusListActivity)
+
+    public void openStatusListActivity(View view) {
+        Intent intent = new Intent(this, DeviceStatusList.class);
+        intent.putExtra("device",device);
+        startActivity(intent);
+    }
+
+
+    public void openNotificationsActivity(View view) {
+        Intent intent = new Intent(this, NotificationsActivity.class);
+        intent.putExtra("obj",device);
+        startActivity(intent);
+
     }
 }

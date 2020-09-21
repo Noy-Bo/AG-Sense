@@ -54,29 +54,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Intent intent = getIntent();
-        userMap = new UserMap();
-        Date date = new Date();
-        date.getTime();
-        Date date1 = new Date();
-        date.setTime(20102020);
-//        List<Devices> newData = (List<Devices>) intent.getSerializableExtra("devices");
-        List<Devices> newData = new ArrayList<>();
-        newData.add(new Devices(7,7,2,"Device3",date,date1,false));
-        newData.add(new Devices(8,8,2,"Device3",date,date1,false));
-        newData.add(new Devices(9,9,1,"Device1",date,date1,false));
-        newData.add(new Devices(10,10,1,"Device1",date,date1,false));
-        newData.add(new Devices(11,11,1,"Device1",date,date1,false));
-        newData.add(new Devices(12,12,2,"Device2",date,date1,false));
-        newData.add(new Devices(13,13,1,"Device3",date,date1,false));
-        newData.add(new Devices(14,14,2,"Device1",date,date1,false));
-        newData.add(new Devices(15,15,1,"Device3",date,date1,false));
+        List<Devices> devices = (List<Devices>) intent.getSerializableExtra("devices");
 
-        for (Devices device : newData) {
-            userMap.addPlace(new Place(device.getDeviceType(), device.getImei()+"",28.7582555, 30.0278015));
+        for (Devices device : devices) {
+            userMap.addPlace(new Place(device.getLatitude(), device.getLogitude()));
         }
-//        userMap = (UserMap) intent.getSerializableExtra("user_map");
     }
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -117,15 +100,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         data.add(new Devices());
         for(Devices device : data)
         {
-            userMap.addPlace(new Place(device.getDeviceType(), device.getImei()+"",28.7582555, 30.0278015));
+            userMap.addPlace(new Place(device.getLatitude(), device.getLogitude()));
         }
-//        userMap.addPlace(new Place("AAA", "aaa",28.7582555, 30.0278015));
-//        userMap.addPlace(new Place("BBB","bbb",31.7582555, 33.0278015));
-//        userMap.addPlace(new Place("CCC","ccc", 32.7582555, 35.0278015));
-//        userMap.addPlace(new Place("DDD","ddd", 32.7885608,35.0071756));
-//        userMap.addPlace(new Place("EEE","eee", 32.7793361,35.0165388));
-//        userMap.addPlace(new Place("FFF","fff", 32.8278888,34.978133));
-
         mClusterManager.addItems(userMap.getPlaces());
     }
 
