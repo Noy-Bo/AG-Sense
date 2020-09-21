@@ -29,7 +29,7 @@ import java.util.List;
 public class DeviceStatus extends SearchBaseActivity {
     UserMap userMap = new UserMap();
     ArrayList<Devices> devicesArr = new ArrayList<>();
-    ArrayList<Devices> filteredDevices;
+    ArrayList<Devices> filteredDevices = new ArrayList<>();
     LayoutInflater inflater;
     View contentView;
     ListView devicesList;
@@ -67,6 +67,7 @@ public class DeviceStatus extends SearchBaseActivity {
                     @Override
                     public void run() {
                         devicesArr = (ArrayList<Devices>) devices;
+                        filteredDevices = devicesArr;
                         updatingUI();
                     }
                 });
