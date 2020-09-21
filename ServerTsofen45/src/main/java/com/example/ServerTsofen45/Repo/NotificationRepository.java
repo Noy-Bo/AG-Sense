@@ -41,4 +41,11 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 	public List<Notification> findBySeverity(Severity severity);
 	public List<Notification> findByDeviceImei(long deviceImei);
 	public List<Notification> findByDeviceImeiAndDeviceId(long deviceImei, int deviceId);
+
+	
+	@Query(nativeQuery = true, value =
+			"select count(distinct id) " + 
+			"from notifications " + 
+			"where readed = FALSE;" )
+	public String getUnreadNotificationsNumber();
 }
