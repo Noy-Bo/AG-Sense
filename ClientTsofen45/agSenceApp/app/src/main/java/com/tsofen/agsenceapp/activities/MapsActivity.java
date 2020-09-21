@@ -41,7 +41,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private UserMap userMap;
-    List<Devices> devices;
     private ClusterManager<Place> mClusterManager;
     private Renderer mRenderer;
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -51,14 +50,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        userMap = new UserMap();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        devices = (List<Devices>) getIntent().getSerializableExtra("devices");
-        for (Devices device : devices) {
-            userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), device.getLatitude(), device.getLogitude()));
-        }
+        userMap = (UserMap) getIntent().getSerializableExtra("user_map");
     }
     /**
      * Manipulates the map once available.
@@ -96,12 +91,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
     private void addItems() {
-//        List<Devices> data = new ArrayList<>();
-//        data.add(new Devices());
-//        for(Devices device : devices)
-//        {
-//            userMap.addPlace(new Place(device.getLatitude(), device.getLogitude()));
-//        }
         mClusterManager.addItems(userMap.getPlaces());
     }
 
