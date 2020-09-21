@@ -83,6 +83,14 @@
     <string name="latitudelimit">00.000000 - 99.999999</string>
     <string name="devicesettingslimit">000.0000000 - 999.999999</string>
     <string name="settings">Settings</string>
+
+    <string name="new_device_details">New Device Details:</string>
+    <string name="iemi">IEMI</string>
+    <string name="device_type">Device Type</string>
+    <string name="account_name">Account Name</string>
+    <string name="device_phone_number">Device Phone Number</string>
+    <string name="device_password">Device Password</string>
+
     <string name="device_view_properties">Properties</string>
     <string name="device_view_connected_to">Connected To</string>
     <string name="device_view_battery_status">Battery Status</string>
@@ -98,6 +106,7 @@
     <string name="send_msg_again">Please send the message again</string>
     <string name="error_send_msg">Error sending message!</string>
     <string name="msg_sent">message sent</string>
+
 
 
 </resources>
