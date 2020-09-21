@@ -27,7 +27,7 @@ import java.util.List;
 
 
 public class DeviceStatus extends SearchBaseActivity {
-    UserMap userMap = new UserMap("Map");
+    UserMap userMap = new UserMap();
     ArrayList<Devices> devicesArr = new ArrayList<>();
     LayoutInflater inflater;
     View contentView;
@@ -132,6 +132,7 @@ public class DeviceStatus extends SearchBaseActivity {
 
     private void updatingUI() {
          filteredDevices = new ArrayList<>();
+
         String filter = getIntent().getExtras().getString("filter");
         if (filter != null) {
             if (filter.equals("faulty") ) {
@@ -154,10 +155,11 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     public void openMap(View view) {
-        if (devicesArr == null || devicesArr.size() == 0) {
+        if (filteredDevices == null || filteredDevices.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device :  filteredDevices) {
+
                 userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);

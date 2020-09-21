@@ -26,9 +26,14 @@ public class UserMap implements Serializable {
         return places;
     }
 
+    public void setPlaces(ArrayList<Place> places) {
+        this.places = places;
+    }
 
     public void addPlace(Place place) {
         this.places.add(place);
     }
+
+    
 }
 

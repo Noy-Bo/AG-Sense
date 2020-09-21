@@ -55,7 +55,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     ImageView toDateCalenderImage;
     private  long backPressedTime;
     private Toast backtoast;
-    UserMap userMap;
+    UserMap userMap = new UserMap();
 
 
     @Override

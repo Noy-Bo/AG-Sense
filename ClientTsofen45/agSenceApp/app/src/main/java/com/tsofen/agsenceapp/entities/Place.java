@@ -10,22 +10,25 @@ import java.io.Serializable;
 public class Place implements Serializable, ClusterItem {
     private String title;
     private String snippet;
-    private LatLng location;
+    private float latitude;
+    private float longitude;
 
-    public Place(Float latitude, Float longitude) {
-        this.title = "";
-        this.location = new LatLng(latitude, longitude);
+    public Place(float latitude, float longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Place(String title, String snippet, float latitude, float longitude) {
+        this.title = title;
+        this.snippet = snippet;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Place(String title, Float latitude, Float longitude) {
         this.title = title;
-        this.location = new LatLng(latitude, longitude);
-    }
-
-    public Place(String title, String snippet, Float latitude, Float longitude) {
-        this.snippet = snippet;
-        this.title = title;
-        this.location = new LatLng(latitude, longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getSnippet() {
@@ -45,16 +48,17 @@ public class Place implements Serializable, ClusterItem {
     }
 
     public LatLng getLocation() {
-        return location;
+        return new LatLng(latitude,longitude);
     }
 
     public void setLocation(LatLng location) {
-        this.location = location;
+        this.latitude = (float) location.latitude;
+        this.longitude = (float) location.longitude;
     }
 
     @NonNull
     @Override
     public LatLng getPosition() {
-        return location;
+        return getLocation();
     }
 }

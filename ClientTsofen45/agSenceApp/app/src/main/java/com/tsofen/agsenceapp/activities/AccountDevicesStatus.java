@@ -33,7 +33,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     ArrayList<Devices> devicesArr = new ArrayList<>();
     ListView devicesList;
     Account account;
-    UserMap userMap;
+    UserMap userMap = new UserMap();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
