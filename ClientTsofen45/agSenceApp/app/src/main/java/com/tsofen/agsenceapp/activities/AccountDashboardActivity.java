@@ -304,8 +304,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                 userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("user_map", userMap);
+            intent.putExtra("user_map", userMap);
             startActivity(intent);
         }
     }

@@ -67,7 +67,7 @@
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="map"
+                android:onClick="openMap"
                 >
                 <Button
                     android:id="@+id/MapBtn"

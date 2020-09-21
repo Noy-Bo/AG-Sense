@@ -53,9 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        userMap = (UserMap) bundle.getSerializable("user_map");
+        userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
     }
     /**
      * Manipulates the map once available.

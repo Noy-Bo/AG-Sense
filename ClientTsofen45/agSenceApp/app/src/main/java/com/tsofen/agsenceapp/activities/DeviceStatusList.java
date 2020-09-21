@@ -100,9 +100,8 @@ public class DeviceStatusList extends BackBaseActivity {
                 userMap.addPlace(new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("user_map", userMap);
             intent.putExtra("flag", true);
+            intent.putExtra("user_map", userMap);
             startActivity(intent);
         }
     }

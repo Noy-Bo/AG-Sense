@@ -29,6 +29,7 @@ import java.util.List;
 public class DeviceStatus extends SearchBaseActivity {
     UserMap userMap = new UserMap();
     ArrayList<Devices> devicesArr = new ArrayList<>();
+    ArrayList<Devices> filteredDevices;
     LayoutInflater inflater;
     View contentView;
     ListView devicesList;
@@ -111,7 +112,7 @@ public class DeviceStatus extends SearchBaseActivity {
             healthyDevices = intent.getBooleanExtra("healthyDevices", false);
             faultyDevices = intent.getBooleanExtra("faultyDevices", false);
         }
-        ArrayList<Devices> filteredDevices = new ArrayList<>();
+        filteredDevices = new ArrayList<>();
         //filtering
         for (Devices device : devicesArr) {
             if (((device.getFaulty() == true && faultyDevices) ||
@@ -129,7 +130,7 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     private void updatingUI() {
-        ArrayList<Devices> filteredDevices = new ArrayList<>();
+        filteredDevices = new ArrayList<>();
         String filter = getIntent().getExtras().getString("filter");
         if (filter != null) {
             if (filter.equals("faulty") ) {
@@ -152,15 +153,14 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     public void openMap(View view) {
-        if (devicesArr == null || devicesArr.size() == 0) {
+        if (filteredDevices == null || filteredDevices.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
-            for (Devices device : devicesArr) {
+            for (Devices device : filteredDevices) {
                 userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("user_map", userMap);
+            intent.putExtra("user_map", userMap);
             startActivity(intent);
         }
     }
