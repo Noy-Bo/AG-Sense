@@ -129,5 +129,17 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
 
-
+    public void GoToOther(View view) {
+        final ArrayList<Account> allacoounts = new ArrayList<>();
+        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                allacoounts.addAll(accounts);
+                System.out.println("Faulty accounts: "+allacoounts);
+            }
+        });
+        Intent intent = new Intent(this, NewDevice.class);
+        intent.putExtra("accounts",allacoounts);
+        startActivity(intent);
+    }
 }
