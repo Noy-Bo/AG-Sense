@@ -39,6 +39,37 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 			"  ORDER BY last_update DESC ;" )
 	List<Device> findFilterdDevices(boolean faulty, boolean healthy,
 		int sensorsForBanks, int gpsForPersonal, int lequidHeightForTanks, long id);
+
+	
+	@Query(nativeQuery = true, value =
+			"select count(distinct account_id) " + 
+			"from public.devices " + 
+			"where faulty = TRUE;" )
+	
+	public String getFaultyAccountsNumber();
+	
+	
+	@Query(nativeQuery = true, value =
+			"select count(distinct account_id) " + 
+			"from public.devices d " + 
+			" where not exists (select * " + 
+			"                  from public.devices  d2" + 
+			"                  where d2. account_id = d.account_id and " + 
+			"                        (d2.faulty <> false ) );" )
+	
+	public String getHealtyAccountsNumber();
+
+	@Query(nativeQuery = true, value =
+			"select count(distinct id) " + 
+			"from public.devices " + 
+			"where faulty = TRUE;" )
+	public String getFaultyDevicesNumber();
+
+	@Query(nativeQuery = true, value =
+			"select count(distinct id) " + 
+			"from public.devices " + 
+			"where faulty = FALSE;" )
+	public String getHealtyDevicesNumber();
 	
 	
 }
