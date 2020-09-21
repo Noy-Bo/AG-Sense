@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.BackgroundServices;
 
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.google.gson.GsonBuilder;
@@ -52,7 +53,8 @@ public class CacheMgr implements CacheManagerAPI {
     private List<Account> accounts;
     private List<Devices> devices;
 
-
+    private final static int waitInterval = 60000;
+    private boolean stopGetDevicesPeriodic = false;
 
 
     private CacheMgr() {
@@ -68,6 +70,9 @@ public class CacheMgr implements CacheManagerAPI {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+    public void setStopGetDevicesPeriodic(boolean stopGetDevicesPeriodic) {
+        this.stopGetDevicesPeriodic = stopGetDevicesPeriodic;
     }
 
     public List<Account> getAccounts() {
@@ -92,10 +97,11 @@ public class CacheMgr implements CacheManagerAPI {
 
         return cacheMgr;
     }
+    // periodic GetDevices configs
 
-    // handlers and loopers.
 
-    private HandlerThread handlerThreadServerPeriodic = new HandlerThread("serverPeriodicJobHandler");
+
+    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
     private HandlerThread handlerThreadGetDevices = new HandlerThread("handlerThreadGetDevices");
     private HandlerThread handlerThreadGetSpecificDeviceDataById = new HandlerThread("handlerThreadGetSpecificDeviceDataById");
@@ -112,22 +118,22 @@ public class CacheMgr implements CacheManagerAPI {
     private Handler threadHandlerForGetAccounts;
     private Handler threadHandlerForGetNotifications;
     private Handler threadHandlerForLogin;
-    private Handler threadHandlerForServerPeriod;
+    private Handler threadHandlerForGetDevicesPeriodic;
     private TextDownloader downloader = TextDownloader.getInstance();
 
-    public HandlerThread gethandlerThreadServerPeriodic(){
-        return handlerThreadServerPeriodic;
+    public HandlerThread getHandlerThreadForGetDevicesPeriodic(){
+        return handlerThreadForGetDevicesPeriodic;
     }
-    public Handler getThreadHandlerForServerPeriod() {
-        return threadHandlerForServerPeriod;
+    public Handler getThreadHandlerForGetDevicesPeriodic() {
+        return threadHandlerForGetDevicesPeriodic;
     }
 
     private void initializeAllServices() // remove public
     {
 
         //initializing the handlers
-        handlerThreadServerPeriodic.start();
-        threadHandlerForServerPeriod = new Handler(handlerThreadServerPeriodic.getLooper());
+        handlerThreadForGetDevicesPeriodic.start();
+        threadHandlerForGetDevicesPeriodic = new Handler(handlerThreadForGetDevicesPeriodic.getLooper());
 
         handlerThreadLogin.start();
         threadHandlerForLogin = new Handler(handlerThreadLogin.getLooper());
@@ -154,7 +160,32 @@ public class CacheMgr implements CacheManagerAPI {
         threadHandlerForGetAccounts = new Handler(handlerThreadGetAccounts.getLooper());
     }
 
+    // repeated job.
 
+    private DevicesHandler handlerForRepeatedGetDevicesJob  = new DevicesHandler() {
+        @Override
+        public void onDevicesDownloadFinished(List<Devices> devices) {
+            Log.d("repeated","repeated task completed onDevicesDownloadFinished");
+            setDevices(devices);
+            SystemClock.sleep(waitInterval); // 60
+            cacheMgr.getThreadHandlerForGetDevicesPeriodic().post(cacheMgr.GetDevicesPeriodic);
+
+            if (stopGetDevicesPeriodic == true) // this need to be fixed and changed to RemoveCallBacks via handler.
+            {
+                cacheMgr.getThreadHandlerForGetDevicesPeriodic().removeCallbacksAndMessages(null);
+                stopGetDevicesPeriodic = false;
+            }
+        }
+    };
+
+
+    private  BaseRunnable<Devices> GetDevicesPeriodic = new BaseRunnable<Devices>(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
+
+    public Runnable getGetDevicesPeriodicRunnable() {
+        return this.GetDevicesPeriodic;
+    }
+
+    // handlers and loopers.
 
     private class LoginJobRunnable implements Runnable {
         private String username;
@@ -212,7 +243,7 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     // general runnable generic class. -in development.
-     class BaseRunnable<E>  implements Runnable {
+     private class BaseRunnable<E>  implements Runnable {
         private BaseHandler handler;
         Map<String, String> params;
         ServicesName serviceName;
@@ -284,6 +315,7 @@ public class CacheMgr implements CacheManagerAPI {
             });
         }
     }
+
 
 
 
