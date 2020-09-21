@@ -17,6 +17,8 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
+import com.tsofen.agsenceapp.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
     protected DrawerLayout drawer;
     protected NavigationView navigationView;
     protected Toolbar toolbar;
-    static boolean isAdmin;
+    static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +46,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        if(isAdmin)
+        if(user instanceof Admin)
             hideAccountOptions();
         else
             hideAdminOptions();
@@ -60,36 +61,22 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.nav_account_dashboard) {
             startActivity(new Intent(getApplicationContext(), AccountDashboardActivity.class));
         } else if (id == R.id.nav_accounts_status) {
-            final ArrayList<Account> all = new ArrayList<>();
-            AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
-                @Override
-                public void onAccountsDownloadFinished(List<Account> accounts) {
-                    all.addAll(accounts);
-                    System.out.println("Faulty accounts: "+all);
-                }
-            });
             Intent intent = new Intent(this, AccountStatusFilter.class);
-            intent.putExtra("accounts",all);
             startActivity(intent);
-
-
-        } else if (id == R.id.nav_accounts_status_user) {
-            final ArrayList<Account> all = new ArrayList<>();
-            AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
-                @Override
-                public void onAccountsDownloadFinished(List<Account> accounts) {
-                    all.addAll(accounts);
-                    System.out.println("Faulty accounts: "+all);
-                }
-            });
-            Intent intent = new Intent(this, AccountStatusFilterUser.class);
-            intent.putExtra("accounts",all);
+        } else if (id == R.id.nav_account_devices_status) {
+            Intent intent = new Intent(this, AccountDevicesStatus.class);
+            intent.putExtra("account",user);
             startActivity(intent);
         }  else if (id == R.id.nav_admin_notifications) {
-            startActivity(new Intent(getApplicationContext(), AdminNotification.class));
+            Intent intent = new Intent(this, NotificationsActivity.class);
+            intent.putExtra("obj",(Admin)user);
+            startActivity(intent);
         }   else if (id == R.id.nav_device_status) {
-            startActivity(new Intent(getApplicationContext(), DeviceStatus.class));
+            Intent intent = new Intent(this, DeviceStatus.class);
+            intent.putExtra("filter","all");
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
+            finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
 
@@ -107,15 +94,19 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
 
     public void hideAccountOptions() {
         Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.nav_accounts_status_user).setVisible(false);
+        nav_Menu.findItem(R.id.nav_account_devices_status).setVisible(false);
         nav_Menu.findItem(R.id.nav_account_dashboard).setVisible(false);
     }
 
-    public static void setUserType(String userType){
-        if(userType.equals("Admin"))
-            isAdmin = true;
-        else
-            isAdmin = false;
-
+    public static void setUser(User user) {
+        AppBaseActivity.user = user;
     }
+
+    //    public static void setUserType(String userType){
+//        if(userType.equals("Admin"))
+//            isAdmin = true;
+//        else
+//            isAdmin = false;
+//
+//    }
 }

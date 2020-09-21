@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.viewpager.widget.ViewPager;
 
@@ -46,9 +47,10 @@ public class DeviceView extends AppBaseActivity {
         addDotsIndicator(0);
 
         sliderViewPager.addOnPageChangeListener(viewListener);
-
-
         device = (Devices) getIntent().getSerializableExtra("device");
+
+        setTitle("Device '" + device.getName() + "' view");
+
         DeviceDataAdapter.getInstance().getDeviceDataList(device.getId(), new DeviceInfoDataRequestHandler() {
             @SuppressLint("DefaultLocale")
             @Override
@@ -57,12 +59,19 @@ public class DeviceView extends AppBaseActivity {
                 TextView lastUpdate = findViewById(R.id.device_view_last_update);
                 TextView coordinations = findViewById(R.id.device_view_coordination);
                 TextView isMoving = findViewById(R.id.device_view_is_moving);
+                if(deviceDataList.size() == 0){
+                    status.setText("Device Status: ----");
+                    lastUpdate.setText("last updated: ----");
+                    coordinations.setText("Lat: ---- Long: ---- "); // no height
+                    isMoving.setText("Moving: ----");
+                    return;
+                }
                 DeviceData deviceData = deviceDataList.get(0);
                 device.setDeviceData(deviceDataList);
                 status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
                 lastUpdate.setText("last updated: " + device.getLastUpdate());
                 coordinations.setText(String.format("Lat: %f Long: %f ", deviceData.getLat(), deviceData.getLon())); // no height
-                isMoving.setText(String.format("Moving: %s", ((deviceData.getMoving()) ? "Yes" : "No")));
+                isMoving.setText(String.format("Moving: %s", ((deviceData.getMoveAlertActive()) ? "Yes" : "No")));
             }
         });
 
@@ -123,8 +132,8 @@ public class DeviceView extends AppBaseActivity {
 
 
     public void openNotificationsActivity(View view) {
-        Intent intent = new Intent(this, DeviceStatusList.class);
-        intent.putExtra("device",device);
+        Intent intent = new Intent(this, NotificationsActivity.class);
+        intent.putExtra("obj",device);
         startActivity(intent);
 
     }

@@ -19,11 +19,12 @@ public class DeviceDataController {
 	
 	@Autowired
 	DeviceDataBL deviceDataBL;
+	@Autowired
+	DeviceBL deviceBL;
 	
 	
 	
 	@GetMapping("AllDevicesData")
-
 	public ArrayList<DeviceData> getAllDevices() {
 
 		ArrayList<DeviceData> devices = new ArrayList<DeviceData>();
@@ -31,13 +32,13 @@ public class DeviceDataController {
 		return devices;
 	}
 	
-	@GetMapping("SpecificDeviceDataById")
-
-	public ArrayList<DeviceData> getSpecificDeviceDataById(@RequestParam int id, @RequestParam int start ,@RequestParam int num)
-{
+	@GetMapping("	")
+	public ArrayList<DeviceData> getAllDeviceDataByid(@RequestParam int id) {
 
 		ArrayList<DeviceData> devices = new ArrayList<DeviceData>();
-		devices = deviceDataBL.getSpecificDeviceDataById(id);
+		
+		Device d=deviceBL.getDeviceById(id);
+		devices = deviceDataBL.getSpecificDeviceDataById(d.getImei());
 		return devices;
 	}
 	

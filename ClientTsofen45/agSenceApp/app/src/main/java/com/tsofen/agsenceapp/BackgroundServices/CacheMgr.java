@@ -249,7 +249,9 @@ public class CacheMgr implements CacheManagerAPI {
                     }
                     else if(handler instanceof DeviceDataHandler)
                     {
+
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
+
                         ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
                     }
                     else if(handler instanceof AccountsHandler)
@@ -260,7 +262,7 @@ public class CacheMgr implements CacheManagerAPI {
                     else if (handler instanceof AccountNotificationsHandler)
                     {
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
+                        ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
                     else if (handler instanceof DeviceNotificationsHandler)
                     {
@@ -269,7 +271,7 @@ public class CacheMgr implements CacheManagerAPI {
                     }
                     else if (handler instanceof NotificationsHandler)
                     {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
                         ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
                     }
 

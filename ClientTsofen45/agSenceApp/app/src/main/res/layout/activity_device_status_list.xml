@@ -74,39 +74,40 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constrainted_listview_messages"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="@drawable/rounded_white_background_frame"
-                android:layout_weight="0.62">
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:id="@+id/device_view_titles"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.997"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.33"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="1">
+                            android:layout_weight="1">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"
                                 android:gravity="center_vertical"
-                                android:paddingStart="4dp"
+                                android:paddingStart="2dp"
                                 android:text="@string/device_view_update_time"
                                 android:textColor="@color/light_blue"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/small_text_size"
+                                tools:ignore="RtlSymmetry" />
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -142,15 +143,14 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.33"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="1">
+                            android:layout_weight="1">
 
                             <TextView
                                 android:layout_width="0dp"
@@ -199,9 +199,8 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.33"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -216,10 +215,18 @@
 
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/titles_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.01dp"
+                    android:background="@drawable/blue_horizontal_divider"
+                    app:layout_constraintTop_toBottomOf="@id/device_view_titles"
+                    app:layout_constraintBottom_toTopOf="@id/device_data_list_view"/>
+
                 <ListView
                     android:id="@+id/device_data_list_view"
-                    android:layout_width="400dp"
-                    android:layout_height="511dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:divider="@drawable/blue_horizontal_divider"
                     android:dividerHeight="1dp"
                     android:orientation="vertical"

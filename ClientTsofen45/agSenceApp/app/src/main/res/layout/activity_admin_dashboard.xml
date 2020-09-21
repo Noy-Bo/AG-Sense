@@ -36,7 +36,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/accountfaults"
+                    android:id="@+id/faulty_accounts"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="10dp"
-                        android:text="@string/accountFaultyString"
+                        android:text="@string/faultyAccountsString"
                         android:textAllCaps="false"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/small_text_size" />
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="10dp"
-                        android:text="@string/healthyAccounts"
+                        android:text="@string/healthyAccountsString"
                         android:textAllCaps="false"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/small_text_size" />
@@ -260,7 +260,7 @@
                     android:background="@drawable/rounded_white_background_frame"
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical"
-                    android:onClick="accountNotification">
+                    android:onClick="goToNotifications">
 
                     <TextView
                         android:layout_width="wrap_content"

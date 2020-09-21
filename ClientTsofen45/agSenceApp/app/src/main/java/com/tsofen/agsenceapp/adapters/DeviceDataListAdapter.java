@@ -30,10 +30,6 @@ public class DeviceDataListAdapter extends ArrayAdapter<DeviceData> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         DeviceData deviceData = getItem(position);
-//        if (position == 0) { //inflating title row...
-//            View layout = this.inflater.inflate(R.layout.device_last_message_titles, null);
-//            return layout;
-//        }
         View layout = this.inflater.inflate(R.layout.device_last_message_item, null);
 
         TextView update_time = layout.findViewById(R.id.update_time_column);
