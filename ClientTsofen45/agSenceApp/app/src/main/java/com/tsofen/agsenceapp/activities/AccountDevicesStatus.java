@@ -33,7 +33,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     ArrayList<Devices> devicesArr = new ArrayList<>();
     ListView devicesList;
     Account account;
-    UserMap userMap;
+    UserMap userMap = new UserMap();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +105,8 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                 userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            intent.putExtra("user_map", userMap);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user_map", userMap);
             startActivity(intent);
         }
     }

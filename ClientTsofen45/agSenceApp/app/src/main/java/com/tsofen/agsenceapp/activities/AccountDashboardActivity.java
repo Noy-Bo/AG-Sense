@@ -55,7 +55,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     ImageView toDateCalenderImage;
     private  long backPressedTime;
     private Toast backtoast;
-    UserMap userMap;
+    UserMap userMap = new UserMap();
 
 
     @Override
@@ -304,7 +304,8 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                 userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            intent.putExtra("user_map", userMap);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user_map", userMap);
             startActivity(intent);
         }
     }

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceStatusList extends BackBaseActivity {
-    UserMap userMap = new UserMap("Map");
+    UserMap userMap = new UserMap();
     List<DeviceData> deviceData;
     Devices device;
 
@@ -100,7 +100,8 @@ public class DeviceStatusList extends BackBaseActivity {
                 userMap.addPlace(new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            intent.putExtra("user_map", userMap);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user_map", userMap);
             intent.putExtra("flag", true);
             startActivity(intent);
         }

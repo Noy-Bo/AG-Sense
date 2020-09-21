@@ -27,7 +27,7 @@ import java.util.List;
 
 
 public class DeviceStatus extends SearchBaseActivity {
-    UserMap userMap = new UserMap("Map");
+    UserMap userMap = new UserMap();
     ArrayList<Devices> devicesArr = new ArrayList<>();
     LayoutInflater inflater;
     View contentView;
@@ -159,7 +159,8 @@ public class DeviceStatus extends SearchBaseActivity {
                 userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            intent.putExtra("user_map", userMap);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user_map", userMap);
             startActivity(intent);
         }
     }
