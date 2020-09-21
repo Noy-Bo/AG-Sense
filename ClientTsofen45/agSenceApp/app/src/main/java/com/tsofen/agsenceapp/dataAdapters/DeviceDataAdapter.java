@@ -56,7 +56,6 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
                     if (!device.getFaulty())
                         newData.add(device);
                 }
-
                 handler.onDeviceDataLoaded(newData);
             }
         });

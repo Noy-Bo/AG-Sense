@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
@@ -150,17 +151,14 @@ public class DeviceStatus extends SearchBaseActivity {
 
 
     public void openMap(View view) {
-//        UserMap userMap = new UserMap("Map");
-        //userMap.addPlace(new Place(name, description, lat, lng));
-//        Intent intent = new Intent(this, MapsActivity.class);
-//        intent.putExtra("flag", true);
-//        intent.putExtra("user_map", userMap);
-//        startActivity(intent);
-
-        Intent intent = new Intent(this, MapsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("devices", devicesArr);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        if (devicesArr.size() == 0) {
+            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent = new Intent(this, MapsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("devices", devicesArr);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 }
