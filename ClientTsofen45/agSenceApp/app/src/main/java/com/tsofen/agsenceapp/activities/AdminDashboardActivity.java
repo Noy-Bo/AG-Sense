@@ -9,15 +9,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
-import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
-import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 
 import java.util.ArrayList;
@@ -117,16 +114,16 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
 
     public void GoToOther(View view) {
-        final ArrayList<Account> allacoounts = new ArrayList<>();
+        final ArrayList<Account> _accounts = new ArrayList<>();
         AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
-                allacoounts.addAll(accounts);
-                System.out.println("Faulty accounts: "+allacoounts);
+                _accounts.addAll(accounts);
+                System.out.println("Faulty accounts: "+accounts);
             }
         });
         Intent intent = new Intent(this, NewDevice.class);
-        intent.putExtra("accounts",allacoounts);
+        intent.putExtra("accounts",_accounts);
         startActivity(intent);
     }
 

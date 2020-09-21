@@ -9,7 +9,9 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.entities.Account;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +19,26 @@ import java.util.List;
 public class NewDevice extends AppCompatActivity {
 EditText IEMIEdit,DevicePhoneNumberEdit,DevicePasswordEdit;
     Spinner DeviceTypeSpinner,AccountNameSpinner;
+    final List<Account> _accounts = new ArrayList<>();
+    final List<String> _accountsnames = new ArrayList<>();
+/**/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_device);
-
-        List<User> accounts = (ArrayList<User>) getIntent().getSerializableExtra("accounts");
+_accountsnames.add(0,"Choose Type");
+    UpdateAccounts();
+        assert _accounts != null;
         AccountNameSpinner =  (Spinner) findViewById(R.id.AccountNameSpinner);
-        List<String> type = new ArrayList<>();
-        type.add(0, "Choose Type");
-        type.add("Out of the fence");
-        type.add("In the fence");
-        System.out.println(accounts.toString());
-        ArrayAdapter<User> dataAdapter;
-        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
+        ArrayAdapter<String> dataAdapter;
+        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, _accountsnames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         AccountNameSpinner.setAdapter(dataAdapter);
+
+        /*UpdateAccount included
+        * these lines can be removed as it is Account name spinner, should be changed after we have the new API*/
+
+
 
         DeviceTypeSpinner = (Spinner) findViewById(R.id.DeviceTypeSpinner);
         List<String> DeviceSpinner_type = new ArrayList<>();
@@ -48,6 +53,19 @@ EditText IEMIEdit,DevicePhoneNumberEdit,DevicePasswordEdit;
         DeviceTypeSpinner.setAdapter(DeviceSpinner_dataAdapter);
 
 
+    }
+
+    private void UpdateAccounts() {
+        AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                _accounts.addAll(accounts);
+                for(Account account : _accounts)
+                {
+                    _accountsnames.add(account.getUsername());
+                }
+            }
+        });
     }
 
     public void UpdateDevice(View view) {
