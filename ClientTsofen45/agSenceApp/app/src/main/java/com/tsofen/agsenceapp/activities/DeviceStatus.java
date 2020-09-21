@@ -131,7 +131,8 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     private void updatingUI() {
-        filteredDevices = new ArrayList<>();
+         filteredDevices = new ArrayList<>();
+
         String filter = getIntent().getExtras().getString("filter");
         if (filter != null) {
             if (filter.equals("faulty") ) {
@@ -157,7 +158,8 @@ public class DeviceStatus extends SearchBaseActivity {
         if (filteredDevices == null || filteredDevices.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
-            for (Devices device : filteredDevices) {
+            for (Devices device :  filteredDevices) {
+
                 userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
