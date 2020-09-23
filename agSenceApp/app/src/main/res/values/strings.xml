@@ -118,5 +118,6 @@
     <string name="send_code">Send code</string>
     <string name="verification_code">Verification code</string>
     <string name="NewUser">New User</string>
+    <string name="filter">filter</string>
 
 </resources>
