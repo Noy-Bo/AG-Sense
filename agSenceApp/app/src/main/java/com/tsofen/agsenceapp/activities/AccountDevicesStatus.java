@@ -92,7 +92,6 @@ public class AccountDevicesStatus extends SearchBaseActivity {
 
 
     public void updateList() {
-
         ArrayList<Devices> filteredDevices = new ArrayList<>();
         for (Devices device : devicesArr) {
             if ((displayFaultyDevice && account.isFaulty() == true) ||
