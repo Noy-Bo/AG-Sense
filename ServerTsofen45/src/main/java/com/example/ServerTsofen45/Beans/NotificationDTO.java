@@ -13,7 +13,7 @@ public interface  NotificationDTO {
 	Timestamp getDate_time();
 	Severity getSeverity();
 	boolean getReaded();
-	int getCode();
+	int getError_code();
 	String getMessage();
 
 }

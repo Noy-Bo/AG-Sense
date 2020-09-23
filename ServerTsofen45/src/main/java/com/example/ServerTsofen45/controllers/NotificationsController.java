@@ -2,9 +2,11 @@ package com.example.ServerTsofen45.controllers;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ServerTsofen45.BL.DeviceBL;
 import com.example.ServerTsofen45.BL.ErrorBL;
 import com.example.ServerTsofen45.BL.NotificationBL;
+import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.Notification;
 import com.example.ServerTsofen45.Beans.NotificationDTO;
+import com.example.ServerTsofen45.Repo.NotificationRepository;
+
+import Enums.Severity;
+
+import com.example.ServerTsofen45.Beans.Device;
+import com.example.ServerTsofen45.Beans.Error;
 
 import springfox.documentation.spring.web.json.Json;
 
@@ -27,7 +36,13 @@ public class NotificationsController {
 	 NotificationBL notificationBL;
 	
 	@Autowired
+	 NotificationRepository notificationRepo;
+	
+	@Autowired
 	ErrorBL errorBL;
+	
+	@Autowired
+	UserBL userBL;
 	
 	@Autowired
 	DeviceBL deviceBL;
@@ -115,24 +130,51 @@ public class NotificationsController {
 		}
 	  
 	  @GetMapping("AddNotification")
-	  public String AddNotification ( @RequestParam long imei, @RequestParam int code, JSONObject optional )
+	  public String AddNotification ( @RequestParam long imei, @RequestParam int code, String params )
 		{
 		  
-		  Notification notification = new Notification();
+		  Device device = deviceBL.getDeviceImei(imei);
+		  Error error = errorBL.findBycode(code);
+		  String message = error.getMessage();
 		  
-		  notification.setDevice(deviceBL.getDeviceImei(imei));
-		  notification.setDateTime(new Timestamp(System.currentTimeMillis()));
-		  notification.setError(errorBL.findBycode(code));
-		  notification.setReaded(false);
-		 // notification.setSeverity(severity);
+		  if(!device.isFaulty() ) device.setFaulty(true);
 		  
+		  if(params != null) {
+			  
+			  params = "{"+ params + "}";
+			  JSONObject jsonParams = new JSONObject();
+			  jsonParams = (JSONObject) JSONValue.parse(params);
+
+			  @SuppressWarnings("unchecked")
+			  Iterator<String> keys = jsonParams.keySet().iterator();
+
+			  while(keys.hasNext()) {
+				  String key = keys.next();
+
+				  message =  message.replace("{" + key +"}", jsonParams.get(key).toString());     
+
+			  }
+		  }
+
+		  List<Integer> userIds = userBL.getAllUsersIdForAccountID(device.getAccountId());
 		  
-		  //notification.setUserId(userId);
-		  
-		  
-		  
-		  		return "massege";
-		  		
+		  for (Integer id : userIds) {
+			  
+			  Notification notification = new Notification();
+			  
+			  notification.setDevice(device);
+			  notification.setDateTime(new Timestamp(System.currentTimeMillis()));
+			  notification.setErrorCode(code);
+			  notification.setReaded(false);
+			  notification.setSeverity(Severity.MODERATE);
+			  notification.setMessage(message);
+			  notification.setUserId(id);
+			  
+			 notificationRepo.save(notification); 
+		
+			}
+		 
+		 return message; 		
 			  
 		}
 	

@@ -46,4 +46,11 @@ public class UserBL {
 			return accountRepository. findByNameContaining(Name);
 
 	}
+		
+
+		public List<Integer> getAllUsersIdForAccountID(int accountId) {
+			
+			return  userRepository.getAllUsersIdForAccountID(accountId);
+			
+		}
 }

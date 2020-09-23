@@ -15,25 +15,19 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 	
 	
 	@Query(nativeQuery = true, value ="SELECT n.id , n.date_time , n.readed, n.severity, n.user_id, "
-			  + "n.device_id, n.device_imei, e.code, e.message"
+			  + "n.device_id, n.device_imei, n.error_code, n.message"
 			  + " FROM notifications AS n "
-			  +"INNER JOIN errors AS e "
-			  + "ON n.error_code=e.code "
 			  + "ORDER BY n.date_time DESC;")
 	public List<NotificationDTO> getAll();
 	@Query(nativeQuery = true, value ="SELECT n.id , n.date_time , n.readed, n.severity, n.user_id, "
-			+ "n.device_id, n.device_imei, e.code, e.message"
+			+ "n.device_id, n.device_imei, n.error_code, n.message"
 			  + " FROM notifications AS n "
-			  +"INNER JOIN errors AS e "
-			  + "ON n.error_code=e.code "
 			  + "WHERE n.device_id = ?1 " + 
 			  "ORDER BY n.date_time DESC;")
 	public List<NotificationDTO> findByDeviceId(int deviceId);
 	@Query(nativeQuery = true, value ="SELECT n.id , n.date_time , n.readed, n.severity, n.user_id, "
-			+ "n.device_id, n.device_imei, e.code, e.message"
+			+ "n.device_id, n.device_imei, n.error_code, n.message"
 			  + " FROM notifications AS n "
-			  +"INNER JOIN errors AS e "
-			  + "ON n.error_code=e.code "
 			  + "WHERE n.user_id = ?1 " + 
 			  "ORDER BY n.date_time DESC;")
 	public List<NotificationDTO> findByUserId(int UserId);

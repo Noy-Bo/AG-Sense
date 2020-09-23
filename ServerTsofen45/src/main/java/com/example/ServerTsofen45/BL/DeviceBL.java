@@ -203,4 +203,5 @@ return null;
 	public String healtyDevicesNumber() {
 		return  deviceRepository.getHealtyDevicesNumber();
 	}
+
 	}
