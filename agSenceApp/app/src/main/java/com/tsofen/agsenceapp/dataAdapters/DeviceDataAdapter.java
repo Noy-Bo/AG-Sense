@@ -1,5 +1,7 @@
 package com.tsofen.agsenceapp.dataAdapters;
 
+import android.util.Log;
+
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
@@ -50,12 +52,10 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
             @Override
             public void onDevicesDownloadFinished(List<Devices> devices) {
                 List<Devices> newData = new ArrayList<>();
-
                 for (Devices device : devices) {
                     if (!device.getFaulty())
                         newData.add(device);
                 }
-
                 handler.onDeviceDataLoaded(newData);
             }
         });

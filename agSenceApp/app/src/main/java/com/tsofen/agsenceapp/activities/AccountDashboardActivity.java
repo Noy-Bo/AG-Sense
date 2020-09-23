@@ -28,6 +28,8 @@ import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.entities.Place;
+import com.tsofen.agsenceapp.entities.UserMap;
 import com.tsofen.agsenceapp.utils.updateDeviceNotifNumbers;
 
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     ImageView toDateCalenderImage;
     private  long backPressedTime;
     private Toast backtoast;
+    UserMap userMap = new UserMap();
 
 
     @Override
@@ -82,7 +85,6 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
             }
         });
-
 
 
         DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountid(),0,0,new DeviceDataRequestHandler() {
@@ -297,6 +299,19 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             textView.setText(String.valueOf(notificationNumber));
         }
 
+    }
+
+    public void openMap(View view) {
+        if (devicesList == null || devicesList.size() == 0) {
+            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
+        } else {
+            for (Devices device : devicesList) {
+                userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
+            }
+            Intent intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("user_map", userMap);
+            startActivity(intent);
+        }
     }
 }
 

@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 public class Devices implements Serializable {
-
-
-
     protected long imei;
     protected int id;
     protected int accountId;

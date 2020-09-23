@@ -340,7 +340,6 @@
                     android:drawableBottom="@drawable/faulty_accounts_icon"
                     android:orientation="vertical"
                     android:onClick="GoToOther">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
