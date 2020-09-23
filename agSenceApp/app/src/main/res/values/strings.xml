@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">agSenceApp</string>
+    <string name="app_name">agSenseApp</string>
     <string name="username_hint">Username</string>
     <string name="pass_hint">Password</string>
     <string name="login_btn_text">Login</string>
@@ -8,8 +8,8 @@
     <string name="account_dashboard_title">AgSense - Account Name Dashboard</string>
     <string name="AdminNotification">Admin Notifications</string>
 
-    <string name="accountSearchHint">Search account.....</string>
-    <string name="searchDeviceHint">Search device...</string>
+    <string name="search_account_hint">Search account…</string>
+    <string name="search_device_hint">Search device…</string>
 
     <string name="faultyAccountsString">Faulty accounts</string>
     <string name="healthyAccountsString">Healthy accounts</string>
@@ -106,7 +106,17 @@
     <string name="send_msg_again">Please send the message again</string>
     <string name="error_send_msg">Error sending message!</string>
     <string name="msg_sent">message sent</string>
-
-
+    <string name="edit_device_details">Edit Device Details:</string>
+    <string name="new_phonenumber">New PhoneNumber:</string>
+    <string name="new_password">New Password :</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="previous_name">Previous name</string>
+    <string name="new_name">New Name</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="email">Email :</string>
+    <string name="send_code">Send code</string>
+    <string name="verification_code">Verification code</string>
+    <string name="NewUser">New User</string>
 
 </resources>

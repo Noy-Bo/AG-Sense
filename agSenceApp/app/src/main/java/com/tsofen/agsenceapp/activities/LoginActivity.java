@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
 
     public void login(View view) {
-
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
@@ -60,8 +59,8 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                     @Override
                     public void onSuccess(InstanceIdResult instanceIdResult) {
                         String deviceToken = instanceIdResult.getToken();
-                        Log.e("newToken", deviceToken);
-                        TokenRegistrationHandler.registerToken("barakg", deviceToken);
+                        Log.e(username, deviceToken);
+                        TokenRegistrationHandler.registerToken(username, deviceToken);
                     }
                 });
         EditText password = (EditText) findViewById(R.id.passTxt);
@@ -79,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             public void onAdminLoginSuccess(Admin user) {
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
+                finishAffinity();
                 startActivity(intent);
             }
 
@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             public void onAccountLoginSuccess(Account user) {
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
+                finishAffinity();
                 startActivity(intent);
             }
 
@@ -98,7 +99,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                         UserDataAdapter.getInstance().getCallback().Failed();
                     }
                 });
-
             }
 
         });
@@ -125,5 +125,10 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
     public void Failed() {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void GoToForgetPassword(View view) {
+        Intent intent = new Intent(this, ForgetPassword.class);
+        startActivity(intent);
     }
 }

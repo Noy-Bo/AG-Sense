@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
@@ -16,7 +17,9 @@ import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
@@ -24,8 +27,9 @@ import java.util.List;
 
 
 public class DeviceStatus extends SearchBaseActivity {
-    UserMap userMap = new UserMap("Map");
+    UserMap userMap = new UserMap();
     ArrayList<Devices> devicesArr = new ArrayList<>();
+    ArrayList<Devices> filteredDevices = new ArrayList<>();
     LayoutInflater inflater;
     View contentView;
     ListView devicesList;
@@ -63,6 +67,7 @@ public class DeviceStatus extends SearchBaseActivity {
                     @Override
                     public void run() {
                         devicesArr = (ArrayList<Devices>) devices;
+                        filteredDevices = devicesArr;
                         updatingUI();
                     }
                 });
@@ -108,7 +113,7 @@ public class DeviceStatus extends SearchBaseActivity {
             healthyDevices = intent.getBooleanExtra("healthyDevices", false);
             faultyDevices = intent.getBooleanExtra("faultyDevices", false);
         }
-        ArrayList<Devices> filteredDevices = new ArrayList<>();
+        filteredDevices = new ArrayList<>();
         //filtering
         for (Devices device : devicesArr) {
             if (((device.getFaulty() == true && faultyDevices) ||
@@ -126,7 +131,8 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     private void updatingUI() {
-        ArrayList<Devices> filteredDevices = new ArrayList<>();
+         filteredDevices = new ArrayList<>();
+
         String filter = getIntent().getExtras().getString("filter");
         if (filter != null) {
             if (filter.equals("faulty") ) {
@@ -148,4 +154,29 @@ public class DeviceStatus extends SearchBaseActivity {
         devicesList.setAdapter(myAdapter);
     }
 
+    public void openMap(View view) {
+        if (filteredDevices == null || filteredDevices.size() == 0) {
+            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
+        } else {
+            for (Devices device :  filteredDevices) {
+
+                userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
+            }
+            Intent intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("user_map", userMap);
+            startActivity(intent);
+        }
+    }
+
+//    public void openMap(View view) {
+//        if (devicesArr.size() == 0) {
+//            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
+//        } else {
+//            Intent intent = new Intent(this, MapsActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("devices", devicesArr);
+//            intent.putExtras(bundle);
+//            startActivity(intent);
+//        }
+//    }
 }

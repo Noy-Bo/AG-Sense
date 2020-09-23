@@ -55,6 +55,8 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.isChecked())
+            return true;
         int id = item.getItemId();
         if (id == R.id.nav_admin_dashboard) {
             startActivity(new Intent(getApplicationContext(), AdminDashboardActivity.class));
@@ -62,10 +64,12 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             startActivity(new Intent(getApplicationContext(), AccountDashboardActivity.class));
         } else if (id == R.id.nav_accounts_status) {
             Intent intent = new Intent(this, AccountStatusFilter.class);
+            intent.putExtra("filter","all");
             startActivity(intent);
         } else if (id == R.id.nav_account_devices_status) {
             Intent intent = new Intent(this, AccountDevicesStatus.class);
             intent.putExtra("account",user);
+            intent.putExtra("filter","all");
             startActivity(intent);
         }  else if (id == R.id.nav_admin_notifications) {
             Intent intent = new Intent(this, NotificationsActivity.class);
@@ -76,7 +80,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             intent.putExtra("filter","all");
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
-            finish();
+            finishAffinity();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
 
@@ -90,23 +94,18 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         nav_Menu.findItem(R.id.nav_accounts_status).setVisible(false);
         nav_Menu.findItem(R.id.nav_admin_dashboard).setVisible(false);
         nav_Menu.findItem(R.id.nav_admin_notifications).setVisible(false);
+        nav_Menu.findItem(R.id.nav_device_status).setVisible(false);
     }
 
     public void hideAccountOptions() {
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_account_devices_status).setVisible(false);
         nav_Menu.findItem(R.id.nav_account_dashboard).setVisible(false);
+        nav_Menu.findItem(R.id.nav_account_devices_status).setVisible(false);
     }
 
     public static void setUser(User user) {
         AppBaseActivity.user = user;
     }
 
-    //    public static void setUserType(String userType){
-//        if(userType.equals("Admin"))
-//            isAdmin = true;
-//        else
-//            isAdmin = false;
-//
-//    }
 }

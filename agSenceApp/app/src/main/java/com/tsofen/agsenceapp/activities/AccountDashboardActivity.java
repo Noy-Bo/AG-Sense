@@ -28,6 +28,8 @@ import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.entities.Place;
+import com.tsofen.agsenceapp.entities.UserMap;
 import com.tsofen.agsenceapp.utils.updateDeviceNotifNumbers;
 
 import java.util.ArrayList;
@@ -53,38 +55,44 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     ImageView toDateCalenderImage;
     private  long backPressedTime;
     private Toast backtoast;
+    UserMap userMap = new UserMap();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
-
+        searchView.setQueryHint("Search device...");
 
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Account)AppBaseActivity.user).getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
-            public void onNotificationsReceived(List<Notification> notifications) {
-                notificationArray.addAll(notifications);
+            public void onNotificationsReceived(final List<Notification> notifications) {
+                AccountDashboardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notificationArray.clear();
+                        notificationArray.addAll(notifications);
+                        notificationListView = findViewById(R.id.notification_list);
+                        notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this,0, notificationArray);
+                        notificationListView.setAdapter(notificationArrayAdapter);
+                    }
+                });
+
             }
         });
-        notificationArrayAdapter = new ArrayAdapter<Notification>(this, R.layout.notifictation_item_shape);
-        notificationListView = findViewById(R.id.notification_list);
-        notificationArrayAdapter = new NotificationListAdaptor(this,0, notificationArray);
-        notificationListView.setAdapter(notificationArrayAdapter);
 
 
         DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountid(),0,0,new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
-                for(Devices device : devices){
-                    devicesList.add(device);
-                }
+                devicesList.addAll(devices);
+//                adapter = new ArrayAdapter<>(AccountDashboardActivity.this, 0,devicesList.toArray());
+//                searchView.setAdapter(adapter);
                 initialUpdateUI();
             }
         });
@@ -95,7 +103,6 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     public void goToDevicesStatus(View view) {
         Intent intent = new Intent(this, AccountDevicesStatus.class);
-        intent.putExtra("devices",devicesList);
         String filterString;
         if(view.getId() == R.id.account_faulty_devices)
             filterString = "faulty";
@@ -292,6 +299,19 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             textView.setText(String.valueOf(notificationNumber));
         }
 
+    }
+
+    public void openMap(View view) {
+        if (devicesList == null || devicesList.size() == 0) {
+            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
+        } else {
+            for (Devices device : devicesList) {
+                userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
+            }
+            Intent intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("user_map", userMap);
+            startActivity(intent);
+        }
     }
 }
 

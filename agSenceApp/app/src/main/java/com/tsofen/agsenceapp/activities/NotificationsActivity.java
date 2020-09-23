@@ -71,7 +71,7 @@ public class NotificationsActivity extends SearchBaseActivity {
                         @Override
                         public void run() {
                             if (notifications == null) {
-                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
+                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             notificationArray = (ArrayList<Notification>) notifications;
@@ -93,7 +93,7 @@ public class NotificationsActivity extends SearchBaseActivity {
                         @Override
                         public void run() {
                             if (notifications == null) {
-                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_LONG).show();
+                                Toast.makeText(NotificationsActivity.this, "No notifications to show", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             notificationArray = (ArrayList<Notification>) notifications;
