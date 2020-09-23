@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
@@ -21,7 +20,6 @@ import com.tsofen.agsenceapp.entities.Devices;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class AccountDevicesStatus extends SearchBaseActivity {
@@ -37,7 +35,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
         drawer.addView(contentView, 0);
-        navigationView.setCheckedItem(R.id.nav_accounts_status);
+        navigationView.setCheckedItem(R.id.nav_account_devices_status);
         devicesList = findViewById(R.id.account_devices_list);
         account = (Account) AppBaseActivity.user;
 
