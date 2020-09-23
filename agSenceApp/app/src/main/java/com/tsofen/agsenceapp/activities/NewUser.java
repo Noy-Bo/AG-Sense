@@ -8,7 +8,7 @@ import android.widget.Spinner;
 
 import com.tsofen.agsenceapp.R;
 
-public class NewUser extends AppCompatActivity {
+public class NewUser extends BackBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
