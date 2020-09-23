@@ -15,13 +15,12 @@ public class AnalyzerManager {
 	@Autowired
 	BatteryAnalyzer batteryAnalyzer;
 	@Autowired
-	MoveAnalyzer moveAnalyzer;
+	
 	
 	public void analyze(DeviceData d) throws IOException {
 		//analyze if battery is low
 		batteryAnalyzer.Analyze(d);
 		//analyze if device moved
-		moveAnalyzer.Analyze(d);
 		
 	}
 }
