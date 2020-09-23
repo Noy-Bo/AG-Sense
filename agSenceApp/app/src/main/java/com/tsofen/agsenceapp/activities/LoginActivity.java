@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             public void onAdminLoginSuccess(Admin user) {
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
+                finishAffinity();
                 startActivity(intent);
             }
 
@@ -86,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             public void onAccountLoginSuccess(Account user) {
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
+                finishAffinity();
                 startActivity(intent);
             }
 
@@ -98,7 +100,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                         UserDataAdapter.getInstance().getCallback().Failed();
                     }
                 });
-
             }
 
         });

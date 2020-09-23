@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".activities.AccountDevicesStatus"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:label="Account Devices Status"/>
         <activity android:name=".activities.BackBaseActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.SearchBaseActivity"

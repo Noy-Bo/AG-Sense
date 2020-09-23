@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Account extends User implements Serializable {
 
-    private boolean isFaulty;
+    private boolean faulty;
     public int accountid;
     private List<Devices> devices;
 
@@ -15,13 +15,13 @@ public class Account extends User implements Serializable {
 
     public Account(int id, String username, String email, boolean isFaulty, int accountid) {
         super(id, username, email);
-        this.isFaulty = isFaulty;
+        this.faulty = isFaulty;
         this.accountid = accountid;
     }
 
     public Account(int id, String username, String email, boolean isFaulty, int accountid, List<Devices> devices) {
         super(id, username, email);
-        this.isFaulty = isFaulty;
+        this.faulty = isFaulty;
         this.accountid = accountid;
         this.devices = devices;
     }
@@ -36,7 +36,7 @@ public class Account extends User implements Serializable {
     }
 
     public boolean isFaulty() {
-        return isFaulty;
+        return faulty;
     }
 
     public int getAccountid() {
@@ -44,7 +44,7 @@ public class Account extends User implements Serializable {
     }
 
     public void setFaulty(boolean faulty) {
-        isFaulty = faulty;
+        this.faulty = faulty;
     }
 
     public void setAccountid(int accountid) {
@@ -54,7 +54,7 @@ public class Account extends User implements Serializable {
     @Override
     public String toString() {
         return "Account{" +
-                "isFaulty=" + isFaulty +
+                "isFaulty=" + faulty +
                 ", accountId=" + accountid +
                 ", id=" + id +
                 ", username='" + username + '\'' +

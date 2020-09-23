@@ -7,16 +7,10 @@
     tools:context=".activities.AccountStatusFilter">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <include
-            layout="@layout/app_bar_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,17 +18,11 @@
             android:background="@color/dark_blue"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/searchaccounttext"
+            <include
+                layout="@layout/activity_search_base"
                 android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_white_background_frame"
-                android:hint="@string/accountSearchHint"
-                android:inputType="textPersonName"
-                android:paddingStart="10dp"
-                android:textSize="@dimen/small_text_size" />
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/button3"
@@ -45,7 +33,8 @@
                 android:onClick="createAccount"
                 android:text="Create"
                 android:textColor="@color/black"
-                android:textSize="@dimen/small_text_size" />
+                android:textSize="@dimen/small_text_size"
+                android:layout_gravity="bottom"/>
         </LinearLayout>
 
 
@@ -92,7 +81,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/account_devices_list"
+            android:id="@+id/accounts_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
