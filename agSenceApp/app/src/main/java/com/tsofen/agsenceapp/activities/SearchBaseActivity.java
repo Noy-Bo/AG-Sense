@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -28,8 +29,13 @@ public class SearchBaseActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.activity_search_base, null, false);
-        searchView = contentView.findViewById(R.id.search_text_view);
+        searchView = (SearchView) contentView.findViewById(R.id.search_text_view);
+        CharSequence t = searchView.getQueryHint();
         searchView.setQueryHint("Search..");
+        EditText t1 = (EditText) contentView.findViewById(R.id.testText);
+        CharSequence x = t1.getText().toString();
+        t1.setText("rami");
+        t1.setHint("lalala");
     }
 
     @Override

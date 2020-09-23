@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
@@ -36,7 +37,8 @@ public class DeviceStatus extends SearchBaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
         devicesList = contentView.findViewById(R.id.listOfDevices);
-
+        searchView = (SearchView)contentView.findViewById(R.id.search_text_view);
+        searchView.setQueryHint("HEy Rawi");
 
    /*     String filterString = getIntent().getStringExtra("filter");
         ArrayList<Devices> toShow = new ArrayList<>();

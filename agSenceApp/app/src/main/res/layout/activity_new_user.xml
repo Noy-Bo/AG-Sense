@@ -64,7 +64,7 @@
                 android:text="UserName" />
 
             <EditText
-                android:id="@+id/search_text_view"
+                android:id="@+id/new_user_username"
                 android:layout_width="150dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="100dp"
@@ -98,7 +98,7 @@
                 android:text="Email Address" />
 
             <EditText
-                android:id="@+id/search_text_view1"
+                android:id="@+id/new_user_email"
                 android:layout_width="150dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="75dp"

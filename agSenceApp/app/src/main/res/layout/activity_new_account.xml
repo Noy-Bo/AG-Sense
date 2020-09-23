@@ -85,7 +85,7 @@
 
 
             <EditText
-                android:id="@+id/search_text_view"
+                android:id="@+id/new_account_name"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="100dp"
