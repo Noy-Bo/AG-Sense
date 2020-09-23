@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical"
+    tools:context=".activities.DeviceStatusList">
+
+    <include
+        layout="@layout/activity_back_base"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1"
+        android:orientation="vertical" >
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.02"
+            android:background="@drawable/gradient_color_background"/>
+
+        <TextView
+            android:onClick="map"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.76"
+            android:gravity="center"
+            android:text="Status Map"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+            android:background="@color/white"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.02"
+            android:background="@drawable/gradient_color_background"/>
+
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.84">
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:weightSum="1"
+            app:layout_constraintHeight_percent="0.98"
+            app:layout_constraintWidth_percent="0.95"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constrainted_listview_messages"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/rounded_white_background_frame"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/device_view_titles"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.997"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:gravity="center_vertical"
+                                android:paddingStart="2dp"
+                                android:text="@string/device_view_update_time"
+                                android:textColor="@color/light_blue"
+                                android:textSize="@dimen/small_text_size"
+                                tools:ignore="RtlSymmetry" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical"
+                                android:weightSum="1">
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/update_time_sort_down"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:src="@drawable/ic_arrow_down_8" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.005"
+                        android:background="@drawable/blue_horizontal_divider" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:gravity="center_vertical"
+                                android:paddingStart="4dp"
+                                android:text="@string/device_view_time_elapsed"
+                                android:textColor="@color/light_blue"
+                                android:textSize="16sp" />
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical"
+                                android:weightSum="1">
+
+                                <ImageView
+                                    android:id="@+id/time_ellapsed_sort_up"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:src="@drawable/ic_arrow_up" />
+
+                                <ImageView
+                                    android:id="@+id/time_ellapsed_sort_down"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:src="@drawable/ic_arrow_down_8" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.005"
+                        android:background="@drawable/blue_horizontal_divider" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:paddingStart="4dp"
+                            android:text="@string/device_view_other_info"
+                            android:textColor="@color/light_blue"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/titles_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.01dp"
+                    android:background="@drawable/blue_horizontal_divider"
+                    app:layout_constraintTop_toBottomOf="@id/device_view_titles"
+                    app:layout_constraintBottom_toTopOf="@id/device_data_list_view"/>
+
+                <ListView
+                    android:id="@+id/device_data_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:divider="@drawable/blue_horizontal_divider"
+                    android:dividerHeight="1dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.98"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/device_view_titles"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintWidth_percent="0.98" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

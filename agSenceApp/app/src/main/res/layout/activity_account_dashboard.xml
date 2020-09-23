@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AccountDashboardActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <include
+            android:id="@+id/included"
+            layout="@layout/activity_search_base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#37000000"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#37FFFFFF"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/account_faulty_devices"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:onClick="goToDevicesStatus"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/num_of_faulty_devices"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/notification_red_circle_background"
+                        android:gravity="center"
+                        android:text="12"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/extra_small_text_size"
+                        android:textStyle="bold"
+                        android:layout_marginStart="-10dp"/>
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/faulty_devices_icon" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp"
+                        android:gravity="center"
+                        android:text="@string/faultyDevicesString"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/small_text_size" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/first_divider"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:id="@+id/account_healthy_devices"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:onClick="goToDevicesStatus"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/num_of_healthy_devices"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/notification_red_circle_background"
+                        android:gravity="center"
+
+                        android:text="76"
+
+
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/extra_small_text_size"
+
+                        android:textStyle="bold" />
+
+                    <ImageView
+
+                        android:id="@+id/imageView2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/healthy_devices_icon">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/healthyDevicesString"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/small_text_size">
+
+                    </TextView>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="13">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/rounded_white_background_frame"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".95"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".95">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.09"
+
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_margin="4dp"
+                                android:layout_marginStart="4dp"
+
+                                android:layout_weight="0.08"
+                                android:src="@drawable/notification_icon"
+
+                                app:layout_constraintHeight_percent="0.9"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintWidth_percent="0.13" />
+
+
+                            <TextView
+                                android:id="@+id/textView3"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_margin="3dp"
+                                android:layout_weight="0.75"
+                                android:gravity="left"
+                                android:text="@string/unreadNotificationsString"
+                                android:textColor="@color/orange"
+
+                                android:textSize="@dimen/small_text_size"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintHeight_percent="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintWidth_percent="0.5" />
+
+                            <ImageView
+                                android:layout_width="79dp"
+                                android:layout_height="54dp"
+                                android:onClick="gotoFilter"
+                                android:src="@drawable/filter_icon"
+                                app:layout_constraintEnd_toStartOf="@+id/textView4"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toEndOf="@+id/textView3"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="0.08"
+                                android:background="@drawable/notification_red_circle_background"
+                                android:gravity="center"
+                                android:text="9"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHeight_percent=".56"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.727"
+                                app:layout_constraintWidth_percent=".08" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/gradient_color_background" />
+
+                    <ListView
+                        android:id="@+id/notification_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.9"
+                        android:divider="@null">
+
+                    </ListView>
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
