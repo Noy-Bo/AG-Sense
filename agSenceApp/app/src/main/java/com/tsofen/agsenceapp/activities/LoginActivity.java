@@ -60,8 +60,8 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                     @Override
                     public void onSuccess(InstanceIdResult instanceIdResult) {
                         String deviceToken = instanceIdResult.getToken();
-                        Log.e("newToken", deviceToken);
-                        TokenRegistrationHandler.registerToken("barakg", deviceToken);
+                        Log.e(username, deviceToken);
+                        TokenRegistrationHandler.registerToken(username, deviceToken);
                     }
                 });
         EditText password = (EditText) findViewById(R.id.passTxt);
