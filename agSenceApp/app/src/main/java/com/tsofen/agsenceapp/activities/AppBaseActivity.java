@@ -108,4 +108,5 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         AppBaseActivity.user = user;
     }
 
+    public static User getUser(){return user; }
 }
