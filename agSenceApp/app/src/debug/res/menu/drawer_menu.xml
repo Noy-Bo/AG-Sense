@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_admin_dashboard"
+            android:icon="@drawable/dashboard_icon"
+            android:title="Admin Dashboard" />
+
+
+        <item
+            android:id="@+id/nav_account_dashboard"
+            android:icon="@drawable/dashboard_icon"
+            android:title="Account Dashboard" />
+
+        <item
+            android:id="@+id/nav_admin_notifications"
+            android:icon="@drawable/notification_icon"
+            android:title="Admin Notifications" />
+
+        <item
+            android:id="@+id/nav_device_status"
+            android:icon="@drawable/device_icon"
+            android:title="Device Status" />
+
+        <item
+            android:id="@+id/nav_accounts_status"
+            android:icon="@drawable/user_white_icon"
+            android:title="Accounts Status" />
+        <item
+            android:id="@+id/nav_account_devices_status"
+            android:icon="@drawable/device_icon"
+            android:title="Account Devices" />
+
+    </group>
+
+    <item android:title="Profile">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/user_white_icon"
+                    android:title="Profile"/>
+
+                <item
+                    android:id="@+id/nav_user_settings"
+                    android:icon="@drawable/settings_icon"
+                    android:title="Settings"/>
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout_icon"
+                    android:title="Logout" />
+
+            </group>
+        </menu>
+    </item>
+</menu>

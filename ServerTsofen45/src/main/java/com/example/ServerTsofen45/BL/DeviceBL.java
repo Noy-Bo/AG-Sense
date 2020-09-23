@@ -29,6 +29,13 @@ public class DeviceBL {
 
 	}
 
+	public Device getDeviceImei(long imei) {
+
+		Device device = deviceRepository.findByImei(imei);
+		return device;
+
+	}
+	
 	public ArrayList<Device> getDevicesByName(String name) {
 
 		ArrayList<Device> devices = deviceRepository.findByName(name);
@@ -165,13 +172,35 @@ return null;
 		
 		List<Device> devices = deviceRepository.findFilterdDevices(_faulty, _healthy, _sensorsForBanks, _gpsForPersonal, _lequidHeightForTanks, id);
 		
-		 if ((start) > devices.size()) start = devices.size();
-		 int end = start + num;
-		if ((start + num) > devices.size()) end = devices.size();
+		int end = start + num;
+		if ((start) > devices.size()) start = devices.size();
+		if ((start + num) > devices.size() || (start == 0 && (num == 0 ))) end = devices.size();
 			
 		List<Device> sublist = devices.subList(start, end);
 		return  sublist;
 		
 	
+	}
+
+	public String faultyAccountsNumber() {
+		
+		return  deviceRepository.getFaultyAccountsNumber();
+		
+		
+	}
+
+	public String healtyAccountsNumber() {
+		
+		return  deviceRepository.getHealtyAccountsNumber();
+	}
+
+	public String faultyDevicesNumber() {
+		
+		return  deviceRepository.getFaultyDevicesNumber();
+		
+	}
+
+	public String healtyDevicesNumber() {
+		return  deviceRepository.getHealtyDevicesNumber();
 	}
 	}

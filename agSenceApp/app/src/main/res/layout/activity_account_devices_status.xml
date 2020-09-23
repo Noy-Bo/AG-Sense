@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AccountDevicesStatus">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/activity_search_base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/switch_background_color"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp">
+
+            <TextView
+                android:id="@+id/display_faulty_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_shape_squares"
+                android:gravity="center"
+                android:onClick="displayFaultyClicked"
+                android:text="@string/display_faulty"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_size"
+                android:layout_marginEnd="5dp"/>
+
+            <TextView
+                android:id="@+id/display_healthy_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_shape_squares"
+                android:gravity="center"
+                android:onClick="displayHealthyClicked"
+                android:text="@string/display_healthy"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_size"
+                android:layout_marginEnd="5dp"/>
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_color_background"
+                android:layout_marginEnd="5dp"/>
+
+            <Button
+                android:id="@+id/map_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/rounded_white_background_frame"
+                android:onClick="openMap"
+                android:text="Map"
+                android:textColor="@color/black"
+                android:textSize="@dimen/small_text_size" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/account_devices_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:layout_margin="5dp"
+            android:divider="@null"
+            android:dividerHeight="5dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
