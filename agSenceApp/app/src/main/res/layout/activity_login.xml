@@ -97,6 +97,7 @@
                 android:layout_gravity="right"
                 android:background="@null"
                 android:text="Forget password?"
+                android:onClick="GoToForgetPassword"
                 android:textSize="@dimen/small_text_size"
                 android:textAllCaps="false"
                 android:textColor="@color/orange"
