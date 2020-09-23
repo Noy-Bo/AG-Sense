@@ -77,7 +77,10 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             startActivity(intent);
         }   else if (id == R.id.nav_device_status) {
             Intent intent = new Intent(this, DeviceStatus.class);
-            intent.putExtra("filter","all");
+            intent.putExtra("filter", "all");
+            startActivity(intent);
+        }else if(id == R.id.nav_other){
+            Intent intent = new Intent(this, OthersActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             finishAffinity();

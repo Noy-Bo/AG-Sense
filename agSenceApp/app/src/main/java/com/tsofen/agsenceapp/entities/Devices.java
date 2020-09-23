@@ -1,22 +1,24 @@
 package com.tsofen.agsenceapp.entities;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+
 public class Devices implements Serializable {
 
 
-
-    protected long imei;
-    protected int id;
-    protected int accountId;
+    protected Long imei;
+    protected Integer id;
+    protected Integer accountId;
     protected String type;
     protected String name;
-    protected Date faultTime;  //
-    protected Date lastUpdate;
+    protected Timestamp faultTime;  //
+    protected Timestamp lastUpdate;
     protected Boolean faulty;
-    protected  double logitude;  //
-    protected  double latitude;  //
+    protected Double logitude;  //
+    protected Double latitude;  //
     protected List<DeviceData> deviceData;
 
     public List<DeviceData> getDeviceData() {
@@ -40,9 +42,11 @@ public class Devices implements Serializable {
     public void setFaulty(Boolean faulty) {
         this.faulty = faulty;
     }
-    public Devices() { }
 
-    public Devices(long imei, int id, int accountId, String type, Date faultTime, Date lastUpdate, Boolean faulty, List<DeviceData> deviceData, List<Notification> notifications) {
+    public Devices() {
+    }
+
+    public Devices(long imei, int id, int accountId, String type, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty, List<DeviceData> deviceData, List<Notification> notifications) {
         this.imei = imei;
         this.id = id;
         this.accountId = accountId;
@@ -55,7 +59,7 @@ public class Devices implements Serializable {
     }
 
 
-    public Devices(long imei, int id, int accountId, String type, Date faultTime, Date lastUpdate, Boolean faulty) {
+    public Devices(long imei, int id, int accountId, String type, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty) {
         this.imei = imei;
         this.id = id;
         this.accountId = accountId;
@@ -89,11 +93,11 @@ public class Devices implements Serializable {
         }
     }
 
-    public long getImei() {
+    public Long getImei() {
         return imei;
     }
 
-    public void setImei(long imei) {
+    public void setImei(Long imei) {
         this.imei = imei;
     }
 
@@ -101,15 +105,15 @@ public class Devices implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 
@@ -121,36 +125,36 @@ public class Devices implements Serializable {
         this.type = type;
     }
 
-    public Date getFaultTime() {
+    public Timestamp getFaultTime() {
         return faultTime;
     }
 
-    public void setFaultTime(Date faultTime) {
+    public void setFaultTime(Timestamp faultTime) {
         this.faultTime = faultTime;
     }
 
-    public Date getLastUpdate() {
+    public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
 
-    public double getLogitude() {
+    public Double getLogitude() {
         return logitude;
     }
 
-    public void setLogitude(double logitude) {
+    public void setLogitude(Double logitude) {
         this.logitude = logitude;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 

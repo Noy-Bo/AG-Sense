@@ -16,6 +16,7 @@ import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_devices_status);
         devicesList = findViewById(R.id.account_devices_list);
-        account = (Account) AppBaseActivity.user;
+        account = (Account) getIntent().getSerializableExtra("account");
 
         DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
             @Override
@@ -116,13 +117,13 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                         filteredDevices.add(device);
                     }
                 }
-            } else if(filter.equals("healthy")) {
+            } else if (filter.equals("healthy")) {
                 for (Devices device : devicesArr) {
                     if (device.getFaulty() == false) {
                         filteredDevices.add(device);
                     }
                 }
-            }else{
+            } else {
                 filteredDevices.addAll(devicesArr);
             }
 
