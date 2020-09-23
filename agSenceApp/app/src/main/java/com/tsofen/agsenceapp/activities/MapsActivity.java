@@ -105,7 +105,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             count++;
         }
         if (count > 0) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+                }
+            });
         }
     }
 
@@ -150,4 +155,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return super.getMarker(cluster);
         }
     }
+
+
 }
