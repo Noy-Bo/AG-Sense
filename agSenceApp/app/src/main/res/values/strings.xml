@@ -123,5 +123,6 @@
     <string name="edit_options">Edit Options:</string>
     <string name="new_options">New Options:</string>
     <string name="new_user">New User</string>
+    <string name="filter">filter</string>
 
 </resources>
