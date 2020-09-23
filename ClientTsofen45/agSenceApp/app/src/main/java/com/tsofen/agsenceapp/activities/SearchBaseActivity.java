@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
@@ -19,13 +20,16 @@ public class SearchBaseActivity extends AppBaseActivity {
 
     protected Object[] searchingArray = {};
     protected ArrayAdapter<Object> adapter;
-    protected AutoCompleteTextView searchView;
+    protected SearchView searchView;
+    View contentView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_search_base, null, false);
+        contentView = inflater.inflate(R.layout.activity_search_base, null, false);
         searchView = contentView.findViewById(R.id.search_text_view);
+        searchView.setQueryHint("Search..");
     }
 
     @Override

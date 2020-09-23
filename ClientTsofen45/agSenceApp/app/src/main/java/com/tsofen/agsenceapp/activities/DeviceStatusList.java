@@ -33,7 +33,7 @@ public class DeviceStatusList extends BackBaseActivity {
         device = (Devices) getIntent().getSerializableExtra("device");
         deviceData = device.getDeviceData();
         if (deviceData == null) {
-            Toast.makeText(this, "No device data to show", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No device data to show", Toast.LENGTH_SHORT).show();
             return;
         }
         final ListView lastMessagesListView = findViewById(R.id.device_data_list_view);

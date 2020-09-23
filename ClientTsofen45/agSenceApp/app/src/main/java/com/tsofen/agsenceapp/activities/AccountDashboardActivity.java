@@ -59,13 +59,12 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
-
+        searchView.setQueryHint("Search device...");
 
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Account)AppBaseActivity.user).getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
@@ -89,9 +88,9 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountid(),0,0,new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
-                for(Devices device : devices){
-                    devicesList.add(device);
-                }
+                devicesList.addAll(devices);
+//                adapter = new ArrayAdapter<>(AccountDashboardActivity.this, 0,devicesList.toArray());
+//                searchView.setAdapter(adapter);
                 initialUpdateUI();
             }
         });
