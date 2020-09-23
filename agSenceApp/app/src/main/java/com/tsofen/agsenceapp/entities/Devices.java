@@ -65,8 +65,8 @@ public class Devices implements Serializable {
 
     public enum DeviceType {
         GPS("GpsForPersonal"),
-        STRING_TWO("SensorForBanks"),
-        STRING_THREE("lequidHeightForTanks");
+        BANKS("SensorForBanks"),
+        LIQUID("lequidHeightForTanks");
 
         private final String text;
 
