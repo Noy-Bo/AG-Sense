@@ -13,7 +13,7 @@ public class ExternalPowerLowAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isExternalPowerLow()) {
-			
+			SendPostRequest(d);
 		}
 	}
 

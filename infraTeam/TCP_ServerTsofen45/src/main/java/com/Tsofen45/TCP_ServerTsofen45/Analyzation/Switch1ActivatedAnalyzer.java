@@ -10,7 +10,7 @@ public class Switch1ActivatedAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSwitch1Activated()) {
-			
+			SendPostRequest(d);
 		}
 	}
 

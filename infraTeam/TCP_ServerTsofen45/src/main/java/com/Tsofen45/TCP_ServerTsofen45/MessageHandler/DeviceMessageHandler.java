@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.Tsofen45.TCP_ServerTsofen45.Alarms.StateManager;
 import com.Tsofen45.TCP_ServerTsofen45.Analyzation.AnalyzerManager;
 import com.Tsofen45.TCP_ServerTsofen45.Authentication.Authenticate;
 import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
@@ -37,6 +38,9 @@ public class DeviceMessageHandler implements Runnable {
 	
 	@Autowired
 	AnalyzerManager analyzerManager;
+	
+	@Autowired
+	StateManager stateManager ;
 	
 	@Autowired
 	DeviceDataRouter deviceDatarouter;
@@ -70,7 +74,8 @@ public class DeviceMessageHandler implements Runnable {
 		deviceData = cmdfac.makeDeviceData(message);
 		
 		//making flags states
-		//set your code here
+		stateManager.setDeviceData(deviceData);
+		stateManager.setStates();
 		
 		//Making Analyzes if we need to notify the user .. like: Battery low, Device Moved
 		try {

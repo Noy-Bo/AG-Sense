@@ -14,7 +14,8 @@ public class OutOfGeoFenceAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isOutOfGeoFenceActive()) {
-			
+			SendPostRequest(d);
+
 		}
 	}
 
