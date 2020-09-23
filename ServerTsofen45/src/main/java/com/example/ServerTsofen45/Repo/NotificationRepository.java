@@ -46,6 +46,6 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 	@Query(nativeQuery = true, value =
 			"select count(distinct id) " + 
 			"from notifications " + 
-			"where readed = FALSE;" )
-	public String getUnreadNotificationsNumber();
+			"where readed = FALSE AND user_id = ?1 ;" )
+	public String getUnreadNotificationsNumber(int id);
 }
