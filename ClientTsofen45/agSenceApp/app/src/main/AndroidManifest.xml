@@ -4,9 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,44 +15,56 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AccountDevicesStatus"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activities.BackBaseActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activities.SearchBaseActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <receiver
+            android:name=".BackgroundServices.SmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activities.AccountDevicesStatus"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.BackBaseActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.SearchBaseActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.NotificationsActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/AdminNotification" />
+            android:label="@string/AdminNotification"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.DeviceSetting"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Device Settings" />
+            android:label="Device Settings"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AccountStatusFilter"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Accounts Status" />
+            android:label="Accounts Status"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.EditAccount"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/EditAccount" />
+            android:label="@string/EditAccount"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.EditDevice"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/EditDevice" />
+            android:label="@string/EditDevice"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.HealthCareDashboard"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/healthCareReportsString" />
+            android:label="@string/healthCareReportsString"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.NewAccount"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/NewAccount" />
+            android:label="@string/NewAccount"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.NewDevice"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/NewDevice" />
+            android:label="@string/NewDevice"
+            android:windowSoftInputMode="adjustPan" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -62,35 +75,33 @@
         -->
         <activity
             android:name=".activities.MapsActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.DeviceStatusList"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Device Status List" />
+            android:label="Device Status List"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.DeviceView"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Device View" />
+            android:label="Device View"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.DeviceFilter"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/Filter" />
+            android:label="@string/Filter"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AdminDashboardActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Admin Dashboard" />
+            android:label="Admin Dashboard"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AccountDashboardActivity"
             android:label="Account Dashboard"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.DeviceStatus"
-            android:windowSoftInputMode="adjustPan"
-            android:label="Device Status" />
-        <activity
-            android:name=".activities.LoginActivity">
-
+            android:label="Device Status"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,14 +1,19 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
@@ -170,6 +175,7 @@ public class DeviceSetting extends BackBaseActivity {
 
         }
     }
+
     public void sendMsg(String phoneNumber, String message) {
         SmsManager smsMgr;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
@@ -192,5 +198,7 @@ public class DeviceSetting extends BackBaseActivity {
         }
 
     }
+
+
 
 }

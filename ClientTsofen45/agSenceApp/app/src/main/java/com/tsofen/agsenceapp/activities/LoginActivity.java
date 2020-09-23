@@ -5,9 +5,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -15,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 
@@ -42,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         setContentView(R.layout.activity_login);
 
 
-
     }
 
 
@@ -66,6 +71,9 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 startActivity(intent);
+
+
+
             }
 
             @Override
@@ -112,4 +120,51 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.INVISIBLE);
     }
+
+
+    public void messageAuthentication() // in developement.
+    {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) == getPackageManager().PERMISSION_GRANTED) {
+            Cursor cursor = getContentResolver().query(Uri.parse("content://sms/inbox"), null, null, null, null);
+
+            if (cursor.moveToFirst()) { // must check the result to prevent exception
+                do {
+                    String msgData = "";
+                    for (int index = 0; index < cursor.getColumnCount(); index++) {
+                        msgData += " " + cursor.getColumnName(index) + ":" + cursor.getString(index);
+                    }
+                    Log.d("sms", msgData);
+                } while (cursor.moveToNext()); // how many messages.
+            } else {
+                // empty box, no SMS
+            }
+
+        }
+    }
+
+
+    public void sendMsg(String phoneNumber, String message) {
+        SmsManager smsMgr;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
+            if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
+            {
+                try {
+
+                    smsMgr = SmsManager.getDefault();
+                    smsMgr.sendTextMessage(phoneNumber, null, message, null, null);
+                    Toast.makeText(this,R.string.msg_sent, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this,R.string.error_send_msg, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
+                Toast.makeText(this,R.string.send_msg_again, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    }
+
+
 }
