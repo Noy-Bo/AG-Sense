@@ -1,0 +1,218 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.tsofen.agsenceapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+8-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:5:5-79
+11-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:5:22-76
+12
+13    <!-- Include required permissions for Google Maps API to run. -->
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+14-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
+15-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:22-64
+16
+17    <uses-feature
+17-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+18        android:glEsVersion="0x00020000"
+18-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+19        android:required="true" />
+19-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+20
+21    <application
+21-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:7:5-83:19
+22        android:allowBackup="true"
+22-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:8:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.3.1] C:\Users\1\.gradle\caches\transforms-2\files-2.1\ae3468b444d41a56f261ecbb8448fe17\core-1.3.1\AndroidManifest.xml:24:18-86
+24        android:extractNativeLibs="false"
+25        android:icon="@mipmap/ic_launcher"
+25-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:9:9-43
+26        android:label="@string/app_name"
+26-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:10:9-41
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:11:9-54
+28        android:supportsRtl="true"
+28-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:12:9-35
+29        android:testOnly="true"
+30        android:theme="@style/AppTheme"
+30-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:13:9-40
+31        android:usesCleartextTraffic="true" >
+31-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:14:9-44
+32        <activity android:name="com.tsofen.agsenceapp.activities.AccountStatusFilterUser" />
+32-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:15:9-81
+32-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:15:19-69
+33        <activity android:name="com.tsofen.agsenceapp.activities.BackBaseActivity" />
+33-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:16:9-65
+33-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:16:19-62
+34        <activity android:name="com.tsofen.agsenceapp.activities.SearchBaseActivity" />
+34-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:17:9-67
+34-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:17:19-64
+35        <activity
+35-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:18:9-20:57
+36            android:name="com.tsofen.agsenceapp.activities.AdminNotification"
+36-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:19:13-57
+37            android:label="@string/AdminNotification" />
+37-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:20:13-54
+38        <activity
+38-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:21:9-23:47
+39            android:name="com.tsofen.agsenceapp.activities.DeviceSetting"
+39-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:22:13-53
+40            android:label="Device Settings" />
+40-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:23:13-44
+41        <activity
+41-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:24:9-26:47
+42            android:name="com.tsofen.agsenceapp.activities.AccountStatusFilter"
+42-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:25:13-59
+43            android:label="Accounts Status" />
+43-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:26:13-44
+44        <activity
+44-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:27:9-29:51
+45            android:name="com.tsofen.agsenceapp.activities.EditAccount"
+45-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:28:13-51
+46            android:label="@string/EditAccount" />
+46-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:29:13-48
+47        <activity
+47-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:30:9-32:50
+48            android:name="com.tsofen.agsenceapp.activities.EditDevice"
+48-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:31:13-50
+49            android:label="@string/EditDevice" />
+49-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:32:13-47
+50        <activity
+50-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:33:9-35:63
+51            android:name="com.tsofen.agsenceapp.activities.HealthCareDashboard"
+51-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:34:13-59
+52            android:label="@string/healthCareReportsString" />
+52-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:35:13-60
+53        <activity
+53-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:36:9-38:50
+54            android:name="com.tsofen.agsenceapp.activities.NewAccount"
+54-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:37:13-50
+55            android:label="@string/NewAccount" />
+55-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:38:13-47
+56        <activity
+56-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:39:9-41:49
+57            android:name="com.tsofen.agsenceapp.activities.NewDevice"
+57-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:40:13-49
+58            android:label="@string/NewDevice" />
+58-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:41:13-46
+59        <!--
+60             The API key for Google Maps-based APIs is defined as a string resource.
+61             (See the file "res/values/google_maps_api.xml").
+62             Note that the API key is linked to the encryption key used to sign the APK.
+63             You need a different API key for each encryption key, including the release key that is used to
+64             sign the APK for publishing.
+65             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+66        -->
+67        <activity
+67-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:50:9-52:59
+68            android:name="com.tsofen.agsenceapp.activities.MapsActivity"
+68-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:51:13-52
+69            android:label="@string/title_activity_maps" />
+69-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:52:13-56
+70        <activity
+70-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:53:9-55:50
+71            android:name="com.tsofen.agsenceapp.activities.DeviceStatusList"
+71-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:54:13-56
+72            android:label="Device Status List" />
+72-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:55:13-47
+73        <activity
+73-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:56:9-58:43
+74            android:name="com.tsofen.agsenceapp.activities.DeviceView"
+74-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:57:13-50
+75            android:label="Device View" />
+75-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:58:13-40
+76        <activity
+76-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:59:9-61:46
+77            android:name="com.tsofen.agsenceapp.activities.DeviceFilter"
+77-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:60:13-52
+78            android:label="@string/Filter" />
+78-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:61:13-43
+79        <activity
+79-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:62:9-64:47
+80            android:name="com.tsofen.agsenceapp.activities.AdminDashboardActivity"
+80-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:63:13-62
+81            android:label="Admin Dashboard" />
+81-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:64:13-44
+82        <activity
+82-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:65:9-68:55
+83            android:name="com.tsofen.agsenceapp.activities.AccountDashboardActivity"
+83-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:66:13-64
+84            android:label="Account Dashboard"
+84-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:67:13-46
+85            android:windowSoftInputMode="adjustPan" />
+85-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:68:13-52
+86        <activity
+86-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:69:9-71:45
+87            android:name="com.tsofen.agsenceapp.activities.DeviceStatus"
+87-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:70:13-52
+88            android:label="Device Status" />
+88-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:71:13-42
+89        <activity android:name="com.tsofen.agsenceapp.activities.LoginActivity" >
+89-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:72:9-78:20
+89-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:72:19-59
+90            <intent-filter>
+90-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:73:13-77:29
+91                <action android:name="android.intent.action.MAIN" />
+91-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:74:17-69
+91-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:74:25-66
+92
+93                <category android:name="android.intent.category.LAUNCHER" />
+93-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:76:17-77
+93-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:76:27-74
+94            </intent-filter>
+95        </activity>
+96
+97        <meta-data
+97-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:80:9-82:55
+98            android:name="com.google.android.geo.API_KEY"
+98-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:81:13-58
+99            android:value="@string/google_maps_key" />
+99-->C:\agSenseClient\ClientTsofen45\agSenceApp\app\src\main\AndroidManifest.xml:82:13-52
+100        <!-- Needs to be explicitly declared on P+ -->
+101        <uses-library
+101-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+102            android:name="org.apache.http.legacy"
+102-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+103            android:required="false" />
+103-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\7752dcb5f35954b62a1d54735ffd34b4\jetified-play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+104
+105        <provider
+105-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\3af32d140be760521703c9060e27c1ae\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:25:9-29:43
+106            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+106-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\3af32d140be760521703c9060e27c1ae\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:26:13-79
+107            android:authorities="com.tsofen.agsenceapp.lifecycle-process"
+107-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\3af32d140be760521703c9060e27c1ae\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:27:13-69
+108            android:exported="false"
+108-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\3af32d140be760521703c9060e27c1ae\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:28:13-37
+109            android:multiprocess="true" />
+109-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\3af32d140be760521703c9060e27c1ae\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:29:13-40
+110
+111        <activity
+111-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\a1794986c7a3c4986f9feb2359005476\jetified-play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+112            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+112-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\a1794986c7a3c4986f9feb2359005476\jetified-play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+113            android:exported="false"
+113-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\a1794986c7a3c4986f9feb2359005476\jetified-play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+114            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+114-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\a1794986c7a3c4986f9feb2359005476\jetified-play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+115
+116        <meta-data
+116-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\294cc5ecc9001f3e94c034cd71f64fdf\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+117            android:name="com.google.android.gms.version"
+117-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\294cc5ecc9001f3e94c034cd71f64fdf\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+118            android:value="@integer/google_play_services_version" />
+118-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\1\.gradle\caches\transforms-2\files-2.1\294cc5ecc9001f3e94c034cd71f64fdf\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+119    </application>
+120
+121</manifest>
