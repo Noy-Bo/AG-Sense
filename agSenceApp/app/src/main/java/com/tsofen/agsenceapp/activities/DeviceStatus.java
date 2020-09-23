@@ -1,6 +1,5 @@
 package com.tsofen.agsenceapp.activities;
 
-import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +11,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
-import com.tsofen.agsenceapp.entities.Account;
-import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
@@ -99,17 +95,17 @@ public class DeviceStatus extends SearchBaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        boolean type1 = false;
-        boolean type3 = false;
-        boolean type2 = false;
+        boolean gpsType = false;
+        boolean bankType = false;
+        boolean LequidType = false;
         boolean healthyDevices = false;
         boolean faultyDevices = false;
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 123 &&
                 resultCode == RESULT_OK) {
-            type1 = intent.getBooleanExtra("type1", false);
-            type2 = intent.getBooleanExtra("type2", false);
-            type3 = intent.getBooleanExtra("type3", false);
+            gpsType = intent.getBooleanExtra("GpsForPersonal", false);
+            bankType = intent.getBooleanExtra("SensorForBanks", false);
+            LequidType = intent.getBooleanExtra("lequidHeightForTanks", false);
             healthyDevices = intent.getBooleanExtra("healthyDevices", false);
             faultyDevices = intent.getBooleanExtra("faultyDevices", false);
         }
@@ -118,9 +114,9 @@ public class DeviceStatus extends SearchBaseActivity {
         for (Devices device : devicesArr) {
             if (((device.getFaulty() == true && faultyDevices) ||
                     (device.getFaulty() == false && healthyDevices))
-                    && ((device.getType().equals(Devices.DeviceType.GPS.toString()) && type1) ||
-                    (device.getType().equals(Devices.DeviceType.STRING_TWO.toString()) && type2) ||
-                    (device.getType().equals(Devices.DeviceType.STRING_THREE.toString()) && type3))) {
+                    && ((device.getType().equals(Devices.DeviceType.GPS.toString()) && gpsType) ||
+                    (device.getType().equals(Devices.DeviceType.BANKS.toString()) && bankType) ||
+                    (device.getType().equals(Devices.DeviceType.LIQUID.toString()) && LequidType))) {
                 filteredDevices.add(device);
             }
         }

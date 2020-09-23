@@ -30,6 +30,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/device_view_text11"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -40,7 +41,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/device_view_connected_to_detail"
+            android:id="@+id/device_view_text12"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -64,6 +65,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/device_view_text21"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -74,7 +76,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/device_view_battery_status_detail"
+            android:id="@+id/device_view_text22"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -85,6 +87,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/device_view__slider_grid3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.005"
@@ -98,6 +101,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/device_view_text31"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -108,7 +112,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/device_view_analog1_detail"
+            android:id="@+id/device_view_text32"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -119,6 +123,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/device_view__slider_grid4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.005"
@@ -132,6 +137,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/device_view_text41"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -142,7 +148,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/device_view_analog2_detail"
+            android:id="@+id/device_view_text42"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -153,6 +159,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/device_view__slider_grid5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.005"
@@ -166,6 +173,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/device_view_text51"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
@@ -176,7 +184,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/device_view_dialog1"
+            android:id="@+id/device_view_text52"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"

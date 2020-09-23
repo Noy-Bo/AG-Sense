@@ -43,15 +43,15 @@ public class AccountsAdapter extends ArrayAdapter<Account> implements Serializab
 
         name.setText(account.getUsername());
 
-//        LinearLayout linearLayout = layout.findViewById(R.id.AccountItemShape);
-//        linearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), AccountDashboardActivity.class);
-//                AppBaseActivity.setUser(account);
-//                getContext().startActivity(intent);
-//            }
-//        });
+        LinearLayout linearLayout = layout.findViewById(R.id.AccountItemShape);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AccountDashboardActivity.class);
+                intent.putExtra("account",account);
+                getContext().startActivity(intent);
+            }
+        });
 
        // amountofdevices.setText(account.);
         //name.setText(account.getUsername());
