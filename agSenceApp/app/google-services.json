@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "925913468762",
+    "firebase_url": "https://agsenceapp-f81e0.firebaseio.com",
+    "project_id": "agsenceapp-f81e0",
+    "storage_bucket": "agsenceapp-f81e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925913468762:android:64ec25f4ffe51274516d63",
+        "android_client_info": {
+          "package_name": "com.tsofen.agsenceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925913468762-apnomi1fl0kr5v1bg48u60vvqao237cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLS1MNA9EMKYygZTJx3vCSS7svQI9tv8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925913468762-apnomi1fl0kr5v1bg48u60vvqao237cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
