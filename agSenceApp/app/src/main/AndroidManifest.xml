@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ForgetPassword"></activity>
+        <activity android:name=".activities.NewUser"></activity>
+        <activity android:name=".activities.ForgetPassword" />
         <activity
             android:name=".activities.AccountDevicesStatus"
             android:label="Account Devices Status"
