@@ -77,7 +77,10 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             startActivity(intent);
         }   else if (id == R.id.nav_device_status) {
             Intent intent = new Intent(this, DeviceStatus.class);
-            intent.putExtra("filter","all");
+            intent.putExtra("filter", "all");
+            startActivity(intent);
+        }else if(id == R.id.nav_other){
+            Intent intent = new Intent(this, OthersActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             finishAffinity();
@@ -95,6 +98,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         nav_Menu.findItem(R.id.nav_admin_dashboard).setVisible(false);
         nav_Menu.findItem(R.id.nav_admin_notifications).setVisible(false);
         nav_Menu.findItem(R.id.nav_device_status).setVisible(false);
+        nav_Menu.findItem(R.id.nav_other).setVisible(false);
     }
 
     public void hideAccountOptions() {

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.R;
 
-public class NewAccount extends AppCompatActivity {
+public class NewAccount extends BackBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

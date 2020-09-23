@@ -14,12 +14,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+<<<<<<< HEAD
             android:name=".activities.Tabbed"
             android:label="@string/title_activity_tabbed"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.TrackingSetting" />
         <activity android:name=".activities.AuthorizationNumberSetting" />
         <activity android:name=".activities.SpeedingAlertAndGeoFenceSetting" />
+=======
+            android:name=".activities.OthersActivity"
+            android:label="Other"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.ForgetPassword"
+            android:label="Forget Password"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".activities.NewUser"
+            android:label="New User"
+            android:windowSoftInputMode="adjustPan" />
+>>>>>>> master
         <activity
             android:name=".activities.AccountDevicesStatus"
             android:label="Account Devices Status"

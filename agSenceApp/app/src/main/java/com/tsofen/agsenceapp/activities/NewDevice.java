@@ -16,7 +16,7 @@ import com.tsofen.agsenceapp.entities.Account;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewDevice extends AppCompatActivity {
+public class NewDevice extends BackBaseActivity {
 EditText IEMIEdit,DevicePhoneNumberEdit,DevicePasswordEdit;
     Spinner DeviceTypeSpinner,AccountNameSpinner;
     final List<Account> _accounts = new ArrayList<>();

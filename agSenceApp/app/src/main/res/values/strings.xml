@@ -106,6 +106,7 @@
     <string name="send_msg_again">Please send the message again</string>
     <string name="error_send_msg">Error sending message!</string>
     <string name="msg_sent">message sent</string>
+<<<<<<< HEAD
     <string name="title_activity_tabbed">Tabbed</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
@@ -114,4 +115,25 @@
     <string name="authorization_number_tab">Authorization number</string>
     <string name="speeding_alert_geo_fence_tab">Speeding alert and geo fence</string>
     <string name="tracking_tab">Tracking</string>
+=======
+    <string name="edit_device_details">Edit Device Details:</string>
+    <string name="new_phonenumber">New PhoneNumber:</string>
+    <string name="new_password">New Password :</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="previous_name">Previous name</string>
+    <string name="new_name">New Name</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="email">Email :</string>
+    <string name="send_code">Send code</string>
+    <string name="verification_code">Verification code</string>
+    <string name="add_new_device">Add New Device</string>
+    <string name="add_new_user">Add New User</string>
+    <string name="add_new_account">Add New Account</string>
+    <string name="edit_options">Edit Options:</string>
+    <string name="new_options">New Options:</string>
+    <string name="new_user">New User</string>
+    <string name="filter">filter</string>
+
+>>>>>>> master
 </resources>
