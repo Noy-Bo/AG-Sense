@@ -9,25 +9,13 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acac6e07-30b2-49c6-8a75-99086b5d7b59" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dashboard_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/menu/drawer_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/debug/res/menu/drawer_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/AccountDashboardActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatusList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatusList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/NotificationsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/NotificationsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/SearchBaseActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_base.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_base.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f9eb8b21-4c7a-4755-93d8-e5002440a87e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_XL_API_30" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="10.0.0.8:5555" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -245,10 +233,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="466" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1600770316817" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1600839953711">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="549" y="175" key="FileChooserDialogImpl" timestamp="1600849066578">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600839953711" />
+    <state x="549" y="175" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1600849066578" />
     <state width="1491" height="232" key="GridCell.Tab.0.bottom" timestamp="1600774306447">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

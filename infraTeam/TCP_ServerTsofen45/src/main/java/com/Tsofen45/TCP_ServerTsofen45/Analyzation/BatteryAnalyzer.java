@@ -44,7 +44,6 @@ public class BatteryAnalyzer extends Analyzer {
 	@Override
 	public void SendPostRequest(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
-		System.out.println("making a post request on battery low");
 		long imei = d.getImei();
 		String message = "Battery is low";
 		String postData= String.format("password=123&imei=%s&massege=%s",""+d.getImei(),message);

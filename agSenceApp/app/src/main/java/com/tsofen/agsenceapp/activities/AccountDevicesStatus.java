@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -17,6 +18,8 @@ import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Place;
+import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     ArrayList<Devices> devicesArr = new ArrayList<>();
     ListView devicesList;
     Account account;
-
+    UserMap userMap = new UserMap();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +56,6 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             }
         });
 
-    }
-
-    public void GoToMap(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
     }
 
     public void displayHealthyClicked(View view) {
@@ -94,7 +92,6 @@ public class AccountDevicesStatus extends SearchBaseActivity {
 
 
     public void updateList() {
-
         ArrayList<Devices> filteredDevices = new ArrayList<>();
         for (Devices device : devicesArr) {
             if ((displayFaultyDevice && account.isFaulty() == true) ||
@@ -106,6 +103,18 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         devicesList.setAdapter(myAdapter);
     }
 
+    public void openMap(View view) {
+        if (devicesArr == null || devicesArr.size() == 0) {
+            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
+        } else {
+            for (Devices device : devicesArr) {
+                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
+            }
+            Intent intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("user_map", userMap);
+            startActivity(intent);
+        }
+    }
     private void updatingUI() {
         ArrayList<Devices> filteredDevices = new ArrayList<>();
         String filter = getIntent().getExtras().getString("filter");
@@ -130,5 +139,4 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         final ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this, 0, filteredDevices);
         devicesList.setAdapter(myAdapter);
     }
-
 }
