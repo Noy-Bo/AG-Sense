@@ -37,7 +37,7 @@ public class OthersActivity extends AppBaseActivity {
     }
 
     public void goToAddNewUser(View view) {
-        Intent intent = new Intent(this,NewAccount.class);
+        Intent intent = new Intent(this,NewUser.class);
         startActivity(intent);
     }
 

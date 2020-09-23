@@ -20,6 +20,7 @@ public class Devices implements Serializable {
     protected Float logitude;  //
     protected Float latitude;  //
     protected List<DeviceData> deviceData;
+    protected String phoneNumber;
 
     public List<DeviceData> getDeviceData() {
         return deviceData;
@@ -46,29 +47,21 @@ public class Devices implements Serializable {
     public Devices() {
     }
 
-    public Devices(long imei, int id, int accountId, String type, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty, List<DeviceData> deviceData, List<Notification> notifications) {
+    public Devices(Long imei, Integer id, Integer accountId, String type, String name, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty, Float logitude, Float latitude, List<DeviceData> deviceData, String phoneNumber, List<Notification> notifications) {
         this.imei = imei;
         this.id = id;
         this.accountId = accountId;
         this.type = type;
+        this.name = name;
         this.faultTime = faultTime;
         this.lastUpdate = lastUpdate;
         this.faulty = faulty;
+        this.logitude = logitude;
+        this.latitude = latitude;
         this.deviceData = deviceData;
+        this.phoneNumber = phoneNumber;
         this.notifications = notifications;
     }
-
-
-    public Devices(long imei, int id, int accountId, String type, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty) {
-        this.imei = imei;
-        this.id = id;
-        this.accountId = accountId;
-        this.type = type;
-        this.faultTime = faultTime;
-        this.lastUpdate = lastUpdate;
-        this.faulty = faulty;
-    }
-
 
     public enum DeviceType {
         GPS("GpsForPersonal"),
@@ -164,5 +157,13 @@ public class Devices implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
