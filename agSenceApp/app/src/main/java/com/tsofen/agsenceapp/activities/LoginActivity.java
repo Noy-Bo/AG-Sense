@@ -127,4 +127,9 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.INVISIBLE);
     }
+
+    public void GoToForgetPassword(View view) {
+        Intent intent = new Intent(this, ForgetPassword.class);
+        startActivity(intent);
+    }
 }
