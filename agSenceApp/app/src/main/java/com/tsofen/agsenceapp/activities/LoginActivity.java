@@ -42,7 +42,7 @@ import com.tsofen.agsenceapp.utils.FailedLogin;
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-
+    private static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
     @RequiresApi(api = Build.VERSION_CODES.O)
 
 
@@ -87,8 +87,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 finishAffinity();
                 startActivity(intent);
-
-
 
             }
 

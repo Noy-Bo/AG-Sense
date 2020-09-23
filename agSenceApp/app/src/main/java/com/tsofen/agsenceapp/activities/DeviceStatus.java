@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.bluetooth.BluetoothClass;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
@@ -29,6 +31,8 @@ public class DeviceStatus extends SearchBaseActivity {
     LayoutInflater inflater;
     View contentView;
     ListView devicesList;
+    SearchView searchView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,10 @@ public class DeviceStatus extends SearchBaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
         devicesList = contentView.findViewById(R.id.listOfDevices);
+        searchView = contentView.findViewById(R.id.search_text_view);
+        searchView.setQueryHint("search bar here");
+
+
 
 
    /*     String filterString = getIntent().getStringExtra("filter");
@@ -70,7 +78,18 @@ public class DeviceStatus extends SearchBaseActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         //applying listener that transfers us to a new activity (DeviceView)
         devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -147,5 +166,7 @@ public class DeviceStatus extends SearchBaseActivity {
         final ListAdapter myAdapter = new DevicesAdapter(DeviceStatus.this, 0, filteredDevices);
         devicesList.setAdapter(myAdapter);
     }
+
+
 
 }
