@@ -122,5 +122,6 @@
     <string name="add_new_account">Add New Account</string>
     <string name="edit_options">Edit Options:</string>
     <string name="new_options">New Options:</string>
+    <string name="new_user">New User</string>
 
 </resources>

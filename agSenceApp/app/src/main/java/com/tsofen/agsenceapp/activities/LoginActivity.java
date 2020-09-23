@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
 
     public void login(View view) {
-
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,

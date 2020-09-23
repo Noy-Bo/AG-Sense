@@ -17,8 +17,8 @@ public class Devices implements Serializable {
     protected Timestamp faultTime;  //
     protected Timestamp lastUpdate;
     protected Boolean faulty;
-    protected Double logitude;  //
-    protected Double latitude;  //
+    protected Float logitude;  //
+    protected Float latitude;  //
     protected List<DeviceData> deviceData;
 
     public List<DeviceData> getDeviceData() {
@@ -142,19 +142,19 @@ public class Devices implements Serializable {
     }
 
 
-    public Double getLogitude() {
+    public Float getLogitude() {
         return logitude;
     }
 
-    public void setLogitude(Double logitude) {
+    public void setLogitude(Float logitude) {
         this.logitude = logitude;
     }
 
-    public Double getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
