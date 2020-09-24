@@ -19,6 +19,7 @@ import Enums.DeviceType;
 public class Device {
 	int id;
 	long imei;
+	String phoneNumber;
 	String name;
 	int accountId;
 	DeviceType type;
@@ -73,6 +74,14 @@ public class Device {
 
 	public void setImei(long imei) {
 		this.imei = imei;
+	}
+	@Column
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Column

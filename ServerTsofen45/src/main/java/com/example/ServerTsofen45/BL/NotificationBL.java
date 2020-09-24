@@ -44,5 +44,10 @@ public class NotificationBL {
 	
    }
 
+public String unreadNotificationsNumber(int id) {
+	
+	return NotificationRepository.getUnreadNotificationsNumber(id);
+}
+
 
 }

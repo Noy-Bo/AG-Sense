@@ -1,16 +1,23 @@
 package com.example.ServerTsofen45.controllers;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ServerTsofen45.BL.DeviceBL;
+import com.example.ServerTsofen45.BL.ErrorBL;
 import com.example.ServerTsofen45.BL.NotificationBL;
 import com.example.ServerTsofen45.Beans.Notification;
 import com.example.ServerTsofen45.Beans.NotificationDTO;
+
+import springfox.documentation.spring.web.json.Json;
 
 @RestController
 @RequestMapping("Notifications")
@@ -18,6 +25,12 @@ public class NotificationsController {
 	
 	@Autowired
 	 NotificationBL notificationBL;
+	
+	@Autowired
+	ErrorBL errorBL;
+	
+	@Autowired
+	DeviceBL deviceBL;
 
 	@GetMapping("getNotifications")
 	  public List<NotificationDTO>  getNotifications(@RequestParam int start, @RequestParam int num)
@@ -102,10 +115,23 @@ public class NotificationsController {
 		}
 	  
 	  @GetMapping("AddNotification")
-	  public String AddNotification (@RequestParam String password, @RequestParam long imei, @RequestParam String massege, String optional )
+	  public String AddNotification ( @RequestParam long imei, @RequestParam int code, JSONObject optional )
 		{
-		  			System.out.println(massege);
-		  		return massege;
+		  
+		  Notification notification = new Notification();
+		  
+		  notification.setDevice(deviceBL.getDeviceImei(imei));
+		  notification.setDateTime(new Timestamp(System.currentTimeMillis()));
+		  notification.setError(errorBL.findBycode(code));
+		  notification.setReaded(false);
+		 // notification.setSeverity(severity);
+		  
+		  
+		  //notification.setUserId(userId);
+		  
+		  
+		  
+		  		return "massege";
 		  		
 			  
 		}
