@@ -16,7 +16,19 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
+        <activity
+            android:name=".activities.OthersActivity"
+            android:label="Other"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.ForgetPassword"
+            android:label="Forget Password"
+            android:windowSoftInputMode="adjustPan" />
 
+        <activity
+            android:name=".activities.NewUser"
+            android:label="New User"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AccountDevicesStatus"
             android:label="Account Devices Status"

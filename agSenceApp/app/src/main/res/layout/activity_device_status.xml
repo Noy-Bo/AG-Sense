@@ -67,11 +67,11 @@
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="map"
+                android:onClick="openMap"
                 >
                 <Button
                     android:id="@+id/MapBtn"
-                    android:onClick="map"
+                    android:onClick="openMap"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@null"

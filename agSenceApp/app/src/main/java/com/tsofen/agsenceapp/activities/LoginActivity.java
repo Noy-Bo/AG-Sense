@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
 
     public void login(View view) {
-
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
@@ -136,49 +135,9 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
     }
 
 
-    public void messageAuthentication() // in developement.
-    {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) == getPackageManager().PERMISSION_GRANTED) {
-            Cursor cursor = getContentResolver().query(Uri.parse("content://sms/inbox"), null, null, null, null);
 
-            if (cursor.moveToFirst()) { // must check the result to prevent exception
-                do {
-                    String msgData = "";
-                    for (int index = 0; index < cursor.getColumnCount(); index++) {
-                        msgData += " " + cursor.getColumnName(index) + ":" + cursor.getString(index);
-                    }
-                    Log.d("sms", msgData);
-                } while (cursor.moveToNext()); // how many messages.
-            } else {
-                // empty box, no SMS
-            }
-
-        }
+    public void GoToForgetPassword(View view) {
+        Intent intent = new Intent(this, ForgetPassword.class);
+        startActivity(intent);
     }
-
-
-    public void sendMsg(String phoneNumber, String message) {
-        SmsManager smsMgr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
-            if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
-            {
-                try {
-
-                    smsMgr = SmsManager.getDefault();
-                    smsMgr.sendTextMessage(phoneNumber, null, message, null, null);
-                    Toast.makeText(this,R.string.msg_sent, Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this,R.string.error_send_msg, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
-                Toast.makeText(this,R.string.send_msg_again, Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
-    }
-
-
 }
