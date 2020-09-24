@@ -19,7 +19,7 @@ import Enums.DeviceType;
 public class Device {
 	int id;
 	long imei;
-	String phoneNumber;
+	
 	String name;
 	int accountId;
 	DeviceType type;
