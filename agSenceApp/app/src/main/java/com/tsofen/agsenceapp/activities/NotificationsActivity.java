@@ -3,6 +3,7 @@ package com.tsofen.agsenceapp.activities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,13 +42,13 @@ public class NotificationsActivity extends SearchBaseActivity {
     Button reset;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
-    Date after ;
-    Date before ;
+    Date after =null ;
+    Date before =null;
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
     View contentView;
-
+    ProgressDialog pd;
     Object obj;
 
     @Override
@@ -54,6 +56,7 @@ public class NotificationsActivity extends SearchBaseActivity {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.activity_notifications, null, false);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading notifications...");
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_notifications);
         popUpDialog = new Dialog(this);
@@ -112,17 +115,32 @@ public class NotificationsActivity extends SearchBaseActivity {
 
     public void search(View view) {
         ArrayList<Notification> filterArr = new ArrayList<>();
-        for (Notification notification: notificationArray) {
-            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
-                    ((notification.getReaded()==true && displayReadNotifications) ||
-                            (notification.getReaded()==false &&  displayUnreadNotifications))){
-                filterArr.add(notification);
+        if(after ==null || before == null){
+            for (Notification notification: notificationArray) {
+                if((notification.getReaded()==true && displayReadNotifications) ||
+                                (notification.getReaded()==false &&  displayUnreadNotifications)){
+                    filterArr.add(notification);
+                }
+            }
+
+        }else{
+            for (Notification notification: notificationArray) {
+                if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                        ((notification.getReaded()==true && displayReadNotifications) ||
+                                (notification.getReaded()==false &&  displayUnreadNotifications))){
+                    filterArr.add(notification);
+                }
             }
         }
+
         notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, filterArr);
         notificationListView.setAdapter(notificationArrayAdapter);
         updateUI(filterArr.size());
         popUpDialog.cancel();
+        after =null;
+        before =null;
+        displayReadNotifications = false;
+        displayUnreadNotifications = false;
 
     }
 
@@ -262,6 +280,8 @@ public class NotificationsActivity extends SearchBaseActivity {
         TextView notification = findViewById(R.id.textView4);
         if(notification!=null){
             notification.setText(String.valueOf(notificationArray.size()));
+
+            GeneralProgressBar.removeProgressDialog(pd);
         }
     }
 }
