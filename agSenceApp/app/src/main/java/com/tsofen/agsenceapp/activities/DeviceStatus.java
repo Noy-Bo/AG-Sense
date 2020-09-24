@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.activities;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -20,6 +22,7 @@ import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ public class DeviceStatus extends SearchBaseActivity {
     LayoutInflater inflater;
     View contentView;
     ListView devicesList;
+    ProgressDialog pd;
 
 
 
@@ -41,6 +45,7 @@ public class DeviceStatus extends SearchBaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
         devicesList = contentView.findViewById(R.id.listOfDevices);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
         searchView = contentView.findViewById(R.id.search_text_view);
         searchView.setQueryHint("search bar here");
 
@@ -136,7 +141,8 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     private void updatingUI() {
-         filteredDevices = new ArrayList<>();
+
+        filteredDevices = new ArrayList<>();
 
         String filter = getIntent().getExtras().getString("filter");
         if (filter != null) {
@@ -157,6 +163,7 @@ public class DeviceStatus extends SearchBaseActivity {
         }
         final ListAdapter myAdapter = new DevicesAdapter(DeviceStatus.this, 0, filteredDevices);
         devicesList.setAdapter(myAdapter);
+        GeneralProgressBar.removeProgressDialog(pd);
     }
 
     public void openMap(View view) {

@@ -30,6 +30,7 @@ public class BasicFireBaseMessagingService extends RemoteMessageHandler {
         RemoteMessage.Notification not = remoteMessage.getNotification();
 
 
+
         // Getting new notifications.
 
         if (AppBaseActivity.getUser() instanceof Admin)
@@ -51,6 +52,8 @@ public class BasicFireBaseMessagingService extends RemoteMessageHandler {
                         }
                     });
         }
+
+
 
         Log.d(TAG,"Message arrived!!!");
     }

@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,8 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     private long backPressedTime;
     private Toast backtoast;
+    private ProgressDialog pd;
+
 
 
     @Override
@@ -57,6 +61,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToFaultyAccounts(View view) {
+
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.VISIBLE);
 
@@ -78,12 +83,15 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyDevices(View view) {
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
+//
+//        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
+//        progressBar.setVisibility(View.VISIBLE);
 
         Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
         intent.putExtra("filter", "healthy");
         startActivity(intent);
+
 
 
     }
@@ -128,9 +136,13 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        GeneralProgressBar.removeProgressDialog(pd);
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
         progressBar.setVisibility(View.INVISIBLE);
+
     }
+
+
 
 
 }

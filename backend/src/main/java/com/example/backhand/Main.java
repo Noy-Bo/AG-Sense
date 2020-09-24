@@ -11,7 +11,7 @@ public class Main {
         PushNotificationsSender.publishNotificationToSpecificUser("ibra", "SingleToPhone", "bg");
         ArrayList<String> usersToNotify = new ArrayList<>();
         usersToNotify.add("admin");
-        //usersToNotify.add("ibra");
+        usersToNotify.add("ibra");
         PushNotificationsSender.publishNotificationForGroupOfUsers(usersToNotify, "Multi!!!", "HI");
     }
 }

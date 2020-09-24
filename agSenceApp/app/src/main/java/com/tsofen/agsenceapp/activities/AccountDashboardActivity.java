@@ -106,6 +106,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
 
     public void goToDevicesStatus(View view) {
+
         Intent intent = new Intent(this, AccountDevicesStatus.class);
         String filterString;
         if(view.getId() == R.id.account_faulty_devices)
