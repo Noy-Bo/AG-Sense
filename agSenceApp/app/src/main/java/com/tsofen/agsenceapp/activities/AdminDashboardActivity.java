@@ -47,8 +47,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToNotifications(View view) {
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
         NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
@@ -62,8 +61,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     public void goToFaultyAccounts(View view) {
 
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
 
         Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
         intent.putExtra("filter", "faulty");
@@ -72,8 +70,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyAccounts(View view) {
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
 
         Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
         intent.putExtra("filter", "healthy");
@@ -84,9 +81,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     public void goToHealthyDevices(View view) {
         pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
-//
-//        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-//        progressBar.setVisibility(View.VISIBLE);
 
         Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
         intent.putExtra("filter", "healthy");
@@ -98,8 +92,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     public void goToFaultyDevices(View view) {
 
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
 
         Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
         intent.putExtra("filter", "faulty");
@@ -137,8 +130,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     protected void onResume() {
         super.onResume();
         GeneralProgressBar.removeProgressDialog(pd);
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.INVISIBLE);
+
 
     }
 
