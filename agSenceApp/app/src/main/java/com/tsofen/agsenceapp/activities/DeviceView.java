@@ -56,6 +56,26 @@ public class DeviceView extends AppBaseActivity {
             @SuppressLint("DefaultLocale")
             @Override //applying logic to the handler once Data is received by the thread...
             public void getDeviceDataInfo(final List<DeviceData> deviceDataList) {
+
+                TextView status = findViewById(R.id.device_view_status);
+                TextView lastUpdate = findViewById(R.id.device_view_last_update);
+                TextView coordinations = findViewById(R.id.device_view_coordination);
+                TextView isMoving = findViewById(R.id.device_view_is_moving);
+                if(deviceDataList != null && deviceDataList.size() == 0){
+                    status.setText("Device Status: ----");
+                    lastUpdate.setText("last updated: ----");
+                    coordinations.setText("Lat: ---- Long: ---- "); // no height
+                    isMoving.setText("Moving: ----");
+                    return;
+                } /////
+                final  DeviceData deviceData = deviceDataList.get(0);
+                device.setDeviceData(deviceDataList);
+                status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
+                lastUpdate.setText("last updated: " + device.getLastUpdate());
+                coordinations.setText(String.format("Lat: %f Long: %f ", deviceData.getLat(), deviceData.getLon())); // no height
+                isMoving.setText(String.format("Moving: %s", ((deviceData.getMoveAlertActive()) ? "Yes" : "No")));
+
+                //----------
                 DeviceView.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
