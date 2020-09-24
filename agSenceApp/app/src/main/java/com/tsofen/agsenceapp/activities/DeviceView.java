@@ -124,6 +124,7 @@ public class DeviceView extends AppBaseActivity {
 
     public void GoToSettingsPage(View view) {
         Intent intent = new Intent(this, DeviceSetting.class);
+        intent.putExtra("device",device);
         startActivity(intent);
     }
 

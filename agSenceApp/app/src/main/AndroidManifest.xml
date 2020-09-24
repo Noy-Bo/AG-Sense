@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
 
     <application
 
@@ -14,6 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <receiver
+            android:name="com.tsofen.agsenceapp.smsServices.SmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
         <activity android:name=".activities.AccountDevicesStatus"
             android:windowSoftInputMode="adjustPan"
             android:label="Account Devices Status"/>
@@ -102,6 +113,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+
 
         <service
             android:name=".notifications.BasicFireBaseMessagingService">
