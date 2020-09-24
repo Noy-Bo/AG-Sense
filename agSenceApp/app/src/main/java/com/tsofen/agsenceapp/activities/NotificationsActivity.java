@@ -48,8 +48,8 @@ public class NotificationsActivity extends SearchBaseActivity {
     Button reset;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
-    Date after;
-    Date before;
+    Date after = null;
+    Date before = null;
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
@@ -169,156 +169,171 @@ public class NotificationsActivity extends SearchBaseActivity {
 
     public void search(View view) {
         ArrayList<Notification> filterArr = new ArrayList<>();
-        for (Notification notification : notificationArray) {
-            if (notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
-                    ((notification.getReaded() == true && displayReadNotifications) ||
-                            (notification.getReaded() == false && displayUnreadNotifications))) {
-                filterArr.add(notification);
-            }
-        }
-        notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, filterArr);
-        notificationListView.setAdapter(notificationArrayAdapter);
-        updateUI(filterArr.size());
-        popUpDialog.cancel();
-
-    }
-
-    public void displayReadNotifications(final View view) {
-        TextView displayFaultyBox = view.findViewById(R.id.read_button);
-
-        if (displayReadNotifications == true) // do not display faulty devices.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            displayReadNotifications = false;
-        } else if (displayReadNotifications == false) // displaying the faulty device.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
-            displayReadNotifications = true;
-        }
-    }
-
-    public void displayUnreadNotifications(final View view) {
-        TextView displayHealthyBox = view.findViewById(R.id.unread_button);
-
-        if (displayUnreadNotifications == true) // do not display healthy devices.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            displayUnreadNotifications = false;
-        } else if (displayUnreadNotifications == false) // displaying the healthy device.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
-            displayUnreadNotifications = true;
-        }
-
-    }
-
-    public void create(View view) {
-        Intent intent = new Intent(this, NewAccount.class);
-        startActivity(intent);
-    }
-
-
-    public void gotoFilter(View view) {
-        // show the layout of the popup window
-        popUpDialog.setContentView(R.layout.pop_up1);
-        closePopUpImage = (ImageView) popUpDialog.findViewById(R.id.closePopUp);
-        reset = (Button) popUpDialog.findViewById(R.id.filterResetButton);
-        fromDateCalenderImage = (ImageView) popUpDialog.findViewById(R.id.fromDateCalender);
-        toDateCalenderImage = (ImageView) popUpDialog.findViewById(R.id.toDateCalender);
-        //search ??
-        closePopUpImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popUpDialog.dismiss();
-            }
-        });
-        fromDateCalenderImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listen(popUpDialog);
-            }
-        });
-        toDateCalenderImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listen1(this);
-            }
-        });
-        popUpDialog.show();
-    }
-
-    public void listen(final Dialog view) {
-        final Calendar cldr = Calendar.getInstance();
-        int day = cldr.get(Calendar.DAY_OF_MONTH);
-        int month = cldr.get(Calendar.MONTH);
-        int year = cldr.get(Calendar.YEAR);
-        // date picker dialog
-        final TextView textView = (TextView) popUpDialog.findViewById(R.id.fromDate);
-        DatePickerDialog picker = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        i1++;
-                        after = new Date(i, i1, i2);
-                        textView.setText(i + "/" + i1 + "/" + i2);
+                if (after == null || before == null) {
+                    for (Notification notification : notificationArray) {
+                        if ((notification.getReaded() == true && displayReadNotifications) ||
+                                (notification.getReaded() == false && displayUnreadNotifications)) {
+                            filterArr.add(notification);
+                        }
                     }
-                }, year, month, day);
-        picker.show();
-    }
 
-    public void listen1(final View.OnClickListener view) {
-        final Calendar cldr = Calendar.getInstance();
-        int day = cldr.get(Calendar.DAY_OF_MONTH);
-        int month = cldr.get(Calendar.MONTH);
-        int year = cldr.get(Calendar.YEAR);
-        // date picker dialog
-        final TextView textView = (TextView) popUpDialog.findViewById(R.id.toDate);
-        DatePickerDialog picker = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        i1++;
-                        before = new Date(i, i1, i2);
-                        textView.setText(i + "/" + i1 + "/" + i2);
+                } else {
+                    for (Notification notification : notificationArray) {
+                        if (notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                                ((notification.getReaded() == true && displayReadNotifications) ||
+                                        (notification.getReaded() == false && displayUnreadNotifications))) {
+                            filterArr.add(notification);
+                        }
                     }
-                }, year, month, day);
-        picker.show();
-    }
+                }
+
+                notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, filterArr);
+                notificationListView.setAdapter(notificationArrayAdapter);
+                updateUI(filterArr.size());
+                popUpDialog.cancel();
+                after = null;
+                before = null;
+                displayReadNotifications = false;
+                displayUnreadNotifications = false;
+
+            }
+
+            public void displayReadNotifications ( final View view){
+                TextView displayFaultyBox = view.findViewById(R.id.read_button);
+
+                if (displayReadNotifications == true) // do not display faulty devices.
+                {
+                    displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                    displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+                    displayReadNotifications = false;
+                } else if (displayReadNotifications == false) // displaying the faulty device.
+                {
+                    displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+                    displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
+                    displayReadNotifications = true;
+                }
+            }
+
+            public void displayUnreadNotifications ( final View view){
+                TextView displayHealthyBox = view.findViewById(R.id.unread_button);
+
+                if (displayUnreadNotifications == true) // do not display healthy devices.
+                {
+                    displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                    displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+                    displayUnreadNotifications = false;
+                } else if (displayUnreadNotifications == false) // displaying the healthy device.
+                {
+                    displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+                    displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
+                    displayUnreadNotifications = true;
+                }
+
+            }
+
+            public void create (View view){
+                Intent intent = new Intent(this, NewAccount.class);
+                startActivity(intent);
+            }
 
 
-    public void reset(View view) {
-        TextView fromDate = (TextView) popUpDialog.findViewById(R.id.fromDate);
-        TextView toDate = (TextView) popUpDialog.findViewById(R.id.toDate);
-        TextView displayFaultyBox = popUpDialog.findViewById(R.id.read_button);
-        TextView displayHealthyBox = popUpDialog.findViewById(R.id.unread_button);
-        toDate.setText("");
-        fromDate.setText("");
-        displayReadNotifications = false;
-        displayUnreadNotifications = false; // false
-        displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-        displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-        displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-        displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-    }
+            public void gotoFilter (View view){
+                // show the layout of the popup window
+                popUpDialog.setContentView(R.layout.pop_up1);
+                closePopUpImage = (ImageView) popUpDialog.findViewById(R.id.closePopUp);
+                reset = (Button) popUpDialog.findViewById(R.id.filterResetButton);
+                fromDateCalenderImage = (ImageView) popUpDialog.findViewById(R.id.fromDateCalender);
+                toDateCalenderImage = (ImageView) popUpDialog.findViewById(R.id.toDateCalender);
+                //search ??
+                closePopUpImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popUpDialog.dismiss();
+                    }
+                });
+                fromDateCalenderImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listen(popUpDialog);
+                    }
+                });
+                toDateCalenderImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listen1(this);
+                    }
+                });
+                popUpDialog.show();
+            }
+
+            public void listen ( final Dialog view){
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                final TextView textView = (TextView) popUpDialog.findViewById(R.id.fromDate);
+                DatePickerDialog picker = new DatePickerDialog(this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1++;
+                                after = new Date(i, i1, i2);
+                                textView.setText(i + "/" + i1 + "/" + i2);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+
+            public void listen1 ( final View.OnClickListener view){
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                final TextView textView = (TextView) popUpDialog.findViewById(R.id.toDate);
+                DatePickerDialog picker = new DatePickerDialog(this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1++;
+                                before = new Date(i, i1, i2);
+                                textView.setText(i + "/" + i1 + "/" + i2);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
 
 
-    public void updateUI(int notificationNumber) {
+            public void reset (View view){
+                TextView fromDate = (TextView) popUpDialog.findViewById(R.id.fromDate);
+                TextView toDate = (TextView) popUpDialog.findViewById(R.id.toDate);
+                TextView displayFaultyBox = popUpDialog.findViewById(R.id.read_button);
+                TextView displayHealthyBox = popUpDialog.findViewById(R.id.unread_button);
+                toDate.setText("");
+                fromDate.setText("");
+                displayReadNotifications = false;
+                displayUnreadNotifications = false; // false
+                displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+                displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+            }
 
-        TextView textView = contentView.findViewById(R.id.textView4);
-        if (textView != null) {
-            textView.setText(String.valueOf(notificationNumber));
+
+            public void updateUI ( int notificationNumber){
+
+                TextView textView = contentView.findViewById(R.id.textView4);
+                if (textView != null) {
+                    textView.setText(String.valueOf(notificationNumber));
+                }
+
+            }
+
+            public void initialUpdateUI () {
+                TextView notification = findViewById(R.id.textView4);
+                if (notification != null) {
+                    notification.setText(String.valueOf(notificationArray.size()));
+                }
+            }
         }
-
-    }
-
-    public void initialUpdateUI() {
-        TextView notification = findViewById(R.id.textView4);
-        if (notification != null) {
-            notification.setText(String.valueOf(notificationArray.size()));
-        }
-    }
-}
