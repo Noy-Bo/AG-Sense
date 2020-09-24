@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.DeviceInfoDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +32,15 @@ public class DeviceView extends AppBaseActivity {
     private SliderAdapter sliderAdapter;
     private TextView[] mDots;
     Devices device;
-
+    private ProgressDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_device_view, null, false);
+
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading device data...");
+
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_device_status);
 
@@ -50,7 +55,8 @@ public class DeviceView extends AppBaseActivity {
         DeviceDataAdapter.getInstance().getDeviceDataList(device.getId(), new DeviceInfoDataRequestHandler() {
             @SuppressLint("DefaultLocale")
             @Override //applying logic to the handler once Data is received by the thread...
-            public void getDeviceDataInfo(List<DeviceData> deviceDataList) {
+            public void getDeviceDataInfo(final List<DeviceData> deviceDataList) {
+
                 TextView status = findViewById(R.id.device_view_status);
                 TextView lastUpdate = findViewById(R.id.device_view_last_update);
                 TextView coordinations = findViewById(R.id.device_view_coordination);
@@ -73,10 +79,33 @@ public class DeviceView extends AppBaseActivity {
                 DeviceView.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        TextView status = findViewById(R.id.device_view_status);
+                        TextView lastUpdate = findViewById(R.id.device_view_last_update);
+                        TextView coordinations = findViewById(R.id.device_view_coordination);
+                        TextView isMoving = findViewById(R.id.device_view_is_moving);
+                        if (deviceDataList.size() == 0) {
+                            status.setText("Device Status: ----");
+                            lastUpdate.setText("last updated: ----");
+                            coordinations.setText("Lat: ---- Long: ---- "); // no height
+                            isMoving.setText("Moving: ----");
+                            GeneralProgressBar.removeProgressDialog(pd);
+                            return;
+                        } /////
+                        final DeviceData deviceData = deviceDataList.get(0);
+                        device.setDeviceData(deviceDataList);
+                        status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
+                        lastUpdate.setText("last updated: " + device.getLastUpdate());
+                        coordinations.setText(String.format("Lat: %f Long: %f ", deviceData.getLat(), deviceData.getLon())); // no height
+                        isMoving.setText(String.format("Moving: %s", ((deviceData.getMoveAlertActive()) ? "Yes" : "No")));
+
+                        //----------
+
                         sliderAdapter = new SliderAdapter(DeviceView.this, deviceData);
                         //applying the adapter onto the viewpager!
                         sliderViewPager.setAdapter(sliderAdapter);
                         addDotsIndicator(0);
+
+                        GeneralProgressBar.removeProgressDialog(pd);
                     }
                 });
 
@@ -134,14 +163,14 @@ public class DeviceView extends AppBaseActivity {
 
     public void openStatusListActivity(View view) {
         Intent intent = new Intent(this, DeviceStatusList.class);
-        intent.putExtra("device",device);
+        intent.putExtra("device", device);
         startActivity(intent);
     }
 
 
     public void openNotificationsActivity(View view) {
         Intent intent = new Intent(this, NotificationsActivity.class);
-        intent.putExtra("obj",device);
+        intent.putExtra("obj", device);
         startActivity(intent);
 
     }

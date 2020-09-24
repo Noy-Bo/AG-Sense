@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -19,6 +20,7 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
@@ -44,13 +46,31 @@ public class DeviceStatus extends SearchBaseActivity {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
-        devicesList = contentView.findViewById(R.id.listOfDevices);
         pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
-        searchView = contentView.findViewById(R.id.search_text_view);
-        searchView.setQueryHint("search bar here");
+        devicesList = contentView.findViewById(R.id.listOfDevices);
+        searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
+        searchView.setHint(R.string.search_device_hint);
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+            @Override
+            public void onDeviceDataLoaded(final List<Devices> devices) {
+                DeviceStatus.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.setAdapter(new DevicesAdapter<Devices>(DeviceStatus.this, devices));
+                    }
+                });
 
-
-
+            }
+        });
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(DeviceStatus.this, DeviceView.class);
+                Devices device = (Devices) searchView.getAdapter().getItem(i);
+                intent.putExtra("device", device);
+                startActivity(intent);
+            }
+        });
 
    /*     String filterString = getIntent().getStringExtra("filter");
         ArrayList<Devices> toShow = new ArrayList<>();
@@ -135,7 +155,7 @@ public class DeviceStatus extends SearchBaseActivity {
             }
         }
         //
-        final ListAdapter myAdapter = new DevicesAdapter(this, 0, filteredDevices);
+        final ListAdapter myAdapter = new DevicesAdapter<Devices>(this, filteredDevices);
         //Ends here
         devicesList.setAdapter(myAdapter);
     }
@@ -161,7 +181,7 @@ public class DeviceStatus extends SearchBaseActivity {
             }
 
         }
-        final ListAdapter myAdapter = new DevicesAdapter(DeviceStatus.this, 0, filteredDevices);
+        final ListAdapter myAdapter = new DevicesAdapter<Devices>(DeviceStatus.this,  filteredDevices);
         devicesList.setAdapter(myAdapter);
         GeneralProgressBar.removeProgressDialog(pd);
     }
