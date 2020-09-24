@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.tsofen.agsenceapp.R;
@@ -23,42 +24,55 @@ public class DeviceSettings extends BackBaseActivity {
 
     Devices device;
     Spinner spinner;
+    int flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_settings);
-        spinner = findViewById(R.id.settingSpinner);
+        spinner = (Spinner) findViewById(R.id.settingSpinner);
+        final LinearLayout b1 = findViewById(R.id.buttonsPanel);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (flag==0){
+                    flag=1;
+                }else{
+                    b1.setVisibility(VISIBLE);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                b1.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+
+
+
         final ArrayList<String> list = new ArrayList<>();
         device = (Devices) getIntent().getSerializableExtra("device");
         if (device != null)
             list.add(device.getImei().toString());
         else {
-
             DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
                 @Override
                 public void onDeviceDataLoaded(List<Devices> devices) {
                     for (Devices devices1 : devices)
                         list.add(devices1.getImei().toString());
 
+
                 }
             });
         }
-        ArrayAdapter<String> dataAdapter;
-        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
-        final Button b1 = findViewById(R.id.speedAlertGeoSettingbutton);
-        final Button b2 = findViewById(R.id.authorizationNumber);
-        final Button b3 = findViewById(R.id.tracking);
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                b1.setVisibility(VISIBLE);
-                b2.setVisibility(VISIBLE);
-                b3.setVisibility(VISIBLE);
-            }
-        });
+
+
     }
 
     public Spinner getSpinner() {
