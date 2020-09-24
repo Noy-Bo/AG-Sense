@@ -129,7 +129,7 @@ public class DeviceController {
 	public boolean AddNewDevice(@RequestParam long imei, @RequestParam DeviceType type,
 			@RequestParam String accountName, @RequestParam String phoneNumber, String devicePassword) {
 
-		if (deviceBL.getDeviceByImei(imei) != null)
+		if (deviceBL.getDeviceImei(imei) != null)
 			return false;
 
 		Account account = accountBL.getAccountByName(accountName);
