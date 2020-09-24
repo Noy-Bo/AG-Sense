@@ -26,6 +26,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.Place;
@@ -55,8 +56,8 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     ImageView toDateCalenderImage;
     private  long backPressedTime;
     private Toast backtoast;
+    private Account account;
     UserMap userMap = new UserMap();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,11 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
         searchView.setQueryHint("Search device...");
-
-        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Account)AppBaseActivity.user).getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
+        if(AppBaseActivity.user instanceof Admin)
+            account = (Account) getIntent().getSerializableExtra("account");
+        else
+            account = (Account) AppBaseActivity.user;
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
                 AccountDashboardActivity.this.runOnUiThread(new Runnable() {
@@ -86,8 +90,8 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(),0,0,new DeviceDataRequestHandler() {
 
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountid(),0,0,new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
                 devicesList.addAll(devices);
@@ -110,6 +114,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             filterString = "healthy";
 
         intent.putExtra("filter",filterString);
+        intent.putExtra("account",account);
         startActivity(intent);
     }
 
@@ -278,6 +283,10 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     @Override
     public void onBackPressed() {
+        if(AppBaseActivity.user instanceof Admin) {
+            finish();
+            return;
+        }
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             backtoast.cancel();
             super.finishAffinity();
