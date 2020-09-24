@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +36,13 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     ListView devicesList;
     Account account;
     UserMap userMap = new UserMap();
+    ProgressDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_devices_status);
         devicesList = findViewById(R.id.account_devices_list);
@@ -139,5 +144,6 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         }
         final ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this, 0, filteredDevices);
         devicesList.setAdapter(myAdapter);
+        GeneralProgressBar.removeProgressDialog(pd);
     }
 }
