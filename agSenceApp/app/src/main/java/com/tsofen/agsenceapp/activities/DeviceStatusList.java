@@ -97,7 +97,14 @@ public class DeviceStatusList extends BackBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (DeviceData deviceData : deviceData) {
-                userMap.addPlace(new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon()));
+                Place newPlace = new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon());
+                if(deviceData.getId()!=null) {
+                    newPlace.setTitle("device" + deviceData.getId().toString());
+                }
+                if(deviceData.getDateAndTime()!=null) {
+                    newPlace.setSnippet(deviceData.getDateAndTime().toString());
+                }
+                userMap.addPlace(newPlace);
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("flag", true);
@@ -105,21 +112,4 @@ public class DeviceStatusList extends BackBaseActivity {
             startActivity(intent);
         }
     }
-
-//    public void openMap(View view) {
-//        if (deviceData.size() == 0) {
-//            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
-//        } else {
-//            ArrayList<Devices> devicesArr = new ArrayList<>();
-//            for(DeviceData device : deviceData) {
-//                deviceData.add(new Place(device.getLatitude(), device.getLogitude()));
-//            }
-//            Intent intent = new Intent(this, MapsActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("devices", devicesArr);
-//            intent.putExtras(bundle);
-//            startActivity(intent);
-//        }
-//    }
-
 }

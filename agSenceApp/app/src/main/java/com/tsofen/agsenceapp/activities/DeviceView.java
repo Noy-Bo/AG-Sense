@@ -55,7 +55,7 @@ public class DeviceView extends AppBaseActivity {
                 TextView lastUpdate = findViewById(R.id.device_view_last_update);
                 TextView coordinations = findViewById(R.id.device_view_coordination);
                 TextView isMoving = findViewById(R.id.device_view_is_moving);
-                if(deviceDataList.size() == 0){
+                if(deviceDataList != null && deviceDataList.size() == 0){
                     status.setText("Device Status: ----");
                     lastUpdate.setText("last updated: ----");
                     coordinations.setText("Lat: ---- Long: ---- "); // no height
