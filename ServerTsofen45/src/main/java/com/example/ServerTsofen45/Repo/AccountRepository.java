@@ -6,4 +6,6 @@ import com.example.ServerTsofen45.Beans.Account;
 
 public interface AccountRepository  extends CrudRepository<Account, Integer>  {
 
+	
+	Account findByName(String name);
 }
