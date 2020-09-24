@@ -27,6 +27,8 @@ public class Device {
 	double latitude;
 	boolean isRegistered;
 	boolean isFaulty;
+	String phoneNumber;
+	String password;
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
 
@@ -48,6 +50,20 @@ public class Device {
 		this.isRegistered = isRegistered;
 		this.notifications = notifications;
 		this.deviceData = deviceData;
+	}
+
+	
+	
+	
+	
+	
+	public Device(long imei, int accountId, DeviceType type, String phoneNumber, String password) {
+		super();
+		this.imei = imei;
+		this.accountId = accountId;
+		this.type = type;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
 	}
 
 	@Column

@@ -29,6 +29,14 @@ public class DeviceBL {
 
 	}
 
+	public Device getDeviceByImei(long deviceImei) {
+
+		Device device = deviceRepository.findByImei(deviceImei);
+		return device;
+
+	}
+	
+	
 	public ArrayList<Device> getDevicesByName(String name) {
 
 		ArrayList<Device> devices = deviceRepository.findByName(name);
