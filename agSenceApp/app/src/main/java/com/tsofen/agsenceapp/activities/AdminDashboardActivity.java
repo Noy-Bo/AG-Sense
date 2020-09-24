@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
@@ -32,11 +35,33 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_admin_dashboard, null, false);
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_dashboard);
+        searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
+        searchView.setHint(R.string.search_account_hint);
+        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(final List<Account> accounts) {
+                AdminDashboardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.setAdapter(new AccountsAdapter<Account>(AdminDashboardActivity.this,accounts));
+                    }
+                });
 
+            }
+        });
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AdminDashboardActivity.this, AccountDashboardActivity.class);
+                Account account = (Account) searchView.getAdapter().getItem(i);
+                intent.putExtra("account", account);
+                startActivity(intent);
+            }
+        });
         // observer registeration for onforeground. -- read AppLifeCycleObserver.
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
@@ -49,7 +74,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
                 Intent intent = new Intent(AdminDashboardActivity.this, NotificationsActivity.class);
-                intent.putExtra("obj", (Admin)AppBaseActivity.user);
+                intent.putExtra("obj", (Admin) AppBaseActivity.user);
                 startActivity(intent);
             }
         });
@@ -116,7 +141,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         }
         backPressedTime = System.currentTimeMillis();
     }
-
 
 
     public void GoToOther(View view) {

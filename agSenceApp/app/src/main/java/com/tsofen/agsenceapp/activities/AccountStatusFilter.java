@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,6 +60,9 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
                 displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
             }
         }
+        searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
+        searchView.setHint(R.string.search_account_hint);
+
 
         AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
             @Override
@@ -65,7 +71,7 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
                 AccountStatusFilter.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this, 0, accountsArr);
+                        ListAdapter myAdapter = new AccountsAdapter<User>(AccountStatusFilter.this, accountsArr);
                         accountsList.setAdapter(myAdapter);
 
                         //update Listview using the filter given
@@ -84,13 +90,23 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
                             }
                             updateList();
                         }
+                        searchView.setAdapter(new AccountsAdapter<Account>(AccountStatusFilter.this, accounts));
+
                     }
                 });
 
             }
         });
 
-
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AccountStatusFilter.this, AccountDashboardActivity.class);
+                Account account = (Account) searchView.getAdapter().getItem(i);
+                intent.putExtra("account", account);
+                startActivity(intent);
+            }
+        });
     }
 
     public void displayFaultyClicked(View view) {
@@ -140,7 +156,7 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
                 filteredAccounts.add(account);
             }
         }
-        ListAdapter myAdapter = new AccountsAdapter(AccountStatusFilter.this, 0, filteredAccounts);
+        ListAdapter myAdapter = new AccountsAdapter<User>(AccountStatusFilter.this, filteredAccounts);
         accountsList.setAdapter(myAdapter);
     }
 }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,7 +19,6 @@ import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
-import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
@@ -33,6 +34,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     ListView devicesList;
     Account account;
     UserMap userMap = new UserMap();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,8 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         navigationView.setCheckedItem(R.id.nav_account_devices_status);
         devicesList = findViewById(R.id.account_devices_list);
         account = (Account) getIntent().getSerializableExtra("account");
+        searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
+        searchView.setHint(R.string.search_device_hint);
 
         DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
             @Override
@@ -51,9 +55,22 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                     public void run() {
                         devicesArr = (ArrayList<Devices>) devices;
                         updatingUI();
+                        searchView.setAdapter(new DevicesAdapter<Devices>(AccountDevicesStatus.this, devices));
+
                     }
                 });
 
+            }
+        });
+
+
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AccountDevicesStatus.this, DeviceView.class);
+                Devices device = (Devices) searchView.getAdapter().getItem(i);
+                intent.putExtra("device", device);
+                startActivity(intent);
             }
         });
 
@@ -100,7 +117,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                 filteredDevices.add(device);
             }
         }
-        ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this, 0, filteredDevices);
+        ListAdapter myAdapter = new DevicesAdapter<Devices>(AccountDevicesStatus.this, filteredDevices);
         devicesList.setAdapter(myAdapter);
     }
 
@@ -116,6 +133,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             startActivity(intent);
         }
     }
+
     private void updatingUI() {
         ArrayList<Devices> filteredDevices = new ArrayList<>();
         String filter = getIntent().getExtras().getString("filter");
@@ -137,7 +155,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             }
 
         }
-        final ListAdapter myAdapter = new DevicesAdapter(AccountDevicesStatus.this, 0, filteredDevices);
+        final ListAdapter myAdapter = new DevicesAdapter<Devices>(AccountDevicesStatus.this, filteredDevices);
         devicesList.setAdapter(myAdapter);
     }
 }

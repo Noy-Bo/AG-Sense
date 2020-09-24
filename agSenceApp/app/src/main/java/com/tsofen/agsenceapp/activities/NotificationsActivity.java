@@ -1,6 +1,5 @@
 package com.tsofen.agsenceapp.activities;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -8,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -19,9 +20,16 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.adapters.AccountsAdapter;
+import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
@@ -40,8 +48,8 @@ public class NotificationsActivity extends SearchBaseActivity {
     Button reset;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
-    Date after ;
-    Date before ;
+    Date after;
+    Date before;
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
@@ -83,6 +91,31 @@ public class NotificationsActivity extends SearchBaseActivity {
                     return;
                 }
             });
+
+            searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
+            searchView.setHint(R.string.search_device_hint);
+            DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+                @Override
+                public void onDeviceDataLoaded(final List<Devices> devices) {
+                    NotificationsActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchView.setAdapter(new DevicesAdapter<Devices>(NotificationsActivity.this, devices));
+                        }
+                    });
+
+                }
+            });
+            searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(NotificationsActivity.this, DeviceView.class);
+                    Devices device = (Devices) searchView.getAdapter().getItem(i);
+                    intent.putExtra("device", device);
+                    startActivity(intent);
+                }
+            });
+
         } else if (obj instanceof Admin) {
             obj = ((Admin) obj);
             setTitle("Admin Notifications");
@@ -106,16 +139,40 @@ public class NotificationsActivity extends SearchBaseActivity {
 
                 }
             });
+
+            searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
+            searchView.setHint(R.string.search_account_hint);
+            AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+                @Override
+                public void onAccountsDownloadFinished(final List<Account> accounts) {
+                    NotificationsActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchView.setAdapter(new AccountsAdapter<Account>(NotificationsActivity.this, accounts));
+                        }
+                    });
+
+                }
+            });
+            searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(NotificationsActivity.this, AccountDashboardActivity.class);
+                    Account account = (Account) searchView.getAdapter().getItem(i);
+                    intent.putExtra("account", account);
+                    startActivity(intent);
+                }
+            });
         }
 
     }
 
     public void search(View view) {
         ArrayList<Notification> filterArr = new ArrayList<>();
-        for (Notification notification: notificationArray) {
-            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
-                    ((notification.getReaded()==true && displayReadNotifications) ||
-                            (notification.getReaded()==false &&  displayUnreadNotifications))){
+        for (Notification notification : notificationArray) {
+            if (notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                    ((notification.getReaded() == true && displayReadNotifications) ||
+                            (notification.getReaded() == false && displayUnreadNotifications))) {
                 filterArr.add(notification);
             }
         }
@@ -249,18 +306,18 @@ public class NotificationsActivity extends SearchBaseActivity {
     }
 
 
-    public void updateUI(int notificationNumber){
+    public void updateUI(int notificationNumber) {
 
         TextView textView = contentView.findViewById(R.id.textView4);
-        if(textView!=null){
+        if (textView != null) {
             textView.setText(String.valueOf(notificationNumber));
         }
 
     }
 
-    public  void initialUpdateUI(){
+    public void initialUpdateUI() {
         TextView notification = findViewById(R.id.textView4);
-        if(notification!=null){
+        if (notification != null) {
             notification.setText(String.valueOf(notificationArray.size()));
         }
     }
