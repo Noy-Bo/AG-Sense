@@ -42,8 +42,8 @@ public class NotificationsActivity extends SearchBaseActivity {
     Button reset;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
-    Date after ;
-    Date before ;
+    Date after =null ;
+    Date before =null;
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
@@ -115,17 +115,32 @@ public class NotificationsActivity extends SearchBaseActivity {
 
     public void search(View view) {
         ArrayList<Notification> filterArr = new ArrayList<>();
-        for (Notification notification: notificationArray) {
-            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
-                    ((notification.getReaded()==true && displayReadNotifications) ||
-                            (notification.getReaded()==false &&  displayUnreadNotifications))){
-                filterArr.add(notification);
+        if(after ==null || before == null){
+            for (Notification notification: notificationArray) {
+                if((notification.getReaded()==true && displayReadNotifications) ||
+                                (notification.getReaded()==false &&  displayUnreadNotifications)){
+                    filterArr.add(notification);
+                }
+            }
+
+        }else{
+            for (Notification notification: notificationArray) {
+                if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                        ((notification.getReaded()==true && displayReadNotifications) ||
+                                (notification.getReaded()==false &&  displayUnreadNotifications))){
+                    filterArr.add(notification);
+                }
             }
         }
+
         notificationArrayAdapter = new NotificationListAdaptor(NotificationsActivity.this, 0, filterArr);
         notificationListView.setAdapter(notificationArrayAdapter);
         updateUI(filterArr.size());
         popUpDialog.cancel();
+        after =null;
+        before =null;
+        displayReadNotifications = false;
+        displayUnreadNotifications = false;
 
     }
 

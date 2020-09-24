@@ -14,6 +14,8 @@ import Enums.DeviceType;
 public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	Device findById(int id);
+	
+	
 
 	ArrayList<Device> findByNameContaining(String name);
 
