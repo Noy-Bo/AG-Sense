@@ -49,21 +49,20 @@ public class DeviceView extends AppBaseActivity {
 
         DeviceDataAdapter.getInstance().getDeviceDataList(device.getId(), new DeviceInfoDataRequestHandler() {
             @SuppressLint("DefaultLocale")
-<<<<<<< HEAD:ClientTsofen45/agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java
             @Override //applying logic to the handler once Data is received by the thread...
             public void getDeviceDataInfo(List<DeviceData> deviceDataList) {
                 TextView status = findViewById(R.id.device_view_status);
                 TextView lastUpdate = findViewById(R.id.device_view_last_update);
                 TextView coordinations = findViewById(R.id.device_view_coordination);
                 TextView isMoving = findViewById(R.id.device_view_is_moving);
-                if(deviceDataList.size() == 0){
+                if (deviceDataList.size() == 0) {
                     status.setText("Device Status: ----");
                     lastUpdate.setText("last updated: ----");
                     coordinations.setText("Lat: ---- Long: ---- "); // no height
                     isMoving.setText("Moving: ----");
                     return;
                 } /////
-                final  DeviceData deviceData = deviceDataList.get(0);
+                final DeviceData deviceData = deviceDataList.get(0);
                 device.setDeviceData(deviceDataList);
                 status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
                 lastUpdate.setText("last updated: " + device.getLastUpdate());
@@ -82,32 +81,6 @@ public class DeviceView extends AppBaseActivity {
                 });
 
 
-=======
-            @Override
-            public void getDeviceDataInfo(final List<DeviceData> deviceDataList) {
-                DeviceView.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView status = findViewById(R.id.device_view_status);
-                        TextView lastUpdate = findViewById(R.id.device_view_last_update);
-                        TextView coordinations = findViewById(R.id.device_view_coordination);
-                        TextView isMoving = findViewById(R.id.device_view_is_moving);
-                        if(deviceDataList.size() == 0){
-                            status.setText("Device Status: ----");
-                            lastUpdate.setText("last updated: ----");
-                            coordinations.setText("Lat: ---- Long: ---- "); // no height
-                            isMoving.setText("Moving: ----");
-                            return;
-                        }
-                        DeviceData deviceData = deviceDataList.get(0);
-                        device.setDeviceData(deviceDataList);
-                        status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
-                        lastUpdate.setText("last updated: " + device.getLastUpdate());
-                        coordinations.setText(String.format("Lat: %f Long: %f ", deviceData.getLat(), deviceData.getLon())); // no height
-                        isMoving.setText(String.format("Moving: %s", ((deviceData.getMoveAlertActive()) ? "Yes" : "No")));
-                    }
-                });
->>>>>>> master:agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java
             }
         });
 
@@ -154,7 +127,8 @@ public class DeviceView extends AppBaseActivity {
 
 
     public void GoToSettingsPage(View view) {
-        Intent intent = new Intent(this, DeviceSetting.class);
+        Intent intent = new Intent(this, DeviceSettings.class);
+        intent.putExtra("device",device);
         startActivity(intent);
     }
 
@@ -162,14 +136,14 @@ public class DeviceView extends AppBaseActivity {
 
     public void openStatusListActivity(View view) {
         Intent intent = new Intent(this, DeviceStatusList.class);
-        intent.putExtra("device",device);
+        intent.putExtra("device", device);
         startActivity(intent);
     }
 
 
     public void openNotificationsActivity(View view) {
         Intent intent = new Intent(this, NotificationsActivity.class);
-        intent.putExtra("obj",device);
+        intent.putExtra("obj", device);
         startActivity(intent);
 
     }

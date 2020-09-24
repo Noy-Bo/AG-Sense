@@ -1,8 +1,10 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,13 +26,14 @@ import static java.lang.Float.parseFloat;
 public class AuthorizationNumberSetting extends BackBaseActivity {
     EditText editAdminNumber, editauthorizednum1, editauthorizednum2, editauthorizednum3;
     Button  AuthorizationNumberButtonUpdate;
-    Spinner FenceTypeSpinner;
+    //Spinner FenceTypeSpinner;
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_setting);
-        Spinner spinner = (Spinner) findViewById(R.id.FenceTypeSpinner);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_authorization_number_setting, null, false);
+       //Spinner spinner = (Spinner) contentView.findViewById(R.id.FenceTypeSpinner);
         List<String> type = new ArrayList<>();
         type.add(0, "Choose Type");
         type.add("Out of the fence");
@@ -38,7 +41,7 @@ public class AuthorizationNumberSetting extends BackBaseActivity {
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+       // spinner.setAdapter(dataAdapter);
 
 
         //Authorization Number starts here
@@ -47,6 +50,7 @@ public class AuthorizationNumberSetting extends BackBaseActivity {
         editauthorizednum1 = (EditText) findViewById(R.id.editauthorizednum1);
         editauthorizednum2 = (EditText) findViewById(R.id.editauthorizednum2);
         editauthorizednum3 = (EditText) findViewById(R.id.editauthorizednum3);
+        AuthorizationNumberButtonUpdate=(Button)findViewById(R.id.authorizationNumber);
         //Ends here
 
     }

@@ -25,6 +25,7 @@ import static java.lang.Float.parseFloat;
 public class TrackingSetting extends BackBaseActivity {
 
     EditText trackingintervale1, trackingintervale2, distance, headingdir;
+    Button SpeedingAlertSecondButtonUpdate;
 
 
 
@@ -32,8 +33,8 @@ public class TrackingSetting extends BackBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_setting);
-        Spinner spinner = (Spinner) findViewById(R.id.FenceTypeSpinner);
+        setContentView(R.layout.activity_tracking_setting);
+        //Spinner spinner = (Spinner) findViewById(R.id.FenceTypeSpinner);
         List<String> type = new ArrayList<>();
         type.add(0, "Choose Type");
         type.add("Out of the fence");
@@ -41,7 +42,7 @@ public class TrackingSetting extends BackBaseActivity {
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+        //spinner.setAdapter(dataAdapter);
 
 
         //SpeedingAlertSecondUpdate
@@ -49,6 +50,7 @@ public class TrackingSetting extends BackBaseActivity {
         trackingintervale2 = (EditText) findViewById(R.id.trackingintervale2);
         distance = (EditText) findViewById(R.id.distance);
         headingdir = (EditText) findViewById(R.id.headingdir);
+        SpeedingAlertSecondButtonUpdate=(Button)findViewById(R.id.tracking);
 
         //Ends here
 

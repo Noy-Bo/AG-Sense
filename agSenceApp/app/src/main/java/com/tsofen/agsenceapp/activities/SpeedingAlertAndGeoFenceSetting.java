@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import android.os.Build;
 import android.Manifest;
-//import android.support.v4.app.Fragment;
 
 import static java.lang.Float.parseFloat;
 
@@ -34,7 +33,7 @@ public class SpeedingAlertAndGeoFenceSetting extends BackBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_setting);
+        setContentView(R.layout.activity_speeding_alert_and_geo_fence_setting);
         Spinner spinner = (Spinner) findViewById(R.id.FenceTypeSpinner);
         List<String> type = new ArrayList<>();
         type.add(0, "Choose Type");

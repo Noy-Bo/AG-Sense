@@ -59,6 +59,7 @@ public class DeviceSetting extends BackBaseActivity {
         trackingintervale2 = (EditText) findViewById(R.id.trackingintervale2);
         distance = (EditText) findViewById(R.id.distance);
         headingdir = (EditText) findViewById(R.id.headingdir);
+      //  SpeedingAlertSecondButtonUpdate=(Button)findViewById(R.id.tracking);
 
         //Ends here
 
@@ -68,6 +69,7 @@ public class DeviceSetting extends BackBaseActivity {
         editauthorizednum1 = (EditText) findViewById(R.id.editauthorizednum1);
         editauthorizednum2 = (EditText) findViewById(R.id.editauthorizednum2);
         editauthorizednum3 = (EditText) findViewById(R.id.editauthorizednum3);
+       // AuthorizationNumberButtonUpdate=(Button)findViewById(R.id.authorizationNumber);
         //Ends here
 
     }

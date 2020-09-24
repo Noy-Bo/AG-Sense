@@ -82,10 +82,14 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         }else if(id == R.id.nav_other){
             Intent intent = new Intent(this, OthersActivity.class);
             startActivity(intent);
+        }else if (id==R.id.nav_device_settings){
+            Intent intent = new Intent(this,DeviceSettings.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
             finishAffinity();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
