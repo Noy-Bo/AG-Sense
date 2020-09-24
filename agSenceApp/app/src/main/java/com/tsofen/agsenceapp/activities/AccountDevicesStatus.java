@@ -108,7 +108,15 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesArr) {
-                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
+                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                if(device.getName()!=null) {
+                    newPlace.setTitle(device.getName());
+                }
+                if(device.getLastUpdate()!=null) {
+                    newPlace.setSnippet(device.getLastUpdate().toString());
+                }
+                userMap.addPlace(newPlace);
+                //                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);

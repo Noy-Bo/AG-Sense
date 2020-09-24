@@ -159,24 +159,18 @@ public class DeviceStatus extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device :  filteredDevices) {
-
-                userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
+                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                if(device.getName()!=null) {
+                    newPlace.setTitle(device.getName());
+                }
+                if(device.getLastUpdate()!=null) {
+                    newPlace.setSnippet(device.getLastUpdate().toString());
+                }
+                userMap.addPlace(newPlace);
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);
             startActivity(intent);
         }
     }
-
-//    public void openMap(View view) {
-//        if (devicesArr.size() == 0) {
-//            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
-//        } else {
-//            Intent intent = new Intent(this, MapsActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("devices", devicesArr);
-//            intent.putExtras(bundle);
-//            startActivity(intent);
-//        }
-//    }
 }
