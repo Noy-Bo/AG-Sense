@@ -5,6 +5,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -16,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 
@@ -37,7 +42,7 @@ import com.tsofen.agsenceapp.utils.FailedLogin;
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-
+    private static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
     @RequiresApi(api = Build.VERSION_CODES.O)
 
 
@@ -48,11 +53,11 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         // observer registeration for onforeground. -- read AppLifeCycleObserver.
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
     }
 
 
     public void login(View view) {
-
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
@@ -81,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 finishAffinity();
                 startActivity(intent);
+
             }
 
             @Override
@@ -127,6 +133,8 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.INVISIBLE);
     }
+
+
 
     public void GoToForgetPassword(View view) {
         Intent intent = new Intent(this, ForgetPassword.class);

@@ -18,16 +18,16 @@ public class MockData {
 
         //Devices for acc 1
 
-        //Device1 healthy
-        MockupDevices.add(new Devices(1,1,1,"Tank" , null , null,false));
-
-
-        //Device2 healthy
-        MockupDevices.add(new Devices(2,2,1,"Tank" , null , null,false));
-
-        //Devices for acc 2
-        //Device3 faulty
-        MockupDevices.add(new Devices(3,3,2,"ATM" , null , null,true));
+//        //Device1 healthy
+//        MockupDevices.add(new Devices(1,1,1,"Tank" , null , null,false));
+//
+//
+//        //Device2 healthy
+//        MockupDevices.add(new Devices(2,2,1,"Tank" , null , null,false));
+//
+//        //Devices for acc 2
+//        //Device3 faulty
+//        MockupDevices.add(new Devices(3,3,2,"ATM" , null , null,true));
     }
 
     public static ArrayList<Account> getMockuoAccount() {

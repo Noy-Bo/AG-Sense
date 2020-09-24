@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,10 +27,12 @@ import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 import com.tsofen.agsenceapp.utils.updateDeviceNotifNumbers;
 
 import java.util.ArrayList;
@@ -55,21 +58,25 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     ImageView toDateCalenderImage;
     private  long backPressedTime;
     private Toast backtoast;
+    private Account account;
     UserMap userMap = new UserMap();
-
-
+    ProgressDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading notifications...");
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
         searchView.setQueryHint("Search device...");
-
-        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Account)AppBaseActivity.user).getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
+        if(AppBaseActivity.user instanceof Admin)
+            account = (Account) getIntent().getSerializableExtra("account");
+        else
+            account = (Account) AppBaseActivity.user;
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
                 AccountDashboardActivity.this.runOnUiThread(new Runnable() {
@@ -86,8 +93,8 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(),0,0,new DeviceDataRequestHandler() {
 
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(((Account)AppBaseActivity.user).getAccountid(),0,0,new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
                 devicesList.addAll(devices);
@@ -102,6 +109,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
 
     public void goToDevicesStatus(View view) {
+
         Intent intent = new Intent(this, AccountDevicesStatus.class);
         String filterString;
         if(view.getId() == R.id.account_faulty_devices)
@@ -110,6 +118,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             filterString = "healthy";
 
         intent.putExtra("filter",filterString);
+        intent.putExtra("account",account);
         startActivity(intent);
     }
 
@@ -198,17 +207,31 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     public void search(View view) {
         ArrayList<Notification> filterArr = new ArrayList<>();
-        for (Notification notification: notificationArray) {
-            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
-                    ((notification.getReaded()==true && displayReadNotifications) ||
-                            (notification.getReaded()==false &&  displayUnreadNotifications))){
-                filterArr.add(notification);
+        if(after ==null || before == null){
+            for (Notification notification: notificationArray) {
+                if((notification.getReaded()==true && displayReadNotifications) ||
+                        (notification.getReaded()==false &&  displayUnreadNotifications)){
+                    filterArr.add(notification);
+                }
+            }
+
+        }else{
+            for (Notification notification: notificationArray) {
+                if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                        ((notification.getReaded()==true && displayReadNotifications) ||
+                                (notification.getReaded()==false &&  displayUnreadNotifications))){
+                    filterArr.add(notification);
+                }
             }
         }
         notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this, 0, filterArr);
         notificationListView.setAdapter(notificationArrayAdapter);
         updateUIAfterSearch(filterArr.size());
         popUpDialog.cancel();
+        after =null;
+        before =null;
+        displayReadNotifications = false;
+        displayUnreadNotifications = false;
     }
 
     public void displayReadNotifications(final View view) {
@@ -264,6 +287,10 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     @Override
     public void onBackPressed() {
+        if(AppBaseActivity.user instanceof Admin) {
+            finish();
+            return;
+        }
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             backtoast.cancel();
             super.finishAffinity();
@@ -288,7 +315,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         }
         runOnUiThread(new updateDeviceNotifNumbers(healthy,faulty, notificationArray.size(), this));
-
+        GeneralProgressBar.removeProgressDialog(pd);
 
     }
 

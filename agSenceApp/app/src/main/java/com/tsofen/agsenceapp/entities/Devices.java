@@ -1,20 +1,26 @@
 package com.tsofen.agsenceapp.entities;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+
 public class Devices implements Serializable {
-    protected long imei;
-    protected int id;
-    protected int accountId;
+
+
+    protected Long imei;
+    protected Integer id;
+    protected Integer accountId;
     protected String type;
     protected String name;
-    protected Date faultTime;  //
-    protected Date lastUpdate;
+    protected Timestamp faultTime;  //
+    protected Timestamp lastUpdate;
     protected Boolean faulty;
-    protected  double logitude;  //
-    protected  double latitude;  //
+    protected Float logitude;  //
+    protected Float latitude;  //
     protected List<DeviceData> deviceData;
+    protected String phoneNumber;
 
     public List<DeviceData> getDeviceData() {
         return deviceData;
@@ -37,36 +43,30 @@ public class Devices implements Serializable {
     public void setFaulty(Boolean faulty) {
         this.faulty = faulty;
     }
-    public Devices() { }
 
-    public Devices(long imei, int id, int accountId, String type, Date faultTime, Date lastUpdate, Boolean faulty, List<DeviceData> deviceData, List<Notification> notifications) {
+    public Devices() {
+    }
+
+    public Devices(Long imei, Integer id, Integer accountId, String type, String name, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty, Float logitude, Float latitude, List<DeviceData> deviceData, String phoneNumber, List<Notification> notifications) {
         this.imei = imei;
         this.id = id;
         this.accountId = accountId;
         this.type = type;
+        this.name = name;
         this.faultTime = faultTime;
         this.lastUpdate = lastUpdate;
         this.faulty = faulty;
+        this.logitude = logitude;
+        this.latitude = latitude;
         this.deviceData = deviceData;
+        this.phoneNumber = phoneNumber;
         this.notifications = notifications;
     }
 
-
-    public Devices(long imei, int id, int accountId, String type, Date faultTime, Date lastUpdate, Boolean faulty) {
-        this.imei = imei;
-        this.id = id;
-        this.accountId = accountId;
-        this.type = type;
-        this.faultTime = faultTime;
-        this.lastUpdate = lastUpdate;
-        this.faulty = faulty;
-    }
-
-
     public enum DeviceType {
         GPS("GpsForPersonal"),
-        STRING_TWO("SensorForBanks"),
-        STRING_THREE("lequidHeightForTanks");
+        BANKS("SensorForBanks"),
+        LIQUID("lequidHeightForTanks");
 
         private final String text;
 
@@ -86,11 +86,11 @@ public class Devices implements Serializable {
         }
     }
 
-    public long getImei() {
+    public Long getImei() {
         return imei;
     }
 
-    public void setImei(long imei) {
+    public void setImei(Long imei) {
         this.imei = imei;
     }
 
@@ -98,15 +98,15 @@ public class Devices implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 
@@ -118,36 +118,36 @@ public class Devices implements Serializable {
         this.type = type;
     }
 
-    public Date getFaultTime() {
+    public Timestamp getFaultTime() {
         return faultTime;
     }
 
-    public void setFaultTime(Date faultTime) {
+    public void setFaultTime(Timestamp faultTime) {
         this.faultTime = faultTime;
     }
 
-    public Date getLastUpdate() {
+    public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
 
-    public double getLogitude() {
+    public Float getLogitude() {
         return logitude;
     }
 
-    public void setLogitude(double logitude) {
+    public void setLogitude(Float logitude) {
         this.logitude = logitude;
     }
 
-    public double getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
@@ -157,5 +157,13 @@ public class Devices implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

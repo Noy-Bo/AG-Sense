@@ -242,7 +242,7 @@ public class CacheMgr implements CacheManagerAPI {
         }
     }
 
-    // general runnable generic class. -in development.
+    // general runnable generic class.
      private class BaseRunnable<E>  implements Runnable {
         private BaseHandler handler;
         Map<String, String> params;
@@ -317,6 +317,36 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
+    public void onNotificationRecieved()
+    {
+       //on notification recieved we want ot update all data.
+
+        Log.d("notification","notification recieved, on onNotificationRecieved");
+
+        getDevicesJob(0, 0, new DevicesHandler() {
+            @Override
+            public void onDevicesDownloadFinished(List<Devices> devices) {
+                setDevices(devices);
+            }
+        });
+
+        getAccountsJob(0, 0, new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                setAccounts(accounts);
+            }
+        });
+
+        getNotificationsJob(0, 0, new NotificationsHandler() {
+            @Override
+            public void onNotificationsDownloadFinished(List<Notification> notifications) {
+                setNotifications(notifications);
+            }
+        });
+
+
+
+    }
 
 
     // API -
