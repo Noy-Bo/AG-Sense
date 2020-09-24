@@ -26,7 +26,7 @@ EditText IEMIEdit,DevicePhoneNumberEdit,DevicePasswordEdit;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_device);
-_accountsnames.add(0,"Choose Type");
+//_accountsnames.add(0,"Choose Type");
     UpdateAccounts();
         assert _accounts != null;
         AccountNameSpinner =  (Spinner) findViewById(R.id.AccountNameSpinner);
@@ -69,6 +69,42 @@ _accountsnames.add(0,"Choose Type");
     }
 
     public void UpdateDevice(View view) {
+        DevicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
+        DevicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
+        String Ragex = "^05\\d{8}";
+        if(!DevicePhoneNumberEdit.getText().toString().matches(Ragex))
+        {
+            DevicePhoneNumberEdit.setError("Invalid Phone number");
+        }
+        if(!CheckPassword(DevicePasswordEdit.getText().toString()))
+        {
+            DevicePasswordEdit.setError("Password is weak");
+        }
+    }
+
+    private boolean CheckPassword(String toString) {
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        if(DevicePasswordEdit.getText().toString().length() >= 8)
+        {
+            for(int i = 0; i<DevicePasswordEdit.getText().toString().length(); i++)
+            {
+                char temp = DevicePasswordEdit.getText().toString().charAt(i);
+                if(Character.isUpperCase(temp))
+                    hasUpperCase = true;
+                else if(Character.isLowerCase(temp))
+                    hasLowerCase = true;
+                else if(Character.isDigit(temp))
+                    hasDigit = true;
+
+                if(hasDigit && hasLowerCase && hasUpperCase)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 

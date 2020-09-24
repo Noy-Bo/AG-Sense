@@ -31,6 +31,7 @@
 
             <TextView
                 android:id="@+id/alertSetting"
+                android:textColor="@color/black"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -59,13 +61,15 @@
 
             <TextView
 
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="UserName" />
 
             <EditText
+                android:layout_marginEnd="5dp"
                 android:id="@+id/search_text_view"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="100dp"
 
@@ -77,29 +81,28 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:lineSpacingExtra="10dp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-
+android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
 
             <TextView
-
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email Address" />
 
             <EditText
                 android:id="@+id/search_text_view1"
-                android:layout_width="150dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="75dp"
 
@@ -110,12 +113,11 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:lineSpacingExtra="10dp" />
+
 
         <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -124,14 +126,14 @@
 
 
             <TextView
-
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User Type" />
 
             <Spinner
                 android:id="@+id/UserType"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="100dp"
 
@@ -140,33 +142,57 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:lineSpacingExtra="10dp" />
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
 
             <TextView
-
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Account Name" />
+                android:text="@string/account_name" />
 
+            <EditText
+                android:id="@+id/account_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginEnd="5dp"
+android:visibility="invisible"
+
+                android:background="@drawable/blue_shape_squares"
+
+                />
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:lineSpacingExtra="10dp" />
+        <Switch
+
+                android:track="@drawable/track_selector"
+                android:thumb="@drawable/switch_thumb"
+                android:id="@+id/NotificationsNewSwitch"
+android:layout_marginEnd="10dp"
+               android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="left"
+
+                android:showText="true"
+                android:text="@string/notifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/speedAlertGeoSettingbutton"
@@ -180,7 +206,7 @@
             android:background="@drawable/rounded_white_background_frame"
             android:text="@string/update_btn_device_settings" />
     </LinearLayout>
-</LinearLayout>
+
 
 
 
