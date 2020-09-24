@@ -9,20 +9,30 @@
         android:targetSdkVersion="30" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<<<<<<< HEAD
+
+    <!-- Include required permissions for Google Maps API to run. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+=======
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+>>>>>>> master
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
+<<<<<<< HEAD
+
+=======
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
+>>>>>>> master
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -32,6 +42,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
+<<<<<<< HEAD
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
+        <activity android:name="com.tsofen.agsenceapp.activities.AccountStatusFilterUser" />
+        <activity android:name="com.tsofen.agsenceapp.activities.BackBaseActivity" />
+        <activity android:name="com.tsofen.agsenceapp.activities.SearchBaseActivity" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.AdminNotification"
+            android:label="@string/AdminNotification" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.DeviceSetting"
+            android:label="Device Settings" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.AccountStatusFilter"
+            android:label="Accounts Status" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.EditAccount"
+            android:label="@string/EditAccount" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.EditDevice"
+            android:label="@string/EditDevice" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.HealthCareDashboard"
+            android:label="@string/healthCareReportsString" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.NewAccount"
+            android:label="@string/NewAccount" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.NewDevice"
+            android:label="@string/NewDevice" />
+=======
         android:theme="@style/AppTheme" >
         <activity android:name="com.tsofen.agsenceapp.activities.DeviceSetting" />
         <activity android:name="com.tsofen.agsenceapp.activities.AccountStatusFilter" />
@@ -41,6 +82,7 @@
         <activity android:name="com.tsofen.agsenceapp.activities.HealthCareDashboard" />
         <activity android:name="com.tsofen.agsenceapp.activities.NewAccount" />
         <activity android:name="com.tsofen.agsenceapp.activities.NewDevice" />
+>>>>>>> master
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -52,6 +94,27 @@
         <activity
             android:name="com.tsofen.agsenceapp.activities.MapsActivity"
             android:label="@string/title_activity_maps" />
+<<<<<<< HEAD
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.DeviceStatusList"
+            android:label="Device Status List" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.DeviceView"
+            android:label="Device View" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.DeviceFilter"
+            android:label="@string/Filter" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.AdminDashboardActivity"
+            android:label="Admin Dashboard" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.AccountDashboardActivity"
+            android:label="Account Dashboard"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.tsofen.agsenceapp.activities.DeviceStatus"
+            android:label="Device Status" />
+=======
         <activity android:name="com.tsofen.agsenceapp.activities.DeviceStatusList" />
         <activity android:name="com.tsofen.agsenceapp.activities.DeviceView" />
         <activity android:name="com.tsofen.agsenceapp.activities.DeviceFilter" />
@@ -60,6 +123,7 @@
             android:name="com.tsofen.agsenceapp.activities.AccountDashboardActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.tsofen.agsenceapp.activities.DeviceStatus" />
+>>>>>>> master
         <activity android:name="com.tsofen.agsenceapp.activities.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,6 +135,19 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+<<<<<<< HEAD
+        <!-- Needs to be explicitly declared on P+ -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <provider
+            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+            android:authorities="com.tsofen.agsenceapp.lifecycle-process"
+            android:exported="false"
+            android:multiprocess="true" />
+
+=======
 
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
@@ -174,6 +251,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
+>>>>>>> master
         <activity
             android:name="com.google.android.gms.common.api.GoogleApiActivity"
             android:exported="false"
@@ -182,11 +260,14 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+<<<<<<< HEAD
+=======
 
         <service
             android:name="androidx.room.MultiInstanceInvalidationService"
             android:directBootAware="true"
             android:exported="false" />
+>>>>>>> master
     </application>
 
 </manifest>

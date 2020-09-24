@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class DeviceStatusList extends BackBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_status_list);
+
         device = (Devices) getIntent().getSerializableExtra("device");
         deviceData = device.getDeviceData();
         if (deviceData == null) {

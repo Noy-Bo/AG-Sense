@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     private long backPressedTime;
     private Toast backtoast;
+    private ProgressDialog pd;
+
 
 
     @Override
@@ -68,8 +72,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToNotifications(View view) {
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
         NotificationsDataAdapter.getInstance().getAllNotifications(0, 20, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
@@ -82,8 +85,8 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToFaultyAccounts(View view) {
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
 
         Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
         intent.putExtra("filter", "faulty");
@@ -92,8 +95,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyAccounts(View view) {
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
 
         Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
         intent.putExtra("filter", "healthy");
@@ -103,20 +105,19 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     public void goToHealthyDevices(View view) {
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
 
         Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
         intent.putExtra("filter", "healthy");
         startActivity(intent);
 
 
+
     }
 
     public void goToFaultyDevices(View view) {
 
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.VISIBLE);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading...");
 
         Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
         intent.putExtra("filter", "faulty");
@@ -152,9 +153,12 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.adminProgressBar));
-        progressBar.setVisibility(View.INVISIBLE);
+        GeneralProgressBar.removeProgressDialog(pd);
+
+
     }
+
+
 
 
 }

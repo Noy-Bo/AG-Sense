@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,12 +31,14 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
     boolean displayHealthyAccounts = true;
     ListView accountsList;
     ArrayList<Account> accountsArr = new ArrayList<>();
+    ProgressDialog pd ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_accounts_status_filter, null, false);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading accounts...");
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_accounts_status);
         accountsList = findViewById(R.id.accounts_list);
@@ -158,5 +162,6 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
         }
         ListAdapter myAdapter = new AccountsAdapter<User>(AccountStatusFilter.this, filteredAccounts);
         accountsList.setAdapter(myAdapter);
+        GeneralProgressBar.removeProgressDialog(pd);
     }
 }

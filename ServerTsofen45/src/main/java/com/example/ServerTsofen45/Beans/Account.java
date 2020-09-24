@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Account {
-	String Text;
+	String name;
 	int Id;
 	List<Device> devices;
 	
@@ -24,9 +24,9 @@ public class Account {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Account(String text) {
+	public Account(String name) {
 		super();
-		Text = text;
+		this.name = name;
 		devices= new ArrayList<Device>() ;
 	}
 	public void Adddevice(Device devices) {
@@ -41,11 +41,11 @@ public class Account {
 		return devices;
 	}
 	@Column
-	public String getText() {
-		return Text;
+	public String getName() {
+		return name;
 	}
-	public void setText(String text) {
-		Text = text;
+	public void setName(String name) {
+		this.name = name;
 	}
 	@Id
 	@GeneratedValue

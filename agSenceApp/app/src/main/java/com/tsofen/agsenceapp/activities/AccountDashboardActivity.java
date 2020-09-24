@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 import com.tsofen.agsenceapp.utils.updateDeviceNotifNumbers;
 
 import java.util.ArrayList;
@@ -61,13 +63,14 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     private Toast backtoast;
     private Account account;
     UserMap userMap = new UserMap();
-
+    ProgressDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.activity_account_dashboard, null, false);
+        pd = GeneralProgressBar.displayProgressDialog(this,"loading notifications...");
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
@@ -129,6 +132,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
 
     public void goToDevicesStatus(View view) {
+
         Intent intent = new Intent(this, AccountDevicesStatus.class);
         String filterString;
         if (view.getId() == R.id.account_faulty_devices)
@@ -334,8 +338,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         }
         runOnUiThread(new updateDeviceNotifNumbers(healthy, faulty, notificationArray.size(), this));
-
-
+        GeneralProgressBar.removeProgressDialog(pd);
     }
 
     public void updateUIAfterSearch(int notificationNumber) {
