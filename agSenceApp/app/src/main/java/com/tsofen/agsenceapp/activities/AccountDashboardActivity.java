@@ -198,17 +198,31 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     public void search(View view) {
         ArrayList<Notification> filterArr = new ArrayList<>();
-        for (Notification notification: notificationArray) {
-            if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
-                    ((notification.getReaded()==true && displayReadNotifications) ||
-                            (notification.getReaded()==false &&  displayUnreadNotifications))){
-                filterArr.add(notification);
+        if(after ==null || before == null){
+            for (Notification notification: notificationArray) {
+                if((notification.getReaded()==true && displayReadNotifications) ||
+                        (notification.getReaded()==false &&  displayUnreadNotifications)){
+                    filterArr.add(notification);
+                }
+            }
+
+        }else{
+            for (Notification notification: notificationArray) {
+                if(notification.getDate_time().after(after) && notification.getDate_time().before(before) &&
+                        ((notification.getReaded()==true && displayReadNotifications) ||
+                                (notification.getReaded()==false &&  displayUnreadNotifications))){
+                    filterArr.add(notification);
+                }
             }
         }
         notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this, 0, filterArr);
         notificationListView.setAdapter(notificationArrayAdapter);
         updateUIAfterSearch(filterArr.size());
         popUpDialog.cancel();
+        after =null;
+        before =null;
+        displayReadNotifications = false;
+        displayUnreadNotifications = false;
     }
 
     public void displayReadNotifications(final View view) {
