@@ -33,13 +33,17 @@ import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.notifications.TokenRegistrationHandler;
+import com.tsofen.agsenceapp.smsServices.OnAllSmsRecievedHandler;
+import com.tsofen.agsenceapp.smsServices.SmsMgr;
 import com.tsofen.agsenceapp.utils.FailedLogin;
 import com.tsofen.agsenceapp.smsServices.SmsReceiver;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-    private static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
+    public static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -91,8 +95,17 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                     }
                 }
                  sendMsg("0524891748","hii");
+                String phoneNumber = "+972524448716";
 
-               // SmsReceiver myreceiver= new SmsReceiver("hi");
+                ArrayList<SmsMgr.Response> responses = new ArrayList<>();
+                responses.add(SmsMgr.Response.SET_TIME_ZONE);
+                SmsMgr.getInstance().createTracker(phoneNumber,responses, SmsMgr.settingType.AUTHORIZATION, new OnAllSmsRecievedHandler() {
+                    @Override
+                    public void onAllSmsRecievedHandler() {
+                        Toast.makeText(getApplicationContext(),"its here",Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
 
             @Override

@@ -1,59 +1,150 @@
 package com.tsofen.agsenceapp.smsServices;
 
-import java.util.List;
+import android.telephony.SmsManager;
+import android.util.Log;
+
+import com.tsofen.agsenceapp.activities.LoginActivity;
+
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.ArrayList;
 
 public class SmsMgr {
     private static SmsMgr smsMgr = null;
-    private static List<String> responces = new ArrayList<>();
-    private String phoneNumber;
+    private static  HashMap<String, TrackingSMS> tracking = new HashMap<>();
+    private static  HashMap<String, TrackingSMS> speedingAlert = new HashMap<>();
+    private static  HashMap<String, TrackingSMS> authorization = new HashMap<>();
+    private static ArrayList<Response> trackingResponse =  new ArrayList<>();
+    private static ArrayList<Response> speedingAlertResponse =  new ArrayList<>();
+    private static ArrayList<Response> authorizationResponse =  new ArrayList<>();
+
 
     private SmsMgr() {
-        responces.add("Reset password ok!");
-        responces.add("Tracker will be back to default setting…");
-        responces.add("Tracker restarting…");
-        responces.add("Change password ok!");
-        responces.add("Set g-sensor value ok!"); //???
-        responces.add("Cancel lights ok!");   //???
-        responces.add("Set monitor ok.");
-        responces.add("Backup control action!");
-        responces.add("Set engine off ok.");
-        responces.add("Set engine on ok.");
-        responces.add("Set speeding alarm ok.");
-        responces.add("Cancel speeding alarm ok.");
-        responces.add("Set geo-fence alarm ok.");
-        responces.add("Delete geo-fence alarm ok.");
-        responces.add("Enable sms tracking ok!");
-        responces.add("Cancel sms tracking ok!");
-        responces.add("Add admin number ok.");
-        responces.add("Set interval ok.");    //there are 2 diffrent responces ...
-        responces.add("Set interval ok");
-        responces.add("Set ip and port ok.");
-        responces.add("Set time zone ok.");
-        responces.add("Set apn ok.");
-       /* responces.add();                 //??    i've puted the responces that doesnt contain a specific qualifications of the device
-        responces.add();                        // so for checking them we need something more complicated - flag for the command category and then parse the responce accordingly
-        responces.add();
-        responces.add();
-        responces.add();*/
     }
 
     public static SmsMgr getInstance() {
 
         if (smsMgr == null) {
             smsMgr = new SmsMgr();
+            trackingResponse = new ArrayList<Response>(
+                    Arrays.asList(Response.ADD_ADMIN_NUM,
+                            Response.RESET_PASS));
+            speedingAlertResponse = new ArrayList<Response>(
+                    Arrays.asList(Response.ADD_ADMIN_NUM,
+                            Response.RESET_PASS));
+            authorizationResponse = new ArrayList<Response>(
+                    Arrays.asList(Response.SET_TIME_ZONE,
+                            Response.RESET_PASS));
         }
         return smsMgr;
     }
 
-    public boolean checkSms(String sms, String number) {
-        boolean result = false;
-
-        for (String responce : responces) {
-            if (responce.equals(sms)) {
-                result = true;
-            }
+    public void createTracker(String phoneNumber, ArrayList<Response> commands, settingType setting, OnAllSmsRecievedHandler handler ){
+        switch (setting){
+            case TRACKING:
+                tracking.put(phoneNumber, new TrackingSMS(commands, phoneNumber, handler, settingType.TRACKING));
+                break;
+            case AUTHORIZATION:
+                authorization.put(phoneNumber, new TrackingSMS(commands, phoneNumber, handler, settingType.AUTHORIZATION));
+                break;
+            case SPEEDING_ALERT:
+                speedingAlert.put(phoneNumber, new TrackingSMS(commands, phoneNumber, handler, settingType.SPEEDING_ALERT));
+                break;
+            default:
+                Log.d("ERROR", "ERROR");
         }
-        return result;
+
+    }
+
+    public enum settingType
+    {
+        SPEEDING_ALERT,
+        AUTHORIZATION,
+        TRACKING;
+    }
+
+    public enum Response
+    {
+        RESET_PASS("Reset password ok!"),
+        DEFAULT_SETTING("Tracker will be back to default setting…"),
+        TRACKER_RESTART("Tracker restarting…"),
+        CHANGE_PASSWORD("Change password ok!"),
+        G_SENSOR("Set g-sensor value ok!"),
+        CANCEL_LIGHTS("Cancel lights ok!"),
+        SET_MONITOR("Set monitor ok."),
+        BACKUP_CONTROL("Backup control action!"),
+        SET_ENGINE_OFF("Set engine off ok."),
+        SET_ENGINE_ON("Set engine on ok."),
+        SET_SPEEDING_ALARM("Set speeding alarm ok."),
+        CANCEL_SPEEDING_ALARM("Cancel speeding alarm ok."),
+        SER_GEO_FENCE("Set geo-fence alarm ok."),
+        DELETE_GEO_FENCE("Delete geo-fence alarm ok."),
+        ENABLE_SMS_TRACKING("Enable sms tracking ok!"),
+        CANCEL_SMS_TRACKING("Cancel sms tracking ok!"),
+        ADD_ADMIN_NUM("Add admin number ok."),
+        SET_INTERVAL("Set interval ok."),
+        SET_IP_PORT("Set ip and port ok."),
+        SET_TIME_ZONE("Set time zone ok."),
+        SET_APN("Set apn ok.");
+
+
+        private String url;
+
+        Response(String envUrl) {
+            this.url = envUrl;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+        public static Response contains(String test) {
+
+            for (Response response : Response.values()) {
+                if (response.getUrl().equals(test)) {
+                    return response;
+                }
+            }
+            return null;
+        }
+    }
+
+    public static HashMap<String, TrackingSMS> getTracking() {
+        return tracking;
+    }
+
+    public static HashMap<String, TrackingSMS> getSpeedingAlert() {
+        return speedingAlert;
+    }
+
+    public static HashMap<String, TrackingSMS> getAuthorization() {
+        return authorization;
+    }
+
+    public static ArrayList<Response> getTrackingResponse() {
+        return trackingResponse;
+    }
+
+    public static ArrayList<Response> getSpeedingAlertResponse() {
+        return speedingAlertResponse;
+    }
+
+    public static ArrayList<Response> getAuthorizationResponse() {
+        return authorizationResponse;
+    }
+
+    public static  void delteTrakcing (String phoneNumber, settingType type ){
+        switch (type){
+            case TRACKING:
+                tracking.remove(phoneNumber);
+                break;
+            case AUTHORIZATION:
+                authorization.remove(phoneNumber);
+                break;
+            case SPEEDING_ALERT:
+                speedingAlert.remove(phoneNumber);
+                break;
+            default:
+                Log.d("ERROR", "ERROR");
+        }
     }
 }

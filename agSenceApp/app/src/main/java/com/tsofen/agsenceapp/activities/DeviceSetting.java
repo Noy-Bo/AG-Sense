@@ -25,6 +25,7 @@ import com.tsofen.agsenceapp.entities.Devices;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.Manifest.*;
 import static java.lang.Float.parseFloat;
 
 public class DeviceSetting extends BackBaseActivity {
@@ -217,17 +218,17 @@ public class DeviceSetting extends BackBaseActivity {
 
     public void sendMsg(String phoneNumber, String message) {
         SmsManager smsMgr;
-        if (ContextCompat.checkSelfPermission(this.Manifest.permission.RECEIVE_SMS) != getPackageManager().PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale( Manifest.permission.RECEIVE_SMS)) {
+        if (ContextCompat.checkSelfPermission(this, permission.RECEIVE_SMS) != getPackageManager().PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale( permission.RECEIVE_SMS)) {
                 //user denied.
                 ;
             } else {
                 //pop up for permission.
-                requestPermissions( new String[]{Manifest.permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
+                requestPermissions( new String[]{permission.RECEIVE_SMS}, LoginActivity.MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED) {
                 try {
 
                     smsMgr = SmsManager.getDefault();
@@ -238,7 +239,7 @@ public class DeviceSetting extends BackBaseActivity {
                     Toast.makeText(this, R.string.error_send_msg, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
+                requestPermissions(new String[]{permission.SEND_SMS}, 1);
                 Toast.makeText(this, R.string.send_msg_again, Toast.LENGTH_SHORT).show();
             }
 
