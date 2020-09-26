@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
@@ -43,20 +46,20 @@ import java.util.List;
 
 public class AccountDashboardActivity extends SearchBaseActivity {
     static ArrayList<Notification> notificationArray = new ArrayList<>();
-    ArrayAdapter<Notification> notificationArrayAdapter ;
+    ArrayAdapter<Notification> notificationArrayAdapter;
     ArrayList<Devices> devicesList = new ArrayList<>();
     Dialog popUpDialog;
     boolean displayReadNotifications = false;
     boolean displayUnreadNotifications = false;
-    Date after ;
-    Date before ;
+    Date after;
+    Date before;
     View contentView;
     ListView notificationListView;
     Button reset; //?
     ImageView closePopUpImage;
     ImageView fromDateCalenderImage;
     ImageView toDateCalenderImage;
-    private  long backPressedTime;
+    private long backPressedTime;
     private Toast backtoast;
     private Account account;
     UserMap userMap = new UserMap();
@@ -71,11 +74,15 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_dashboard);
         popUpDialog = new Dialog(this);
-        searchView.setQueryHint("Search device...");
-        if(AppBaseActivity.user instanceof Admin)
+        searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
+        searchView.setHint(R.string.search_device_hint);
+
+        if (AppBaseActivity.user instanceof Admin) {
             account = (Account) getIntent().getSerializableExtra("account");
-        else
+        }
+        else {
             account = (Account) AppBaseActivity.user;
+        }
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
@@ -85,7 +92,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                         notificationArray.clear();
                         notificationArray.addAll(notifications);
                         notificationListView = findViewById(R.id.notification_list);
-                        notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this,0, notificationArray);
+                        notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this, 0, notificationArray);
                         notificationListView.setAdapter(notificationArrayAdapter);
                     }
                 });
@@ -93,32 +100,48 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(),0,0,new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
 
             @Override
-            public void onDeviceDataLoaded(List<Devices> devices) {
-                devicesList.addAll(devices);
+            public void onDeviceDataLoaded(final List<Devices> devices) {
+                AccountDashboardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.setAdapter(new DevicesAdapter<Devices>(AccountDashboardActivity.this, devices));
+                        devicesList.addAll(devices);
 //                adapter = new ArrayAdapter<>(AccountDashboardActivity.this, 0,devicesList.toArray());
 //                searchView.setAdapter(adapter);
-                initialUpdateUI();
+                        initialUpdateUI();
+                    }
+                });
+
+            }
+        });
+
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AccountDashboardActivity.this, DeviceView.class);
+                Devices device = (Devices) searchView.getAdapter().getItem(i);
+                intent.putExtra("device", device);
+                startActivity(intent);
             }
         });
 
     }
 
 
-
     public void goToDevicesStatus(View view) {
 
         Intent intent = new Intent(this, AccountDevicesStatus.class);
         String filterString;
-        if(view.getId() == R.id.account_faulty_devices)
+        if (view.getId() == R.id.account_faulty_devices)
             filterString = "faulty";
         else
             filterString = "healthy";
 
-        intent.putExtra("filter",filterString);
-        intent.putExtra("account",account);
+        intent.putExtra("filter", filterString);
+        intent.putExtra("account", account);
         startActivity(intent);
     }
 
@@ -287,7 +310,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     @Override
     public void onBackPressed() {
-        if(AppBaseActivity.user instanceof Admin) {
+        if (AppBaseActivity.user instanceof Admin) {
             finish();
             return;
         }
@@ -305,24 +328,23 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     private void initialUpdateUI() {
 
-        int healthy =0;
-        int faulty =0;
-        for (Devices device: devicesList) {
-            if(device.getFaulty()==true){
+        int healthy = 0;
+        int faulty = 0;
+        for (Devices device : devicesList) {
+            if (device.getFaulty() == true) {
                 faulty++;
-            }else{
+            } else {
                 healthy++;
             }
         }
-        runOnUiThread(new updateDeviceNotifNumbers(healthy,faulty, notificationArray.size(), this));
+        runOnUiThread(new updateDeviceNotifNumbers(healthy, faulty, notificationArray.size(), this));
         GeneralProgressBar.removeProgressDialog(pd);
-
     }
 
-    public void updateUIAfterSearch(int notificationNumber){
+    public void updateUIAfterSearch(int notificationNumber) {
 
         TextView textView = contentView.findViewById(R.id.textView4);
-        if(textView!=null){
+        if (textView != null) {
             textView.setText(String.valueOf(notificationNumber));
         }
 
@@ -333,7 +355,15 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesList) {
-                userMap.addPlace(new Place(device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
+                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                if(device.getName()!=null) {
+                    newPlace.setTitle(device.getName());
+                }
+                if(device.getLastUpdate()!=null) {
+                    newPlace.setSnippet(device.getLastUpdate().toString());
+                }
+                userMap.addPlace(newPlace);
+                //                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);

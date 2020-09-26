@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsofen.agsenceapp.R;
 
-public class EditAccount extends AppCompatActivity {
+public class EditAccount extends BackBaseActivity  {
 
 
 
