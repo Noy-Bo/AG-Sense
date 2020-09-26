@@ -10,56 +10,155 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:gravity="center"
+        tools:ignore="MissingConstraints">
+        <include
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/filtired_devices_toolbar"
+            android:id="@+id/included"
+            layout="@layout/activity_back_base"
+
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/dark_blue"
-            android:elevation="4dp">
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/rounded_white_background_frame"
+
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:textStyle="bold"
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+android:textColor="@color/black"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/edit_account"
+                    android:textAllCaps="false"
 
+                    />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+            <LinearLayout
+                android:layout_marginEnd="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-                        android:layout_marginRight="10dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:src="@drawable/menu_white_icon" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.01" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|left"
-                        android:layout_marginLeft="80dp"
-                        android:gravity="center"
-                        android:text="@string/EditAccount"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
+                <TextView
+android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/previous_name" />
 
-                </LinearLayout>
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55" />
+
+                <Spinner
+                    android:id="@+id/PreviousAccountNameSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
-        </androidx.appcompat.widget.Toolbar>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
 
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.01" />
+
+                <TextView
+android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_name" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <EditText
+                    android:id="@+id/DeviceNewPhoneNumberEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.01"
+
+                    android:inputType="number"
+                    android:ems="16"
+                    android:textSize="10sp"
+                    tools:ignore="TextFields" />
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        <Switch
+
+            android:track="@drawable/track_selector"
+            android:thumb="@drawable/switch_thumb"
+            android:id="@+id/NotificationsEditSwitch"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="left"
+
+            android:showText="true"
+            android:text="@string/notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+
+
+
+            <Button
+                android:id="@+id/EditAccountUpdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:onClick="UpdateAccount"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_white_background_frame"
+                android:text="@string/update_btn_device_settings" />
+        </LinearLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

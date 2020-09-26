@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.OthersActivity">
+
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_options"
+            android:textColor="@color/dark_blue"
+            android:textSize="@dimen/small_text_size" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
+            android:background="@drawable/gradient_color_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_background_frame"
+                android:onClick="goToAddNewDevice"
+                android:text="@string/add_new_device"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/small_text_size"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_background_frame"
+                android:onClick="goToAddNewUser"
+                android:text="@string/add_new_user"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/small_text_size"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_background_frame"
+                android:onClick="goToAddNewAccount"
+                android:text="@string/add_new_account"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/small_text_size"
+                android:layout_margin="5dp"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_options"
+            android:textColor="@color/dark_blue"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
+            android:background="@drawable/gradient_color_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_background_frame"
+                android:onClick="goToEditAccount"
+                android:text="@string/EditAccount"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/small_text_size"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_background_frame"
+                android:onClick="goToEditDevice"
+                android:text="@string/EditDevice"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/small_text_size"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

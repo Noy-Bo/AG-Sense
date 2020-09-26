@@ -14,10 +14,14 @@ import Enums.DeviceType;
 public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	Device findById(int id);
+	
+	
 
 	ArrayList<Device> findByNameContaining(String name);
 
 	ArrayList<Device> findByName(String name);
+	
+	Device findByImei(long imei);
 
 	ArrayList<Device> findAllByOrderByIdDesc();
 

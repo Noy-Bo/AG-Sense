@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,13 +17,14 @@ import com.tsofen.agsenceapp.adapters.DeviceDataListAdapter;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.DeviceLastMessage;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceStatusList extends BackBaseActivity {
-    UserMap userMap = new UserMap("Map");
+    UserMap userMap = new UserMap();
     List<DeviceData> deviceData;
     Devices device;
 
@@ -30,6 +32,7 @@ public class DeviceStatusList extends BackBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_status_list);
+
         device = (Devices) getIntent().getSerializableExtra("device");
         deviceData = device.getDeviceData();
         if (deviceData == null) {
@@ -91,12 +94,24 @@ public class DeviceStatusList extends BackBaseActivity {
 //        });
     }
 
-    public void map(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("user_map", userMap);
-        intent.putExtra("flag", true);
-        startActivity(intent);
+    public void openMap(View view) {
+        if (deviceData == null || deviceData.size() == 0) {
+            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
+        } else {
+            for (DeviceData deviceData : deviceData) {
+                Place newPlace = new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon());
+                if(deviceData.getId()!=null) {
+                    newPlace.setTitle("device" + deviceData.getId().toString());
+                }
+                if(deviceData.getDateAndTime()!=null) {
+                    newPlace.setSnippet(deviceData.getDateAndTime().toString());
+                }
+                userMap.addPlace(newPlace);
+            }
+            Intent intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("flag", true);
+            intent.putExtra("user_map", userMap);
+            startActivity(intent);
+        }
     }
-
-
 }

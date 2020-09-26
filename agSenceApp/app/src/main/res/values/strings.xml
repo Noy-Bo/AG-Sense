@@ -89,7 +89,7 @@
     <string name="new_device_details">New Device Details:</string>
     <string name="iemi">IEMI</string>
     <string name="device_type">Device Type</string>
-    <string name="account_name">Account Name</string>
+
     <string name="device_phone_number">Device Phone Number</string>
     <string name="device_password">Device Password</string>
 
@@ -108,5 +108,28 @@
     <string name="send_msg_again">Please send the message again</string>
     <string name="error_send_msg">Error sending message!</string>
     <string name="msg_sent">message sent</string>
+    <string name="edit_device_details">Edit Device Details:</string>
+    <string name="new_phonenumber">New PhoneNumber:</string>
+    <string name="new_password">New Password :</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="previous_name">Previous name</string>
+    <string name="new_name">New Name</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="email">Email :</string>
+    <string name="send_code">Send code</string>
+    <string name="verification_code">Verification code</string>
+    <string name="add_new_device">Add New Device</string>
+    <string name="add_new_user">Add New User</string>
+    <string name="add_new_account">Add New Account</string>
+    <string name="edit_options">Edit Options:</string>
+    <string name="new_options">New Options:</string>
+    <string name="new_user">New User</string>
+    <string name="filter">filter</string>
+    <string name="device_name">Device Name</string>
+    <string name="new_account_name">New Account Name</string>
+    <string name="notifications">Notifications</string>
+    <string name="account_name">Account Name</string>
+    <string name="new_device_name">New Device Name</string>
 
 </resources>

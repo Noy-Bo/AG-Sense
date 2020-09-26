@@ -1,8 +1,11 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;

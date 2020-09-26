@@ -5,6 +5,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -16,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 
@@ -29,8 +34,11 @@ import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
+import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
+import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.notifications.TokenRegistrationHandler;
 import com.tsofen.agsenceapp.smsServices.OnAllSmsRecievedHandler;
@@ -38,7 +46,6 @@ import com.tsofen.agsenceapp.smsServices.SmsMgr;
 import com.tsofen.agsenceapp.utils.FailedLogin;
 import com.tsofen.agsenceapp.smsServices.SmsReceiver;
 
-import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
@@ -55,12 +62,10 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
 
 
-
     }
 
 
     public void login(View view) {
-
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
@@ -68,8 +73,8 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                     @Override
                     public void onSuccess(InstanceIdResult instanceIdResult) {
                         String deviceToken = instanceIdResult.getToken();
-                        Log.e("newToken", deviceToken);
-                        TokenRegistrationHandler.registerToken("barakg", deviceToken);
+                        Log.e(username, deviceToken);
+                        TokenRegistrationHandler.registerToken(username, deviceToken);
                     }
                 });
         EditText password = (EditText) findViewById(R.id.passTxt);
@@ -89,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 finishAffinity();
                 startActivity(intent);
+                
             }
 
             @Override
@@ -135,26 +141,11 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.INVISIBLE);
     }
-    public void sendMsg(String phoneNumber, String message) {
-        SmsManager smsMgr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
-            if (/*ContextCompat.*/checkSelfPermission(Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
-            {
-                try {
 
-                    smsMgr = SmsManager.getDefault();
-                    smsMgr.sendTextMessage(phoneNumber, null, message, null, null);
-                    Toast.makeText(this,R.string.msg_sent, Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this,R.string.error_send_msg, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
-                Toast.makeText(this,R.string.send_msg_again, Toast.LENGTH_SHORT).show();
-            }
 
-        }
 
+    public void GoToForgetPassword(View view) {
+        Intent intent = new Intent(this, ForgetPassword.class);
+        startActivity(intent);
     }
 }
