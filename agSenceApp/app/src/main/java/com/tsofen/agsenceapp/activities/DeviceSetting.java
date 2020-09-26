@@ -33,7 +33,7 @@ import static java.lang.Float.parseFloat;
 
 
 public class DeviceSetting extends BackBaseActivity {
-
+    public static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
     public String settingUpdateSucceed;
     EditText longitude, latitude, speed, fence_radius_m;
     EditText trackingintervale1, trackingintervale2, distance, headingdir;
@@ -160,6 +160,27 @@ public class DeviceSetting extends BackBaseActivity {
 
 
     public void SpeedingAlertUSecondUpdate(View view) {
+        if (checkSelfPermission(Manifest.permission.RECEIVE_SMS) != getPackageManager().PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale( Manifest.permission.RECEIVE_SMS)) {
+                //user denied.
+                ;
+            } else {
+                //pop up for permission.
+                requestPermissions( new String[]{Manifest.permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
+            }
+        }
+        sendMsg("+972524448716","djdks,");
+        ArrayList arr= new ArrayList<SmsMgr.Response>(
+                Arrays.asList(SmsMgr.Response.SET_INTERVAL));
+        SmsMgr.getInstance().createTracker("+972524448716", arr, SmsMgr.settingType.TRACKING, new OnAllSmsRecievedHandler() {
+            @Override
+            public void onAllSmsRecievedHandler() {
+                sendMsg("+972524448716","djdks,");
+
+            }
+        });
+
+
         if (trackingintervale1.getText().toString().equals("") || trackingintervale2.getText().toString().equals("") || distance.getText().toString().equals("") || headingdir.getText().toString().equals("")) {
             Toast.makeText(this, "One or more Argument is invalid", Toast.LENGTH_SHORT).show();
         } else {
@@ -188,20 +209,6 @@ public class DeviceSetting extends BackBaseActivity {
                     parseFloat(headingdir.getText().toString()) > 0 && parseFloat((headingdir.getText().toString())) < 359) {
                 Toast toast = Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT);
                 toast.show();
-                sendMsg("+972538233877","djdks,");
-                ArrayList arr= new ArrayList<SmsMgr.Response>(
-                        Arrays.asList(SmsMgr.Response.SET_INTERVAL));
-                SmsMgr.getInstance().createTracker("+972524448716", arr, SmsMgr.settingType.TRACKING, new OnAllSmsRecievedHandler() {
-                    @Override
-                    public void onAllSmsRecievedHandler() {
-                        sendMsg("+972538233877","djdks,");
-
-                    }
-                });
-
-
-
-
             }
             }
         }
@@ -240,7 +247,7 @@ public class DeviceSetting extends BackBaseActivity {
                 ;
             } else {
                 //pop up for permission.
-                requestPermissions( new String[]{permission.RECEIVE_SMS}, LoginActivity.MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
+                requestPermissions( new String[]{permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check

@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-    public static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -85,27 +85,10 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
-                if (checkSelfPermission(Manifest.permission.RECEIVE_SMS) != getPackageManager().PERMISSION_GRANTED) {
-                    if (shouldShowRequestPermissionRationale( Manifest.permission.RECEIVE_SMS)) {
-                        //user denied.
-                        ;
-                    } else {
-                        //pop up for permission.
-                        requestPermissions( new String[]{Manifest.permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
-                    }
-                }
-                 sendMsg("0524891748","hii");
-                String phoneNumber = "+972524448716";
-
-                ArrayList<SmsMgr.Response> responses = new ArrayList<>();
-                responses.add(SmsMgr.Response.SET_TIME_ZONE);
-                SmsMgr.getInstance().createTracker(phoneNumber,responses, SmsMgr.settingType.AUTHORIZATION, new OnAllSmsRecievedHandler() {
-                    @Override
-                    public void onAllSmsRecievedHandler() {
-                        Toast.makeText(getApplicationContext(),"its here",Toast.LENGTH_LONG).show();
-                    }
-                });
-
+                AppBaseActivity.setUser(user);
+                Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
+                finishAffinity();
+                startActivity(intent);
             }
 
             @Override
