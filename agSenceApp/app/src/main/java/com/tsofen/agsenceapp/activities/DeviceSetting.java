@@ -159,16 +159,16 @@ public class DeviceSetting extends BackBaseActivity {
                 requestPermissions( new String[]{Manifest.permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
             }
         }
-        sendMsg("+972524448716","djdks,");
-        ArrayList arr= new ArrayList<SmsMgr.Response>(
-                Arrays.asList(SmsMgr.Response.SET_INTERVAL));
-        SmsMgr.getInstance().createTracker("+972524448716", arr, SmsMgr.settingType.TRACKING, new OnAllSmsRecievedHandler() {
-            @Override
-            public void onAllSmsRecievedHandler() {
-                sendMsg("+972524448716","djdks,");
-
-            }
-        });
+//        sendMsg("+972524448716","djdks,");
+//        ArrayList arr= new ArrayList<SmsMgr.Response>(
+//                Arrays.asList(SmsMgr.Response.SET_INTERVAL));
+//        SmsMgr.getInstance().createTracker("+972524448716", arr, SmsMgr.settingType.TRACKING, new OnAllSmsRecievedHandler() {
+//            @Override
+//            public void onAllSmsRecievedHandler() {
+//                sendMsg("+972524448716","djdks,");
+//
+//            }
+//        });
 
 
         if (trackingintervale1.getText().toString().equals("") || trackingintervale2.getText().toString().equals("") || distance.getText().toString().equals("") || headingdir.getText().toString().equals("")) {
