@@ -43,7 +43,7 @@ public class DeviceSetting extends BackBaseActivity {
     Button SpeedingAlertButtonUpdate, SpeedingAlertSecondButtonUpdate, AuthorizationNumberButtonUpdate;
     EditText editAdminNumber, editauthorizednum1, editauthorizednum2, editauthorizednum3;
     Spinner FenceTypeSpinner;
-    private Devices device = (Devices) getIntent().getSerializableExtra("device");
+    private Devices device;
     private String speedD;
     private String longitudeD;
     private String latitudeD;
@@ -64,18 +64,7 @@ public class DeviceSetting extends BackBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_setting);
-        List<String> type = new ArrayList<>();
-        type.add(0, "Choose Type");
-        type.add("Out of the fence");
-        type.add("In the fence");
-        ArrayAdapter<String> dataAdapter;
-        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-        Map<String, String> commandMap = new HashMap<>();
-        commandMap.put("Resetpwd", "Reset password ok!");
-       // commandMap.
+        device = (Devices) getIntent().getSerializableExtra("device");
 
 /// SpeedingAlertUpdate
 
@@ -88,8 +77,6 @@ public class DeviceSetting extends BackBaseActivity {
         speed = (EditText) findViewById(R.id.speednumbertextbox);
         speedD = speed.toString();
 
-       // fence_radius_m = (EditText) findViewById(R.id.fenceradiustextnumber);
-        //fence_radius_mD = fence_radius_m.toString();
 
         SpeedingAlertButtonUpdate = (Button) findViewById(R.id.speedAlertGeoSettingbutton);
         //Ends Here
