@@ -16,17 +16,21 @@ import com.tsofen.agsenceapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import android.os.Build;
 import android.Manifest;
 
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.smsServices.OnAllSmsRecievedHandler;
+import com.tsofen.agsenceapp.smsServices.SmsMgr;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.Manifest.*;
 import static java.lang.Float.parseFloat;
+
 
 public class DeviceSetting extends BackBaseActivity {
 
@@ -57,7 +61,6 @@ public class DeviceSetting extends BackBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_setting);
-        Spinner spinner = (Spinner) findViewById(R.id.FenceTypeSpinner);
         List<String> type = new ArrayList<>();
         type.add(0, "Choose Type");
         type.add("Out of the fence");
@@ -65,27 +68,25 @@ public class DeviceSetting extends BackBaseActivity {
         ArrayAdapter<String> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+
 
         Map<String, String> commandMap = new HashMap<>();
         commandMap.put("Resetpwd", "Reset password ok!");
        // commandMap.
 
 /// SpeedingAlertUpdate
-        FenceTypeSpinner = (Spinner) findViewById(R.id.FenceTypeSpinner);
-        FenceTypeSpinnerD = FenceTypeSpinner.toString();
 
-        longitude = (EditText) findViewById(R.id.longitude);
+        longitude = (EditText) findViewById(R.id.longitude1);
         longitudeD = longitude.toString();
 
-        latitude = (EditText) findViewById(R.id.latitude);
+        latitude = (EditText) findViewById(R.id.latitude1);
         latitudeD = latitude.toString();
 
         speed = (EditText) findViewById(R.id.speednumbertextbox);
         speedD = speed.toString();
 
-        fence_radius_m = (EditText) findViewById(R.id.fenceradiustextnumber);
-        fence_radius_mD = fence_radius_m.toString();
+       // fence_radius_m = (EditText) findViewById(R.id.fenceradiustextnumber);
+        //fence_radius_mD = fence_radius_m.toString();
 
         SpeedingAlertButtonUpdate = (Button) findViewById(R.id.speedAlertGeoSettingbutton);
         //Ends Here
@@ -187,9 +188,24 @@ public class DeviceSetting extends BackBaseActivity {
                     parseFloat(headingdir.getText().toString()) > 0 && parseFloat((headingdir.getText().toString())) < 359) {
                 Toast toast = Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT);
                 toast.show();
+                sendMsg("+972538233877","djdks,");
+                ArrayList arr= new ArrayList<SmsMgr.Response>(
+                        Arrays.asList(SmsMgr.Response.SET_INTERVAL));
+                SmsMgr.getInstance().createTracker("+972524448716", arr, SmsMgr.settingType.TRACKING, new OnAllSmsRecievedHandler() {
+                    @Override
+                    public void onAllSmsRecievedHandler() {
+                        sendMsg("+972538233877","djdks,");
+
+                    }
+                });
+
+
+
+
+            }
             }
         }
-    }
+
 
     public void AuthorizationNumberUpdate(View view) {
         if (editAdminNumber.getText().toString().equals("") || editauthorizednum1.getText().toString().equals("")) {

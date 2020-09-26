@@ -27,14 +27,12 @@ public class SmsMgr {
         if (smsMgr == null) {
             smsMgr = new SmsMgr();
             trackingResponse = new ArrayList<Response>(
-                    Arrays.asList(Response.ADD_ADMIN_NUM,
-                            Response.RESET_PASS));
+                    Arrays.asList(Response.SET_INTERVAL));
             speedingAlertResponse = new ArrayList<Response>(
-                    Arrays.asList(Response.ADD_ADMIN_NUM,
-                            Response.RESET_PASS));
+                    Arrays.asList(Response.SET_SPEEDING_ALARM,
+                            Response.SET_GEO_FENCE));
             authorizationResponse = new ArrayList<Response>(
-                    Arrays.asList(Response.SET_TIME_ZONE,
-                            Response.RESET_PASS));
+                    Arrays.asList(Response.ADD_ADMIN_NUM));
         }
         return smsMgr;
     }
@@ -82,10 +80,12 @@ public class SmsMgr {
         ENABLE_SMS_TRACKING("Enable sms tracking ok!"),
         CANCEL_SMS_TRACKING("Cancel sms tracking ok!"),
         ADD_ADMIN_NUM("Add admin number ok."),
-        SET_INTERVAL("Set interval ok."),
+        SET_INTERVAL("Set interval ok"),
+        SET_INTERVAL_SECOND("Set interval ok."),
         SET_IP_PORT("Set ip and port ok."),
         SET_TIME_ZONE("Set time zone ok."),
-        SET_APN("Set apn ok.");
+        SET_APN("Set apn ok."),
+        SET_GEO_FENCE("Set geo fence alarm ok.");
 
 
         private String url;
