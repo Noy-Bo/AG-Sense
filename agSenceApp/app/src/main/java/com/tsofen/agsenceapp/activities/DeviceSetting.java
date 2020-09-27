@@ -159,6 +159,8 @@ public class DeviceSetting extends BackBaseActivity {
                 requestPermissions( new String[]{Manifest.permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
             }
         }
+        // id device, setting trackjing  , all the new parameters of the settings
+        //return phone number and mesage to send
 //        sendMsg("+972524448716","djdks,");
 //        ArrayList arr= new ArrayList<SmsMgr.Response>(
 //                Arrays.asList(SmsMgr.Response.SET_INTERVAL));
