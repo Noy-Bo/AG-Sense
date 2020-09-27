@@ -11,7 +11,7 @@
     <include
         layout="@layout/activity_back_base"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,14 +31,14 @@
 
             <TextView
                 android:id="@+id/alertSetting"
-                android:textColor="@color/black"
-
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:text="New User Details"
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:textStyle="bold"
 
                 />
@@ -50,28 +50,28 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
 
             android:orientation="horizontal">
 
 
             <TextView
 
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UserName" />
+                android:text="UserName"
+                android:textColor="@color/black" />
 
             <EditText
-                android:layout_marginEnd="5dp"
-                android:id="@+id/search_text_view"
+                android:id="@+id/new_user_username"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="100dp"
+                android:layout_marginEnd="5dp"
 
 
                 android:background="@drawable/blue_shape_squares"
@@ -82,29 +82,28 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
 
             <TextView
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email Address" />
+                android:text="Email Address"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/EmailEditText"
-                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="75dp"
+                android:layout_marginEnd="5dp"
 
 
                 android:background="@drawable/blue_shape_squares"
@@ -114,22 +113,21 @@ android:layout_marginTop="5dp"
         </LinearLayout>
 
 
-
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
 
             <TextView
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Type" />
+                android:text="User Type"
+                android:textColor="@color/black" />
 
             <Spinner
                 android:id="@+id/UserType"
@@ -148,17 +146,17 @@ android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
 
             <TextView
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/account_name" />
+                android:text="@string/account_name"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/account_name_edit"
@@ -166,9 +164,9 @@ android:layout_marginTop="5dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="75dp"
                 android:layout_marginEnd="5dp"
-android:visibility="invisible"
-
                 android:background="@drawable/blue_shape_squares"
+
+                android:visibility="invisible"
 
                 />
 
@@ -176,35 +174,35 @@ android:visibility="invisible"
 
         <Switch
 
-                android:track="@drawable/track_selector"
-                android:thumb="@drawable/switch_thumb"
-                android:id="@+id/NotificationsNewSwitch"
-android:layout_marginEnd="10dp"
-               android:layout_marginStart="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
+            android:id="@+id/NotificationsNewSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="left"
 
-                android:showText="true"
-                android:text="@string/notifications"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        </LinearLayout>
-
-
+            android:showText="true"
+            android:text="@string/notifications"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/track_selector"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
         <Button
             android:id="@+id/NewUserUpdate"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="right"
-android:onClick="UpdateNewUserDetails"
+            android:onClick="UpdateNewUserDetails"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_white_background_frame"
             android:text="@string/update_btn_device_settings" />
+    </LinearLayout>
+
+
+
     </LinearLayout>
 
 
