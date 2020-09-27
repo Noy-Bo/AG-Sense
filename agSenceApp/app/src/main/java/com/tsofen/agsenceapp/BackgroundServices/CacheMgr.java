@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.BackgroundServices;
 
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -103,20 +104,8 @@ public class CacheMgr implements CacheManagerAPI {
 
     private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
-    private HandlerThread handlerThreadGetDevices = new HandlerThread("handlerThreadGetDevices");
-    private HandlerThread handlerThreadGetSpecificDeviceDataById = new HandlerThread("handlerThreadGetSpecificDeviceDataById");
-    private HandlerThread handlerThreadGetSpecificDevicesByAccount = new HandlerThread("handlerThreadGetSpecificDevicesByAccount");
-    private HandlerThread handlerThreadGetSpecificNotificationsByAccount = new HandlerThread("handlerThreadGetSpecificNotificationsByAccount");
-    private HandlerThread handlerThreadGetSpecificNotificationsByDevice = new HandlerThread("handlerThreadGetSpecificNotificationsByDevice");
-    private HandlerThread handlerThreadGetNotifications = new HandlerThread("handlerThreadGetNotifications");
-    private HandlerThread handlerThreadGetAccounts = new HandlerThread("handlerThreadGetAccounts");
-    private Handler threadHandlerForGetSpecificDeviceDataById;
-    private Handler threadHandlerForGetSpecificDevicesByAccount;
-    private Handler threadHandlerForGetSpecificNotificationsByAccount;
-    private Handler threadHandlerForGetSpecificNotificationsByDevice;
-    private Handler threadHandlerForGetDevices;
-    private Handler threadHandlerForGetAccounts;
-    private Handler threadHandlerForGetNotifications;
+
+
     private Handler threadHandlerForLogin;
     private Handler threadHandlerForGetDevicesPeriodic;
     private TextDownloader downloader = TextDownloader.getInstance();
@@ -138,26 +127,7 @@ public class CacheMgr implements CacheManagerAPI {
         handlerThreadLogin.start();
         threadHandlerForLogin = new Handler(handlerThreadLogin.getLooper());
 
-        handlerThreadGetDevices.start();
-        threadHandlerForGetDevices = new Handler(handlerThreadGetDevices.getLooper());
 
-        handlerThreadGetSpecificDeviceDataById.start();
-        threadHandlerForGetSpecificDeviceDataById = new Handler(handlerThreadGetSpecificDeviceDataById.getLooper());
-
-        handlerThreadGetSpecificDevicesByAccount.start();
-        threadHandlerForGetSpecificDevicesByAccount = new Handler(handlerThreadGetSpecificDevicesByAccount.getLooper());
-
-        handlerThreadGetSpecificNotificationsByAccount.start();
-        threadHandlerForGetSpecificNotificationsByAccount = new Handler(handlerThreadGetSpecificNotificationsByAccount.getLooper());
-
-        handlerThreadGetSpecificNotificationsByDevice.start();
-        threadHandlerForGetSpecificNotificationsByDevice = new Handler(handlerThreadGetSpecificNotificationsByDevice.getLooper());
-
-        handlerThreadGetNotifications.start();
-        threadHandlerForGetNotifications = new Handler(handlerThreadGetNotifications.getLooper());
-
-        handlerThreadGetAccounts.start();
-        threadHandlerForGetAccounts = new Handler(handlerThreadGetAccounts.getLooper());
     }
 
     // repeated job.
@@ -242,7 +212,84 @@ public class CacheMgr implements CacheManagerAPI {
         }
     }
 
-    // general runnable generic class. -in development.
+    private class BaseAsyncTask<E> extends AsyncTask<Void, Void, Void>
+    {
+        private BaseHandler handler;
+        Map<String, String> params;
+        ServicesName serviceName;
+
+        public BaseAsyncTask(BaseHandler handler, Map<String, String> params, ServicesName serviceName) {
+            this.handler = handler;
+            this.params = params;
+            this.serviceName = serviceName;
+        }
+
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+            downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
+                //downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
+                @Override
+                public void onDataDownloadCompleted(String downloadedData) {
+                    Log.d("generics","onDataDownloadCompleted");
+                    // JSON Parser
+
+
+                    List<E> retrievedEntitiesList = new ArrayList<>();
+
+                    if (handler instanceof DevicesHandler)
+                    {
+
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
+                    }
+                    else if (handler instanceof AccountDevicesHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
+                    }
+                    else if(handler instanceof DeviceDataHandler)
+                    {
+
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
+
+                        ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
+                    }
+                    else if(handler instanceof AccountsHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
+                        ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
+                    }
+                    else if (handler instanceof AccountNotificationsHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
+                    }
+                    else if (handler instanceof DeviceNotificationsHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
+                    }
+                    else if (handler instanceof NotificationsHandler)
+                    {
+                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
+                        ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
+                    }
+
+                }
+
+                @Override
+                public void onDownloadError() {
+
+                }
+            });
+
+            return null;
+        }
+    }
+    // general runnable generic class.
      private class BaseRunnable<E>  implements Runnable {
         private BaseHandler handler;
         Map<String, String> params;
@@ -317,6 +364,36 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
+    public void onNotificationRecieved()
+    {
+       //on notification recieved we want ot update all data.
+
+        Log.d("notification","notification recieved, on onNotificationRecieved");
+
+        getDevicesJob(0, 0, new DevicesHandler() {
+            @Override
+            public void onDevicesDownloadFinished(List<Devices> devices) {
+                setDevices(devices);
+            }
+        });
+
+        getAccountsJob(0, 0, new AccountsHandler() {
+            @Override
+            public void onAccountsDownloadFinished(List<Account> accounts) {
+                setAccounts(accounts);
+            }
+        });
+
+        getNotificationsJob(0, 0, new NotificationsHandler() {
+            @Override
+            public void onNotificationsDownloadFinished(List<Notification> notifications) {
+                setNotifications(notifications);
+            }
+        });
+
+
+
+    }
 
 
     // API -
@@ -324,7 +401,7 @@ public class CacheMgr implements CacheManagerAPI {
     @Override
     public void loginJob(final String username, final String password, final LoginHandler handler) {
         LoginJobRunnable runnable = new LoginJobRunnable(username,password,handler);
-        threadHandlerForLogin.post(runnable);
+        threadHandlerForLogin.post(runnable); // TODO test this one.
 
 
     }
@@ -334,8 +411,8 @@ public class CacheMgr implements CacheManagerAPI {
         Map<String, String> params = new HashMap<>();
         params.put("num",Integer.toString(num));
         params.put("start",Integer.toString(start));
-        BaseRunnable<Account> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getAllAccounts);
-        threadHandlerForGetAccounts.post(runnableGeneric);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getAllAccounts);
+        asyncGeneric.execute();
     }
 
     @Override
@@ -346,8 +423,10 @@ public class CacheMgr implements CacheManagerAPI {
         Map<String, String> params = new HashMap<>();
 //        params.put("num",Integer.toString(num));
 //        params.put("start",Integer.toString(start));
-        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getAllDevices);
-        threadHandlerForGetDevices.post(runnableGeneric);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getAllDevices);
+        asyncGeneric.execute();
+//        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getAllDevices);
+//        runnableGeneric.run();
     }
 
     @Override
@@ -355,8 +434,8 @@ public class CacheMgr implements CacheManagerAPI {
         Map<String, String> params = new HashMap<>();
         params.put("num",Integer.toString(num));
         params.put("start",Integer.toString(start));
-        BaseRunnable<Notification> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getNotifications);
-        threadHandlerForGetNotifications.post(runnableGeneric);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getNotifications);
+        asyncGeneric.execute();
     }
 
     @Override
@@ -365,8 +444,8 @@ public class CacheMgr implements CacheManagerAPI {
         params.put("id",Integer.toString(accountId));
         params.put("num",Integer.toString(num));
         params.put("start",Integer.toString(start));
-        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getDeviceRelatedToAccount);
-        threadHandlerForGetSpecificDevicesByAccount.post(runnableGeneric);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getDeviceRelatedToAccount);
+        asyncGeneric.execute();
     }
 
     @Override
@@ -375,8 +454,8 @@ public class CacheMgr implements CacheManagerAPI {
         params.put("id",Integer.toString(deviceId));
         params.put("num",Integer.toString(num));
         params.put("start",Integer.toString(start));
-        BaseRunnable<Notification> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getNotificationRelatedToDevice);
-        threadHandlerForGetSpecificNotificationsByDevice.post(runnableGeneric);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getNotificationRelatedToDevice);
+        asyncGeneric.execute();
     }
 
     @Override
@@ -385,8 +464,8 @@ public class CacheMgr implements CacheManagerAPI {
         params.put("id",Integer.toString(accountId));
         params.put("num",Integer.toString(num));
         params.put("start",Integer.toString(start));
-        BaseRunnable<Notification> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getNotificationsRelatedToAccount);
-        threadHandlerForGetSpecificNotificationsByAccount.post(runnableGeneric);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getNotificationsRelatedToAccount);
+        asyncGeneric.execute();
     }
 
     @Override
@@ -395,10 +474,12 @@ public class CacheMgr implements CacheManagerAPI {
 
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
-        BaseRunnable<DeviceData> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getSpecificDeviceDataById);
-        threadHandlerForGetSpecificDeviceDataById.post(runnableGeneric);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getSpecificDeviceDataById);
+        asyncGeneric.execute();
 
     }
+
+
 
     public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
         JSONObject jObj = null;
