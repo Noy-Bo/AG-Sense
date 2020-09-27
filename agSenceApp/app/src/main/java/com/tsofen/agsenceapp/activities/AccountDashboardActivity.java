@@ -338,6 +338,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             return;
         }
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            CacheMgr.getInstance().clearCache();
             backtoast.cancel();
             super.finishAffinity();
             return;

@@ -549,6 +549,11 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    public  void clearCache(){
+        accounts.clear();
+        devices.clear();
+        notifications.clear();
+    }
 
 
 }

@@ -177,8 +177,13 @@ public class DeviceView extends AppBaseActivity {
                         }
                     });
                 }
-                swipeRefreshLayout.setRefreshing(false);
-                GeneralProgressBar.removeProgressDialog(pd);
+                DeviceView.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        GeneralProgressBar.removeProgressDialog(pd);
+                    }
+                });
             }
         });
     }

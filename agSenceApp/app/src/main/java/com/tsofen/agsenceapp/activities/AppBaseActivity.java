@@ -14,6 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
+import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
@@ -90,6 +92,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             Intent intent = new Intent(this, OthersActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
+            CacheMgr.getInstance().clearCache();
             finishAffinity();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }

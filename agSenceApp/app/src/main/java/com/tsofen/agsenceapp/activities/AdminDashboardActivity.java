@@ -15,6 +15,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.AccountsAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
@@ -146,6 +147,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     public void onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            CacheMgr.getInstance().clearCache();
             backtoast.cancel();
             super.finishAffinity();
             return;
