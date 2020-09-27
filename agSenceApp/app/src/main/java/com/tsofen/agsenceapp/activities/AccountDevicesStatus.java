@@ -15,12 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
@@ -44,6 +47,25 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
         pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setEnabled(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+               if(AppBaseActivity.getUser() instanceof Admin)
+               {
+                   getDevicesRelatedToAccountFromCache();
+               }
+               else if (AppBaseActivity.getUser() instanceof Account)
+               {
+                   devicesArr.clear();
+                   CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
+                   getDevicesRelatedToAccountFromCache();
+               }
+
+            }
+        });
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_account_devices_status);
         devicesList = findViewById(R.id.account_devices_list);
@@ -51,21 +73,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
         searchView.setHint(R.string.search_device_hint);
 
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
-            @Override
-            public void onDeviceDataLoaded(final List<Devices> devices) {
-                AccountDevicesStatus.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        devicesArr = (ArrayList<Devices>) devices;
-                        updatingUI();
-                        searchView.setAdapter(new DevicesAdapter<Devices>(AccountDevicesStatus.this, devices));
-
-                    }
-                });
-
-            }
-        });
+        getDevicesRelatedToAccountFromCache();
 
 
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -170,5 +178,25 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         final ListAdapter myAdapter = new DevicesAdapter<Devices>(AccountDevicesStatus.this, filteredDevices);
         devicesList.setAdapter(myAdapter);
         GeneralProgressBar.removeProgressDialog(pd);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void getDevicesRelatedToAccountFromCache()
+    {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
+            @Override
+            public void onDeviceDataLoaded(final List<Devices> devices) {
+                AccountDevicesStatus.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        devicesArr = (ArrayList<Devices>) devices;
+                        updatingUI();
+                        searchView.setAdapter(new DevicesAdapter<Devices>(AccountDevicesStatus.this, devices));
+
+                    }
+                });
+
+            }
+        });
     }
 }

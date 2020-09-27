@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adapters.NotificationListAdaptor;
@@ -77,6 +79,20 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
         searchView.setHint(R.string.search_device_hint);
 
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
+                devicesList.clear();
+                getDevicesFromCache();
+
+
+            }
+        });
+
+
         if (AppBaseActivity.user instanceof Admin) {
             account = (Account) getIntent().getSerializableExtra("account");
         }
@@ -100,24 +116,6 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
-
-            @Override
-            public void onDeviceDataLoaded(final List<Devices> devices) {
-                AccountDashboardActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        searchView.setAdapter(new DevicesAdapter<Devices>(AccountDashboardActivity.this, devices));
-                        devicesList.addAll(devices);
-//                adapter = new ArrayAdapter<>(AccountDashboardActivity.this, 0,devicesList.toArray());
-//                searchView.setAdapter(adapter);
-                        initialUpdateUI();
-                    }
-                });
-
-            }
-        });
-
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -128,7 +126,32 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
+        getDevicesFromCache();
+
     }
+
+
+    public void getDevicesFromCache()
+    {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
+
+            @Override
+            public void onDeviceDataLoaded(final List<Devices> devices) {
+                AccountDashboardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.setAdapter(new DevicesAdapter<Devices>(AccountDashboardActivity.this, devices));
+                        devicesList.addAll(devices);
+                        //                adapter = new ArrayAdapter<>(AccountDashboardActivity.this, 0,devicesList.toArray());
+                        //                searchView.setAdapter(adapter);
+                        initialUpdateUI();
+                    }
+                });
+
+            }
+        });
+    }
+
 
 
     public void goToDevicesStatus(View view) {
@@ -336,9 +359,11 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             } else {
                 healthy++;
             }
+
         }
         runOnUiThread(new updateDeviceNotifNumbers(healthy, faulty, notificationArray.size(), this));
         GeneralProgressBar.removeProgressDialog(pd);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void updateUIAfterSearch(int notificationNumber) {

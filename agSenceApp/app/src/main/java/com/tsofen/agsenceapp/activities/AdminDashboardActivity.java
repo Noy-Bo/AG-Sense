@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.lifecycle.ProcessLifecycleOwner;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.R;
@@ -45,6 +46,18 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         navigationView.setCheckedItem(R.id.nav_admin_dashboard);
         searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
         searchView.setHint(R.string.search_account_hint);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setEnabled(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // code here the function that sends request for unread notif\faulty devices....
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
+
         AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(final List<Account> accounts) {
