@@ -1,5 +1,8 @@
 package com.example.ServerTsofen45.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,6 +12,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +27,7 @@ import com.example.ServerTsofen45.Beans.NotificationDTO;
 import com.example.ServerTsofen45.Repo.NotificationRepository;
 
 import Enums.Severity;
+import jdk.jfr.BooleanFlag;
 
 import com.example.ServerTsofen45.Beans.Device;
 import com.example.ServerTsofen45.Beans.Error;
@@ -130,18 +136,23 @@ public class NotificationsController {
 		}
 	  
 	  @GetMapping("AddNotification")
-	  public String AddNotification ( @RequestParam long imei, @RequestParam int code, String params )
+	  public String AddNotification ( @RequestParam long imei, @RequestParam int code, @RequestParam( defaultValue = "null") String params) 
 		{
 		  
 		  Device device = deviceBL.getDeviceImei(imei);
 		  Error error = errorBL.findBycode(code);
 		  String message = error.getMessage();
-		  
+	
 		  if(!device.isFaulty() ) device.setFaulty(true);
 		  
-		  if(params != null) {
+		  if(!params.equals("null")) {
 			  
-			  params = "{"+ params + "}";
+			  try {
+				params =  URLDecoder.decode(params, StandardCharsets.UTF_8.toString()).toString();
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			  JSONObject jsonParams = new JSONObject();
 			  jsonParams = (JSONObject) JSONValue.parse(params);
 
