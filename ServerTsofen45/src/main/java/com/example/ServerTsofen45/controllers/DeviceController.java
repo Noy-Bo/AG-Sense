@@ -140,4 +140,39 @@ public class DeviceController {
 		deviceRepository.save(device);
 		return true;
 	}
+	
+	
+	
+	/*************************SETTINGS******************************/
+	
+	@GetMapping("GetDeviceSettings")
+	public void getDeviceSAettings(long deviceImei)
+	{
+		
+	}
+	
+	
+	@GetMapping("SetDeviceSettingAlertGeoForce")
+	public void setDeviceSettingAlertGeoForce()
+	{
+		
+	}
+	
+	
+	
+	@GetMapping("SetDeviceSettingAuthorizedNumber")
+	public void setDeviceSettingAuthorizedNumber()
+	{
+		
+	}
+	
+	
+	@GetMapping("setDeviceSettingInterval")
+	public void setDeviceSettingInterval()
+	{
+		
+	}
+	
+	
+	
 }
