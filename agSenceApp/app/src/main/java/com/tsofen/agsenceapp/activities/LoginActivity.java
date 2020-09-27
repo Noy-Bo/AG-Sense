@@ -24,6 +24,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 
+//import com.tsofen.agsenceapp.activities.DeviceSetting;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -39,18 +41,18 @@ import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.notifications.TokenRegistrationHandler;
+import com.tsofen.agsenceapp.smsServices.OnAllSmsRecievedHandler;
+import com.tsofen.agsenceapp.smsServices.SmsMgr;
 import com.tsofen.agsenceapp.utils.FailedLogin;
-
-import java.util.List;
+import com.tsofen.agsenceapp.smsServices.SmsReceiver;
 
 
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-    private static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         // observer registeration for onforeground. -- read AppLifeCycleObserver.
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
 
     }
 
