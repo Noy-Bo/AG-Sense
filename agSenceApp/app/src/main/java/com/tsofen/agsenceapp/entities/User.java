@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class User implements Serializable {
     protected int id;
@@ -46,5 +47,18 @@ public abstract class User implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username.equals(user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
     }
 }

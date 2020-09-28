@@ -9,15 +9,29 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="acac6e07-30b2-49c6-8a75-99086b5d7b59" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+>>>>>>> master
+=======
     <list default="true" id="3558a508-f0b7-4cbf-b4c4-12f075b2e783" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileChanges/last-build.bin" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileContent/fileContent.lock" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/gc.properties" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
@@ -28,21 +42,31 @@
       <change afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change afterPath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/.idea/agSenceApp.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_2_0_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_process_2_2_0_aar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_2_0_aar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_6_jar.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_maps_android_android_maps_utils_2_0_3_aar.xml" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/tsofen/agsenceapp/BuildConfig.java" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/annotation_processor_list/debug/annotationProcessors.json" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/release/com/tsofen/agsenceapp/BuildConfig.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/annotation_processor_list/debug/annotationProcessors.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/annotation_processor_list/release/annotationProcessors.json" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-af.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-am.json" afterDir="false" />
@@ -157,6 +181,18 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zu.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/bundle_manifest/debug/bundle-manifest/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/bundle_manifest/debug/bundle-manifest/output.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/compatible_screen_manifest/debug/out/output.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/mergeProjectDexDebug/classes.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/dex_archive_input_jar_hashes/debug/out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/merge-state" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+p6cuKe41w_S_QzLO7KJWfkfYlw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0z32IXKcw55tJxczzJ1G1uwC_00=" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/release/multi-v2/release.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/release/multi-v2/values-af.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/release/multi-v2/values-am.json" afterDir="false" />
@@ -296,12 +332,51 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/15FdIA2UHZSlnNDDXaAT1qcORRY=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/1GjwN8WBDx53gTUlSkAhcC0ByQw=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/1T3wmS1lrr98HlQLJlqmP_yCing=" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/1xXbupzw6pZ8qDBPMegonjTsiuE=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/25Z5xR93+E_LD1Xlz9QIVd_P2os=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/2GWQpAAO25vAqLiXArudatxsmf4=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/3ij1swas7VP0yIItp54yyHxTNjs=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/4hBzveMvhIVmA3ePgvQOA4Wbqm4=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/5IJihGiK6_TjA9Qn1QMHrDFz5g0=" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/6FMkrfMfDGslUq14VtWovnkupbM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/6oOkxZYJNKErZwxrhYnEpSTqsiw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/6phs4OcWl+Fj4zU9jQJhBv9xFmE=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/7uwz9rz010NqjxgdCuhMaOLvIU0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/B74icSR5PvjVQjJUyADWy4h7_5Y=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/BllkU_ycuTs5Rcfdu029ZsiuMWg=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/C3Ac+e7WOuzXW9Z6PvSR6MzaMsU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/EqiFsxvyk7gNbfsltSeynGKgNNY=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/FOCMZkunDrYcdA5AZKBdVWNJiNc=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/JuCs+LbA8PdoHiL8LisZYr51+Qk=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/N2v6kxBaGs3qhVfUkzNb9VeJHgM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/NzzPhchviskybc39VmI3QMhFICc=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/RLiriX_xODKQdxF5fdZ8sU2LF6I=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/XA3pSpofp_91UG5OlJ0CkmPg3ok=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/XRsTLMS3+Rpq8Q2XLq+ul8dzl5Y=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/YUTjKWTDLVRjHEv1yYmMXxa5dac=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/bKGCLqFI4Hh0doMjl7NJNFc6OOQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/cGK6ll1QWpyMZYxwuffAg5hQapw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/cH9BpaeWQ1TibH94R8pJVcFT7qU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/d9SkhzpU5VeORXBLU9p2EDAh_lY=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/dH8Ql5rKHdje+4kZHk6s+tkSoY0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/hrhrXtyi9uP_GMnWCd33+qMB6C0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/j7q3n+sEmvpOm7fdbmrRKGXR1GM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/kl2bjqr+VDP8sIvwxMjzxEfbHzo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/kxlYtcy80uP0kwTDKPJhCVLayBo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/muvBiOyzWZcLbB7TZ4zNTy4BCO0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/pNbX0hgvEvgSutPmyJAC81FH+qU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/rhi0cJesckS7_AF0BscyUxq7HMo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/sNlvkI2vMnEAlcE8oqgWg1dyhqQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/t7ZJwVdI4cce++gkCD_+t45dG9Q=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/txxBJVABhs1drbgMuM8AkfF6hQI=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/uzDKgO9OG18CspqabAP5qxE0gEE=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/wGF2jpzG_1xRsXcz6mVBnKu0NXw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/merge-state" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/+p6cuKe41w_S_QzLO7KJWfkfYlw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/0z32IXKcw55tJxczzJ1G1uwC_00=" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/5KPtiNlReZ4nL9vslJDwCV4wSqg=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/6FMkrfMfDGslUq14VtWovnkupbM=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/6ZW_lUbibtWQq2E3c8KdRZ3cF2I=" afterDir="false" />
@@ -433,12 +508,58 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/15FdIA2UHZSlnNDDXaAT1qcORRY=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/1GjwN8WBDx53gTUlSkAhcC0ByQw=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/1T3wmS1lrr98HlQLJlqmP_yCing=" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/1xXbupzw6pZ8qDBPMegonjTsiuE=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/25Z5xR93+E_LD1Xlz9QIVd_P2os=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/2GWQpAAO25vAqLiXArudatxsmf4=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/3ij1swas7VP0yIItp54yyHxTNjs=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/4hBzveMvhIVmA3ePgvQOA4Wbqm4=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/5IJihGiK6_TjA9Qn1QMHrDFz5g0=" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/6FMkrfMfDGslUq14VtWovnkupbM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/6oOkxZYJNKErZwxrhYnEpSTqsiw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/6phs4OcWl+Fj4zU9jQJhBv9xFmE=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/7uwz9rz010NqjxgdCuhMaOLvIU0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/B74icSR5PvjVQjJUyADWy4h7_5Y=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/BllkU_ycuTs5Rcfdu029ZsiuMWg=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/C3Ac+e7WOuzXW9Z6PvSR6MzaMsU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/EqiFsxvyk7gNbfsltSeynGKgNNY=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/FOCMZkunDrYcdA5AZKBdVWNJiNc=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/JuCs+LbA8PdoHiL8LisZYr51+Qk=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/N2v6kxBaGs3qhVfUkzNb9VeJHgM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/NzzPhchviskybc39VmI3QMhFICc=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/RLiriX_xODKQdxF5fdZ8sU2LF6I=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/XA3pSpofp_91UG5OlJ0CkmPg3ok=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/XRsTLMS3+Rpq8Q2XLq+ul8dzl5Y=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/YUTjKWTDLVRjHEv1yYmMXxa5dac=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/bKGCLqFI4Hh0doMjl7NJNFc6OOQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/cGK6ll1QWpyMZYxwuffAg5hQapw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/cH9BpaeWQ1TibH94R8pJVcFT7qU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/d9SkhzpU5VeORXBLU9p2EDAh_lY=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/dH8Ql5rKHdje+4kZHk6s+tkSoY0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/hrhrXtyi9uP_GMnWCd33+qMB6C0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/j7q3n+sEmvpOm7fdbmrRKGXR1GM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/kl2bjqr+VDP8sIvwxMjzxEfbHzo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/kxlYtcy80uP0kwTDKPJhCVLayBo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/muvBiOyzWZcLbB7TZ4zNTy4BCO0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/pNbX0hgvEvgSutPmyJAC81FH+qU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/rhi0cJesckS7_AF0BscyUxq7HMo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/sNlvkI2vMnEAlcE8oqgWg1dyhqQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/t7ZJwVdI4cce++gkCD_+t45dG9Q=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/txxBJVABhs1drbgMuM8AkfF6hQI=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/uzDKgO9OG18CspqabAP5qxE0gEE=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/wGF2jpzG_1xRsXcz6mVBnKu0NXw=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/javaResources0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/instant_app_manifest/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/instant_app_manifest/debug/output.json" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/5KPtiNlReZ4nL9vslJDwCV4wSqg=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/6FMkrfMfDGslUq14VtWovnkupbM=" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeNativeLibs/zip-cache/6ZW_lUbibtWQq2E3c8KdRZ3cF2I=" afterDir="false" />
@@ -782,6 +903,7 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/instant_app_manifest/debug/output.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/instant_app_manifest/release/AndroidManifest.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/instant_app_manifest/release/output.json" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable$1.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable$2.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable$3.class" afterDir="false" />
@@ -835,7 +957,10 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/activities/LoginActivity$1$1.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/activities/LoginActivity$1.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/activities/LoginActivity.class" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/activities/MapsActivity$Renderer.class" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/activities/MapsActivity.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/activities/NewAccount.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/activities/NewDevice$1.class" afterDir="false" />
@@ -915,6 +1040,16 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/utils/FailedLogin.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/utils/Severity.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/tsofen/agsenceapp/utils/updateDeviceNotifNumbers.class" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/merged_java_res/debug/out.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/merged_manifests/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/merged_manifests/debug/output.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/metadata_feature_manifest/debug/metadata-feature/output.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/navigation_json/debug/navigation.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/processed_res/debug/out/output.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/processed_res/debug/out/resources-debug.ap_" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/release/classes/com/tsofen/agsenceapp/BuildConfig.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/release/classes/com/tsofen/agsenceapp/activities/AccountDashboardActivity$1.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/javac/release/classes/com/tsofen/agsenceapp/activities/AccountDashboardActivity$2.class" afterDir="false" />
@@ -981,6 +1116,7 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/4b60931b7dd070bf35d9a13f349f0f3886da201d435d91ed39f9207c068d3281_1.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/a150f24133261fca52d30a7204196da50a7eba7d01423232ea5821de60c65b9c_0.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/a150f24133261fca52d30a7204196da50a7eba7d01423232ea5821de60c65b9c_1.jar" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable$1.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable$2.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable$3.dex" afterDir="false" />
@@ -1034,7 +1170,10 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/activities/LoginActivity$1$1.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/activities/LoginActivity$1.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/activities/LoginActivity.dex" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/activities/MapsActivity$Renderer.dex" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/activities/MapsActivity.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/activities/NewAccount.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/activities/NewDevice$1.dex" afterDir="false" />
@@ -1116,6 +1255,8 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/tsofen/agsenceapp/utils/updateDeviceNotifNumbers.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/d2a29589dfd1c8abf737b5f5c76e66e4c514db2e3e94dca0fcd9afc24d38668f_0.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/d2a29589dfd1c8abf737b5f5c76e66e4c514db2e3e94dca0fcd9afc24d38668f_1.jar" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/release/out/4d16ff126b989de733390890e61e187a326041d6e02fb733826d677f8a404721_0.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/release/out/4d16ff126b989de733390890e61e187a326041d6e02fb733826d677f8a404721_1.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/release/out/com/tsofen/agsenceapp/BuildConfig.dex" afterDir="false" />
@@ -1163,6 +1304,7 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/release/out/com/tsofen/agsenceapp/entities/User.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/release/out/com/tsofen/agsenceapp/entities/UserMap.dex" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/release/out/com/tsofen/agsenceapp/utils/ColorStatus.dex" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable-v24_ic_launcher_foreground.xml.flat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_agsense_logo.png.flat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_blue_horizontal_divider.xml.flat" afterDir="false" />
@@ -1367,6 +1509,19 @@
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rTW_values-zh-rTW.arsc.flat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zu_values-zu.arsc.flat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values_values.arsc.flat" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/runtime_symbol_list/debug/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/outputs/apk/debug/output-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/controllers/DashboardInfoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/vcs.xml" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/release/drawable-v24_ic_launcher_foreground.xml.flat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/release/drawable_agsense_logo.png.flat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/release/drawable_blue_horizontal_divider.xml.flat" afterDir="false" />
@@ -1595,6 +1750,7 @@
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/.gitignore" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/libraries/Gradle__androidx_annotation_annotation_experimental_1_0_0_aar.xml" afterDir="false" />
@@ -1722,17 +1878,29 @@
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/build.gradle" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/google-services.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/debug/res/menu/drawer_menu.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/gen/com/tsofen/agsenceapp/BuildConfig.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/gen/com/tsofen/agsenceapp/Manifest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/gen/com/tsofen/agsenceapp/R.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AppLifecycleObserver.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/CacheMgr.java" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/AccountDashboardActivity.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/AccountDevicesStatus.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/AccountStatusFilter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/AdminDashboardActivity.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/AppBaseActivity.java" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatusList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/NewDevice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/NotificationsActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/SearchBaseActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/adapters/AccountsAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Account.java" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceFilter.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatus.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatusList.java" afterDir="false" />
@@ -1751,10 +1919,16 @@
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Devices.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Place.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/UserMap.java" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/notifications/BasicFireBaseMessagingService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/notifications/RemoteMessageHandler.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/notifications/TokenRegistrationHandler.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/drawable/dashboard_icon.png" afterDir="false" />
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_accounts_status_filter.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_admin_dashboard.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_new_device.xml" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_account_devices_status.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_accounts_status_filter.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_admin_dashboard.xml" afterDir="false" />
@@ -1769,6 +1943,7 @@
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_new_account.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_new_device.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_new_user.xml" afterDir="false" />
+>>>>>>> master
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_search_base.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/values/strings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/values/styles.xml" afterDir="false" />
@@ -1777,6 +1952,25 @@
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/src/main/gen/com/tsofen/agsenceapp/Manifest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/src/main/gen/com/tsofen/agsenceapp/R.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../agSenceApp/src/main/res/drawable/dashboard_icon.png" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/../.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/5.2.1/fileChanges/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileChanges/last-build.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/5.2.1/gc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/gc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gradle/vcs-1/gc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/../../backend/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../backend/.idea/.name" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../backend/.idea/codeStyles/Project.xml" afterDir="false" />
@@ -1859,13 +2053,18 @@
       <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/.idea/runConfigurations.xml" afterDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/.project" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.buildship.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/.settings/org.eclipse.buildship.core.prefs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/caches/build_file_checksums.ser" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/codeStyles/Project.xml" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/.idea/codeStyles/Project.xml" beforeDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" afterDir="false" />
@@ -1919,7 +2118,11 @@
       <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/.idea/misc.xml" beforeDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../backend/.idea/misc.xml" afterDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/runConfigurations.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/.idea/vcs.xml" afterDir="false" />
@@ -1934,9 +2137,18 @@
       <change beforePath="$PROJECT_DIR$/app/src/debug/res/menu/drawer_menu.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/debug/res/values/google_maps_api.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/src/main/gen/com/tsofen/agsenceapp/BuildConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/gen/com/tsofen/agsenceapp/BuildConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/gen/com/tsofen/agsenceapp/Manifest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/gen/com/tsofen/agsenceapp/Manifest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/gen/com/tsofen/agsenceapp/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/gen/com/tsofen/agsenceapp/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AppLifecycleObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AppLifecycleObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/CacheMgr.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/CacheMgr.java" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AdminDataUpdatesRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/AppLifecycleObserver.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/CacheMgr.java" beforeDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/TestRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/TestRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/ThreadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/ThreadHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/WaitPeriod.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/BackgroundServices/WaitPeriod.java" afterDir="false" />
@@ -1947,6 +2159,18 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/AdminDashboardActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/AppBaseActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/BackBaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/BackBaseActivity.java" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceSetting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatusList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/EditAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/EditAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/EditDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/EditDevice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/HealthCareDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/HealthCareDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/LoginActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/MapsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/MapsActivity.java" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceFilter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceSetting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceStatus.java" beforeDir="false" />
@@ -1957,6 +2181,7 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/HealthCareDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/HealthCareDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/LoginActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/MapsActivity.java" beforeDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/NewAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/NewAccount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/NewDevice.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/activities/NotificationsActivity.java" beforeDir="false" />
@@ -1976,7 +2201,11 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/adaptersInterfaces/onUserLoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/adaptersInterfaces/onUserLoginHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/AccountsDataAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/AccountsDataAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/BaseDataAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/BaseDataAdapter.java" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/DeviceDataAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/DeviceDataAdapter.java" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/DeviceDataAdapter.java" beforeDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/NotificationsDataAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/NotificationsDataAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/UserDataAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/dataAdapters/UserDataAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/dataServices/AccountDevicesHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/dataServices/AccountDevicesHandler.java" afterDir="false" />
@@ -1997,6 +2226,15 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/DeviceData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/DeviceData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/DeviceLastMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/DeviceLastMessage.java" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Devices.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Devices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/MockData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/MockData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Place.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Place.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Setting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/UserMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/UserMap.java" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Devices.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/MockData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/MockData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Notification.java" afterDir="false" />
@@ -2004,6 +2242,7 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/Setting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/entities/UserMap.java" beforeDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/utils/FailedLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/utils/FailedLogin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/utils/Severity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/utils/Severity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tsofen/agsenceapp/utils/updateDeviceNotifNumbers.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/utils/updateDeviceNotifNumbers.java" afterDir="false" />
@@ -2048,12 +2287,25 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/user_white_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/drawable/user_white_icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/white_shape_squares.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/drawable/white_shape_squares.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_account_dashboard.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account_devices_status.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_account_devices_status.xml" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account_devices_status.xml" beforeDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account_status_news_shape.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_account_status_news_shape.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_accountstatusfilter.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_admin_dashboard.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_app_base.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_app_base.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_back_base.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_back_base.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_filter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_filter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_setting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_status.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_status.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_status_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_status_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_status_shape.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_status_shape.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view_slider1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_view_slider1.xml" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_filter.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_setting.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_status.xml" beforeDir="false" />
@@ -2061,16 +2313,26 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_status_shape.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_status_shape.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_view.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view_slider.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view_slider.xml" afterDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view_slider2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_view_slider2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view_slider3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_view_slider3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view_slider4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_view_slider4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_view_slider5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_device_view_slider5.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_edit_account.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_device.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_edit_device.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_health_care_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_health_care_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_maps.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_new_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_new_account.xml" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_account.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_device.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_health_care_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_health_care_dashboard.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_maps.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_new_account.xml" beforeDir="false" />
+>>>>>>> master
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_new_device.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/res/layout/activity_notifications.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_base.xml" beforeDir="false" />
@@ -2110,6 +2372,18 @@
       <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/gradlew" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/gradlew.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/settings.gradle" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/DeviceBL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/DeviceBL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/NotificationBL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/NotificationBL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/Repo/DeviceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/Repo/DeviceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/Repo/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/Repo/NotificationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../agSenceApp/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/LoginActivity.java" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/Enums/Errors.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/Enums/Errors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/DeviceBL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/DeviceBL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/NotificationBL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../ServerTsofen45/src/main/java/com/example/ServerTsofen45/BL/NotificationBL.java" afterDir="false" />
@@ -2156,13 +2430,22 @@
       <change beforePath="$PROJECT_DIR$/../../TCP_ServerTsofen45/TCP_ServerTsofen45/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../infraTeam/read.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../TCP_ServerTsofen45/TCP_ServerTsofen45/src/test/java/com/Tsofen45/TCP_ServerTsofen45/TcpServerTsofen45ApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../infraTeam/TCP_ServerTsofen45/src/test/java/com/Tsofen45/TCP_ServerTsofen45/TcpServerTsofen45ApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../agSenceApp/app/src/main/java/com/tsofen/agsenceapp/activities/DeviceView.java" afterDir="false" />
+>>>>>>> master
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
+<<<<<<< HEAD
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_XL_API_24" />
+=======
+  <component name="ExecutionTargetManager" SELECTED_TARGET="5a5c0d1c" />
+>>>>>>> master
+=======
   <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_API_30" />
+>>>>>>> master
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -2209,6 +2492,9 @@
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../agSenceApp" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -2353,6 +2639,14 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="373" y="0" key="#LoginActivity" timestamp="1600847920616">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="373" y="0" key="#LoginActivity/0.0.1280.680@0.0.1280.680" timestamp="1600847920616" />
+    <state x="158" y="73" key="#PSD" timestamp="1600847928008">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="158" y="73" key="#PSD/0.0.1280.680@0.0.1280.680" timestamp="1600847928008" />
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1600584968181">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -2381,6 +2675,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="466" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1600770316817" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <state x="458" y="138" key="FileChooserDialogImpl" timestamp="1600848070125">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="458" y="138" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1600848070125" />
+=======
+    <state x="686" y="219" key="FileChooserDialogImpl" timestamp="1600850600724">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="686" y="219" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600850600724" />
+>>>>>>> master
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600839953711" />
+    <state width="1491" height="232" key="GridCell.Tab.0.bottom" timestamp="1600774306447">
+      <screen x="0" y="0" width="1536" height="824" />
+=======
     <state x="488" y="148" key="FileChooserDialogImpl" timestamp="1600867042707">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -2389,6 +2699,7 @@
     <state x="549" y="175" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1600849066578" />
     <state width="1323" height="213" key="GridCell.Tab.0.bottom" timestamp="1600867415608">
       <screen x="0" y="0" width="1366" height="728" />
+>>>>>>> master
     </state>
     <state width="1323" height="213" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1600867415608" />
     <state width="1491" height="232" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600774306447" />
@@ -2443,10 +2754,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1536.824@0.0.1536.824" timestamp="1600592429784" />
+<<<<<<< HEAD
+    <state x="206" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1600847850927">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="206" y="208" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1600847850927" />
+    <state x="247" y="252" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1600839253715" />
+=======
     <state x="247" y="252" key="com.intellij.ide.util.TipDialog" timestamp="1600860862972">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="247" y="252" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1600860862972" />
+>>>>>>> master
     <state x="558" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600683370206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

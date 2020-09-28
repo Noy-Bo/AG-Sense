@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DeviceDataListAdapter;
@@ -31,6 +33,8 @@ public class DeviceStatusList extends BackBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_status_list);
+
+
         device = (Devices) getIntent().getSerializableExtra("device");
         deviceData = device.getDeviceData();
         if (deviceData == null) {
@@ -97,7 +101,14 @@ public class DeviceStatusList extends BackBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (DeviceData deviceData : deviceData) {
-                userMap.addPlace(new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon()));
+                Place newPlace = new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon());
+                if(deviceData.getId()!=null) {
+                    newPlace.setTitle("device" + deviceData.getId().toString());
+                }
+                if(deviceData.getDateAndTime()!=null) {
+                    newPlace.setSnippet(deviceData.getDateAndTime().toString());
+                }
+                userMap.addPlace(newPlace);
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("flag", true);
@@ -105,21 +116,4 @@ public class DeviceStatusList extends BackBaseActivity {
             startActivity(intent);
         }
     }
-
-//    public void openMap(View view) {
-//        if (deviceData.size() == 0) {
-//            Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
-//        } else {
-//            ArrayList<Devices> devicesArr = new ArrayList<>();
-//            for(DeviceData device : deviceData) {
-//                deviceData.add(new Place(device.getLatitude(), device.getLogitude()));
-//            }
-//            Intent intent = new Intent(this, MapsActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("devices", devicesArr);
-//            intent.putExtras(bundle);
-//            startActivity(intent);
-//        }
-//    }
-
 }

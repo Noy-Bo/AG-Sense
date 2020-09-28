@@ -11,51 +11,86 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.json.simple.JSONObject;
+
 @Entity
 public class Account {
-	String Text;
+	String name;
 	int Id;
 	List<Device> devices;
-	
 
-	
-  
 	public Account() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Account(String text) {
+
+	public Account(String name) {
 		super();
-		Text = text;
-		devices= new ArrayList<Device>() ;
+		this.name = name;
+		devices = new ArrayList<Device>();
 	}
+
 	public void Adddevice(Device devices) {
-		this.devices.add(devices) ;
+		this.devices.add(devices);
 	}
-	
+
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
 	}
+
 	@OneToMany
 	public List<Device> getDevices() {
 		return devices;
 	}
+
 	@Column
-	public String getText() {
-		return Text;
+	public String getName() {
+		return name;
 	}
-	public void setText(String text) {
-		Text = text;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 	@Id
 	@GeneratedValue
 	public int getId() {
 		return Id;
 	}
+
 	public void setId(int id) {
 		Id = id;
 	}
 	
 	
+	public int faultyDevices()
+	{
+		int num=0;
+		for(Device device: devices)
+			if(device.isFaulty())
+			{
+				num++;
+			}
+		return num;
+	}
+	
+	
+    public boolean faultyAccount()
+    {
+    	if(faultyDevices()>0)
+    		return true;
+    	else 
+    		return false;
+    }
+	@SuppressWarnings("unchecked")
+	public JSONObject toJson() {
+		JSONObject jo = new JSONObject();
+
+		jo.put("name", this.name);
+		jo.put("numberOfDevices", this.devices.size());
+		jo.put("faultyDevices", this.faultyDevices());
+		jo.put("faultyAccount", this.faultyAccount());
+		return jo;
+	}
 
 }
