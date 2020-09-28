@@ -40,8 +40,8 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
+
         final Devices devices = getItem(position);
         TextView name = layout.findViewById(R.id.device_item_name);
         TextView devicetypeid = layout.findViewById((R.id.deviceidtype));
@@ -51,7 +51,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
         imageView.setImageResource(R.drawable.faulty_devices_icon);
 
 
-        name.setText( String.valueOf(devices.getAccountId()+" - "+devices.getName()));
+        name.setText(devices.getAccountId() + " - " + devices.getName());
         devicetypeid.setText((devices.getType()));
         faultytime.setText(String.valueOf(devices.getFaultTime()));
         lastupdate.setText(String.valueOf(devices.getLastUpdate()));

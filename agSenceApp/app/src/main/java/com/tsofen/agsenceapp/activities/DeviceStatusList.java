@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DeviceDataListAdapter;
@@ -32,6 +33,7 @@ public class DeviceStatusList extends BackBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_status_list);
+
 
         device = (Devices) getIntent().getSerializableExtra("device");
         deviceData = device.getDeviceData();
