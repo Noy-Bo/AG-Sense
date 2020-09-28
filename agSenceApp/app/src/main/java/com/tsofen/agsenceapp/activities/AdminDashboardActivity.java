@@ -141,7 +141,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
 
     public void GoToAccountSettings(View view) {
-        Intent intent = new Intent(this, DeviceSetting.class);
+        Intent intent = new Intent(this, DeviceSettings.class);
         startActivity(intent);
     }
 
