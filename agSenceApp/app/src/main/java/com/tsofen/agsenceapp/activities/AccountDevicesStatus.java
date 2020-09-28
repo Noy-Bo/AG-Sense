@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -60,6 +62,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                else if (AppBaseActivity.getUser() instanceof Account)
                {
                    devicesArr.clear();
+                   ((ArrayAdapter)devicesList.getAdapter()).notifyDataSetChanged();
                    CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
                    getDevicesRelatedToAccountFromCache();
                }
@@ -83,6 +86,19 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                 Devices device = (Devices) searchView.getAdapter().getItem(i);
                 intent.putExtra("device", device);
                 startActivity(intent);
+            }
+        });
+
+        devicesList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int firstVisibleCount, int totalItemCount) {
+                int topRowVerticalPosition = (devicesList == null || devicesList.getChildCount() == 0) ? 0 : devicesList.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
 

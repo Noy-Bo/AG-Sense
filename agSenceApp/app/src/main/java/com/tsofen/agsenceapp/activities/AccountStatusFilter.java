@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -34,14 +36,14 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
     boolean displayHealthyAccounts = true;
     ListView accountsList;
     ArrayList<Account> accountsArr = new ArrayList<>();
-    ProgressDialog pd ;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_accounts_status_filter, null, false);
-        pd = GeneralProgressBar.displayProgressDialog(this,"loading accounts...");
+        pd = GeneralProgressBar.displayProgressDialog(this, "loading accounts...");
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setEnabled(true);
@@ -49,13 +51,9 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
             @Override
             public void onRefresh() {
                 accountsArr.clear();
+                ((ArrayAdapter)accountsList.getAdapter()).notifyDataSetChanged();
                 CacheMgr.getInstance().setAccounts(new ArrayList<Account>());
                 getAccountsFromCacheManager();
-
-
-
-
-
 
             }
         });
@@ -92,6 +90,18 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
 
         getAccountsFromCacheManager();
 
+        accountsList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int firstVisibleCount, int totalItemCount) {
+                int topRowVerticalPosition = (accountsList == null || accountsList.getChildCount() == 0) ? 0 : accountsList.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
 
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -151,15 +161,14 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
                 filteredAccounts.add(account);
             }
         }
-        ListAdapter myAdapter = new AccountsAdapter<User>(AccountStatusFilter.this, filteredAccounts);
+        ArrayAdapter myAdapter = new AccountsAdapter<Account>(AccountStatusFilter.this, filteredAccounts);
         accountsList.setAdapter(myAdapter);
         GeneralProgressBar.removeProgressDialog(pd);
         swipeRefreshLayout.setRefreshing(false);
     }
 
 
-    public void getAccountsFromCacheManager()
-    {
+    public void getAccountsFromCacheManager() {
         AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(final List<Account> accounts) {

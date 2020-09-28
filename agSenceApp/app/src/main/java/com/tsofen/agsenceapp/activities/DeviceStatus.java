@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -49,16 +51,16 @@ public class DeviceStatus extends SearchBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
+        final View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
         pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 devicesArr.clear();
                 filteredDevices.clear();
+                ((ArrayAdapter)devicesList.getAdapter()).notifyDataSetChanged();
                 CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
                 getAllDevicesFromCache();
 
@@ -93,12 +95,25 @@ public class DeviceStatus extends SearchBaseActivity {
 
         getAllDevicesFromCache();
 
+        devicesList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int firstVisibleCount, int totalItemCount) {
+                int topRowVerticalPosition = (devicesList == null || devicesList.getChildCount() == 0) ? 0 : devicesList.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
 
         //applying listener that transfers us to a new activity (DeviceView)
         devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO: To apply a better activity-transfer (in the future)...
+                if(swipeRefreshLayout.isRefreshing())
+                    return;
+
                 Intent intent = new Intent(getApplicationContext(), DeviceView.class);
                 Devices device = (Devices) (devicesList.getAdapter()).getItem(i);
                 intent.putExtra("device", device);
@@ -149,7 +164,6 @@ public class DeviceStatus extends SearchBaseActivity {
     }
 
     private void updatingUI() {
-
         filteredDevices = new ArrayList<>();
 
         String filter = getIntent().getExtras().getString("filter");
