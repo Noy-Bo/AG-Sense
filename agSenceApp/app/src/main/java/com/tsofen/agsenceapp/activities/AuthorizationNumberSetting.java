@@ -31,8 +31,9 @@ public class AuthorizationNumberSetting extends BackBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_authorization_number_setting, null, false);
+//        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View contentView = inflater.inflate(R.layout.activity_authorization_number_setting, null, false);
+        setContentView(R.layout.activity_authorization_number_setting);
        //Spinner spinner = (Spinner) contentView.findViewById(R.id.FenceTypeSpinner);
         List<String> type = new ArrayList<>();
         type.add(0, "Choose Type");

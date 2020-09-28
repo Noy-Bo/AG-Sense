@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
@@ -23,29 +24,26 @@ import static android.view.View.VISIBLE;
 public class DeviceSettings extends BackBaseActivity {
 
     Devices device;
-    Spinner spinner;
+    SearchableSpinner spinner;
     int flag = 0;
     ArrayAdapter<String> dataAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_settings);
-        spinner = (Spinner) findViewById(R.id.settingSpinner);
+        spinner = (SearchableSpinner) findViewById(R.id.settingSpinner);
         final LinearLayout b1 = findViewById(R.id.buttonsPanel);
+        b1.setVisibility(View.INVISIBLE);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (flag == 0) {
-                    flag = 1;
-                } else {
-                    b1.setVisibility(View.VISIBLE);
-                }
+                b1.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                b1.setVisibility(View.INVISIBLE);
             }
 
         });
@@ -58,8 +56,9 @@ public class DeviceSettings extends BackBaseActivity {
             dataAdapter = new ArrayAdapter<>(DeviceSettings.this, android.R.layout.simple_spinner_item, list);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(dataAdapter);
-        }
-        else {
+            spinner.setSelection(0);
+            b1.setVisibility(View.VISIBLE);
+        } else {
             DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
                 @Override
                 public void onDeviceDataLoaded(final List<Devices> devices) {

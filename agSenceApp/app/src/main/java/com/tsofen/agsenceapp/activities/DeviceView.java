@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.SliderAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceInfoDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.utils.GeneralProgressBar;
@@ -67,6 +69,11 @@ public class DeviceView extends AppBaseActivity {
         setTitle("Device '" + device.getName() + "' view");
 
         getDeviceDataFromCacheManager();
+
+        if(AppBaseActivity.user instanceof Account){
+            Button settings = (Button) findViewById(R.id.device_status_settings);
+            settings.setVisibility(View.GONE);
+        }
     }
 
     //for indentifying the current-dot (in the dot-scroller) we're positioned on..
@@ -86,7 +93,6 @@ public class DeviceView extends AppBaseActivity {
         if (mDots.length > 0) { //changes Dot color!
             mDots[position].setTextColor(getResources().getColor(R.color.orange));
         }
-
     }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
