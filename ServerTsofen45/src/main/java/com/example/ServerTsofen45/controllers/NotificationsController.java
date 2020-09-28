@@ -25,6 +25,7 @@ import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.Notification;
 import com.example.ServerTsofen45.Beans.NotificationDTO;
 import com.example.ServerTsofen45.Repo.NotificationRepository;
+import com.example.ServerTsofen45.pushNotification.PushNotificationsSender;
 
 import Enums.Severity;
 import jdk.jfr.BooleanFlag;
@@ -168,6 +169,13 @@ public class NotificationsController {
 		  }
 
 		  List<Integer> userIds = userBL.getAllUsersIdForAccountID(device.getAccountId());
+		  
+		  ArrayList<String> usersToNotify = new ArrayList<>();
+	        usersToNotify.add("admin");
+	        usersToNotify.add("user1");
+	        usersToNotify.add("user2");
+	        PushNotificationsSender.publishNotificationForGroupOfUsers(usersToNotify, "first notification", "first successful notification from server");
+		 
 		  
 		  for (Integer id : userIds) {
 			  
