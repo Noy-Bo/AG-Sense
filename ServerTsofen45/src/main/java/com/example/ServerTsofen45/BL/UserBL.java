@@ -48,9 +48,9 @@ public class UserBL {
 	}
 		
 
-		public List<Integer> getAllUsersIdForAccountID(int accountId) {
+		public List<User> getAllUsersForAccountID(int accountId) {
 			
-			return  userRepository.getAllUsersIdForAccountID(accountId);
+			return  userRepository.getAllUsersForAccountID(accountId);
 			
 		}
 }

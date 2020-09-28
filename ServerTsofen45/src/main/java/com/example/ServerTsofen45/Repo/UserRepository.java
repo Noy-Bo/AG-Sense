@@ -14,10 +14,10 @@ public interface UserRepository<T extends User>  extends CrudRepository<T, Integ
 	ArrayList<T> findAllByOrderBySysIdDesc();
 
 	@Query(nativeQuery = true, value =
-			"select sys_id " + 
+			"select * " + 
 			"from public.users " + 
 			"where account_id = ?1 ;" )
-	List<Integer> getAllUsersIdForAccountID(int accountId);
+	List<User> getAllUsersForAccountID(int accountId);
 	
 
 }

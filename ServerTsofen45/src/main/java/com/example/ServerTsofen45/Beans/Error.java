@@ -10,15 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import Enums.Severity;
+
 
 @Entity
 @Table(name = "errors")
 public class Error {
 
 	
-	int Code;
-	String message;
-	
+	private int Code;
+	private String message;
+	private Severity severity;
 	
 	
 	public void setCode(int code) {
@@ -27,6 +29,11 @@ public class Error {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	public void setSeverity(Severity severity) {
+		this.severity = severity;
+	}
+	
 	
 	@Column
 	@Id
@@ -37,7 +44,10 @@ public class Error {
 	public String getMessage() {
 		return message;
 	}
-	
+	@Column
+	public Severity getSeverity() {
+		return severity;
+	}
 	@Override
 	public String toString() {
 		return "Error [Code=" + Code + ", message=" + message + "]";

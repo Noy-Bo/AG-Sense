@@ -24,6 +24,7 @@ import com.example.ServerTsofen45.BL.NotificationBL;
 import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.Notification;
 import com.example.ServerTsofen45.Beans.NotificationDTO;
+import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.NotificationRepository;
 import com.example.ServerTsofen45.pushNotification.PushNotificationsSender;
 
@@ -125,14 +126,15 @@ public class NotificationsController {
 		}
 	  
 	  @GetMapping("Readed")
-	  public boolean markNotificationAsRead (@RequestParam ArrayList<Integer> idList)
+	  public int markNotificationAsRead (@RequestParam ArrayList<Integer> notificationIdList, @RequestParam ArrayList<Integer> accountIdList )
 		{
-			
-		    for (Integer id : idList) {
-		    	 notificationBL.setNotificationsReaded(id);
+			int count = 0;
+		    for (int i = 0 ; i<notificationIdList.size() ; i++) {
+		    	
+		    	count += notificationBL.setNotificationsReaded(notificationIdList.get(i) , accountIdList.get(i));
 		    }
 		    
-		    return true;
+		    return count;
 			  
 		}
 	  
@@ -143,17 +145,20 @@ public class NotificationsController {
 		  Device device = deviceBL.getDeviceImei(imei);
 		  Error error = errorBL.findBycode(code);
 		  String message = error.getMessage();
-	
-		  if(!device.isFaulty() ) device.setFaulty(true);
+		  List<User> users = userBL.getAllUsersForAccountID(device.getAccountId());
+		  ArrayList<String> usersToNotify = new ArrayList<>();
 		  
+		  
+		  if(!device.isFaulty() ) device.setFaulty(true);
+
 		  if(!params.equals("null")) {
-			  
+
 			  try {
-				params =  URLDecoder.decode(params, StandardCharsets.UTF_8.toString()).toString();
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				  params =  URLDecoder.decode(params, StandardCharsets.UTF_8.toString()).toString();
+			  } catch (UnsupportedEncodingException e) {
+				  // TODO Auto-generated catch block
+				  e.printStackTrace();
+			  }
 			  JSONObject jsonParams = new JSONObject();
 			  jsonParams = (JSONObject) JSONValue.parse(params);
 
@@ -168,34 +173,30 @@ public class NotificationsController {
 			  }
 		  }
 
-		  List<Integer> userIds = userBL.getAllUsersIdForAccountID(device.getAccountId());
-		  
-		  ArrayList<String> usersToNotify = new ArrayList<>();
-	        usersToNotify.add("admin");
-	        usersToNotify.add("user1");
-	        usersToNotify.add("user2");
-	        PushNotificationsSender.publishNotificationForGroupOfUsers(usersToNotify, "first notification", "first successful notification from server");
 		 
-		  
-		  for (Integer id : userIds) {
-			  
+
+		  for (User user : users) {
+
 			  Notification notification = new Notification();
-			  
+
 			  notification.setDevice(device);
 			  notification.setDateTime(new Timestamp(System.currentTimeMillis()));
 			  notification.setErrorCode(code);
 			  notification.setReaded(false);
-			  notification.setSeverity(Severity.MODERATE);
+			  notification.setSeverity(error.getSeverity());
 			  notification.setMessage(message);
-			  notification.setUserId(id);
-			  
-			 notificationRepo.save(notification); 
-		
-			}
-		 
-		 return message; 		
-			  
+			  notification.setUserId(user.getSysId());
+
+			  usersToNotify.add(user.getUserName());
+			  notificationRepo.save(notification); 
+
+		  }
+
+		  PushNotificationsSender.publishNotificationForGroupOfUsers(usersToNotify, "Error code: " + code , device.getName() + ": " + message);
+		  
+		  return message; 		
+
 		}
-	
-	
+
+
 }

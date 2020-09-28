@@ -3,6 +3,9 @@ package com.example.ServerTsofen45.Repo;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import com.example.ServerTsofen45.Beans.Notification;
@@ -42,4 +45,10 @@ public interface NotificationRepository extends CrudRepository<Notification, Int
 			"from notifications " + 
 			"where readed = FALSE AND user_id = ?1 ;" )
 	public String getUnreadNotificationsNumber(int id);
+	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value =
+			"     UPDATE public.notifications SET readed = TRUE WHERE id = ?1 AND user_id = ?2 " )
+	public int setNotificationsReaded(int notificationId, int accountId);
 }
