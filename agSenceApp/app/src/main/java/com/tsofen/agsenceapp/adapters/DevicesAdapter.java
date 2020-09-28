@@ -6,36 +6,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.activities.AccountDashboardActivity;
-import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.activities.DeviceView;
+
 import com.tsofen.agsenceapp.entities.Devices;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializable {
+public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
+    ArrayList<Devices> allDevices;
 
-    public DevicesAdapter(Context context, int resource, List<Devices> devices) {
-        super(context, resource, devices);
+    public DevicesAdapter(Context context, List<Devices> devices) {
+        super(context, 0, devices);
         inflater = LayoutInflater.from(context);
+        allDevices = new ArrayList<>(devices);
     }
 
-
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        return devicesFilter;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
+
         final Devices devices = getItem(position);
-        TextView name = layout.findViewById(R.id.accountname);
+        TextView name = layout.findViewById(R.id.device_item_name);
         TextView devicetypeid = layout.findViewById((R.id.deviceidtype));
         TextView faultytime = layout.findViewById((R.id.devicefaultTime));
         TextView lastupdate = layout.findViewById(R.id.devicelastUpdate);
@@ -43,7 +51,7 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         imageView.setImageResource(R.drawable.faulty_devices_icon);
 
 
-        name.setText( String.valueOf(devices.getAccountId()));
+        name.setText(devices.getAccountId() + " - " + devices.getName());
         devicetypeid.setText((devices.getType()));
         faultytime.setText(String.valueOf(devices.getFaultTime()));
         lastupdate.setText(String.valueOf(devices.getLastUpdate()));
@@ -60,4 +68,39 @@ public class DevicesAdapter extends ArrayAdapter<Devices> implements Serializabl
         });
         return layout;
     }
+
+    private Filter devicesFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            FilterResults filterResults = new FilterResults();
+            List<Devices> suggestions = new ArrayList<>();
+
+            if (charSequence == null || charSequence.length() == 0)
+                suggestions.addAll(allDevices);
+            else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                for (Devices device : allDevices) {
+                    if (device.getName().toLowerCase().contains(filterPattern))
+                        suggestions.add(device);
+                }
+            }
+            filterResults.values = suggestions;
+            filterResults.count = suggestions.size();
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            clear();
+            addAll((List)filterResults.values);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public CharSequence convertResultToString(Object resultValue) {
+            return ((Devices)resultValue).getName();
+        }
+    };
+
 }

@@ -5,7 +5,7 @@ import com.tsofen.agsenceapp.utils.Severity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Notification implements Serializable {
+public class    Notification implements Serializable {
     protected Integer id;
     protected Long device_imei;
     protected Integer device_id;

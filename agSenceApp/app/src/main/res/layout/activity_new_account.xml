@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text="New User Details"
+                android:text="New Account Details"
 
                 android:textColor="@color/black"
 
@@ -85,7 +85,7 @@
 
 
             <EditText
-                android:id="@+id/search_text_view"
+                android:id="@+id/new_account_name"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="100dp"
