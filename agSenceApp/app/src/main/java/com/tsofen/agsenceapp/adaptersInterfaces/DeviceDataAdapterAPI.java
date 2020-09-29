@@ -1,5 +1,7 @@
 package com.tsofen.agsenceapp.adaptersInterfaces;
 
+import java.util.ArrayList;
+
 public interface DeviceDataAdapterAPI {
 
     void getFaultyDevices(DeviceDataRequestHandler handler);
@@ -7,4 +9,5 @@ public interface DeviceDataAdapterAPI {
     void getDevicesRelatedToAccount(int accountId,int start, int num, DeviceDataRequestHandler handler);
     void getAllDevices(int start, int num, DeviceDataRequestHandler handler);
     void getDeviceDataList(int deviceId, DeviceInfoDataRequestHandler handler);
+    //ArrayList<Long> getAllDeviceIMEI();
 }

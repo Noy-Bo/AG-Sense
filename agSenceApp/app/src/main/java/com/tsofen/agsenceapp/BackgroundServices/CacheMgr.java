@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 
 
 import com.tsofen.agsenceapp.CacheManagerAPI;
+import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
@@ -51,8 +52,8 @@ public class CacheMgr implements CacheManagerAPI {
 
     private static CacheMgr cacheMgr=null;
     private List<Notification> notifications;
-    private List<Account> accounts;
-    private List<Devices> devices;
+    private List<Account> accounts = new ArrayList<Account>();
+    private List<Devices> devices = new ArrayList<Devices>();
 
     private final static int waitInterval = 60000;
     private boolean stopGetDevicesPeriodic = false;
@@ -243,12 +244,19 @@ public class CacheMgr implements CacheManagerAPI {
                     {
 
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        setDevices((List<Devices>)retrievedEntitiesList);
                         ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
                     else if (handler instanceof AccountDevicesHandler)
                     {
+
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
+                        if (AppBaseActivity.getUser() instanceof Account)
+                        {
+                            setDevices((List<Devices>)retrievedEntitiesList);
+                        }
                         ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
+
                     }
                     else if(handler instanceof DeviceDataHandler)
                     {
@@ -260,6 +268,7 @@ public class CacheMgr implements CacheManagerAPI {
                     else if(handler instanceof AccountsHandler)
                     {
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
+                        setAccounts((List<Account>)retrievedEntitiesList);
                         ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
                     }
                     else if (handler instanceof AccountNotificationsHandler)
@@ -408,25 +417,38 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getAccountsJob(int start, int num, AccountsHandler handler) {
-        Map<String, String> params = new HashMap<>();
-        params.put("num",Integer.toString(num));
-        params.put("start",Integer.toString(start));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getAllAccounts);
-        asyncGeneric.execute();
-    }
+        if (getAccounts().size() == 0)
+        {
+            Map<String, String> params = new HashMap<>();
+            params.put("num", Integer.toString(num));
+            params.put("start", Integer.toString(start));
+            BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllAccounts);
+            asyncGeneric.execute();
 
+        }
+        else
+        {
+            handler.onAccountsDownloadFinished(getAccounts());
+        }
+    }
     @Override
     public void getDevicesJob(int start, int num, DevicesHandler handler) {
+
        /*GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
         runnable.run();
         */
-        Map<String, String> params = new HashMap<>();
-//        params.put("num",Integer.toString(num));
-//        params.put("start",Integer.toString(start));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getAllDevices);
-        asyncGeneric.execute();
-//        BaseRunnable<Devices> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getAllDevices);
-//        runnableGeneric.run();
+       if (getDevices().size() == 0) {
+           Map<String, String> params = new HashMap<>();
+           //       params.put("num",Integer.toString(num));
+           //       params.put("start",Integer.toString(start));
+           BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllDevices);
+           asyncGeneric.execute();
+       }
+       else
+       {
+           handler.onDevicesDownloadFinished(getDevices());
+       }
+
     }
 
     @Override
@@ -439,13 +461,35 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler) {
-        Map<String, String> params = new HashMap<>();
-        params.put("id",Integer.toString(accountId));
-        params.put("num",Integer.toString(num));
-        params.put("start",Integer.toString(start));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getDeviceRelatedToAccount);
-        asyncGeneric.execute();
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler)
+    {
+        if (AppBaseActivity.getUser() instanceof Admin)
+        {
+            Map<String, String> params = new HashMap<>();
+            params.put("id", Integer.toString(accountId));
+            params.put("num", Integer.toString(num));
+            params.put("start", Integer.toString(start));
+            BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+            asyncGeneric.execute();
+        }
+        else if (AppBaseActivity.getUser() instanceof Account)
+        {
+            if  ( getDevices().size() == 0)
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", Integer.toString(accountId));
+                params.put("num", Integer.toString(num));
+                params.put("start", Integer.toString(start));
+                BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+                asyncGeneric.execute();
+            }
+            else
+            {
+                handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
+            }
+        }
+
+
     }
 
     @Override
@@ -505,6 +549,11 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    public  void clearCache(){
+        accounts.clear();
+        devices.clear();
+        notifications.clear();
+    }
 
 
 }

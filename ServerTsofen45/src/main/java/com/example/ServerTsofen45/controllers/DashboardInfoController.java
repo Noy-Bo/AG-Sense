@@ -33,6 +33,7 @@ public class DashboardInfoController {
 		String healtyDevicesNumber = deviceBL.healtyDevicesNumber();
 		String unreadNotificationsNumber = notificationBL.unreadNotificationsNumber(id);
 		
+		
 		JSONObject params = new JSONObject();
 		params.put("faultyAccountsNumber", faultyAccountsNumber);
 		params.put("healtyAccountsNumber", healtyAccountsNumber);

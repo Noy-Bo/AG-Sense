@@ -12,6 +12,8 @@ import com.Tsofen45.TCP_ServerTsofen45.Alarms.StateManager;
 import com.Tsofen45.TCP_ServerTsofen45.Analyzation.AnalyzerManager;
 import com.Tsofen45.TCP_ServerTsofen45.Authentication.Authenticate;
 import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
+import com.Tsofen45.TCP_ServerTsofen45.Disconnected.NotifyMaulfunction;
+import com.Tsofen45.TCP_ServerTsofen45.Disconnected.ReportTimer;
 import com.Tsofen45.TCP_ServerTsofen45.Factories.CommandsFactory;
 import com.Tsofen45.TCP_ServerTsofen45.Routers.DeviceDataRouter;
 import com.Tsofen45.TCP_ServerTsofen45.Validation.Validate;
@@ -44,6 +46,8 @@ public class DeviceMessageHandler implements Runnable {
 	
 	@Autowired
 	DeviceDataRouter deviceDatarouter;
+	
+	ReportTimer reportTimer;
 
 	public void setDis(DataInputStream dis) {
 		this.dis =dis;
@@ -72,6 +76,12 @@ public class DeviceMessageHandler implements Runnable {
 		System.out.println("the imei is fond");
 		//Making Device Data
 		deviceData = cmdfac.makeDeviceData(message);
+		
+		//2 minutes checking
+		reportTimer = ReportTimer.getInstance();
+		reportTimer.start_tasks();
+		
+		
 		
 		//making flags states
 		stateManager.setDeviceData(deviceData);

@@ -108,6 +108,15 @@
     <string name="send_msg_again">Please send the message again</string>
     <string name="error_send_msg">Error sending message!</string>
     <string name="msg_sent">message sent</string>
+
+    <string name="title_activity_tabbed">Tabbed</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_device_settings">DeviceSettings</string>
+
+    <string name="authorization_number_tab">Authorization number</string>
+    <string name="speeding_alert_geo_fence_tab">Speeding alert and geo fence</string>
+    <string name="tracking_tab">Tracking</string>
     <string name="edit_device_details">Edit Device Details:</string>
     <string name="new_phonenumber">New PhoneNumber:</string>
     <string name="new_password">New Password :</string>
@@ -131,5 +140,7 @@
     <string name="notifications">Notifications</string>
     <string name="account_name">Account Name</string>
     <string name="new_device_name">New Device Name</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">"Latitude "</string>
 
 </resources>

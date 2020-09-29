@@ -57,9 +57,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // observer registeration for onforeground. -- read AppLifeCycleObserver.
-        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
 
 
     }

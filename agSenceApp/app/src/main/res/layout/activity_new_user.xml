@@ -99,7 +99,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/new_user_email"
+                android:id="@+id/EmailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="75dp"
@@ -188,22 +188,22 @@
             android:thumb="@drawable/switch_thumb"
             android:track="@drawable/track_selector"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
-
+        <Button
+            android:id="@+id/NewUserUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:onClick="UpdateNewUserDetails"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_white_background_frame"
+            android:text="@string/update_btn_device_settings" />
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/speedAlertGeoSettingbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_gravity="right"
 
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_white_background_frame"
-        android:text="@string/update_btn_device_settings" />
-</LinearLayout>
+    </LinearLayout>
 
 
 
