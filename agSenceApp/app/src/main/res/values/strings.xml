@@ -134,7 +134,7 @@
     <string name="edit_options">Edit Options:</string>
     <string name="new_options">New Options:</string>
     <string name="new_user">New User</string>
-    <string name="filter">filter</string>
+    <string name="filter">Filter</string>
     <string name="device_name">Device Name</string>
     <string name="new_account_name">New Account Name</string>
     <string name="notifications">Notifications</string>
@@ -159,5 +159,7 @@
     <string name="verify_code">Verify Code</string>
 
     <string name="description_code">description code</string>
+    <string name="device_imei">Device IMEI</string>
+    <string name="tracking">Tracking</string>
 
 </resources>
