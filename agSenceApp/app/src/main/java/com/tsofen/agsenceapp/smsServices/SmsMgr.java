@@ -14,9 +14,9 @@ public class SmsMgr {
     private static  HashMap<String, TrackingSMS> tracking = new HashMap<>();
     private static  HashMap<String, TrackingSMS> speedingAlert = new HashMap<>();
     private static  HashMap<String, TrackingSMS> authorization = new HashMap<>();
-    private static ArrayList<Response> trackingResponse =  new ArrayList<>();
-    private static ArrayList<Response> speedingAlertResponse =  new ArrayList<>();
-    private static ArrayList<Response> authorizationResponse =  new ArrayList<>();
+    private static ArrayList<Response> trackingResponse;
+    private static ArrayList<Response> speedingAlertResponse;
+    private static ArrayList<Response> authorizationResponse;
 
 
     private SmsMgr() {
