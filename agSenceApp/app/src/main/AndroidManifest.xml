@@ -19,6 +19,12 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:supportsRtl">
         <activity android:name=".activities.TrackingSetting"></activity>
+        <activity android:name=".VerifyOTP" />
+        <activity android:name=".ForgetPasswordSuccessMessage" />
+        <activity android:name=".SetNewPassword" />
+        <activity android:name=".MakeSelection" />
+        <activity android:name=".ForgetPasswords" />
+
         <activity android:name=".activities.DeviceSettings"></activity>
         <activity android:name=".activities.AuthorizationNumberSetting" />
         <activity android:name=".activities.SpeedingAlertAndGeoFenceSetting" />
