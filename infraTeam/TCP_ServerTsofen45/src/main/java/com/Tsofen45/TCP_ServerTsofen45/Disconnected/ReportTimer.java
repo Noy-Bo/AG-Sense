@@ -2,18 +2,23 @@ package com.Tsofen45.TCP_ServerTsofen45.Disconnected;
 
 import com.Tsofen45.TCP_ServerTsofen45.Device.Device;
 import com.Tsofen45.TCP_ServerTsofen45.Repos.DeviceRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 
 public class ReportTimer {
     private static ReportTimer report_instance = null;
     private static Timer timer_ = null;
     private static HashMap<String,NodeIndex> imei_list = null;
     private static ArrayList[] lists_ = null;
+    
     @Autowired
     private DeviceRepository devicerRepo;
     private ReportTimer(){

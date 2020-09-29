@@ -29,7 +29,7 @@ public class BatteryAnalyzer extends Analyzer {
 				
 					//Push Notification
 					System.out.println("Sending notifaction on battery low batteryPerect: "+getBatteryLevel(d.getInternalBatteryPower()));
-					SendPostRequest(d);
+					sendNotify(d);
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -38,38 +38,10 @@ public class BatteryAnalyzer extends Analyzer {
 		}
 	}
 	public float getBatteryLevel(float num) {
-		return (num/3.81f)*100;
+		return (num/4.01f)*100;
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		long imei = d.getImei();
-		String message = "Battery is low";
-		String postData= String.format("password=123&imei=%s&massege=%s",""+d.getImei(),message);
-		try {
-			URL url = new URL("http://206.72.198.59:8080/ServerTsofen45/Notifications/AddNotification");
-			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-			
-			//Setting the connection to post connection
-			connection.setRequestMethod("POST");
-			connection.setDoOutput(true);
-			
-			//Gettomg put stream
-			OutputStream os = connection.getOutputStream();
-			os.write(postData.getBytes());
-			
-			//Flushing the output stream
-			os.flush();
-			os.close();
-			
-			
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	
 
 
