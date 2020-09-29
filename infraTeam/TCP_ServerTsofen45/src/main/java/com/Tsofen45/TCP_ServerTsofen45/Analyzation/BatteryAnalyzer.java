@@ -29,7 +29,7 @@ public class BatteryAnalyzer extends Analyzer {
 				
 					//Push Notification
 					System.out.println("Sending notifaction on battery low batteryPerect: "+getBatteryLevel(d.getInternalBatteryPower()));
-					SendPostRequest(d);
+					sendNotify(d);
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -42,6 +42,7 @@ public class BatteryAnalyzer extends Analyzer {
 	}
 
 
+	
 
 
 	
