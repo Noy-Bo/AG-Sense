@@ -113,6 +113,7 @@ public class DeviceMessageHandler implements Runnable {
 		
 		//Saving the Device Data in the data base
 		deviceDatarouter.saveDeviceData(deviceData);
+		deviceDatarouter.updateDevice(deviceData);
 		
 	}
 	private String GetMessage() throws IOException {

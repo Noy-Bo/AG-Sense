@@ -113,6 +113,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         nav_Menu.findItem(R.id.nav_admin_notifications).setVisible(false);
         nav_Menu.findItem(R.id.nav_device_status).setVisible(false);
         nav_Menu.findItem(R.id.nav_other).setVisible(false);
+        nav_Menu.findItem(R.id.nav_device_settings).setVisible(false);
     }
 
     public void hideAccountOptions() {
