@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -42,6 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private UserMap userMap;
     private ClusterManager<Place> mClusterManager;
     private Renderer mRenderer;
+    private Button clear;
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
     private ConstraintLayout mMapLayout;
     private AutoCompleteTextView searchView;
@@ -57,10 +60,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
 
 
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
+
 
         // only if we are at map for all devices
+
+            clear = (Button) findViewById(R.id.clear_button);
             searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
             searchView.setHint(R.string.search_device_hint);
             DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
@@ -75,13 +79,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
             });
+
+
             searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(MapsActivity.this, DeviceView.class);// write here method that zooms at specific device when chosen. via lat/long maybe?
                     Devices device = (Devices) searchView.getAdapter().getItem(i);
-                    intent.putExtra("device", device);
-                    startActivity(intent);
+                    builder = new LatLngBounds.Builder();
+                    builder.include(new LatLng(device.getLatitude(), device.getLogitude()));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
                 }
             });
 
@@ -102,6 +108,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         setUpClusterer();
+    }
+
+    public void clearText(View view) {
+
+        searchView.setText("");
+        clear.setVisibility(View.GONE);
     }
 
     private void setUpClusterer() {

@@ -25,6 +25,7 @@ import java.util.List;
 public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
     ArrayList<Devices> allDevices;
+    View layout;
 
     public DevicesAdapter(Context context, List<Devices> devices) {
         super(context, 0, devices);
@@ -40,7 +41,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
+        layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
 
         final Devices device = getItem(position);
         TextView name = layout.findViewById(R.id.device_item_name);
@@ -67,15 +68,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
             lastupdate.setText(String.valueOf(device.getLastUpdate()));
 
 
-        LinearLayout linearLayout = layout.findViewById(R.id.device_item_test_shape);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), DeviceView.class);
-                intent.putExtra("device", device);
-                getContext().startActivity(intent);
-            }
-        });
+
         return layout;
     }
 
@@ -112,5 +105,18 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
             return ((Devices) resultValue).getName();
         }
     };
+
+   /* public void setOnClickerListener(final Devices device)
+    {
+        LinearLayout linearLayout = layout.findViewById(R.id.device_item_test_shape);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), DeviceView.class);
+                intent.putExtra("device", device);
+                getContext().startActivity(intent);
+            }
+        });
+    }*/
 
 }
