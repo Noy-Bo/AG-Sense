@@ -67,7 +67,13 @@ public class DeviceMessageHandler implements Runnable {
 	@Override
 	public void run() {
 		// Getting message from the device from inpu stream
-		String message = GetMessage();
+		String message = null;
+		try {
+			message = GetMessage();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		System.out.println(message+"\n");
 		
 		//Validation
@@ -88,8 +94,8 @@ public class DeviceMessageHandler implements Runnable {
 		//2 minutes checking
 		//TODO
 		//In the main thread change after we finish current stage
-		reportTimer = ReportTimer.getInstance();
-		reportTimer.start_tasks();
+	//	reportTimer = ReportTimer.getInstance();
+		//reportTimer.start_tasks();
 		
 		
 		
@@ -109,9 +115,19 @@ public class DeviceMessageHandler implements Runnable {
 		deviceDatarouter.saveDeviceData(deviceData);
 		
 	}
-	private String GetMessage() {
+	private String GetMessage() throws IOException {
 		int c;
-		bfrReader = new BufferedReader(new InputStreamReader(dis));
+		bfrReader = new BufferedReader(new InputStreamReader(is));
+		try {
+			message = bfrReader.readLine();
+		} catch (IOException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			bfrReader.close();
+		}
+		
 		
 //	    try {
 //	    	do {
