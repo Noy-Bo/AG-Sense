@@ -20,6 +20,7 @@ abstract public class Analyzer {
 	protected static void sendNotify(DeviceData d) throws IOException {
 		
 		 long imei = d.getImei();
+		 
 		 int code = 225;
 		 JSONObject json= new JSONObject();
 		 json.put("battery", d.getInternalBatteryPower());
