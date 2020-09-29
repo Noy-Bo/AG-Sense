@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -38,6 +39,7 @@ public class DeviceView extends AppBaseActivity {
     Devices device;
     private ProgressDialog pd;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +72,23 @@ public class DeviceView extends AppBaseActivity {
 
         getDeviceDataFromCacheManager();
 
-        if(AppBaseActivity.user instanceof Account){
+        if (AppBaseActivity.user instanceof Account) {
             Button settings = (Button) findViewById(R.id.device_status_settings);
             settings.setVisibility(View.GONE);
         }
+
+        sliderViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                swipeRefreshLayout.setEnabled(false);
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        swipeRefreshLayout.setEnabled(true);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     //for indentifying the current-dot (in the dot-scroller) we're positioned on..
@@ -165,6 +180,8 @@ public class DeviceView extends AppBaseActivity {
                     DeviceView.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            if (deviceDataList.size() == 0)
+                                return;
                             final DeviceData deviceData = deviceDataList.get(0);
                             device.setDeviceData(deviceDataList);
                             status.setText(String.format("Device Status: %s", device.getFaulty() ? "faulty" : "healthy"));
