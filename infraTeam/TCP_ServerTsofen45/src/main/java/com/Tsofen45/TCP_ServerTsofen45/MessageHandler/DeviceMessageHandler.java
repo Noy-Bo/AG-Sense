@@ -1,8 +1,11 @@
 package com.Tsofen45.TCP_ServerTsofen45.MessageHandler;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -23,8 +26,10 @@ public class DeviceMessageHandler implements Runnable {
 
 
 	private DataInputStream dis;
+	private InputStream is;
 	private String message ="";
 	private DataOutputStream dos;
+	private BufferedReader bfrReader;
 	
 	@Autowired
 	Validate validate;
@@ -55,6 +60,9 @@ public class DeviceMessageHandler implements Runnable {
 	public void setDos(DataOutputStream dos) {
 		this.dos =dos;
 	}
+	public void setInputStrae(InputStream is) {
+		this.is =is;
+	}
 
 	@Override
 	public void run() {
@@ -73,11 +81,13 @@ public class DeviceMessageHandler implements Runnable {
 			System.out.println("Imei not found!");
 			return;
 		}	
-		System.out.println("the imei is fond");
+		System.out.println("the imei is found");
 		//Making Device Data
 		deviceData = cmdfac.makeDeviceData(message);
 		
 		//2 minutes checking
+		//TODO
+		//In the main thread change after we finish current stage
 		reportTimer = ReportTimer.getInstance();
 		reportTimer.start_tasks();
 		
@@ -101,25 +111,26 @@ public class DeviceMessageHandler implements Runnable {
 	}
 	private String GetMessage() {
 		int c;
-
-	    try {
-	    	do {
-	    		c = dis.read();
-	    		message+=(char)c;
-	    	} while(dis.available()>0);
-	    }
-	    catch(Exception e) {
-			e.printStackTrace();
-	    }
-	    finally {
-	    	try {
-				dis.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
+		bfrReader = new BufferedReader(new InputStreamReader(dis));
+		
+//	    try {
+//	    	do {
+//	    		c = dis.read();
+//	    		message+=(char)c;
+//	    	} while(dis.available()>0);
+//	    }
+//	    catch(Exception e) {
+//			e.printStackTrace();
+//	    }
+//	    finally {
+//	    	try {
+//				dis.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//		}
 		return message;
 	}
 
