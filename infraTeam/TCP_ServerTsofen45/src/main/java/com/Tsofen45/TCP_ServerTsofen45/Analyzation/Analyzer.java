@@ -15,6 +15,7 @@ import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 
 @Service
 abstract public class Analyzer {
+	
 	protected JSONObject json=null;
 	
 	private static String GET_URL = "http://victorhanna-26955.portmap.host:26955/Notifications/AddNotification";

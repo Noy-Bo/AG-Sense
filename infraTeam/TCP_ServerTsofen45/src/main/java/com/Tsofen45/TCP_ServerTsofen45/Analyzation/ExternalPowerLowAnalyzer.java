@@ -14,6 +14,7 @@ public class ExternalPowerLowAnalyzer extends Analyzer {
 		// TODO Auto-generated method stub
 		if(d.isExternalPowerLow()) {
 			System.out.println("Entered ext pow low");
+			json.put("externalPower", d.getExternalPower());
 			sendNotify(d,json);
 		}
 	}
