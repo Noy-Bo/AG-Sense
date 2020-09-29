@@ -13,7 +13,9 @@
     <color name="light_grey">#E7E6E6</color>
     <color name="very_light_grey">#f1f1f2</color>
     <color name="light_blue">#6666ff</color>
-    <color name="yellow">#EFAC49</color>
+    <color name="yellow">#EFAC49</color>]
     <color name="fab">#35B33A</color>
+    <color name="lightWhite">#ffffff</color>
+    <color name="transparent">#80000000</color>
 </resources>
 

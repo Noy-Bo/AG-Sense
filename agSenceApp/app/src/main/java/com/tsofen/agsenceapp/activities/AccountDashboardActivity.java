@@ -141,6 +141,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                     @Override
                     public void run() {
                         searchView.setAdapter(new DevicesAdapter<Devices>(AccountDashboardActivity.this, devices));
+                        devicesList.clear();
                         devicesList.addAll(devices);
                         //                adapter = new ArrayAdapter<>(AccountDashboardActivity.this, 0,devicesList.toArray());
                         //                searchView.setAdapter(adapter);

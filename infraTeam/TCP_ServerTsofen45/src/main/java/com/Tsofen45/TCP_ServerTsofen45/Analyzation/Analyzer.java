@@ -15,36 +15,44 @@ import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 
 @Service
 abstract public class Analyzer {
+	
+	protected JSONObject json=null;
+	protected int code;
+	
 	private static String GET_URL = "http://victorhanna-26955.portmap.host:26955/Notifications/AddNotification";
+	
 	abstract public void Analyze(DeviceData d) throws IOException;
-	protected static void sendNotify(DeviceData d) throws IOException {
+	
+	protected static void sendNotify(DeviceData d,JSONObject json) throws IOException {
 		//something
 		 long imei = d.getImei();
-		 
 		 int code = 225;
-		 JSONObject json= new JSONObject();
-		 json.put("battery", d.getInternalBatteryPower());
-		 String params = URLEncoder.encode(json.toString(), StandardCharsets.UTF_8.toString()).toString();
+		 if(json==null) {
+			 GET_URL = GET_URL + "?imei="+  imei  +"&code="+code;
+			 }
+		 else {			 
+			 String params = URLEncoder.encode(json.toString(), StandardCharsets.UTF_8.toString()).toString();
+			 
+			 GET_URL = GET_URL + "?imei="+  imei  +"&code="+code+"&params="+params;
+		 }
 			
-			GET_URL = GET_URL + "?imei="+  imei  +"&code="+code+"&params="+params;
-			
-			URL obj = new URL(GET_URL);
-			
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			con.setRequestMethod("GET");
-			
-			int responseCode = con.getResponseCode();
-			System.out.println("GET Response Code :: " + responseCode);
-			if (responseCode == HttpURLConnection.HTTP_OK) { // success
-				BufferedReader in = new BufferedReader(new InputStreamReader(
-						con.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
+		URL obj = new URL(GET_URL);
+		
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("GET");
+		
+		int responseCode = con.getResponseCode();
+		System.out.println("GET Response Code :: " + responseCode);
+		if (responseCode == HttpURLConnection.HTTP_OK) { // success
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
 
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
 
 				// print result
 				System.out.println(response.toString());

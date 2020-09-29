@@ -206,7 +206,8 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                 AccountDevicesStatus.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        devicesArr = (ArrayList<Devices>) devices;
+                        devicesArr.clear();
+                        devicesArr.addAll(devices);
                         updatingUI();
                         searchView.setAdapter(new DevicesAdapter<Devices>(AccountDevicesStatus.this, devices));
 
