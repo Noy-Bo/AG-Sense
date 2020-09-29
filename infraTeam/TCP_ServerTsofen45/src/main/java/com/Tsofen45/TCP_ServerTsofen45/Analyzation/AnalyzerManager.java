@@ -15,12 +15,28 @@ public class AnalyzerManager {
 	@Autowired
 	BatteryAnalyzer batteryAnalyzer;
 	@Autowired
-	
-	
+	ExternalPowerLowAnalyzer externalPowerLowAnalyzer;
+	@Autowired
+	ExternalPowerOnAnalayzer externalPowerOnAnalyzer;
+	@Autowired
+	InternalBatteryChargingAnalyzer internalBatterChargingAnalyzer;
+	@Autowired
+	MoveAlertActiveAnalyzer moveAlertActivityAnalyzer;
+	@Autowired
+	OutOfGeoFenceAnalyzer outOFGeoFenceAnazlyer;
+	@Autowired
+	PowerCutAnalyzer powerCutAnalyzer;
+	@Autowired
+	SesmoActivatedAnalyzer sesmoActibatedAnalyzer;
+	@Autowired
+	SpeedAlertActiveAnalyzer speedAlertAnalyzer;
+	@Autowired
+	Switch1ActivatedAnalyzer switch1ActivatedAnalzyer;
+	@Autowired
+	Switch2ActivatedAnalyzer switch2ActivatedAnalyzer;
 	public void analyze(DeviceData d) throws IOException {
 		//analyze if battery is low
 		batteryAnalyzer.Analyze(d);
-		//analyze if device moved
 		
 	}
 }
