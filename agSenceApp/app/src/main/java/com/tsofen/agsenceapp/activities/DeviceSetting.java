@@ -108,7 +108,6 @@ public class DeviceSetting extends BackBaseActivity {
         editauthorizednum3 = (EditText) findViewById(R.id.editauthorizednum3);
         editauthorizednum3D = editauthorizednum3.toString();
         //Ends here
-
     }
 
     public void SpeedingAlertUpdate(View view) {
