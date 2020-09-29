@@ -18,7 +18,7 @@ abstract public class Analyzer {
 	private static String GET_URL = "http://victorhanna-26955.portmap.host:26955/Notifications/AddNotification";
 	abstract public void Analyze(DeviceData d) throws IOException;
 	protected static void sendNotify(DeviceData d) throws IOException {
-		
+		//something
 		 long imei = d.getImei();
 		 
 		 int code = 225;
@@ -29,6 +29,7 @@ abstract public class Analyzer {
 			GET_URL = GET_URL + "?imei="+  imei  +"&code="+code+"&params="+params;
 			
 			URL obj = new URL(GET_URL);
+			
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("GET");
 			
