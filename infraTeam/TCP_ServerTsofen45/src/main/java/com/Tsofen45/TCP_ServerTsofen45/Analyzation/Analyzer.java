@@ -1,41 +1,58 @@
 package com.Tsofen45.TCP_ServerTsofen45.Analyzation;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 
 @Service
 abstract public class Analyzer {
-	
+	private static String GET_URL = "http://victorhanna-26955.portmap.host:26955/Notifications/AddNotification";
 	abstract public void Analyze(DeviceData d) throws IOException;
-	public void SendPostRequest(DeviceData d) throws IOException{	
-		long imei = d.getImei();
-		try {
-			URL url = new URL("http://206.72.198.59:8080/ServerTsofen45/Notifications/AddNotification");
-			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+	protected static void sendNotify(DeviceData d) throws IOException {
+		//something
+		 long imei = d.getImei();
+		 
+		 int code = 225;
+		 JSONObject json= new JSONObject();
+		 json.put("battery", d.getInternalBatteryPower());
+		 String params = URLEncoder.encode(json.toString(), StandardCharsets.UTF_8.toString()).toString();
 			
-			//Setting the connection to post connection
-			connection.setRequestMethod("POST");
-			connection.setDoOutput(true);
+			GET_URL = GET_URL + "?imei="+  imei  +"&code="+code+"&params="+params;
 			
-			//Gettomg put stream
-			OutputStream os = connection.getOutputStream();
+			URL obj = new URL(GET_URL);
 			
-			//Flushing the output stream
-			os.flush();
-			os.close();
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("GET");
 			
-			
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			int responseCode = con.getResponseCode();
+			System.out.println("GET Response Code :: " + responseCode);
+			if (responseCode == HttpURLConnection.HTTP_OK) { // success
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+
+				// print result
+				System.out.println(response.toString());
+			} else {
+				System.out.println("GET request not worked");
+			}
+
 		}
-	}
+		
+	
 }

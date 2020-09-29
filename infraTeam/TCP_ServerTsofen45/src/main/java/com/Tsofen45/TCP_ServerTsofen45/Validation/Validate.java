@@ -14,6 +14,6 @@ public class Validate {
        for (int i = 1; i < data.length(); i++)
            xor ^= data.charAt(i);
        
-      return ( Integer.toHexString(xor).equals(check_sum.toLowerCase()));
+      return (Integer.toHexString(xor).equals(check_sum.toLowerCase()));
     }
 }
