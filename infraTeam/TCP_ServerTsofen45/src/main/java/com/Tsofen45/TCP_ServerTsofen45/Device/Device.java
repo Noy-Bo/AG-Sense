@@ -1,6 +1,7 @@
 package com.Tsofen45.TCP_ServerTsofen45.Device;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class Device {
 	String name;
 	int accountId;
 	DeviceType type;
-	Time lastUpdate;
+	Timestamp lastUpdate;
 	double logitude;
 	double latitude;
 	boolean isRegistered;
@@ -69,11 +70,11 @@ public class Device {
 	}
 
 	@Column
-	public Time getLastUpdate() {
+	public Timestamp getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(Time lastUpdate) {
+	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
