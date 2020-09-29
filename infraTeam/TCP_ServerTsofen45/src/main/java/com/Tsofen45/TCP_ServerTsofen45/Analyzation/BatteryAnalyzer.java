@@ -38,7 +38,7 @@ public class BatteryAnalyzer extends Analyzer {
 		}
 	}
 	public float getBatteryLevel(float num) {
-		return (num/3.81f)*100;
+		return (num/4.01f)*100;
 	}
 
 
