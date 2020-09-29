@@ -203,5 +203,16 @@ return null;
 	public String healtyDevicesNumber() {
 		return  deviceRepository.getHealtyDevicesNumber();
 	}
+	
+	public boolean editDevice(long imei,String newPhonenumber,String newPass) {
+		Device device= deviceRepository.findByImei(imei);
+		if(!(newPhonenumber.equalsIgnoreCase(null))) {
+			device.setPhoneNumber(newPhonenumber);}
+		if(!(newPass.equalsIgnoreCase(null))) {
+			device.setPassword(newPass);}
+		deviceRepository.save(device);
+		return true;
+		
+	}
 
 	}

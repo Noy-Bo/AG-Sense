@@ -66,6 +66,15 @@ public class Device {
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 	}
+	
+	public void setPassword(String newPass) {
+		this.password = newPass;
+	}
+	
+	@Column
+	public String getPassword() {
+		return password;
+	}
 
 	@Column
 	public long getImei() {
