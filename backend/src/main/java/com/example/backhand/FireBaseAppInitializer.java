@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public final class FireBaseAppInitializer {
+public final class  FireBaseAppInitializer {
     private static FirebaseApp app;
     private static FileInputStream serviceAccount;
 

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.NewUser">
+
+
+    <include
+        layout="@layout/activity_back_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/rounded_white_background_frame"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/alertSetting"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="New User Details"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:lineSpacingExtra="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+
+            android:orientation="horizontal">
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UserName"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/new_user_username"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="5dp"
+
+
+                android:background="@drawable/blue_shape_squares"
+
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Address"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/EmailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginEnd="5dp"
+
+
+                android:background="@drawable/blue_shape_squares"
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Type"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:id="@+id/UserType"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginStart="100dp"
+
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/account_name"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/account_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/blue_shape_squares"
+
+                android:visibility="invisible"
+
+                />
+
+        </LinearLayout>
+
+        <Switch
+
+            android:id="@+id/NotificationsNewSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="left"
+
+            android:showText="true"
+            android:text="@string/notifications"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/track_selector"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <Button
+            android:id="@+id/NewUserUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:onClick="UpdateNewUserDetails"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_white_background_frame"
+            android:text="@string/update_btn_device_settings" />
+    </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+

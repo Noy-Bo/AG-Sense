@@ -14,15 +14,13 @@ public class SesmoActivatedAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSesmoActivated()) {
-			SendPostRequest(d);
+			System.out.println("Entered sesmo activated");
+
+			sendNotify(d);
 
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

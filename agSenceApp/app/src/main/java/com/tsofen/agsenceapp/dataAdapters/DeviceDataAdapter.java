@@ -93,5 +93,20 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
         });
     }
 
+   /* @Override
+    public ArrayList<Long> getAllDeviceIMEI() {
+
+        getAllDevices(0, 0, new DeviceDataRequestHandler() {
+            @Override
+            public void onDeviceDataLoaded(List<Devices> devices) {
+                ArrayList<Long> arrayList=new ArrayList<>();
+                for ( Devices devices1: devices)
+                    arrayList.add(devices1.getImei());
+
+            }
+        });}*/
+
+
+
 
 }

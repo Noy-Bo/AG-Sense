@@ -7,13 +7,13 @@
     tools:context=".activities.EditAccount">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         tools:ignore="MissingConstraints">
+
         <include
 
             android:id="@+id/included"
@@ -25,10 +25,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/rounded_white_background_frame"
 
             android:orientation="vertical">
@@ -39,25 +39,25 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textStyle="bold"
-
-
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:text="@string/edit_account"
                     android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
 
                     />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-android:layout_marginTop="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <Space
@@ -66,10 +66,10 @@ android:layout_marginTop="20dp"
                     android:layout_weight="0.01" />
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/previous_name" />
+                    android:text="@string/previous_name"
+                    android:textColor="@color/black" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -98,10 +98,10 @@ android:layout_marginTop="20dp"
                     android:layout_weight="0.01" />
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_name" />
+                    android:text="@string/new_name"
+                    android:textColor="@color/black" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -114,27 +114,41 @@ android:layout_marginTop="20dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
 
-                    android:inputType="number"
                     android:ems="16"
+                    android:inputType="number"
                     android:textSize="10sp"
                     tools:ignore="TextFields" />
 
             </LinearLayout>
 
 
+            <Switch
 
-
+                android:id="@+id/NotifiationsEditSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="left"
+                android:shadowColor="@color/orange"
+                android:showText="true"
+                android:text="@string/notifications"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/track_selector"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <Button
                 android:id="@+id/EditAccountUpdateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
-                android:onClick="UpdateAccount"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_white_background_frame"
+                android:onClick="UpdateAccount"
                 android:text="@string/update_btn_device_settings" />
         </LinearLayout>
     </LinearLayout>

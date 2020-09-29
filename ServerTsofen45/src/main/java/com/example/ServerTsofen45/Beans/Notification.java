@@ -24,13 +24,15 @@ public class Notification {
 	private Timestamp dateTime;
 	private Severity severity;
 	private boolean readed;
-	private Error error;
+	private int errorCode;
+	private String message;
 	
 	
 	
 	
 	
-	public void setId(int id) {
+	public
+	void setId(int id) {
 		this.id = id;
 	}
 	public void setDevice(Device device) {
@@ -48,8 +50,12 @@ public class Notification {
 	public void setReaded(boolean readed) {
 		this.readed = readed;
 	}
-	public void setError(Error error) {
-		this.error = error;
+	
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
+	public void setMessage(String massege) {
+		this.message = massege;
 	}
 	
 	
@@ -84,16 +90,21 @@ public class Notification {
 		return readed;
 	}
 	
-	@ManyToOne
-    @JoinColumn(name = "errorCode", referencedColumnName="code")   
-	public Error getError() {
-		return error;
+	@Column
+	public int getErrorCode() {
+		return errorCode;
+	}
+	
+	
+	@Column
+	public String getMessage() {
+		return message;
 	}
 	
 	@Override
 	public String toString() {
 		return "Notification [id=" + id + ", device=" + device + ", userId=" + userId + ", dateTime=" + dateTime
-				+ ", severity=" + severity + ", readed=" + readed + ", error=" + error + "]";
+				+ ", severity=" + severity + ", readed=" + readed + ", massege=" + message + "]";
 	}
 	
 	

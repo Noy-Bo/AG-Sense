@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+
 import com.example.ServerTsofen45.Beans.Device;
 import com.example.ServerTsofen45.Beans.NotificationDTO;
 
@@ -14,10 +15,14 @@ import Enums.DeviceType;
 public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	Device findById(int id);
+	
+	
 
 	ArrayList<Device> findByNameContaining(String name);
 
 	ArrayList<Device> findByName(String name);
+	
+	Device findByImei(long imei);
 
 	ArrayList<Device> findAllByOrderByIdDesc();
 
@@ -70,6 +75,8 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 			"from public.devices " + 
 			"where faulty = FALSE;" )
 	public String getHealtyDevicesNumber();
+
+	
 	
 	
 }

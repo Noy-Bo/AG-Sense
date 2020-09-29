@@ -19,6 +19,7 @@ import Enums.DeviceType;
 public class Device {
 	int id;
 	long imei;
+	
 	String name;
 	int accountId;
 	DeviceType type;
@@ -27,6 +28,8 @@ public class Device {
 	double latitude;
 	boolean isRegistered;
 	boolean isFaulty;
+	String phoneNumber;
+	String password;
 	List<Notification> notifications;
 	List<DeviceData> deviceData;
 
@@ -50,6 +53,20 @@ public class Device {
 		this.deviceData = deviceData;
 	}
 
+	
+	
+	
+	
+	
+	public Device(long imei, int accountId, DeviceType type, String phoneNumber, String password) {
+		super();
+		this.imei = imei;
+		this.accountId = accountId;
+		this.type = type;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
+	}
+
 	@Column
 	public long getImei() {
 		return imei;
@@ -57,6 +74,14 @@ public class Device {
 
 	public void setImei(long imei) {
 		this.imei = imei;
+	}
+	@Column
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Column

@@ -9,13 +9,13 @@
     </style>
 
 
-
     <dimen name="large_text_size">30sp</dimen>
     <dimen name="medium_text_size">20sp</dimen>
     <dimen name="small_text_size">17sp</dimen>
     <dimen name="extra_small_text_size">10sp</dimen>
 
     //toolbar
+
     <style name="ToolBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
@@ -23,6 +23,7 @@
     </style>
 
     //switch
+
     <style name="SCBSwitch" parent="Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">#FF5722</item>
@@ -46,7 +47,7 @@
 -->
 
 
-<!--
+    <!--
         <item name="android:colorForeground">#673AB7</item>
 -->
 

@@ -1,8 +1,11 @@
 package com.Tsofen45.TCP_ServerTsofen45.MessageHandler;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -12,6 +15,8 @@ import com.Tsofen45.TCP_ServerTsofen45.Alarms.StateManager;
 import com.Tsofen45.TCP_ServerTsofen45.Analyzation.AnalyzerManager;
 import com.Tsofen45.TCP_ServerTsofen45.Authentication.Authenticate;
 import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
+import com.Tsofen45.TCP_ServerTsofen45.Disconnected.NotifyMaulfunction;
+import com.Tsofen45.TCP_ServerTsofen45.Disconnected.ReportTimer;
 import com.Tsofen45.TCP_ServerTsofen45.Factories.CommandsFactory;
 import com.Tsofen45.TCP_ServerTsofen45.Routers.DeviceDataRouter;
 import com.Tsofen45.TCP_ServerTsofen45.Validation.Validate;
@@ -21,8 +26,10 @@ public class DeviceMessageHandler implements Runnable {
 
 
 	private DataInputStream dis;
+	private InputStream is;
 	private String message ="";
 	private DataOutputStream dos;
+	private BufferedReader bfrReader;
 	
 	@Autowired
 	Validate validate;
@@ -44,6 +51,8 @@ public class DeviceMessageHandler implements Runnable {
 	
 	@Autowired
 	DeviceDataRouter deviceDatarouter;
+	
+	ReportTimer reportTimer;
 
 	public void setDis(DataInputStream dis) {
 		this.dis =dis;
@@ -51,11 +60,20 @@ public class DeviceMessageHandler implements Runnable {
 	public void setDos(DataOutputStream dos) {
 		this.dos =dos;
 	}
+	public void setInputStrae(InputStream is) {
+		this.is =is;
+	}
 
 	@Override
 	public void run() {
 		// Getting message from the device from inpu stream
-		String message = GetMessage();
+		String message = null;
+		try {
+			message = GetMessage();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		System.out.println(message+"\n");
 		
 		//Validation
@@ -69,9 +87,17 @@ public class DeviceMessageHandler implements Runnable {
 			System.out.println("Imei not found!");
 			return;
 		}	
-		System.out.println("the imei is fond");
+		System.out.println("the imei is found");
 		//Making Device Data
 		deviceData = cmdfac.makeDeviceData(message);
+		
+		//2 minutes checking
+		//TODO
+		//In the main thread change after we finish current stage
+	//	reportTimer = ReportTimer.getInstance();
+		//reportTimer.start_tasks();
+		
+		
 		
 		//making flags states
 		stateManager.setDeviceData(deviceData);
@@ -89,27 +115,38 @@ public class DeviceMessageHandler implements Runnable {
 		deviceDatarouter.saveDeviceData(deviceData);
 		
 	}
-	private String GetMessage() {
+	private String GetMessage() throws IOException {
 		int c;
-
-	    try {
-	    	do {
-	    		c = dis.read();
-	    		message+=(char)c;
-	    	} while(dis.available()>0);
-	    }
-	    catch(Exception e) {
+		bfrReader = new BufferedReader(new InputStreamReader(is));
+		try {
+			message = bfrReader.readLine();
+		} catch (IOException e) {
+			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-	    }
-	    finally {
-	    	try {
-				dis.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		}finally {
+			bfrReader.close();
 		}
+		
+		
+//	    try {
+//	    	do {
+//	    		c = dis.read();
+//	    		message+=(char)c;
+//	    	} while(dis.available()>0);
+//	    }
+//	    catch(Exception e) {
+//			e.printStackTrace();
+//	    }
+//	    finally {
+//	    	try {
+//				dis.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//		}
 		return message;
 	}
 

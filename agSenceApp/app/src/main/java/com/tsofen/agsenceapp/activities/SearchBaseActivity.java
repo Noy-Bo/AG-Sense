@@ -2,12 +2,16 @@ package com.tsofen.agsenceapp.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -18,48 +22,48 @@ import com.tsofen.agsenceapp.R;
 
 public class SearchBaseActivity extends AppBaseActivity {
 
-    protected Object[] searchingArray = {};
-    protected ArrayAdapter<Object> adapter;
-    protected SearchView searchView;
+    protected AutoCompleteTextView searchView;
     View contentView;
+    Button clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         contentView = inflater.inflate(R.layout.activity_search_base, null, false);
-        searchView = contentView.findViewById(R.id.search_text_view);
-        searchView.setQueryHint("Search..");
+        clear = contentView.findViewById(R.id.clear);
+        clear.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_admin_dashboard, menu);
-        return true;
+
+
+    public void clear(View view) {
+
+        searchView.setText("");
+        clear.setVisibility(View.GONE);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    public void setSearchingArray(Object[] searchingArray) {
-        this.searchingArray = searchingArray;
+    public void setTextWatcher(){
+//        searchView = contentView.findViewById(R.id.search_text_view);
+//        searchView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                // do nothing
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if(charSequence.length() != 0) {
+//                    clear.setVisibility(View.VISIBLE);
+//                } else {
+//                    clear.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                // do nothing
+//            }
+//        });
     }
 }

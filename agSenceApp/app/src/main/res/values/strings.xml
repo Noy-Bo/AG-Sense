@@ -76,8 +76,10 @@
     <string name="tracking_interval_1_s">Tracking interval 1 (s)</string>
     <string name="_numbersdevicesettings">0-65535</string>
     <string name="devicesettingsspeed">0-255 km/h</string>
-    <string name="longitude">longitude</string>
-    <string name="latitude">latitude</string>
+    <string name="longitude1">longitude 1</string>
+    <string name="longitude2">longitude 2</string>
+    <string name="latitude1">latitude 1</string>
+    <string name="latitude2">latitude 2</string>
     <string name="device_settings_degree">0-359</string>
     <string name="longitudelimit">000-0000-000 - 999-9999-999</string>
     <string name="latitudelimit">00.000000 - 99.999999</string>
@@ -87,7 +89,7 @@
     <string name="new_device_details">New Device Details:</string>
     <string name="iemi">IEMI</string>
     <string name="device_type">Device Type</string>
-    <string name="account_name">Account Name</string>
+
     <string name="device_phone_number">Device Phone Number</string>
     <string name="device_password">Device Password</string>
 
@@ -106,6 +108,15 @@
     <string name="send_msg_again">Please send the message again</string>
     <string name="error_send_msg">Error sending message!</string>
     <string name="msg_sent">message sent</string>
+
+    <string name="title_activity_tabbed">Tabbed</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_device_settings">DeviceSettings</string>
+
+    <string name="authorization_number_tab">Authorization number</string>
+    <string name="speeding_alert_geo_fence_tab">Speeding alert and geo fence</string>
+    <string name="tracking_tab">Tracking</string>
     <string name="edit_device_details">Edit Device Details:</string>
     <string name="new_phonenumber">New PhoneNumber:</string>
     <string name="new_password">New Password :</string>
@@ -117,5 +128,19 @@
     <string name="email">Email :</string>
     <string name="send_code">Send code</string>
     <string name="verification_code">Verification code</string>
+    <string name="add_new_device">Add New Device</string>
+    <string name="add_new_user">Add New User</string>
+    <string name="add_new_account">Add New Account</string>
+    <string name="edit_options">Edit Options:</string>
+    <string name="new_options">New Options:</string>
+    <string name="new_user">New User</string>
+    <string name="filter">filter</string>
+    <string name="device_name">Device Name</string>
+    <string name="new_account_name">New Account Name</string>
+    <string name="notifications">Notifications</string>
+    <string name="account_name">Account Name</string>
+    <string name="new_device_name">New Device Name</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">"Latitude "</string>
 
 </resources>

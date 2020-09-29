@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -26,7 +27,7 @@ EditText IEMIEdit,DevicePhoneNumberEdit,DevicePasswordEdit;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_device);
-_accountsnames.add(0,"Choose Type");
+//_accountsnames.add(0,"Choose Type");
     UpdateAccounts();
         assert _accounts != null;
         AccountNameSpinner =  (Spinner) findViewById(R.id.AccountNameSpinner);
@@ -34,15 +35,16 @@ _accountsnames.add(0,"Choose Type");
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, _accountsnames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AccountNameSpinner.setAdapter(dataAdapter);
-
+AccountNameSpinner.setGravity(Gravity.RIGHT);
         /*UpdateAccount included
         * these lines can be removed as it is Account name spinner, should be changed after we have the new API*/
 
 
 
         DeviceTypeSpinner = (Spinner) findViewById(R.id.DeviceTypeSpinner);
+        DeviceTypeSpinner.setGravity(Gravity.RIGHT);
         List<String> DeviceSpinner_type = new ArrayList<>();
-        DeviceSpinner_type.add(0, "Choose Type");
+        //DeviceSpinner_type.add(0, "Choose Type");
         DeviceSpinner_type.add("Type 1");
         DeviceSpinner_type.add("Type 2");
         DeviceSpinner_type.add("Type 3");
@@ -69,6 +71,43 @@ _accountsnames.add(0,"Choose Type");
     }
 
     public void UpdateDevice(View view) {
+        DevicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
+        DevicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
+        String Ragex = "^05\\d{8}";
+        if(!DevicePhoneNumberEdit.getText().toString().matches(Ragex))
+        {
+            DevicePhoneNumberEdit.setError("Invalid Phone number");
+        }
+        if(!CheckPassword(DevicePasswordEdit.getText().toString()))
+        {
+            DevicePasswordEdit.setError("Password is weak");
+        }
+
+    }
+
+    private boolean CheckPassword(String toString) {
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        if(DevicePasswordEdit.getText().toString().length() >= 8)
+        {
+            for(int i = 0; i<DevicePasswordEdit.getText().toString().length(); i++)
+            {
+                char temp = DevicePasswordEdit.getText().toString().charAt(i);
+                if(Character.isUpperCase(temp))
+                    hasUpperCase = true;
+                else if(Character.isLowerCase(temp))
+                    hasLowerCase = true;
+                else if(Character.isDigit(temp))
+                    hasDigit = true;
+
+                if(hasDigit && hasLowerCase && hasUpperCase)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 

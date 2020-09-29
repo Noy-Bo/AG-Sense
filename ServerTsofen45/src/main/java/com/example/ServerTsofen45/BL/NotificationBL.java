@@ -36,17 +36,16 @@ public class NotificationBL {
 	   
    }
 
-   public void setNotificationsReaded(int id) {
+   public int setNotificationsReaded(int notificationId, int accountId) {
 
-	   Notification notification = NotificationRepository.findById(id);
-	   notification.setReaded(true);
-	   NotificationRepository.save(notification);
+	    return NotificationRepository.setNotificationsReaded(notificationId, accountId);
+	  
 	
    }
 
-public String unreadNotificationsNumber() {
+public String unreadNotificationsNumber(int id) {
 	
-	return NotificationRepository.getUnreadNotificationsNumber();
+	return NotificationRepository.getUnreadNotificationsNumber(id);
 }
 
 
