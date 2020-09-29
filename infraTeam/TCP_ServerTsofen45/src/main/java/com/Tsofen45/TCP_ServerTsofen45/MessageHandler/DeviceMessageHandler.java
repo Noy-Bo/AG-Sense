@@ -1,21 +1,17 @@
 package com.Tsofen45.TCP_ServerTsofen45.MessageHandler;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.Tsofen45.TCP_ServerTsofen45.Alarms.StateManager;
 import com.Tsofen45.TCP_ServerTsofen45.Analyzation.AnalyzerManager;
 import com.Tsofen45.TCP_ServerTsofen45.Authentication.Authenticate;
 import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
-import com.Tsofen45.TCP_ServerTsofen45.Disconnected.NotifyMaulfunction;
 import com.Tsofen45.TCP_ServerTsofen45.Disconnected.ReportTimer;
 import com.Tsofen45.TCP_ServerTsofen45.Factories.CommandsFactory;
 import com.Tsofen45.TCP_ServerTsofen45.Routers.DeviceDataRouter;
@@ -25,10 +21,8 @@ import com.Tsofen45.TCP_ServerTsofen45.Validation.Validate;
 public class DeviceMessageHandler implements Runnable {
 
 
-	private DataInputStream dis;
 	private InputStream is;
 	private String message ="";
-	private DataOutputStream dos;
 	private BufferedReader bfrReader;
 	
 	@Autowired
@@ -54,12 +48,6 @@ public class DeviceMessageHandler implements Runnable {
 	
 	ReportTimer reportTimer;
 
-	public void setDis(DataInputStream dis) {
-		this.dis =dis;
-	}
-	public void setDos(DataOutputStream dos) {
-		this.dos =dos;
-	}
 	public void setInputStrae(InputStream is) {
 		this.is =is;
 	}
@@ -116,7 +104,6 @@ public class DeviceMessageHandler implements Runnable {
 		
 	}
 	private String GetMessage() throws IOException {
-		int c;
 		bfrReader = new BufferedReader(new InputStreamReader(is));
 		try {
 			message = bfrReader.readLine();

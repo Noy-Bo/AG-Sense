@@ -1,11 +1,6 @@
 package com.Tsofen45.TCP_ServerTsofen45.Analyzation;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.springframework.stereotype.Service;
 
 import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;

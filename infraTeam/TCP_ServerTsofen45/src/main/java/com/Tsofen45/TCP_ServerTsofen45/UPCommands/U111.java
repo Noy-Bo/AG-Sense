@@ -126,8 +126,7 @@ public class U111 extends UpCommand{
 	                    }
 	                    break;
 	                case 'W':
-	                    int deviceWeight = Integer.parseInt(opts[i].substring(2),16);
-	                    switch (opts[i].charAt(1)){
+					switch (opts[i].charAt(1)){
 	                        case '1':
 	                            // device.setWeight(deviceWeight);
 	                            break;
@@ -144,9 +143,7 @@ public class U111 extends UpCommand{
 	                case 'B':
 	                    switch (opts[i].charAt(1)){
 	                        case '1':
-	                            String sub_string = opts[i].substring(2);
-	                            String[] data = sub_string.split(".");
-	                            /*this.setMcc(data[0]);
+							/*this.setMcc(data[0]);
 	                            this.setMnc(data[1]);
 	                            this.setLac(data[2]);
 	                            this.setCellid(data[4]);*/
@@ -162,27 +159,23 @@ public class U111 extends UpCommand{
 	                    }
 	                    break;
 	                case 'C':
-	                    int device_counter;
-	                    switch (opts[i].charAt(1)){
+					switch (opts[i].charAt(1)){
 	                        case'1':
-	                            device_counter = Integer.parseInt(opts[i].substring(2),16);
-	                            //device.setCounter(device_counter);
+							//device.setCounter(device_counter);
 	                            break;
 	                    }
 	                    break;
 	                case 'R':
 	                    switch (opts[i].charAt(1)){
 	                        case '1':
-	                            String RFID_opts = opts[i].substring(3);
-	                            // device.setRfid(RFID_opts);
+							// device.setRfid(RFID_opts);
 	                            break;
 	                    }
 	                    break;
 	                case 'S':
 	                    switch (opts[i].charAt(1)){
 	                        case '1':
-	                            int device_pressure = Integer.parseInt(opts[i].substring(2),16);
-	                            // this.setPressure(device_pressure);
+							// this.setPressure(device_pressure);
 	                            break;
 	                    }
 	                    break;
