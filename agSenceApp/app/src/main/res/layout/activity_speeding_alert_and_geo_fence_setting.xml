@@ -230,5 +230,13 @@
             android:text="@string/update_btn_device_settings" />
     </LinearLayout>
 
+    <Button
+        android:onClick="openMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set by map"
+        android:id="@+id/set_by_map_button"
+        ></Button>
+
 
 </LinearLayout>

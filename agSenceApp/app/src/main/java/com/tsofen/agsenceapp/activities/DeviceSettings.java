@@ -14,6 +14,7 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Place;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class DeviceSettings extends BackBaseActivity {
     SearchableSpinner spinner;
     int flag = 0;
     ArrayAdapter<String> dataAdapter;
+    ArrayList<Devices> devicesList = new ArrayList<>();
+    Devices chosenDevice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class DeviceSettings extends BackBaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 b1.setVisibility(View.VISIBLE);
+                chosenDevice = devicesList.get(position);
             }
 
             @Override
@@ -62,8 +66,10 @@ public class DeviceSettings extends BackBaseActivity {
             DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
                 @Override
                 public void onDeviceDataLoaded(final List<Devices> devices) {
-                    for (Devices devices1 : devices)
+                    for (Devices devices1 : devices) {
+                        devicesList.add(devices1);
                         list.add(devices1.getImei().toString());
+                    }
                     dataAdapter = new ArrayAdapter<>(DeviceSettings.this, android.R.layout.simple_spinner_item, list);
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     DeviceSettings.this.runOnUiThread(new Runnable() {
@@ -82,8 +88,8 @@ public class DeviceSettings extends BackBaseActivity {
     }
 
     public void openSpeedingAlertAndGeoFence(View view) {
-
         Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
+        intent.putExtra("chosenPlace", new Place(chosenDevice.getLatitude(),chosenDevice.getLogitude()));
         startActivity(intent);
     }
 
