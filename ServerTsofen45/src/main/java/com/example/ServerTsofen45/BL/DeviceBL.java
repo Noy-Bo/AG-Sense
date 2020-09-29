@@ -32,12 +32,10 @@ public class DeviceBL {
 	public Device getDeviceImei(long imei) {
 
 		Device device = deviceRepository.findByImei(imei);
-
 		return device;
 
 	}
 	
-
 	public ArrayList<Device> getDevicesByName(String name) {
 
 		ArrayList<Device> devices = deviceRepository.findByName(name);
@@ -205,4 +203,5 @@ return null;
 	public String healtyDevicesNumber() {
 		return  deviceRepository.getHealtyDevicesNumber();
 	}
+
 	}

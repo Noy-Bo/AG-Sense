@@ -13,14 +13,10 @@ public class ExternalPowerLowAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isExternalPowerLow()) {
-			SendPostRequest(d);
+			System.out.println("Entered ext pow low");
+			sendNotify(d);
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

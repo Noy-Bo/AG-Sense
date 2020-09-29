@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+
 import com.example.ServerTsofen45.Beans.Device;
 import com.example.ServerTsofen45.Beans.NotificationDTO;
 
@@ -74,6 +75,8 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 			"from public.devices " + 
 			"where faulty = FALSE;" )
 	public String getHealtyDevicesNumber();
+
+	
 	
 	
 }

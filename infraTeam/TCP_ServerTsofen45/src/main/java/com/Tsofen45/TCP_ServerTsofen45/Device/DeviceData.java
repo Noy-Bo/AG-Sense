@@ -89,8 +89,8 @@ public class DeviceData {
     public void setLonIndicator(String lonIndicator) {
         this.lonIndicator = lonIndicator;
     }
-    public void setDateAndTime(LocalDateTime dateAndTime) {
-        this.dateAndTime = Timestamp.valueOf(dateAndTime);
+    public void setDateAndTime(Timestamp dateAndTime) {
+        this.dateAndTime = dateAndTime;
     }
     public Time getUpdateTime() {
         return updateTime;
