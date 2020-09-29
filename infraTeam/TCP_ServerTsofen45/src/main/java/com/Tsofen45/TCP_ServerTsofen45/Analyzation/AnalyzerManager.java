@@ -11,8 +11,6 @@ import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 public class AnalyzerManager {
 	
 	@Autowired
-	BatteryAnalyzer batteryAnalyzer;
-	@Autowired
 	ExternalPowerLowAnalyzer externalPowerLowAnalyzer;
 	@Autowired
 	ExternalPowerOnAnalayzer externalPowerOnAnalyzer;
@@ -34,7 +32,6 @@ public class AnalyzerManager {
 	Switch2ActivatedAnalyzer switch2ActivatedAnalyzer;
 	public void analyze(DeviceData d) throws IOException {
 		//analyze if battery is low
-		batteryAnalyzer.Analyze(d);
 		externalPowerLowAnalyzer.Analyze(d);
 		externalPowerOnAnalyzer.Analyze(d);
 		externalPowerLowAnalyzer.Analyze(d);
