@@ -29,4 +29,29 @@ public class AccountBL {
 		ArrayList<Account> accounts = accountRepository.findAll();
 		return accounts;
 	}
+	
+	
+	
+//	public ArrayList<Account> findAllAccountsName(){
+//		ArrayList<Account> accounts= new ArrayList<Account>();
+//		accounts = accountRepository.findAllAccountsName();
+//		return accounts;
+//		
+//	}
+//	
+	
+	
+	public ArrayList<String> findAllAccountsName(){
+		ArrayList<Account> accounts= new ArrayList<Account>();
+		ArrayList<String> names= new ArrayList<String>();
+	     accounts = accountRepository.findAll();
+	     
+	     for(Account account : accounts)
+	     {
+	    	 names.add(account.getName());
+	     }
+		return names;
+	}
+	
+	
 }
