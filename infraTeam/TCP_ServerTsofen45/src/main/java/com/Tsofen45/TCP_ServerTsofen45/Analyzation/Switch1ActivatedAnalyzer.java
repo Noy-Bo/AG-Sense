@@ -3,7 +3,9 @@ package com.Tsofen45.TCP_ServerTsofen45.Analyzation;
 import java.io.IOException;
 
 import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Switch1ActivatedAnalyzer extends Analyzer {
 
 	@Override
