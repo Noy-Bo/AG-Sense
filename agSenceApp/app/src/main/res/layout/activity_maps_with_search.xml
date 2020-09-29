@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_layout"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/dark_blue">
+
+    <FrameLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/map_search_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/rounded_white_background_frame"
+            android:completionThreshold="1"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp" />
+
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/close_icon"
+            android:onClick="clear" />
+    </FrameLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/included"
+        tools:context=".activities.MapsActivity" />
+
+
+</LinearLayout>
+
+
+
