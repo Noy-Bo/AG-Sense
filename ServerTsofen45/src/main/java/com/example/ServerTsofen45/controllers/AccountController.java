@@ -1,5 +1,6 @@
 package com.example.ServerTsofen45.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -43,6 +44,16 @@ public class AccountController {
 		}
 		return jsonArray;
 
+	}
+	
+	
+	
+	
+	@GetMapping("getAllAccountsName")
+	public ArrayList<String> getAllAccountsName(){
+		ArrayList<String> accounts = new ArrayList<>();
+		accounts = accountBL.findAllAccountsName();
+		return accounts;
 	}
 
 }

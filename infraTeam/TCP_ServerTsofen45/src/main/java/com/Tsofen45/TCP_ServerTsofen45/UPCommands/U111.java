@@ -29,7 +29,7 @@ public class U111 extends UpCommand{
 	    }
 
 	    private LocalDateTime get_date_time(String date_time){
-	        String date = date_time.substring(0,2) + "-" + date_time.substring(2,4) + "-" + date_time.substring(4,6);
+	        String date = "20"+date_time.substring(0,2) + "-" + date_time.substring(2,4) + "-" + date_time.substring(4,6);
 	        LocalDate ld = LocalDate.parse(date);
 	        String time = date_time.substring(6,8) + ":" + date_time.substring(8,10) + ":" + date_time.substring(10,12);
 	        LocalTime lt = LocalTime.parse(time);

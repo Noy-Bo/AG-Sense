@@ -44,6 +44,7 @@ public class TcpServerTsofen45Application {
 				DeviceMessageHandler dvcHandler = context.getBean(DeviceMessageHandler.class);
 				dvcHandler.setDis(dis);
 				dvcHandler.setDos(dos);
+				dvcHandler.setInputStrae(is);
 				
 				
 				Thread t = new Thread(dvcHandler);
