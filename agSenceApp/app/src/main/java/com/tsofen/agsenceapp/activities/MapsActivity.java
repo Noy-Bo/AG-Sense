@@ -65,6 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // only if we are at map for all devices
 
             clear = (Button) findViewById(R.id.clear_button);
+
             searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
             searchView.setHint(R.string.search_device_hint);
             DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
@@ -79,7 +80,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
             });
-
 
             searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -113,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void clearText(View view) {
 
         searchView.setText("");
-        clear.setVisibility(View.GONE);
+        
     }
 
     private void setUpClusterer() {

@@ -14,6 +14,7 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Place;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class DeviceSettings extends BackBaseActivity {
     SearchableSpinner spinner;
     int flag = 0;
     ArrayAdapter<String> dataAdapter;
+    Devices chosenDevice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class DeviceSettings extends BackBaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 b1.setVisibility(View.VISIBLE);
+                chosenDevice = (Devices) parentView.getAdapter().getItem(position);
             }
 
             @Override
@@ -84,6 +87,7 @@ public class DeviceSettings extends BackBaseActivity {
     public void openSpeedingAlertAndGeoFence(View view) {
 
         Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
+        intent.putExtra("deviceLatLng",new Place(chosenDevice.getLatitude(),chosenDevice.getLogitude()));
         startActivity(intent);
     }
 

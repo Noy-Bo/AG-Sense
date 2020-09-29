@@ -1,6 +1,7 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class SpeedingAlertAndGeoFenceSetting extends BackBaseActivity {
     EditText longitude, latitude, speed, fence_radius_m;
     Spinner FenceTypeSpinner;
     Button SpeedingAlertButtonUpdate;
+    Button setByMapButton;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -52,9 +55,21 @@ public class SpeedingAlertAndGeoFenceSetting extends BackBaseActivity {
         speed = (EditText) findViewById(R.id.speednumbertextbox);
         fence_radius_m = (EditText) findViewById(R.id.fenceradiustextnumber);
         SpeedingAlertButtonUpdate = (Button) findViewById(R.id.speedAlertGeoSettingbutton);
+        setByMapButton = (Button) findViewById(R.id.set_by_map_button);
         //Ends Here
 
     }
+
+
+
+
+    public void goToMapsGeoFence()
+    {
+        Intent intent = new Intent(this,MapsActivity.class);
+        intent.putExtra("opCode","3");
+        startActivity(intent);
+    }
+
     public void SpeedingAlertUpdate(View view) {
 
 
