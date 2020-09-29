@@ -15,15 +15,16 @@ import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 
 @Service
 abstract public class Analyzer {
+	protected JSONObject json=null;
+	
 	private static String GET_URL = "http://victorhanna-26955.portmap.host:26955/Notifications/AddNotification";
+	
 	abstract public void Analyze(DeviceData d) throws IOException;
-	protected static void sendNotify(DeviceData d) throws IOException {
+	
+	protected static void sendNotify(DeviceData d,JSONObject json) throws IOException {
 		//something
 		 long imei = d.getImei();
-		 
 		 int code = 225;
-		 JSONObject json= new JSONObject();
-		 json.put("battery", d.getInternalBatteryPower());
 		 String params = URLEncoder.encode(json.toString(), StandardCharsets.UTF_8.toString()).toString();
 			
 			GET_URL = GET_URL + "?imei="+  imei  +"&code="+code+"&params="+params;

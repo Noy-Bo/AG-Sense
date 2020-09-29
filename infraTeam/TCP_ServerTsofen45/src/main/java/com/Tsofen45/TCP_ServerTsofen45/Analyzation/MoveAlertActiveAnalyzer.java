@@ -15,7 +15,7 @@ public class MoveAlertActiveAnalyzer extends Analyzer{
 		if(d.isMoveAlertActive()) {
 			System.out.println("Entered move alert");
 
-			sendNotify(d);
+			sendNotify(d,json);
 
 		}
 	}

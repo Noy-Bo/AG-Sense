@@ -16,7 +16,7 @@ public class SesmoActivatedAnalyzer extends Analyzer {
 		if(d.isSesmoActivated()) {
 			System.out.println("Entered sesmo activated");
 
-			sendNotify(d);
+			sendNotify(d,json);
 
 		}
 	}

@@ -14,7 +14,7 @@ public class SpeedAlertActiveAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSpeedingAlertActive()) {
-			sendNotify(d);
+			sendNotify(d,json);
 
 		}
 	}

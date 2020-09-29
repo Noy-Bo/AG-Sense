@@ -16,15 +16,13 @@ public class BatteryAnalyzer extends Analyzer {
 		
 		float batteryLevel =getBatteryLevel(d.getInternalBatteryPower());
 		
-		System.out.println("battery level is " +batteryLevel);
+		json.put("batteryLeverl", batteryLevel);
 		
 		if(getBatteryLevel(d.getInternalBatteryPower()) < minBattery) {
-			
 			try {
-				
 					//Push Notification
 					System.out.println("Sending notifaction on battery low batteryPerect: "+getBatteryLevel(d.getInternalBatteryPower()));
-					sendNotify(d);
+					sendNotify(d,json);
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
