@@ -19,8 +19,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/rounded_white_background_frame"
-
         android:orientation="vertical">
 
         <TextView
@@ -30,11 +28,18 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="@string/authorization_number"
-            android:textAllCaps="false" />
+            android:textColor="@color/orange"
+            android:textSize="@dimen/medium_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/gradient_color_background" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -42,16 +47,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1.25"
-                android:text="@string/admin_number" />
+                android:text="@string/admin_number"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size"
+                android:layout_gravity="center"/>
 
             <EditText
                 android:id="@+id/editAdminNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.01"
+                android:layout_weight="0.5"
                 android:ems="16"
                 android:inputType="phone"
-                android:textSize="10sp"
+                android:textSize="@dimen/extra_small_text_size"
                 tools:ignore="SmallSp,TextFields" />
         </LinearLayout>
 
@@ -66,19 +74,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:text="@string/authorized_num_1" />
+                android:text="@string/authorized_num_1"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <EditText
                 android:id="@+id/editauthorizednum1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.01"
+                android:layout_weight="0.5"
                 android:ems="16"
-
-
                 android:inputType="phone"
-
-                android:textSize="10sp"
+                android:textSize="@dimen/extra_small_text_size"
                 tools:ignore="SmallSp,TextFields" />
         </LinearLayout>
 
@@ -92,18 +99,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:text="@string/authorized_num_2" />
+                android:text="@string/authorized_num_2"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <EditText
                 android:id="@+id/editauthorizednum2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.01"
+                android:layout_weight="0.5"
                 android:ems="16"
-
                 android:inputType="phone"
-
-                android:textSize="10sp"
+                android:textSize="@dimen/extra_small_text_size"
                 tools:ignore="SmallSp,TextFields" />
         </LinearLayout>
 
@@ -117,31 +124,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:text="@string/authorized_num_3" />
+                android:text="@string/authorized_num_3"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <EditText
                 android:id="@+id/editauthorizednum3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.01"
+                android:layout_weight="0.5"
                 android:ems="16"
                 android:inputType="phone"
-
-                android:textSize="10sp"
+                android:textSize="@dimen/extra_small_text_size"
                 tools:ignore="SmallSp,TextFields" />
         </LinearLayout>
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-
-            android:layout_gravity="right"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_white_background_frame"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/gradient_color_background"
             android:onClick="AuthorizationNumberUpdate"
-            android:text="@string/update_btn_device_settings" />
+            android:text="@string/update_btn_device_settings"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size" />
 
 
     </LinearLayout>

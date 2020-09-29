@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -59,6 +60,11 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             hideAccountOptions();
         else
             hideAdminOptions();
+
+        TextView usernameHeader = (TextView)findViewById(R.id.header_username);
+        TextView userEmailHeader = (TextView)findViewById(R.id.header_username);
+        userEmailHeader.setText(user.getEmail());
+        usernameHeader.setText(user.getUsername());
     }
 
 

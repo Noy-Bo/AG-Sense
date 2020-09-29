@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.EditDevice">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         tools:ignore="MissingConstraints">
+
         <include
 
             android:id="@+id/included"
@@ -24,51 +25,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/rounded_white_background_frame"
-
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/edit_device_details"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/medium_text_size" />
 
-                <TextView
-                    android:textStyle="bold"
-
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/edit_device_details"
-                    android:textAllCaps="false"
-
-                    />
-            </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="3dp"
+                android:background="@drawable/gradient_color_background" />
 
             <LinearLayout
-                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.01" />
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/iemi" />
+                    android:text="@string/iemi"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/small_text_size" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -77,11 +68,11 @@
 
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/DeviceIEMISpinner"
-                    android:spinnerMode="dialog"
-                    app:hintText="Select Device IEMI"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:spinnerMode="dialog"
+                    app:hintText="Select Device IEMI" />
 
             </LinearLayout>
 
@@ -89,20 +80,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.01" />
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_phonenumber" />
+                    android:layout_gravity="center"
+                    android:text="@string/new_phonenumber"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/small_text_size" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -114,34 +102,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-
-                    android:inputType="number"
                     android:ems="16"
+                    android:inputType="number"
                     android:textSize="10sp"
                     tools:ignore="TextFields" />
-
             </LinearLayout>
 
 
-
             <LinearLayout
-                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.01" />
 
                 <TextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_password" />
+                    android:layout_gravity="center"
+                    android:text="@string/new_password"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/small_text_size" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -153,32 +136,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-                    android:inputType="textPassword"
-
                     android:ems="16"
-                    android:textSize="10sp"
-                    />
+                    android:inputType="textPassword"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.01" />
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/verify_password" />
+                    android:layout_gravity="center"
+                    android:text="@string/verify_password"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/small_text_size" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -190,31 +169,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-                    android:inputType="textPassword"
-
                     android:ems="16"
-                    android:textSize="10sp"
-                    />
+                    android:inputType="textPassword"
+                    android:textSize="10sp" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.01" />
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/new_device_name" />
+                    android:layout_gravity="center"
+                    android:text="@string/new_device_name"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="@dimen/small_text_size" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -229,7 +204,6 @@
                     android:ems="16"
                     android:inputType="text"
                     android:textSize="10sp"
-
                     tools:ignore="SmallSp" />
 
             </LinearLayout>
@@ -237,14 +211,14 @@
             <Button
                 android:id="@+id/EditDeviceUpdateButton"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:onClick="UpdateDevice"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_white_background_frame"
-                android:text="@string/update_btn_device_settings" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/gradient_color_background"
+                android:text="@string/update_btn_device_settings"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_size" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
