@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +22,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
@@ -24,6 +31,9 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.ClusterRenderer;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.adapters.DevicesAdapter;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
@@ -44,16 +54,68 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ClusterManager<Place> mClusterManager;
     private Renderer mRenderer;
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
+    private ArrayList<LatLng> listPoints;
+    private ArrayList<LatLng> listPointsPoly;
+    private MarkerOptions markerOptions;
+    private MarkerOptions initialMarker;
+    private Polygon polygon;
+    private Button clear;
+    private AutoCompleteTextView searchView;
+    private int opCode;
+
+    //opCode:
+    // 1. Map activity with search bar. Organizes markers in clusters
+    // 2. Map activity with timeline of device - shows polyline between them
+    // 3. Map with last device location to define geofence
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        opCode = getIntent().getIntExtra("opcode", 1);
+        switch (opCode) {
+            case 1:
+                setContentView(R.layout.activity_maps_with_search);
+                clear = (Button) findViewById(R.id.clear_button);
+                searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
+                searchView.setHint(R.string.search_device_hint);
+                DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+                    @Override
+                    public void onDeviceDataLoaded(final List<Devices> devices) {
+                        MapsActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                            }
+                        });
+
+                    }
+                });
+                searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Devices device = (Devices) searchView.getAdapter().getItem(i);
+                        builder = new LatLngBounds.Builder();
+                        builder.include(new LatLng(device.getLatitude(), device.getLogitude()));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
+                    }
+                });
+                break;
+
+            case 2:
+                setContentView(R.layout.activity_maps);
+                break;
+
+            case 3:
+                setContentView(R.layout.activity_maps_geofence);
+                break;
+        }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
+        listPoints = new ArrayList<>();
+        listPointsPoly = new ArrayList<>();
     }
     /**
      * Manipulates the map once available.
@@ -67,7 +129,72 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        setUpClusterer();
+        switch (opCode) {
+            case 1:
+                setUpClusterer();
+                break;
+
+            case 2:
+                setUpClusterer();
+                break;
+
+            case 3:
+                if(userMap != null && userMap.getPlaces() != null && userMap.getPlaces().get(0) != null) {
+                    initialMarker = new MarkerOptions();
+                    initialMarker.position(userMap.getPlaces().get(0).getLocation());
+                    initialMarker.title(userMap.getPlaces().get(0).getTitle());
+                    mMap.addMarker(initialMarker);
+                    builder = new LatLngBounds.Builder();
+                    builder.include(userMap.getPlaces().get(0).getLocation());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
+                }
+        }
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                if (opCode == 3) {
+                    if (listPoints.size() == 2) {
+                        listPoints.clear();
+                        listPointsPoly.clear();
+                        mMap.clear();
+                        if (initialMarker != null) {
+                            mMap.addMarker(initialMarker);
+                        }
+                        if (polygon != null) {
+                            polygon.remove();
+                        }
+                    }
+                    listPoints.add(latLng);
+                    markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    mMap.addMarker(markerOptions);
+                    if(listPoints.size() == 2) {
+                        builder = new LatLngBounds.Builder();
+                        builder.include(listPoints.get(0));
+                        builder.include(listPoints.get(1));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+                        Double top = Double.max(listPoints.get(0).latitude, listPoints.get(1).latitude);
+                        Double bottom = Double.min(listPoints.get(0).latitude, listPoints.get(1).latitude);
+                        Double right = Double.max(listPoints.get(0).longitude, listPoints.get(1).longitude);
+                        Double left = Double.min(listPoints.get(0).longitude, listPoints.get(1).longitude);
+                        listPointsPoly.add(new LatLng(top, left));
+                        listPointsPoly.add(new LatLng(top, right));
+                        listPointsPoly.add(new LatLng(bottom, right));
+                        listPointsPoly.add(new LatLng(bottom, left));
+                        PolygonOptions polygonOptions = new PolygonOptions().addAll(listPointsPoly);
+                        polygonOptions.strokeColor(Color.RED);
+                        polygonOptions.strokeWidth(6);
+                        polygon= mMap.addPolygon(polygonOptions);
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void setUpClusterer() {
@@ -86,10 +213,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addItems();
         // Move camera to bounded position
         mapBounds();
-        if (getIntent().getBooleanExtra("flag", false)) {
+        if (getIntent().getBooleanExtra("polylineFlag", false)) {
             addPolylines();
         }
     }
+
     private void addItems() {
         mClusterManager.addItems(userMap.getPlaces());
     }
@@ -143,7 +271,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         animateZoomIn(cluster.getPosition());
         return true;
     }
-/////////////////////////////////////////////////renderer class////////////////////////////////////////////////////
+
+    public void acceptButton(View view) {
+        if(listPoints.size() != 2) {
+            Toast.makeText(this, "Invalid geofence, try again\n (long press to set marker)", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("pointA", new Place((float) listPoints.get(0).latitude, (float) listPoints.get(0).longitude));
+            intent.putExtra("pointB", new Place((float) listPoints.get(1).latitude, (float) listPoints.get(1).longitude));
+            setResult(RESULT_OK,intent);
+            finish();
+        }
+    }
+
     static class Renderer extends DefaultClusterRenderer {
 
         public Renderer(Context context, GoogleMap map, ClusterManager<Place> clusterManager) {
@@ -156,5 +296,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
+    public void clearText(View view) {
+        searchView.setText("");
+    }
 }
