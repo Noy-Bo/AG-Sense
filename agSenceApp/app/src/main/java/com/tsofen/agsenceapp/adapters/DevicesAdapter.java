@@ -1,7 +1,6 @@
 package com.tsofen.agsenceapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.activities.DeviceView;
 
 import com.tsofen.agsenceapp.entities.Devices;
 
@@ -57,10 +55,10 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
         name.setText(device.getName());
         accountNname.setText(device.getAccountId().toString());
         devicetypeid.setText((device.getType()));
-        if (device.getFaultTime() == null)
+        if (device.getFaultyTime() == null)
             faultytime.setText("");
         else
-            faultytime.setText(String.valueOf(device.getFaultTime()));
+            faultytime.setText(String.valueOf(device.getFaultyTime()));
         if (device.getLastUpdate() == null)
             lastupdate.setText("");
         else

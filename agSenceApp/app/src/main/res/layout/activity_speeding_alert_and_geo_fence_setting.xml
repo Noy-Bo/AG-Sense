@@ -15,45 +15,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_white_background_frame"
-
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="15dp">
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/alertSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/alertString"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/medium_text_size" />
 
-            <TextView
-                android:id="@+id/alertSetting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/alertString"
-                android:textAllCaps="false" />
-        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/gradient_color_background" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            android:onClick="openMap"
+            android:text="@string/select_by_map"
+            android:background="@drawable/gradient_color_background"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size"></Button>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/longitude" />
+                android:layout_gravity="center"
+                android:text="@string/longitude1"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
+
 
             <Space
                 android:layout_width="wrap_content"
@@ -61,7 +77,39 @@
                 android:layout_weight="6" />
 
             <EditText
-                android:id="@+id/longitude"
+                android:id="@+id/longitude1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.01"
+                android:ems="16"
+                android:hint="@string/devicesettingslimit"
+                android:inputType="numberDecimal"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/longitude2"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="6" />
+
+            <EditText
+                android:id="@+id/longitude2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
@@ -78,19 +126,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
-
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/latitude" />
+                android:layout_gravity="center"
+                android:text="@string/latitude1"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -98,11 +142,10 @@
                 android:layout_weight="6" />
 
             <EditText
-                android:id="@+id/latitude"
+                android:id="@+id/latitude1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
-
                 android:ems="16"
                 android:hint="@string/latitudelimit"
                 android:inputType="number"
@@ -115,19 +158,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/latitude2"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
+                android:layout_weight="6" />
 
-            <TextView
-
+            <EditText
+                android:id="@+id/latitude2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/speed" />
+                android:layout_weight="0.01"
+                android:ems="16"
+                android:hint="@string/devicesettingslimit"
+                android:inputType="numberDecimal"
+                android:textSize="10sp"
+
+                tools:ignore="SmallSp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/speed"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -149,94 +221,31 @@
 
         </LinearLayout>
 
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fence_radius_m" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4.4" />
-
-            <EditText
-                android:id="@+id/fenceradiustextnumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01"
-                android:ems="16"
-                android:hint="@string/_numbersdevicesettings"
-                android:inputType="number"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fence_type" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.38" />
-
-            <Spinner
-                android:id="@+id/FenceTypeSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
-
-        </LinearLayout>
 
         <Button
             android:id="@+id/speedAlertGeoSettingbutton"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_white_background_frame"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/gradient_color_background"
             android:onClick="SpeedingAlertUpdate"
-            android:text="@string/update_btn_device_settings" />
+            android:text="@string/update_btn_device_settings"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size" />
+        <ProgressBar
+            android:id="@+id/geoFenceSettingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:outlineSpotShadowColor="@color/dark_blue"
+            android:visibility="invisible"></ProgressBar>
     </LinearLayout>
 
-    <Button
-        android:onClick="openMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="set by map"
-        android:id="@+id/set_by_map_button"
-        ></Button>
+
+
 
 
 </LinearLayout>

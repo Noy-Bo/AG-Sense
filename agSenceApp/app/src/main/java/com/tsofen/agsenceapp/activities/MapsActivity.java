@@ -96,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Devices device = (Devices) searchView.getAdapter().getItem(i);
                         builder = new LatLngBounds.Builder();
-                        builder.include(new LatLng(device.getLatitude(), device.getLogitude()));
+                        builder.include(new LatLng(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude())));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
                     }
                 });

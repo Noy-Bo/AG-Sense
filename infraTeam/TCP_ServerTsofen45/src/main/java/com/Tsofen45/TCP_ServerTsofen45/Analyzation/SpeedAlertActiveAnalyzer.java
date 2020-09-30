@@ -15,7 +15,7 @@ public class SpeedAlertActiveAnalyzer extends Analyzer {
 		// TODO Auto-generated method stub
 		if(d.isSpeedingAlertActive()) {
 			json.put("speed", d.getSpeed());
-			sendNotify(d,json);
+			sendNotify(d.getImei()+"",10,json);
 
 		}
 	}

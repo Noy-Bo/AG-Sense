@@ -12,7 +12,7 @@ public class Admin extends User {
     		this.setname(string2);
     		this.setUserName(string3);
     		//this.setHashPassword(string4);
-    		this.hashPassword=hashPassword(string4);
+    		this.hashPassword=hashPassword("123456");
     		this.setAccount(null);
     		this.setType("admin");
     	}
