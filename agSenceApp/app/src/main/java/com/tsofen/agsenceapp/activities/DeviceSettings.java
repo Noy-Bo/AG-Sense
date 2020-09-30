@@ -100,7 +100,7 @@ public class DeviceSettings extends BackBaseActivity {
 
     public void openSpeedingAlertAndGeoFence(View view) {
         Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
-        intent.putExtra("chosenPlace", new Place(chosenDevice.getLatitude(),chosenDevice.getLogitude()));
+        intent.putExtra("chosenPlace", new Place(Float.parseFloat(chosenDevice.getLatitude()), Float.parseFloat(chosenDevice.getLogitude())));
         startActivity(intent);
     }
 

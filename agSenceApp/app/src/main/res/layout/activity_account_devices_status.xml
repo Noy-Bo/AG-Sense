@@ -29,12 +29,12 @@
 
             <TextView
                 android:id="@+id/display_faulty_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/white_shape_squares"
                 android:gravity="center"
-                android:onClick="displayFaultyClicked"
+                android:onClick="switchButton"
                 android:text="@string/display_faulty"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small_text_size"
@@ -42,12 +42,12 @@
 
             <TextView
                 android:id="@+id/display_healthy_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/white_shape_squares"
                 android:gravity="center"
-                android:onClick="displayHealthyClicked"
+                android:onClick="switchButton"
                 android:text="@string/display_healthy"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small_text_size"
@@ -61,7 +61,7 @@
 
             <Button
                 android:id="@+id/map_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"

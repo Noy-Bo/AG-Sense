@@ -132,11 +132,11 @@ public class DeviceStatus extends SearchBaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        boolean gpsType = false;
-        boolean bankType = false;
-        boolean LequidType = false;
-        boolean healthyDevices = false;
-        boolean faultyDevices = false;
+        boolean gpsType = true;
+        boolean bankType = true;
+        boolean LequidType = true;
+        boolean healthyDevices = true;
+        boolean faultyDevices = true;
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 123 &&
                 resultCode == RESULT_OK) {
@@ -149,8 +149,8 @@ public class DeviceStatus extends SearchBaseActivity {
         filteredDevices = new ArrayList<>();
         //filtering
         for (Devices device : devicesArr) {
-            if (((device.getFaulty() == true && faultyDevices) ||
-                    (device.getFaulty() == false && healthyDevices))
+            if (((device.getFaulty() && faultyDevices) ||
+                    (!device.getFaulty() && healthyDevices))
                     && ((device.getType().equals(Devices.DeviceType.GPS.toString()) && gpsType) ||
                     (device.getType().equals(Devices.DeviceType.BANKS.toString()) && bankType) ||
                     (device.getType().equals(Devices.DeviceType.LIQUID.toString()) && LequidType))) {
@@ -194,7 +194,7 @@ public class DeviceStatus extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device :  filteredDevices) {
-                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
                 if(device.getName()!=null) {
                     newPlace.setTitle(device.getName());
                 }
