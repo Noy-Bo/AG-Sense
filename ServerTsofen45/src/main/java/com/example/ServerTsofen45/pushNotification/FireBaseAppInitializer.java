@@ -16,6 +16,7 @@ public final class FireBaseAppInitializer {
         if (app == null)
         {
             try {
+            	//URL resourceUrl = URL.class.getResource("/WEB-INF/classes/RSA");
                 serviceAccount = new FileInputStream("src/main/java/com/example/ServerTsofen45/pushNotification/agsenceapp-f81e0-firebase-adminsdk-450eo-9159a7bbda.json");
                 FirebaseOptions options = new FirebaseOptions.Builder()
                         .setCredentials(GoogleCredentials.fromStream(serviceAccount))

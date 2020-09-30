@@ -120,10 +120,7 @@ return null;
 		return (ArrayList<Device>) devices.subList(start, devices.size() - 1);
 	}
 	
-	public void editDevice(long imei , String phoneNumber , String password )
-	{
-		deviceRepository.updateDeviceByid(imei, phoneNumber, password);
-	}
+	
 	
 	
 	

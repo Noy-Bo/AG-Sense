@@ -20,6 +20,7 @@ public abstract class User {
 	String email;
 	String name;
 	String userName;
+	String phoneNumber;
 	int sysId;
 	String hashPassword;
 	Account account;
@@ -87,7 +88,13 @@ public abstract class User {
 	}
 
 
-
+	@Column
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 	@Id
 	@GeneratedValue
 	public int getSysId() {

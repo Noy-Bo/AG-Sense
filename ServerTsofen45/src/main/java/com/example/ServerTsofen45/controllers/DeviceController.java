@@ -144,10 +144,7 @@ public class DeviceController {
 		return true;
 	}
 	
-	@GetMapping("editDevice")
-	public boolean editDevice(@RequestParam long deviceIMEI,@RequestParam String newPhoneNumber,@RequestParam String newPass) {
-		return deviceBL.editDevice(deviceIMEI, newPhoneNumber, newPass);
-	}
+	
 	
 	
 	
