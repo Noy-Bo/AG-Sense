@@ -55,5 +55,10 @@ public class AccountController {
 		accounts = accountBL.findAllAccountsName();
 		return accounts;
 	}
+	
+	@GetMapping("editAccount")
+	public boolean editAccount(@RequestParam String prevName, @RequestParam String newName) {
+		return accountBL.editAccount(prevName, newName);
+	}
 
 }
