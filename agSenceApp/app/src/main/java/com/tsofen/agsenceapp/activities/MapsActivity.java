@@ -58,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<LatLng> listPointsPoly;
     private MarkerOptions markerOptions;
     private MarkerOptions initialMarker;
+    private LatLng initialMarkerLatlng;
     private Polygon polygon;
     private Button clear;
     private AutoCompleteTextView searchView;
@@ -144,6 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     initialMarker.position(userMap.getPlaces().get(0).getLocation());
                     initialMarker.title(userMap.getPlaces().get(0).getTitle());
                     mMap.addMarker(initialMarker);
+                    initialMarkerLatlng = new LatLng(userMap.getPlaces().get(0).getLocation().latitude, userMap.getPlaces().get(0).getLocation().longitude);
                     builder = new LatLngBounds.Builder();
                     builder.include(userMap.getPlaces().get(0).getLocation());
                     mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
@@ -170,22 +172,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     markerOptions.position(latLng);
                     mMap.addMarker(markerOptions);
                     if(listPoints.size() == 2) {
-                        builder = new LatLngBounds.Builder();
-                        builder.include(listPoints.get(0));
-                        builder.include(listPoints.get(1));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+                        mMap.clear();
+                        if (initialMarker != null) {
+                            mMap.addMarker(initialMarker);
+                        }
                         Double top = Double.max(listPoints.get(0).latitude, listPoints.get(1).latitude);
                         Double bottom = Double.min(listPoints.get(0).latitude, listPoints.get(1).latitude);
                         Double right = Double.max(listPoints.get(0).longitude, listPoints.get(1).longitude);
                         Double left = Double.min(listPoints.get(0).longitude, listPoints.get(1).longitude);
-                        listPointsPoly.add(new LatLng(top, left));
-                        listPointsPoly.add(new LatLng(top, right));
-                        listPointsPoly.add(new LatLng(bottom, right));
-                        listPointsPoly.add(new LatLng(bottom, left));
-                        PolygonOptions polygonOptions = new PolygonOptions().addAll(listPointsPoly);
-                        polygonOptions.strokeColor(Color.RED);
-                        polygonOptions.strokeWidth(6);
-                        polygon= mMap.addPolygon(polygonOptions);
+                        if (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
+                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right) {
+                            Toast.makeText(MapsActivity.this, "Device must be inside defined area", Toast.LENGTH_SHORT).show();
+                            listPoints.clear();
+                            listPointsPoly.clear();
+                        } else {
+                            builder = new LatLngBounds.Builder();
+                            builder.include(listPoints.get(0));
+                            builder.include(listPoints.get(1));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+                            listPointsPoly.add(new LatLng(top, left));
+                            listPointsPoly.add(new LatLng(top, right));
+                            listPointsPoly.add(new LatLng(bottom, right));
+                            listPointsPoly.add(new LatLng(bottom, left));
+                            PolygonOptions polygonOptions = new PolygonOptions().addAll(listPointsPoly);
+                            polygonOptions.strokeColor(Color.RED);
+                            polygonOptions.strokeWidth(6);
+                            polygon= mMap.addPolygon(polygonOptions);
+                        }
                     }
                 }
             }
