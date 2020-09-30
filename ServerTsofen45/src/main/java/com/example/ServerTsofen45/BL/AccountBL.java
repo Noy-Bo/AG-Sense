@@ -53,5 +53,12 @@ public class AccountBL {
 		return names;
 	}
 	
+	public boolean editAccount(String prevname,String newname) {
+		Account acc = accountRepository.findByName(prevname);
+		acc.setName(newname);
+		accountRepository.save(acc);
+		return true;
+	}
+	
 	
 }
