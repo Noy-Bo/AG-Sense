@@ -56,7 +56,7 @@
             android:gravity="center"
             android:text="@string/healthyOrFaultyDevices"
             android:textColor="@color/yellow"
-            android:textSize="15dp"/>
+            android:textSize="@dimen/small_text_size"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/display_faulty_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="7dp"
                 android:layout_weight="1"
@@ -75,11 +75,12 @@
                 android:gravity="center"
                 android:onClick="displayFaultyClicked"
                 android:text="@string/faultyDevices"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/extra_small_text_size"/>
 
             <TextView
                 android:id="@+id/display_healthy_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="7dp"
                 android:layout_weight="1"
@@ -87,7 +88,8 @@
                 android:gravity="center"
                 android:onClick="displayHealthyClicked"
                 android:text="@string/healthyDevices"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/extra_small_text_size"/>
 
             <Space
                 android:layout_width="0dp"
@@ -121,7 +123,6 @@
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/filtired_devices_toolbar"
         tools:layout_editor_absoluteX="0dp">
-        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -132,7 +133,7 @@
             android:gravity="center"
             android:text="@string/deviceType"
             android:textColor="@color/yellow"
-            android:textSize="15dp"/>
+            android:textSize="@dimen/small_text_size"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,7 +142,7 @@
 
             <TextView
                 android:id="@+id/type1_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="7dp"
                 android:layout_weight="1"
@@ -149,11 +150,12 @@
                 android:gravity="center"
                 android:onClick="typeToggle"
                 android:text="GpsForPersonal"
-                android:textColor="@color/dark_blue"/>
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/extra_small_text_size"/>
 
             <TextView
                 android:id="@+id/type2_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="7dp"
                 android:layout_weight="1"
@@ -162,11 +164,12 @@
                 android:onClick="type2Toggle"
                 android:src="@drawable/blue_shape_squares"
                 android:text="SensorForBanks"
-                android:textColor="@color/dark_blue"/>
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/extra_small_text_size"/>
 
             <TextView
                 android:id="@+id/type3_button"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="7dp"
                 android:layout_weight="1"
@@ -177,7 +180,7 @@
                 android:text="lequidHeightForTanks"
                 android:textColor="@color/dark_blue"
                 android:lines="1"
-                android:textSize="12dp"/>
+                android:textSize="@dimen/extra_small_text_size"/>
 
         </LinearLayout>
 
@@ -201,30 +204,32 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@color/dark_blue"
+            android:background="@drawable/gradient_color_background"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
             android:onClick="resetFilterDevices"
             android:text="@string/reset"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_margin="50dp"/>
+            android:textSize="@dimen/small_text_size"
+            android:layout_margin="50dp"
+            android:textAllCaps="false"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@color/dark_blue"
+            android:background="@drawable/gradient_color_background"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
             android:onClick="returnResults"
             android:text="@string/filter"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_margin="50dp"/>
+            android:textSize="@dimen/small_text_size"
+            android:layout_margin="50dp"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 </LinearLayout>

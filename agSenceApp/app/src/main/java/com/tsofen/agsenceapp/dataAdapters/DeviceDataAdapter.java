@@ -31,7 +31,6 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
 
     @Override
     public void getFaultyDevices(final DeviceDataRequestHandler handler) {
-        System.out.println("inside getFaultyDevices");
         cacheManager.getDevicesJob(0, 0, new DevicesHandler() {
             @Override
             public void onDevicesDownloadFinished(List<Devices> devices) {

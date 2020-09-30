@@ -111,7 +111,7 @@ public class DeviceStatusList extends BackBaseActivity {
                 userMap.addPlace(newPlace);
             }
             Intent intent = new Intent(this, MapsActivity.class);
-            intent.putExtra("flag", true);
+            intent.putExtra("opcode", 2);
             intent.putExtra("user_map", userMap);
             startActivity(intent);
         }
