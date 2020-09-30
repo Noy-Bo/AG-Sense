@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.Tsofen45.TCP_ServerTsofen45.Disconnected.NotifyMaulfunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -79,18 +80,12 @@ public class DeviceMessageHandler implements Runnable {
 		//Making Device Data
 		deviceData = cmdfac.makeDeviceData(message);
 		
-		//2 minutes checking
-		//TODO
-		//In the main thread change after we finish current stage
-	//	reportTimer = ReportTimer.getInstance();
-		//reportTimer.start_tasks();
-		
-		
-		
 		//making flags states
 		stateManager.setDeviceData(deviceData);
 		stateManager.setStates();
-		
+
+		(new Thread(new NotifyMaulfunction(""+deviceData.getImei()))).start();
+
 		//Making Analyzes if we need to notify the user .. like: Battery low, Device Moved
 		try {
 			analyzerManager.analyze(deviceData);
