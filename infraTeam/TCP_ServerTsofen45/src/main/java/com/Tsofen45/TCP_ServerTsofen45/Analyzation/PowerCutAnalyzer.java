@@ -15,7 +15,7 @@ public class PowerCutAnalyzer extends Analyzer {
 		// TODO Auto-generated method stub
 		if(d.isPowerCut()) {
 			System.out.println("Entered power cut analyzer");
-			sendNotify(d,json);
+			sendNotify(d.getImei()+"",8,json);
 
 		}
 	}
