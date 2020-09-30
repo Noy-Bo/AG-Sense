@@ -15,7 +15,7 @@ public class InternalBatteryChargingAnalyzer extends Analyzer{
 		if(!d.isInternalBatteryCharching()) {
 			System.out.println("Entere internal battery charg");
 
-			sendNotify(d,json);
+			sendNotify(d.getImei()+"",4,json);
 
 		}
 	}
