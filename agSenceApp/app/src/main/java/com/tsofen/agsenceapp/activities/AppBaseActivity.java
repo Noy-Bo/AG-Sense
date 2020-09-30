@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,8 +62,9 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         else
             hideAdminOptions();
 
-        TextView usernameHeader = (TextView)findViewById(R.id.header_username);
-        TextView userEmailHeader = (TextView)findViewById(R.id.header_username);
+        View header = navigationView.getHeaderView(0);
+        TextView usernameHeader = (TextView)header.findViewById(R.id.header_username);
+        TextView userEmailHeader = (TextView)header.findViewById(R.id.header_user_email);
         userEmailHeader.setText(user.getEmail());
         usernameHeader.setText(user.getUsername());
     }

@@ -34,7 +34,7 @@ protected boolean isemailchecked;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String PhoneNumber = "0507737781";
+        String PhoneNumber = "0528745466";
     //    mAuth = FirebaseAuth.getInstance();
      //   fireBaseUser = mAuth.getCurrentUser();
       //  assert fireBaseUser != null;
@@ -43,7 +43,7 @@ protected boolean isemailchecked;
 
         setContentView(R.layout.activity_verify_o_t_p);
   //      sendEmailVerificationCodeToUser(email);
-   sendVerificationCodeToUser(PhoneNumber);
+   //sendVerificationCodeToUser(PhoneNumber);
     }
 
     private void sendEmailVerificationCodeToUser(String email) {
@@ -109,7 +109,7 @@ private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBack = new Ph
     }
 
     public void callNextScreenFromOTP(View view) {
-        pinView = findViewById(R.id.pin_view);
+      /*  pinView = findViewById(R.id.pin_view);
 verificationcodebyUser = pinView.getText().toString();
 System.out.println(verificationCodeBySystem + "      "  + verificationcodebyUser);
         if(verificationcodebyUser !=null)
@@ -118,6 +118,11 @@ System.out.println(verificationCodeBySystem + "      "  + verificationcodebyUser
            progressBar.setVisibility(View.VISIBLE);
             verifyCode(verificationcodebyUser);
         }
+        */
+
+        Intent intent = new Intent(VerifyOTP.this, SetNewPassword.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 private void verifyCode(String codeByUser){
