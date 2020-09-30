@@ -49,18 +49,13 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
     public void login(View view) {
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
-                new OnSuccessListener<InstanceIdResult>() {
-                    @Override
-                    public void onSuccess(InstanceIdResult instanceIdResult) {
-                        String deviceToken = instanceIdResult.getToken();
-                        Log.e(username, deviceToken);
-                        TokenRegistrationHandler.registerToken(username, deviceToken);
-                    }
-                });
         EditText password = (EditText) findViewById(R.id.passTxt);
         final String pass = password.getText().toString();
 
+        if(pass.equals("") || username.equals("")){
+            Toast.makeText(this ,"Invalid username or password", Toast.LENGTH_LONG).show();
+            return;
+        }
         ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.VISIBLE);
 
@@ -71,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
+                registerFirebase(username);
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 finishAffinity();
@@ -80,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
             @Override
             public void onAccountLoginSuccess(Account user) {
+                registerFirebase(username);
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
                 finishAffinity();
@@ -89,12 +86,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             @Override
             public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UserDataAdapter.getInstance().getCallback().Failed();
-                    }
-                });
             }
 
         });
@@ -128,5 +119,18 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
     public void GoToForgetPassword(View view) {
         Intent intent = new Intent(this, ForgetPasswords.class);
         startActivity(intent);
+    }
+
+
+    private void registerFirebase(final String username){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
+                new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        String deviceToken = instanceIdResult.getToken();
+                        Log.e(username, deviceToken);
+                        TokenRegistrationHandler.registerToken(username, deviceToken);
+                    }
+                });
     }
 }
