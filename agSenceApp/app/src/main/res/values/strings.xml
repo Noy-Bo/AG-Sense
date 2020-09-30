@@ -58,8 +58,6 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="fence_type">Fence Type</string>
-    <string name="fence_radius_m">Fence Radius(m)</string>
     <string name="speed">Speed</string>
     <string name="speedalertgeosetting">speedAlertGeoSetting</string>
     <string name="authorizationsetting">authorizationSetting</string>

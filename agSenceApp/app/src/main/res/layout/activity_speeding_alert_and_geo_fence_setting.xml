@@ -45,9 +45,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+
             android:onClick="openMap"
-            android:text="@string/select_by_map"></Button>
+            android:text="@string/select_by_map"
+            android:background="@drawable/gradient_color_background"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size"></Button>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -229,17 +234,18 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/small_text_size" />
+        <ProgressBar
+            android:id="@+id/geoFenceSettingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:outlineSpotShadowColor="@color/dark_blue"
+            android:visibility="invisible"></ProgressBar>
     </LinearLayout>
 
 
 
 
-    <ProgressBar
-        android:id="@+id/geoFenceSettingProgressBar"
-        android:layout_width="31dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:outlineSpotShadowColor="@color/dark_blue"
-        android:visibility="invisible"></ProgressBar>
+
 </LinearLayout>

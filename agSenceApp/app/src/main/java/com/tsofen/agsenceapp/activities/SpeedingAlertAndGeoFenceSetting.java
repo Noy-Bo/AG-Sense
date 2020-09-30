@@ -43,7 +43,7 @@ public class SpeedingAlertAndGeoFenceSetting extends BackBaseActivity {
 
 
 
-        /// SpeedingAlertUpdate
+
         longitude1 = (EditText) findViewById(R.id.longitude1);
         longitude2 = (EditText) findViewById(R.id.longitude2);
 
@@ -52,11 +52,10 @@ public class SpeedingAlertAndGeoFenceSetting extends BackBaseActivity {
 
         speed = (EditText) findViewById(R.id.speednumbertextbox);
         SpeedingAlertButtonUpdate = (Button) findViewById(R.id.speedAlertGeoSettingbutton);
-        //Ends Here
 
     }
     public void SpeedingAlertUpdate(View view) {
-        if(SmsMgr.getInstance().getSpeedingAlert().containsKey("phone number"))
+        if(SmsMgr.getInstance().getSpeedingAlert().containsKey("phone number..........."))
         {
             Toast.makeText(this, "an update request is being proccessed,please wait till finish", Toast.LENGTH_SHORT).show();
             return;
@@ -97,8 +96,7 @@ public class SpeedingAlertAndGeoFenceSetting extends BackBaseActivity {
                 toast.show();
               //  DeviceSettings.sendMsg("phone number","sms");
                 progressBar.setVisibility(View.INVISIBLE);   //after updating ...
-
-
+                //setText for all the editTexts on the screen!
             }
         }
 
