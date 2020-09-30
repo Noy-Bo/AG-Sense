@@ -76,6 +76,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
 
         getDevicesRelatedToAccountFromCache();
         String filterStr = getIntent().getStringExtra("filter");
+        assert filterStr != null;
         if(filterStr.equals("healthy")){
             displayHealthyDevice = true;
             displayFaultyDevice = false;
@@ -86,16 +87,26 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             displayHealthyDevice = true;
             displayFaultyDevice = true;
         }
-        updateList();
 
         switchColor((TextView) findViewById(R.id.display_faulty_button),displayFaultyDevice);
         switchColor((TextView) findViewById(R.id.display_healthy_button),displayHealthyDevice);
+        updateList();
 
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(AccountDevicesStatus.this, DeviceView.class);
                 Devices device = (Devices) searchView.getAdapter().getItem(i);
+                intent.putExtra("device", device);
+                startActivity(intent);
+            }
+        });
+
+        devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AccountDevicesStatus.this, DeviceView.class);
+                Devices device = (Devices) devicesList.getAdapter().getItem(i);
                 intent.putExtra("device", device);
                 startActivity(intent);
             }
@@ -165,7 +176,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesArr) {
-                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
                 if (device.getName() != null) {
                     newPlace.setTitle(device.getName());
                 }

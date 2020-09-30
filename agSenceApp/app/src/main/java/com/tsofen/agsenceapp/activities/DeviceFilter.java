@@ -30,10 +30,6 @@ public class DeviceFilter extends BackBaseActivity {
     }
 
 
-    public void finishTask(View view) {
-        finish();
-    }
-
     public void switchButton(View view) {
         TextView typeBox = (TextView) view;
 
@@ -41,8 +37,7 @@ public class DeviceFilter extends BackBaseActivity {
             switchColor(typeBox, type1Toggle);
             if (type1Toggle) {
                 type1Toggle = false;
-            }
-            else {
+            } else {
                 type1Toggle = true;
             }
 
@@ -50,8 +45,7 @@ public class DeviceFilter extends BackBaseActivity {
             switchColor(typeBox, type2Toggle);
             if (type2Toggle) {
                 type2Toggle = false;
-            }
-            else {
+            } else {
                 type2Toggle = true;
             }
 
@@ -59,8 +53,7 @@ public class DeviceFilter extends BackBaseActivity {
             switchColor(typeBox, type3Toggle);
             if (type3Toggle) {
                 type3Toggle = false;
-            }
-            else {
+            } else {
                 type3Toggle = true;
             }
 
@@ -68,8 +61,7 @@ public class DeviceFilter extends BackBaseActivity {
             switchColor(typeBox, displayFaultyDevice);
             if (displayFaultyDevice) {
                 displayFaultyDevice = false;
-            }
-            else {
+            } else {
                 displayFaultyDevice = true;
             }
 
@@ -134,6 +126,20 @@ public class DeviceFilter extends BackBaseActivity {
     }
 
     public void returnResults(View view) {
+        returnResults();
+    }
+
+    @Override
+    public void goBack(View view) {
+        type1Toggle = true;
+        type2Toggle = true;
+        type3Toggle = true;
+        displayHealthyDevice = true;
+        displayFaultyDevice = true;
+        returnResults();
+    }
+
+    private void returnResults() {
         Intent intent = new Intent();
         intent.putExtra("GpsForPersonal", type1Toggle);
         intent.putExtra("SensorForBanks", type2Toggle);
@@ -143,6 +149,4 @@ public class DeviceFilter extends BackBaseActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
-
-
 }

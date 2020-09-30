@@ -383,7 +383,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesList) {
-                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                Place newPlace = new Place(Float.parseFloat( device.getLatitude()), Float.parseFloat(device.getLogitude()));
                 if(device.getName()!=null) {
                     newPlace.setTitle(device.getName());
                 }

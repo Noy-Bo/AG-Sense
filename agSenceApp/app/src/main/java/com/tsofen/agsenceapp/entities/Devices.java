@@ -1,9 +1,7 @@
 package com.tsofen.agsenceapp.entities;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,11 +13,11 @@ public class Devices implements Serializable {
     protected Integer accountId;
     protected String type;
     protected String name;
-    protected Timestamp faultTime;  //
+    protected Timestamp faultyTime;  //
     protected Timestamp lastUpdate;
     protected Boolean faulty;
-    protected Float logitude;  //
-    protected Float latitude;  //
+    protected String logitude;  //
+    protected String  latitude;  //
     protected List<DeviceData> deviceData;
     protected String phoneNumber;
 
@@ -48,13 +46,14 @@ public class Devices implements Serializable {
     public Devices() {
     }
 
-    public Devices(Long imei, Integer id, Integer accountId, String type, String name, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty, Float logitude, Float latitude, List<DeviceData> deviceData, String phoneNumber, List<Notification> notifications) {
+    public Devices(Long imei, Integer id, Integer accountId, String type, String name, Timestamp faultTime, Timestamp lastUpdate, Boolean faulty,
+                   String logitude, String  latitude, List<DeviceData> deviceData, String phoneNumber, List<Notification> notifications) {
         this.imei = imei;
         this.id = id;
         this.accountId = accountId;
         this.type = type;
         this.name = name;
-        this.faultTime = faultTime;
+        this.faultyTime = faultTime;
         this.lastUpdate = lastUpdate;
         this.faulty = faulty;
         this.logitude = logitude;
@@ -119,12 +118,12 @@ public class Devices implements Serializable {
         this.type = type;
     }
 
-    public Timestamp getFaultTime() {
-        return faultTime;
+    public Timestamp getFaultyTime() {
+        return faultyTime;
     }
 
-    public void setFaultTime(Timestamp faultTime) {
-        this.faultTime = faultTime;
+    public void setFaultyTime(Timestamp faultyTime) {
+        this.faultyTime = faultyTime;
     }
 
     public Timestamp getLastUpdate() {
@@ -136,19 +135,19 @@ public class Devices implements Serializable {
     }
 
 
-    public Float getLogitude() {
+    public String getLogitude() {
         return logitude;
     }
 
-    public void setLogitude(Float logitude) {
+    public void setLogitude(String logitude) {
         this.logitude = logitude;
     }
 
-    public Float getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
