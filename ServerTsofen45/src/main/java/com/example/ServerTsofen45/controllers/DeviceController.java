@@ -88,6 +88,9 @@ public class DeviceController {
 		// devices = deviceBL.findByType(type);
 		return devices;
 	}
+	
+	
+	
 
 	@GetMapping("getDeviceRelatedToAccount")
 	public ArrayList<Device> getDeviceRelatedToAccount(@RequestParam int id, @RequestParam int start,
@@ -141,6 +144,15 @@ public class DeviceController {
 		return true;
 	}
 	
+	
+	
+	@GetMapping("Edit")
+	public boolean editDevice(@RequestParam long deviceIMEI, @RequestParam String newPhoneNumber, @RequestParam String newPass) {
+		if (deviceBL.getDeviceImei(deviceIMEI) == null) return false;
+		
+		deviceBL.editDevice(deviceIMEI, newPhoneNumber, newPass);
+		return true;
+	}
 	
 	
 	/*************************SETTINGS******************************/
