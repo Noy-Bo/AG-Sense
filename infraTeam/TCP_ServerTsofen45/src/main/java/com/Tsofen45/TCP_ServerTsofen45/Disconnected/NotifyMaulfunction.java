@@ -8,7 +8,7 @@ public class NotifyMaulfunction implements Runnable  {
     private ReentrantReadWriteLock  lock;
     public  NotifyMaulfunction(String imei){
         current_imei = imei;
-
+        lock= new ReentrantReadWriteLock();
     }
 
     @Override
