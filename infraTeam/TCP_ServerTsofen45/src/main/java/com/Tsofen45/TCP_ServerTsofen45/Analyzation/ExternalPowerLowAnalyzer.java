@@ -15,7 +15,7 @@ public class ExternalPowerLowAnalyzer extends Analyzer {
 		if(d.isExternalPowerLow()) {
 			System.out.println("Entered ext pow low");
 			json.put("externalPower", d.getExternalPower());
-			sendNotify(d,json);
+			sendNotify(d.getImei()+"",14,json);
 		}
 	}
 

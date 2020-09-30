@@ -13,7 +13,7 @@ public class Switch1ActivatedAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSwitch1Activated()) {
-			sendNotify(d,json);
+			sendNotify(d.getImei()+"",5,json);
 		}
 	}
 
