@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.example.ServerTsofen45.Beans.User;
 public interface UserRepository<T extends User>  extends CrudRepository<T, Integer> {
 	User findByUserName(String UserName);
+	User findBysysId(int id);
 	ArrayList<T> findByNameContaining(String name);
 	ArrayList<T> findAll();
 	ArrayList<T> findAllByOrderBySysIdDesc();
