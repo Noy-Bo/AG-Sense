@@ -65,8 +65,8 @@ public abstract class User {
 		return hashPassword;
 	}
 	public void setHashPassword(String Password)  {
-		this.hashPassword =  hashPassword(Password);
-
+	//	this.hashPassword =  hashPassword(Password);
+		this.hashPassword =  Password;
 	}
 	@Column
 	public String getEmail() {
