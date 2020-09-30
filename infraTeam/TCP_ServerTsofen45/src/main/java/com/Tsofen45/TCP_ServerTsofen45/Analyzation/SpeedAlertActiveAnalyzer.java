@@ -14,15 +14,12 @@ public class SpeedAlertActiveAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSpeedingAlertActive()) {
-			SendPostRequest(d);
+			json.put("speed", d.getSpeed());
+			sendNotify(d,json);
 
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }
