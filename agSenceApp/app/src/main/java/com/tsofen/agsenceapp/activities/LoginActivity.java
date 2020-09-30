@@ -33,7 +33,7 @@ import com.tsofen.agsenceapp.utils.FailedLogin;
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-
+    ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             Toast.makeText(this ,"Invalid username or password", Toast.LENGTH_LONG).show();
             return;
         }
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
+        progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.VISIBLE);
 
         hideKeyboard(this);
@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             @Override
             public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
         });
