@@ -10,120 +10,88 @@ import androidx.core.content.ContextCompat;
 import com.tsofen.agsenceapp.R;
 
 public class DeviceFilter extends BackBaseActivity {
-    boolean displayFaultyDevice = true;
-    boolean displayHealthyDevice = true;
-    boolean type1Toggle = false;
-    boolean type2Toggle = false;
-    boolean type3Toggle = false;
+    boolean displayFaultyDevice;
+    boolean displayHealthyDevice;
+    boolean type1Toggle;
+    boolean type2Toggle;
+    boolean type3Toggle;
     private int help;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_filter);
+        displayFaultyDevice = true;
+        displayHealthyDevice = true;
+        type1Toggle = false;
+        type2Toggle = false;
+        type3Toggle = false;
     }
-
 
 
     public void finishTask(View view) {
         finish();
     }
 
+    public void switchButton(View view) {
+        TextView typeBox = (TextView) view;
 
-    public void displayFaultyClicked(View view) {
-        TextView displayFaultyBox = view.findViewById(R.id.display_faulty_button);
+        if (typeBox.getId() == R.id.type1_button) {
+            switchColor(typeBox, type1Toggle);
+            if (type1Toggle) {
+                type1Toggle = false;
+            }
+            else {
+                type1Toggle = true;
+            }
 
-        if (displayFaultyDevice == true) // do not display faulty devices.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
-            displayFaultyDevice = false;
-        }
-        else if (displayFaultyDevice == false) // displaying the faulty device.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
-            displayFaultyDevice = true;
-        }
-    }
+        } else if (typeBox.getId() == R.id.type2_button) {
+            switchColor(typeBox, type2Toggle);
+            if (type2Toggle) {
+                type2Toggle = false;
+            }
+            else {
+                type2Toggle = true;
+            }
 
-    public void displayHealthyClicked(View view) {
-        TextView displayHealthyBox = view.findViewById(R.id.display_healthy_button);
+        } else if (typeBox.getId() == R.id.type3_button) {
+            switchColor(typeBox, type3Toggle);
+            if (type3Toggle) {
+                type3Toggle = false;
+            }
+            else {
+                type3Toggle = true;
+            }
 
-        if (displayHealthyDevice == true) // do not display healthy devices.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
-            displayHealthyDevice = false;
-        }
-        else if (displayHealthyDevice == false) // displaying the healthy device.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this,R.color.white));
-            displayHealthyDevice = true;
-        }
-    }
-    public void typeToggle(View view) {
-        TextView type1Box = view.findViewById(R.id.type1_button);
+        } else if (typeBox.getId() == R.id.display_faulty_button) {
+            switchColor(typeBox, displayFaultyDevice);
+            if (displayFaultyDevice) {
+                displayFaultyDevice = false;
+            }
+            else {
+                displayFaultyDevice = true;
+            }
 
-
-        if (type1Toggle == true) // do not display healthy devices.
-        {
-            type1Box.setBackground(ContextCompat.getDrawable(this,R.drawable.blue_shape_squares));
-            type1Box.setTextColor(ContextCompat.getColor(this,R.color.dark_blue));
-
-            type1Toggle = false;
-        }
-        else if (type1Toggle == false) // displaying the healthy device.
-        {
-            type1Box.setBackground(ContextCompat.getDrawable(this,R.drawable.white_shape_squares));
-            type1Box.setTextColor(ContextCompat.getColor(this,R.color.white));
-
-            type1Toggle = true;
-        }
-
-    }
-
-
-    public void type2Toggle(View view) {
-        TextView type2Box = view.findViewById(R.id.type2_button);
-        if (type2Toggle == true) // do not display healthy devices.
-        {
-            type2Box.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            type2Box.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-
-            type2Toggle = false;
-        } else if (type2Toggle == false) // displaying the healthy device.
-        {
-            type2Box.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            type2Box.setTextColor(ContextCompat.getColor(this, R.color.white));
-
-            type2Toggle = true;
+        } else if (typeBox.getId() == R.id.display_healthy_button) {
+            switchColor(typeBox, displayHealthyDevice);
+            if (displayHealthyDevice)
+                displayHealthyDevice = false;
+            else
+                displayHealthyDevice = true;
         }
     }
 
-
-
-
-    public void type3Toggle(View view) {
-        TextView type3Box = view.findViewById(R.id.type3_button);
-
-        if (type3Toggle == true) // do not display healthy devices.
-        {
-            type3Box.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            type3Box.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-
-            type3Toggle = false;
-        } else if (type3Toggle == false) // displaying the healthy device.
-        {
-            type3Box.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            type3Box.setTextColor(ContextCompat.getColor(this, R.color.white));
-
-            type3Toggle = true;
+    private void switchColor(TextView typeBox, boolean isPressed) {
+        if (isPressed) {
+            typeBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+            typeBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+        } else {
+            typeBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+            typeBox.setTextColor(ContextCompat.getColor(this, R.color.white));
         }
     }
+
 
     public void resetFilterDevices(View view) {
 
@@ -132,7 +100,6 @@ public class DeviceFilter extends BackBaseActivity {
         displayfaultybutton.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
         displayfaultybutton.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
         displayFaultyDevice = false;
-
 
 
         TextView displayhealthybutton = findViewById(R.id.display_healthy_button);
@@ -164,18 +131,17 @@ public class DeviceFilter extends BackBaseActivity {
         type3Toggle = false;
 
 
-
     }
 
     public void returnResults(View view) {
-    Intent intent = new Intent();
-    intent.putExtra("GpsForPersonal",type1Toggle );
-    intent.putExtra("SensorForBanks",type2Toggle );
-    intent.putExtra("lequidHeightForTanks",type3Toggle );
-    intent.putExtra("faultyDevices",displayFaultyDevice );
-    intent.putExtra("healthyDevices",displayHealthyDevice );
-    setResult(RESULT_OK, intent);
-    finish();
+        Intent intent = new Intent();
+        intent.putExtra("GpsForPersonal", type1Toggle);
+        intent.putExtra("SensorForBanks", type2Toggle);
+        intent.putExtra("lequidHeightForTanks", type3Toggle);
+        intent.putExtra("faultyDevices", displayFaultyDevice);
+        intent.putExtra("healthyDevices", displayHealthyDevice);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 

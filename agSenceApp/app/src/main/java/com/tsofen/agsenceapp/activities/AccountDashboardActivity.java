@@ -92,13 +92,13 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
-
         if (AppBaseActivity.user instanceof Admin) {
             account = (Account) getIntent().getSerializableExtra("account");
         }
         else {
             account = (Account) AppBaseActivity.user;
         }
+
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
@@ -150,6 +150,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                 });
 
             }
+
         });
     }
 
