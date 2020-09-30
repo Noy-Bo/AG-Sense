@@ -4,6 +4,7 @@ import com.Tsofen45.TCP_ServerTsofen45.Device.Device;
 import com.Tsofen45.TCP_ServerTsofen45.Repos.DeviceRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,23 +13,23 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-
+@Component
 public class ReportTimer {
     private static ReportTimer report_instance = null;
     private static Timer timer_ = null;
     private static HashMap<String,NodeIndex> imei_list = null;
     private static ArrayList[] lists_ = null;
-    
+    int mins = 2;
     @Autowired
     private DeviceRepository devicerRepo;
-    private ReportTimer(){
+
+    public ReportTimer(){
         timer_ = new Timer();
         if(lists_ == null) {
-            lists_ = new ArrayList[13];
-            for (int i = 0; i < 13; i++)
+            lists_ = new ArrayList[mins * 6 + 1];
+            for (int i = 0; i < mins * 6 + 1; i++)
                 lists_[i] = new ArrayList<String>();
             imei_list = new HashMap<>();
-            load_imei();
         }
     }
     public  void load_imei(){
@@ -69,24 +70,24 @@ public class ReportTimer {
         @Override
         public void run() {
             // shift lists heads forward
-            lists_[0] = new ArrayList<String>();
-            for (int i = 0 ; i < 12 ; i++){
-                lists_[i+1] = lists_[i];
+            for (int i = 0 ; i < mins * 6  ; i++){
+                lists_[mins * 6 - i] = lists_[mins * 6 - i - 1];
             }
+            lists_[0] = new ArrayList<String>();
         }
     }
     class ReportTask extends TimerTask{
 
         @Override
         public void run() {
-            if(lists_[12].isEmpty() == false){
+            if(lists_[mins * 6].isEmpty() == false){
                 report_disconnected();
             }
         }
     }
     public void start_tasks(){
-        timer_.schedule(new shiftTask(),10000);
-        timer_.schedule(new ReportTask(),11000);
+        timer_.schedule(new shiftTask(),10000,10000);
+        timer_.schedule(new ReportTask(),11000,10000);
     }
 
     public static void  report_disconnected(){
