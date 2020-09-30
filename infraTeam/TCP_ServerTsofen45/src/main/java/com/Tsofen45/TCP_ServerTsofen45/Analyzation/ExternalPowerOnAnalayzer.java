@@ -14,7 +14,7 @@ public class ExternalPowerOnAnalayzer extends Analyzer{
 		// TODO Auto-generated method stub
 		if(!d.isExternalPowerOn()) {
 			System.out.println("Entered ext pow on");
-			sendNotify(d);
+			sendNotify(d,json);
 		}
 	}
 

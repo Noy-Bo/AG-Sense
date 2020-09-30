@@ -14,8 +14,7 @@ public class MoveAlertActiveAnalyzer extends Analyzer{
 		// TODO Auto-generated method stub
 		if(d.isMoveAlertActive()) {
 			System.out.println("Entered move alert");
-
-			sendNotify(d);
+			sendNotify(d,json);
 
 		}
 	}

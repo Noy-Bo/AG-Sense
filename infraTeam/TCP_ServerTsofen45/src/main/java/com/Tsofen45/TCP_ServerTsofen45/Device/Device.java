@@ -1,6 +1,5 @@
 package com.Tsofen45.TCP_ServerTsofen45.Device;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 

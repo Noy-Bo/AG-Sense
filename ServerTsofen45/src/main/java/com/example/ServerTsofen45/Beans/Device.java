@@ -66,6 +66,15 @@ public class Device {
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 	}
+	
+	public void setPassword(String newPass) {
+		this.password = newPass;
+	}
+	
+	@Column
+	public String getPassword() {
+		return password;
+	}
 
 	@Column
 	public long getImei() {
@@ -186,6 +195,17 @@ public class Device {
 
 	public void setFaulty(boolean isFaulty) {
 		this.isFaulty = isFaulty;
+	}
+
+	
+	
+	@Column
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

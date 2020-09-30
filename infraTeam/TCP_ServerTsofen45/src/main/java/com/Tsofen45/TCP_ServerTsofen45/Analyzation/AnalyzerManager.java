@@ -1,8 +1,6 @@
 package com.Tsofen45.TCP_ServerTsofen45.Analyzation;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +10,6 @@ import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 @Service
 public class AnalyzerManager {
 	
-	@Autowired
-	BatteryAnalyzer batteryAnalyzer;
 	@Autowired
 	ExternalPowerLowAnalyzer externalPowerLowAnalyzer;
 	@Autowired
@@ -36,7 +32,6 @@ public class AnalyzerManager {
 	Switch2ActivatedAnalyzer switch2ActivatedAnalyzer;
 	public void analyze(DeviceData d) throws IOException {
 		//analyze if battery is low
-		batteryAnalyzer.Analyze(d);
 		externalPowerLowAnalyzer.Analyze(d);
 		externalPowerOnAnalyzer.Analyze(d);
 		externalPowerLowAnalyzer.Analyze(d);
