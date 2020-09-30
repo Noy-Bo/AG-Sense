@@ -11,7 +11,7 @@ public enum ServicesName {
     getNotificationRelatedToDevice("/Notifications/NotificationRelatedToDevice"),
     getNotificationsRelatedToAccount("/Notifications/NotificationsRelatedToAccount"),
     getDeviceRelatedToAccount("/Device/getDeviceRelatedToAccount"),
-    getSpecificDeviceDataById("/DeviceData/AllDevicesDataById"),
+    getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
     getSpecificAccountByName("/User/SpecificAccountsByName"),
     getSpicificDeviceByname(""),
     getFaultyDevices("/Device/FaultyDevices"),

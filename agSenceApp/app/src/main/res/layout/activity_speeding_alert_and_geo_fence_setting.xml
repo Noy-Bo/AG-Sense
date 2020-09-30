@@ -19,47 +19,52 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/rounded_white_background_frame"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
 
 
+        <TextView
+            android:id="@+id/alertSetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/alertString"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/medium_text_size" />
 
-            <TextView
-                android:id="@+id/alertSetting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center"
-                android:text="@string/alertString"
-                android:textAllCaps="false"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/gradient_color_background" />
 
-                />
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/select_by_map"
-    android:onClick="selectByMap"
-    android:layout_margin="5dp"
-    ></Button>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:onClick="openMap"
+            android:text="@string/select_by_map"></Button>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/longitude1" />
+                android:layout_gravity="center"
+                android:text="@string/longitude1"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
+
 
             <Space
                 android:layout_width="wrap_content"
@@ -75,7 +80,6 @@
                 android:hint="@string/devicesettingslimit"
                 android:inputType="numberDecimal"
                 android:textSize="10sp"
-
                 tools:ignore="SmallSp" />
 
         </LinearLayout>
@@ -84,19 +88,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
-
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/longitude2" />
+                android:layout_gravity="center"
+                android:text="@string/longitude2"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -121,19 +121,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
-
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/latitude1" />
+                android:layout_gravity="center"
+                android:text="@string/latitude1"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -145,7 +141,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
-
                 android:ems="16"
                 android:hint="@string/latitudelimit"
                 android:inputType="number"
@@ -158,19 +153,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
-
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/latitude2" />
+                android:layout_gravity="center"
+                android:text="@string/latitude2"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -195,19 +186,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01" />
-
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/speed" />
+                android:layout_gravity="center"
+                android:text="@string/speed"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -233,23 +220,26 @@
         <Button
             android:id="@+id/speedAlertGeoSettingbutton"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_white_background_frame"
-            android:onClick="SpeedingAlertUpdate"
-            android:text="@string/update_btn_device_settings" />
-
-
-        <ProgressBar
-            android:id="@+id/geoFenceSettingProgressBar"
-            android:layout_width="31dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:visibility="invisible"
-            android:outlineSpotShadowColor="@color/dark_blue"></ProgressBar>
+            android:layout_marginTop="30dp"
+            android:background="@drawable/gradient_color_background"
+            android:onClick="SpeedingAlertUpdate"
+            android:text="@string/update_btn_device_settings"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size" />
     </LinearLayout>
+
+
+
+
+    <ProgressBar
+        android:id="@+id/geoFenceSettingProgressBar"
+        android:layout_width="31dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:outlineSpotShadowColor="@color/dark_blue"
+        android:visibility="invisible"></ProgressBar>
 </LinearLayout>

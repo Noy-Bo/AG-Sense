@@ -1,5 +1,6 @@
 package com.Tsofen45.TCP_ServerTsofen45.UPCommands;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -28,12 +29,12 @@ public class U111 extends UpCommand{
 	        super();
 	    }
 
-	    private LocalDateTime get_date_time(String date_time){
-	        String date = date_time.substring(0,2) + "-" + date_time.substring(2,4) + "-" + date_time.substring(4,6);
+	    private Timestamp get_date_time(String date_time){
+	        String date = "20"+date_time.substring(0,2) + "-" + date_time.substring(2,4) + "-" + date_time.substring(4,6);
 	        LocalDate ld = LocalDate.parse(date);
 	        String time = date_time.substring(6,8) + ":" + date_time.substring(8,10) + ":" + date_time.substring(10,12);
 	        LocalTime lt = LocalTime.parse(time);
-	        return  LocalDateTime.of(ld,lt);
+	        return  Timestamp.valueOf(LocalDateTime.of(ld,lt));
 	    }
 	    
 	    @Override
@@ -58,7 +59,7 @@ public class U111 extends UpCommand{
 	        deviceData.setOrientation(Integer.parseInt(data.substring(38,41)));
 	        deviceData.setAltitude(data.substring(41,44));
 	        deviceData.setMileage(data.substring(44,52));
-	        deviceData.setSatelites(Integer.parseInt(data.substring(52,53)));
+	        deviceData.setSatelites(Integer.parseInt(data.substring(52,53),16));
 	        deviceData.setHdop(Integer.parseInt(data.substring(53,55)));
 	        deviceData.setGsmSignal(Integer.parseInt(data.substring(55,57)));
 	        deviceData.setState(data.substring(57,65));
@@ -125,8 +126,7 @@ public class U111 extends UpCommand{
 	                    }
 	                    break;
 	                case 'W':
-	                    int deviceWeight = Integer.parseInt(opts[i].substring(2),16);
-	                    switch (opts[i].charAt(1)){
+					switch (opts[i].charAt(1)){
 	                        case '1':
 	                            // device.setWeight(deviceWeight);
 	                            break;
@@ -143,9 +143,7 @@ public class U111 extends UpCommand{
 	                case 'B':
 	                    switch (opts[i].charAt(1)){
 	                        case '1':
-	                            String sub_string = opts[i].substring(2);
-	                            String[] data = sub_string.split(".");
-	                            /*this.setMcc(data[0]);
+							/*this.setMcc(data[0]);
 	                            this.setMnc(data[1]);
 	                            this.setLac(data[2]);
 	                            this.setCellid(data[4]);*/
@@ -161,27 +159,23 @@ public class U111 extends UpCommand{
 	                    }
 	                    break;
 	                case 'C':
-	                    int device_counter;
-	                    switch (opts[i].charAt(1)){
+					switch (opts[i].charAt(1)){
 	                        case'1':
-	                            device_counter = Integer.parseInt(opts[i].substring(2),16);
-	                            //device.setCounter(device_counter);
+							//device.setCounter(device_counter);
 	                            break;
 	                    }
 	                    break;
 	                case 'R':
 	                    switch (opts[i].charAt(1)){
 	                        case '1':
-	                            String RFID_opts = opts[i].substring(3);
-	                            // device.setRfid(RFID_opts);
+							// device.setRfid(RFID_opts);
 	                            break;
 	                    }
 	                    break;
 	                case 'S':
 	                    switch (opts[i].charAt(1)){
 	                        case '1':
-	                            int device_pressure = Integer.parseInt(opts[i].substring(2),16);
-	                            // this.setPressure(device_pressure);
+							// this.setPressure(device_pressure);
 	                            break;
 	                    }
 	                    break;

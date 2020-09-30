@@ -26,7 +26,7 @@ import android.Manifest;
 
 import static java.lang.Float.parseFloat;
 public class AuthorizationNumberSetting extends BackBaseActivity {
-    EditText editAdminNumber, editauthorizednum1, editauthorizednum2, editauthorizednum3;
+    EditText editAdminNumber, editauthorizednum1, editauthorizednum2, editauthorizednum3,editauthorizednumber;
     Button  AuthorizationNumberButtonUpdate;
     //Spinner FenceTypeSpinner;
     @SuppressLint("CutPasteId")
@@ -36,7 +36,7 @@ public class AuthorizationNumberSetting extends BackBaseActivity {
 //        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        View contentView = inflater.inflate(R.layout.activity_authorization_number_setting, null, false);
         setContentView(R.layout.activity_authorization_number_setting);
-        editauthorizednumber = (EditText) findViewById(R.id.editauthorizednumber);
+       // editauthorizednumber = (EditText) findViewById(R.id.editauthorizednumber);
     }
     public void AuthorizationNumberUpdate(View view) {
         if(SmsMgr.getInstance().getTracking().containsKey("phone number"))

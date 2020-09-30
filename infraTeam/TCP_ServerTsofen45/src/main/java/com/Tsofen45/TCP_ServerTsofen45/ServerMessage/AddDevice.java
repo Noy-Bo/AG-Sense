@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Tsofen45.TCP_ServerTsofen45.Authentication.Authenticate;
-import com.Tsofen45.TCP_ServerTsofen45.Device.DeviceData;
 
 @Service
 public class AddDevice extends ServerMessage {

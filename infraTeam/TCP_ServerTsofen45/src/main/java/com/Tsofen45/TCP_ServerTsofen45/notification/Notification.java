@@ -1,11 +1,9 @@
 package com.Tsofen45.TCP_ServerTsofen45.notification;
 
-import org.hibernate.annotations.Columns;
 
 import com.Tsofen45.TCP_ServerTsofen45.Device.Device;
 import com.Tsofen45.TCP_ServerTsofen45.ENUMS.Severity;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;

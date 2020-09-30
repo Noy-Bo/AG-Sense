@@ -32,7 +32,7 @@ public class DeviceDataController {
 		return devices;
 	}
 	
-	@GetMapping("	")
+	@GetMapping("getDeviceDataById")
 	public ArrayList<DeviceData> getAllDeviceDataByid(@RequestParam int id) {
 
 		ArrayList<DeviceData> devices = new ArrayList<DeviceData>();

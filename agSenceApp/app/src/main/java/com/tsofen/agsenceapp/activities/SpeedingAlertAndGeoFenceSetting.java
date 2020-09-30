@@ -1,6 +1,8 @@
 package com.tsofen.agsenceapp.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
@@ -11,11 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.smsServices.SmsMgr;
+import com.tsofen.agsenceapp.entities.Place;
+import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,4 +106,27 @@ public class SpeedingAlertAndGeoFenceSetting extends BackBaseActivity {
     }
 
 
+    public void openMap(View view) {
+        Place place = (Place) getIntent().getSerializableExtra("chosenPlace");
+        UserMap userMap = new UserMap();
+        userMap.addPlace(place);
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("user_map", userMap);
+        intent.putExtra("opcode", 3);
+        startActivityForResult(intent, 3);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 3 && resultCode == Activity.RESULT_OK) {
+            Place pointA = (Place) data.getSerializableExtra("pointA");
+            Place pointB = (Place) data.getSerializableExtra("pointB");
+            longitude1.setText(String.valueOf(pointA.getLocation().longitude));
+            longitude2.setText(String.valueOf(pointB.getLocation().longitude));
+            latitude1.setText(String.valueOf(pointA.getLocation().latitude));
+            latitude2.setText(String.valueOf(pointB.getLocation().latitude));
+
+        }
+    }
 }

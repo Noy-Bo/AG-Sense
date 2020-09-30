@@ -1,8 +1,5 @@
 package com.Tsofen45.TCP_ServerTsofen45;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,6 +24,7 @@ public class TcpServerTsofen45Application {
 		//The purpose of this class is to make thread for each message that is recieved from the device 
 		try {
 
+			@SuppressWarnings("resource")
 			ServerSocket serverSocket = new ServerSocket(port);
 			System.out.println("Server is up");
 			while(true)
@@ -37,13 +35,9 @@ public class TcpServerTsofen45Application {
 				//Getting the input stream from that socket
 				InputStream is = socket.getInputStream();
 				
-				//getting the data from input stream
-				DataInputStream dis = new DataInputStream(is);
-				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 				//making the thread
 				DeviceMessageHandler dvcHandler = context.getBean(DeviceMessageHandler.class);
-				dvcHandler.setDis(dis);
-				dvcHandler.setDos(dos);
+				dvcHandler.setInputStrae(is);
 				
 				
 				Thread t = new Thread(dvcHandler);

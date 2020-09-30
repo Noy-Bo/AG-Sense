@@ -13,15 +13,11 @@ public class ExternalPowerOnAnalayzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(!d.isExternalPowerOn()) {
-			SendPostRequest(d);
-
+			System.out.println("Entered ext pow on");
+			sendNotify(d,json);
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

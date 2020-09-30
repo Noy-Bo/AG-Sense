@@ -1,18 +1,14 @@
 package com.Tsofen45.TCP_ServerTsofen45.Authentication;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.Tsofen45.TCP_ServerTsofen45.Device.Device;
 import com.Tsofen45.TCP_ServerTsofen45.Repos.DeviceRepository;
 
-import antlr.collections.List;
-import javassist.bytecode.Descriptor.Iterator;
 
 @Service
 public class Authenticate {

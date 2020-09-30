@@ -188,6 +188,17 @@ public class Device {
 		this.isFaulty = isFaulty;
 	}
 
+	
+	
+	@Column
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "Device [id=" + id + ", imei=" + imei + ", name=" + name + ", accountId=" + accountId + ", type=" + type
