@@ -1,56 +1,39 @@
 package com.tsofen.agsenceapp.activities;
 
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ProcessLifecycleOwner;
-
-
-//import com.tsofen.agsenceapp.activities.DeviceSetting;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.tsofen.agsenceapp.BackgroundServices.AppLifecycleObserver;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
+import com.tsofen.agsenceapp.ForgetPasswords;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.dataAdapters.UserDataAdapter;
-import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
-import com.tsofen.agsenceapp.entities.DeviceData;
-import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.notifications.TokenRegistrationHandler;
-import com.tsofen.agsenceapp.smsServices.OnAllSmsRecievedHandler;
-import com.tsofen.agsenceapp.smsServices.SmsMgr;
 import com.tsofen.agsenceapp.utils.FailedLogin;
-import com.tsofen.agsenceapp.smsServices.SmsReceiver;
 
+//import com.tsofen.agsenceapp.activities.DeviceSetting;
 
 public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
     public CacheMgr cacheMgr = CacheMgr.getInstance();
-
+    ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -66,19 +49,14 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
     public void login(View view) {
         EditText usernametext = (EditText) findViewById(R.id.usernameTxt);
         final String username = usernametext.getText().toString();
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
-                new OnSuccessListener<InstanceIdResult>() {
-                    @Override
-                    public void onSuccess(InstanceIdResult instanceIdResult) {
-                        String deviceToken = instanceIdResult.getToken();
-                        Log.e(username, deviceToken);
-                        TokenRegistrationHandler.registerToken(username, deviceToken);
-                    }
-                });
         EditText password = (EditText) findViewById(R.id.passTxt);
         final String pass = password.getText().toString();
 
-        ProgressBar progressBar = (ProgressBar) findViewById((R.id.progressBar));
+        if(pass.equals("") || username.equals("")){
+            Toast.makeText(this ,"Invalid username or password", Toast.LENGTH_LONG).show();
+            return;
+        }
+        progressBar = (ProgressBar) findViewById((R.id.progressBar));
         progressBar.setVisibility(View.VISIBLE);
 
         hideKeyboard(this);
@@ -88,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
             @Override
             public void onAdminLoginSuccess(Admin user) {
+                registerFirebase(username);
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
                 finishAffinity();
@@ -97,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
             @Override
             public void onAccountLoginSuccess(Account user) {
+                registerFirebase(username);
                 AppBaseActivity.setUser(user);
                 Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
                 finishAffinity();
@@ -106,12 +86,7 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
             @Override
             public void onUserLoginFailed() {
                 Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UserDataAdapter.getInstance().getCallback().Failed();
-                    }
-                });
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
         });
@@ -143,7 +118,20 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
 
     public void GoToForgetPassword(View view) {
-        Intent intent = new Intent(this, ForgetPassword.class);
+        Intent intent = new Intent(this, ForgetPasswords.class);
         startActivity(intent);
+    }
+
+
+    private void registerFirebase(final String username){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
+                new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        String deviceToken = instanceIdResult.getToken();
+                        Log.e(username, deviceToken);
+                        TokenRegistrationHandler.registerToken(username, deviceToken);
+                    }
+                });
     }
 }

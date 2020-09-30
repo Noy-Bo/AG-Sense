@@ -16,7 +16,7 @@ public class OutOfGeoFenceAnalyzer extends Analyzer{
 		if(d.isOutOfGeoFenceActive()) {
 			System.out.println("Entered geo fence");
 
-			sendNotify(d);
+			sendNotify(d,json);
 
 		}
 	}

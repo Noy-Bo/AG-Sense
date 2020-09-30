@@ -58,17 +58,13 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="fence_type">Fence Type</string>
-    <string name="fence_radius_m">Fence Radius(m)</string>
     <string name="speed">Speed</string>
     <string name="speedalertgeosetting">speedAlertGeoSetting</string>
     <string name="authorizationsetting">authorizationSetting</string>
     <string name="authorization_number">Authorization Number</string>
     <string name="speeding_alert_and_geo_fence">Speeding Alert and Geo-Fence</string>
-    <string name="admin_number">Admin Number</string>
-    <string name="authorized_num_1">Authorized Num 1</string>
-    <string name="authorized_num_2">Authorized Num 2</string>
-    <string name="authorized_num_3">Authorized Num 3</string>
+
+    <string name="authorized_num_1">Authorized Number </string>
     <string name="update_btn_device_settings">Update</string>
     <string name="heading_dir_deg">Heading dir.(deg)</string>
     <string name="distance_m">Distance (m)</string>
@@ -134,13 +130,33 @@
     <string name="edit_options">Edit Options:</string>
     <string name="new_options">New Options:</string>
     <string name="new_user">New User</string>
-    <string name="filter">filter</string>
+    <string name="filter">Filter</string>
     <string name="device_name">Device Name</string>
     <string name="new_account_name">New Account Name</string>
     <string name="notifications">Notifications</string>
     <string name="account_name">Account Name</string>
     <string name="new_device_name">New Device Name</string>
-    <string name="longitude">Longitude</string>
-    <string name="latitude">"Latitude "</string>
+
+    <string name="select_by_map">"Select by map"</string>
+
+
+
+
+
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="forget_detail_password">Forget Detail Password</string>
+    <string name="via_email">via email</string>
+    <string name="via_sms">Via sms</string>
+    <string name="make_selection_detail">Make Selection Detail</string>
+    <string name="make_selection">Make Selection</string>
+    <string name="login">Login</string>
+    <string name="password_updated">Password Updated</string>
+    <string name="new_credentials_details">New credentials Details</string>
+    <string name="new_credentials">New Credentials</string>
+    <string name="verify_code">Verify Code</string>
+
+    <string name="description_code">description code</string>
+    <string name="device_imei">Device IMEI</string>
+    <string name="tracking">Tracking</string>
 
 </resources>

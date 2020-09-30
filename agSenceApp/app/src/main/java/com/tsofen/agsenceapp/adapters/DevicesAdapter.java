@@ -68,14 +68,14 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
 
 
         LinearLayout linearLayout = layout.findViewById(R.id.device_item_test_shape);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), DeviceView.class);
-                intent.putExtra("device", device);
-                getContext().startActivity(intent);
-            }
-        });
+//        linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), DeviceView.class);
+//                intent.putExtra("device", device);
+//                getContext().startActivity(intent);
+//            }
+//        });
         return layout;
     }
 

@@ -4,39 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.TrackingSetting"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.TrackingSetting">
 
     <include
         layout="@layout/activity_back_base"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/rounded_white_background_frame"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="Tracking"
-            android:textAllCaps="false" />
+            android:textColor="@color/orange"
+            android:textSize="@dimen/medium_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/gradient_color_background" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -45,35 +49,36 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="@string/tracking_interval_1_s" />
+                android:text="@string/tracking_interval_1_s"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size"
+                android:layout_gravity="center"/>
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/trackingintervale1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
-
                 android:ems="16"
-                android:textSize="10sp"
                 android:hint="@string/_numbersdevicesettings"
                 android:inputType="number"
-
-
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="horizontal">
 
             <TextView
-
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -85,15 +90,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/trackingintervale2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
                 android:ems="16"
-                android:textSize="10sp"
                 android:hint="@string/_numbersdevicesettings"
                 android:inputType="number"
+                android:textSize="10sp"
 
 
                 tools:ignore="SmallSp" />
@@ -111,21 +117,25 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="@string/distance_m" />
+                android:text="@string/distance_m"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size"
+                android:layout_gravity="center"/>
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
 
+                android:ems="16"
                 android:hint="@string/_numbersdevicesettings"
                 android:inputType="number"
-                android:ems="16"
                 android:textSize="10sp"
 
                 tools:ignore="SmallSp" />
@@ -143,39 +153,51 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text="@string/heading_dir_deg" />
+                android:text="@string/heading_dir_deg"
+                android:textColor="@color/dark_blue"
+                android:textSize="@dimen/small_text_size"
+                android:layout_gravity="center"/>
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/headingdir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
 
-                android:hint="@string/device_settings_degree"
-                android:inputType="number"
-
                 android:ems="16"
+                android:hint="@string/device_settings_degree"
+
+                android:inputType="number"
                 android:textSize="10sp"
                 tools:ignore="SmallSp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/SpeedingAlertUpdateBtn"
-            android:layout_width="wrap_content"
             android:onClick="SpeedingAlertUSecondUpdate"
-            android:layout_height="30dp"
-            android:layout_gravity="right"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_white_background_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/gradient_color_background"
             android:text="@string/update_btn_device_settings"
-            tools:ignore="OnClick" />
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size"/>
 
-
+        <ProgressBar
+            android:id="@+id/trackingSettingsProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:outlineSpotShadowColor="@color/dark_blue"
+            android:visibility="invisible"/>
     </LinearLayout>
 
 </LinearLayout>

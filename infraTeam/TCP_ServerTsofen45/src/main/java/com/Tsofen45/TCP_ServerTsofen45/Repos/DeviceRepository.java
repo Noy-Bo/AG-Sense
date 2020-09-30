@@ -1,6 +1,5 @@
 package com.Tsofen45.TCP_ServerTsofen45.Repos;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -32,5 +31,5 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 	@Transactional
 	@Modifying
 	@Query("update devices d set d.lastUpdate = ?1, d.latitude= ?2, d.logitude= ?3, d.registered = ?4 where d.imei = ?5")
-	void updateDeviceInfo(Timestamp lastUpdated, Double lat, Double lon, boolean register, long imei);
+	void updateDeviceInfo(Timestamp lastUpdated, String lat, String lon, boolean register, long imei);
 }

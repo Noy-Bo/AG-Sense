@@ -14,7 +14,7 @@ public class Switch2ActivatedAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSwitch2Activated()) {
-			sendNotify(d);
+			sendNotify(d,json);
 		}
 	}
 

@@ -3,8 +3,8 @@ package com.tsofen.agsenceapp.smsServices;
 import java.util.ArrayList;
 
 public class TrackingSMS {
-    private ArrayList<SmsMgr.Response> commands ;
-    private String deviceNumber ;
+    private ArrayList<SmsMgr.Response> commands;
+    private String deviceNumber;
     private OnAllSmsRecievedHandler handler;
     private SmsMgr.settingType type;
 

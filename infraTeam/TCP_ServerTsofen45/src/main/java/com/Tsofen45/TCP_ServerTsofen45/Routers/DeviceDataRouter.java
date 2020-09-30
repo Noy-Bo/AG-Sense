@@ -22,7 +22,7 @@ public class DeviceDataRouter {
 	}
 
 	public void updateDevice(DeviceData d){
-		deviceRepository.updateDeviceInfo(d.getDateAndTime(), Double.parseDouble(d.getLat()), Double.parseDouble(d.getLon()),
+		deviceRepository.updateDeviceInfo(d.getDateAndTime(), d.getLat(), d.getLon(),
 				true, d.getImei());
 	}
 }
