@@ -28,6 +28,7 @@ public class Device {
 	double latitude;
 	boolean isRegistered;
 	boolean isFaulty;
+	Timestamp faultyTime;
 	String phoneNumber;
 	String password;
 	List<Notification> notifications;
@@ -186,6 +187,15 @@ public class Device {
 
 	public void setFaulty(boolean isFaulty) {
 		this.isFaulty = isFaulty;
+	}
+
+	@Column
+	public Timestamp getFaultyTime() {
+		return faultyTime;
+	}
+
+	public void setFaultyTime(Timestamp faultyTime) {
+		this.faultyTime = faultyTime;
 	}
 
 	@Override
