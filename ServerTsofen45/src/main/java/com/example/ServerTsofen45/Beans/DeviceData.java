@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "DevicesData")
+@Entity(name = "DeviceData")
 public class DeviceData {
 
 	long ID;
@@ -69,6 +69,7 @@ public class DeviceData {
 	Float distance;
 	Float analog1;
 	Float analog2;
+	int check_interval_seconds;
 
 	public DeviceData() {
 		super();
@@ -309,6 +310,10 @@ public class DeviceData {
 
 	public void setAnalog2(Float analog2) {
 		this.analog2 = analog2;
+	}
+	
+	public void setCheck_interval_seconds(int check_interval_seconds) {
+		this.check_interval_seconds = check_interval_seconds;
 	}
 
 	@Id
@@ -596,5 +601,9 @@ public class DeviceData {
 	public Float getAnalog2() {
 		return analog2;
 	}
-
+	
+	@Column
+	public int getCheck_interval_seconds() {
+		return check_interval_seconds;
+	}
 }
