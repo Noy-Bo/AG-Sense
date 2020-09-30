@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.smsServices.SmsMgr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,28 +36,16 @@ public class AuthorizationNumberSetting extends BackBaseActivity {
 //        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        View contentView = inflater.inflate(R.layout.activity_authorization_number_setting, null, false);
         setContentView(R.layout.activity_authorization_number_setting);
-       //Spinner spinner = (Spinner) contentView.findViewById(R.id.FenceTypeSpinner);
-        List<String> type = new ArrayList<>();
-        type.add(0, "Choose Type");
-        type.add("Out of the fence");
-        type.add("In the fence");
-        ArrayAdapter<String> dataAdapter;
-        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       // spinner.setAdapter(dataAdapter);
-
-
-        //Authorization Number starts here
-
-        editAdminNumber = (EditText) findViewById(R.id.editAdminNumber);
-        editauthorizednum1 = (EditText) findViewById(R.id.editauthorizednum1);
-        editauthorizednum2 = (EditText) findViewById(R.id.editauthorizednum2);
-        editauthorizednum3 = (EditText) findViewById(R.id.editauthorizednum3);
-        AuthorizationNumberButtonUpdate=(Button)findViewById(R.id.authorizationNumber);
-        //Ends here
-
+        editauthorizednumber = (EditText) findViewById(R.id.editauthorizednumber);
     }
     public void AuthorizationNumberUpdate(View view) {
+        if(SmsMgr.getInstance().getTracking().containsKey("phone number"))
+        {
+            Toast.makeText(this, "an update request is being proccessed,please wait till finish", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ProgressBar progressBar = view.findViewById(R.id.authorizationSettingsProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
         if (editAdminNumber.getText().toString().equals("") || editauthorizednum1.getText().toString().equals("")) {
             Toast.makeText(this, "One or more Argument is invalid", Toast.LENGTH_SHORT).show();
         } else {
@@ -73,6 +63,9 @@ public class AuthorizationNumberSetting extends BackBaseActivity {
             {
                 Toast toast = Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT);
                 toast.show();
+            //    DeviceSettings.sendMsg("phone number","sms");
+                progressBar.setVisibility(View.INVISIBLE);
+
             }
 
             else
@@ -80,31 +73,7 @@ public class AuthorizationNumberSetting extends BackBaseActivity {
                 Toast.makeText(this, "One or more Argument is invalid", Toast.LENGTH_SHORT).show();
             }
 
-
-
         }
-    }
-    public void sendMsg(String phoneNumber, String message) {
-        SmsManager smsMgr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
-            if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
-            {
-                try {
-
-                    smsMgr = SmsManager.getDefault();
-                    smsMgr.sendTextMessage(phoneNumber, null, message, null, null);
-                    Toast.makeText(this,R.string.msg_sent, Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this,R.string.error_send_msg, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
-                Toast.makeText(this,R.string.send_msg_again, Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
     }
 
 }

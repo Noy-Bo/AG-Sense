@@ -30,30 +30,9 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="@string/authorization_number"
+            android:layout_gravity="center"
             android:textAllCaps="false" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1.25"
-                android:text="@string/admin_number" />
-
-            <EditText
-                android:id="@+id/editAdminNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01"
-                android:ems="16"
-                android:inputType="phone"
-                android:textSize="10sp"
-                tools:ignore="SmallSp,TextFields" />
-        </LinearLayout>
 
         <LinearLayout
 
@@ -69,67 +48,16 @@
                 android:text="@string/authorized_num_1" />
 
             <EditText
-                android:id="@+id/editauthorizednum1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01"
-                android:ems="16"
-
-
-                android:inputType="phone"
-
-                android:textSize="10sp"
-                tools:ignore="SmallSp,TextFields" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:text="@string/authorized_num_2" />
-
-            <EditText
-                android:id="@+id/editauthorizednum2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01"
-                android:ems="16"
-
-                android:inputType="phone"
-
-                android:textSize="10sp"
-                tools:ignore="SmallSp,TextFields" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:text="@string/authorized_num_3" />
-
-            <EditText
-                android:id="@+id/editauthorizednum3"
+                android:id="@+id/editauthorizednumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
                 android:ems="16"
                 android:inputType="phone"
-
                 android:textSize="10sp"
                 tools:ignore="SmallSp,TextFields" />
         </LinearLayout>
+
 
         <Button
             android:id="@+id/button"
@@ -144,5 +72,13 @@
             android:text="@string/update_btn_device_settings" />
 
 
+        <ProgressBar
+            android:id="@+id/authorizationSettingsProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:outlineSpotShadowColor="@color/dark_blue"
+            android:visibility="invisible"></ProgressBar>
     </LinearLayout>
 </LinearLayout>

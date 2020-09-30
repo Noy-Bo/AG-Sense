@@ -11,21 +11,17 @@ import java.util.ArrayList;
 
 public class SmsMgr {
     private static SmsMgr smsMgr = null;
-    private static  HashMap<String, TrackingSMS> tracking = new HashMap<>();
-    private static  HashMap<String, TrackingSMS> speedingAlert = new HashMap<>();
+    private  static HashMap<String, TrackingSMS> tracking = new HashMap<>();
+    private  static HashMap<String, TrackingSMS> speedingAlert = new HashMap<>();
     private static  HashMap<String, TrackingSMS> authorization = new HashMap<>();
     private static ArrayList<Response> trackingResponse;
     private static ArrayList<Response> speedingAlertResponse;
     private static ArrayList<Response> authorizationResponse;
 
 
-    private SmsMgr() {
-    }
+    private  SmsMgr() {
 
-    public static SmsMgr getInstance() {
 
-        if (smsMgr == null) {
-            smsMgr = new SmsMgr();
             trackingResponse = new ArrayList<Response>(
                     Arrays.asList(Response.SET_INTERVAL));
             speedingAlertResponse = new ArrayList<Response>(
@@ -33,6 +29,11 @@ public class SmsMgr {
                             Response.SET_GEO_FENCE));
             authorizationResponse = new ArrayList<Response>(
                     Arrays.asList(Response.ADD_ADMIN_NUM));
+    }
+
+    public static SmsMgr getInstance() {
+        if (smsMgr == null) {
+        return smsMgr= new SmsMgr();
         }
         return smsMgr;
     }
@@ -108,7 +109,7 @@ public class SmsMgr {
         }
     }
 
-    public static HashMap<String, TrackingSMS> getTracking() {
+    public static  HashMap<String, TrackingSMS> getTracking() {
         return tracking;
     }
 
@@ -124,7 +125,7 @@ public class SmsMgr {
         return trackingResponse;
     }
 
-    public static ArrayList<Response> getSpeedingAlertResponse() {
+    public  static ArrayList<Response> getSpeedingAlertResponse() {
         return speedingAlertResponse;
     }
 

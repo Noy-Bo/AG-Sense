@@ -42,7 +42,6 @@ public class DeviceSetting extends BackBaseActivity {
     EditText trackingintervale1, trackingintervale2, distance, headingdir;
     Button SpeedingAlertButtonUpdate, SpeedingAlertSecondButtonUpdate, AuthorizationNumberButtonUpdate;
     EditText editAdminNumber, editauthorizednum1, editauthorizednum2, editauthorizednum3;
-    Spinner FenceTypeSpinner;
     private Devices device;
     private String speedD;
     private String longitudeD;
@@ -113,7 +112,7 @@ public class DeviceSetting extends BackBaseActivity {
     public void SpeedingAlertUpdate(View view) {
 
 
-        if (longitude.getText().toString().equals("") || latitude.getText().toString().equals("") || FenceTypeSpinner.getSelectedItem().toString().equals("Choose Type") || fence_radius_m.getText().toString().equals("") || speed.getText().toString().equals("")) {
+        if (longitude.getText().toString().equals("") || latitude.getText().toString().equals("") || speed.getText().toString().equals("")) {
             Toast.makeText(this, "One or more Argument is invalid", Toast.LENGTH_SHORT).show();
         } else {
             if (parseFloat(longitude.getText().toString()) < 0 || parseFloat(longitude.getText().toString()) > 999.999999) {
@@ -137,7 +136,7 @@ public class DeviceSetting extends BackBaseActivity {
             if (parseFloat(longitude.getText().toString()) > 0 && parseFloat(longitude.getText().toString()) < 999.999999 &&
                     parseFloat(latitude.getText().toString()) > 0 && parseFloat(latitude.getText().toString()) < 99.999999 &&
                     parseFloat(fence_radius_m.getText().toString()) > 0 && parseFloat((fence_radius_m.getText().toString())) < 65635 &&
-                    parseFloat(speed.getText().toString()) > 0 && parseFloat((speed.getText().toString())) < 255 && !FenceTypeSpinner.getSelectedItem().toString().equals("Choose Type")) {
+                    parseFloat(speed.getText().toString()) > 0 && parseFloat((speed.getText().toString())) < 255  ) {
                 sendMsg("phonenumber", "sms");
                 //Toast toast = Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT);
                 //toast.show();
@@ -160,13 +159,13 @@ public class DeviceSetting extends BackBaseActivity {
         }
         // id device, setting trackjing  , all the new parameters of the settings
         //return phone number and mesage to send
-//        sendMsg("+972524448716","djdks,");
+//        sendMsg("+972524448716","hi");
 //        ArrayList arr= new ArrayList<SmsMgr.Response>(
-//                Arrays.asList(SmsMgr.Response.SET_INTERVAL));
-//        SmsMgr.getInstance().createTracker("+972524448716", arr, SmsMgr.settingType.TRACKING, new OnAllSmsRecievedHandler() {
+//                Arrays.asList(SmsMgr.Response.SET_INTERVAL))
+//            SmsMgr.getInstance().createTracker("+972524448716",arr, SmsMgr.settingType.TRACKING, new OnAllSmsRecievedHandler() {
 //            @Override
 //            public void onAllSmsRecievedHandler() {
-//                sendMsg("+972524448716","djdks,");
+//                sendMsg("+972524448716","hi");
 //
 //            }
 //        });
