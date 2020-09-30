@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.smsServices.SmsMgr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,14 @@ public class TrackingSetting extends BackBaseActivity {
 
     }
     public void trackingUpdate(View view) {
+        if(SmsMgr.getInstance().getTracking().containsKey("phone number.........."))
+        {
+            Toast.makeText(this, "an update request is being proccessed,please wait till finish", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ProgressBar progressBar =view.findViewById(R.id.trackingSettingsProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         if (trackingintervale1.getText().toString().equals("") || trackingintervale2.getText().toString().equals("") || distance.getText().toString().equals("") || headingdir.getText().toString().equals("")) {
             Toast.makeText(this, "One or more Argument is invalid", Toast.LENGTH_SHORT).show();
         } else {
@@ -85,31 +95,14 @@ public class TrackingSetting extends BackBaseActivity {
                     parseFloat(headingdir.getText().toString()) > 0 && parseFloat((headingdir.getText().toString())) < 359) {
                 Toast toast = Toast.makeText(this, "Successfully Updated", Toast.LENGTH_SHORT);
                 toast.show();
+                //DeviceSettings.sendMsg("phone number","sms");
+                progressBar.setVisibility(View.INVISIBLE);
+
+
             }
         }
     }
-    public void sendMsg(String phoneNumber, String message) {
-        SmsManager smsMgr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
-            if (ContextCompat.checkSelfPermission(this,Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED)
-            {
-                try {
 
-                    smsMgr = SmsManager.getDefault();
-                    smsMgr.sendTextMessage(phoneNumber, null, message, null, null);
-                    Toast.makeText(this,R.string.msg_sent, Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this,R.string.error_send_msg, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
-                Toast.makeText(this,R.string.send_msg_again, Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
-    }
 
 
 }

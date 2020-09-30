@@ -10,7 +10,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.tsofen.agsenceapp.activities.DeviceSetting;
+import com.tsofen.agsenceapp.activities.DeviceSettings;
 
 import java.util.ArrayList;
 

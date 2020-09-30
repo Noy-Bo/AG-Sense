@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.TrackingSetting"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.TrackingSetting">
 
     <include
         layout="@layout/activity_back_base"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,6 +36,7 @@
             android:layout_height="3dp"
             android:background="@drawable/gradient_color_background" />
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,13 +58,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/trackingintervale1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
                 android:ems="16"
-                android:textSize="10sp"
                 android:hint="@string/_numbersdevicesettings"
                 android:inputType="number"
                 tools:ignore="SmallSp" />
@@ -89,15 +90,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/trackingintervale2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
                 android:ems="16"
-                android:textSize="10sp"
                 android:hint="@string/_numbersdevicesettings"
                 android:inputType="number"
+                android:textSize="10sp"
 
 
                 tools:ignore="SmallSp" />
@@ -124,15 +126,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
 
+                android:ems="16"
                 android:hint="@string/_numbersdevicesettings"
                 android:inputType="number"
-                android:ems="16"
                 android:textSize="10sp"
 
                 tools:ignore="SmallSp" />
@@ -159,16 +162,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="6" />
+
             <EditText
                 android:id="@+id/headingdir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.01"
 
-                android:hint="@string/device_settings_degree"
-                android:inputType="number"
-
                 android:ems="16"
+                android:hint="@string/device_settings_degree"
+
+                android:inputType="number"
                 android:textSize="10sp"
                 tools:ignore="SmallSp" />
         </LinearLayout>
@@ -186,6 +190,14 @@
             android:textColor="@color/white"
             android:textSize="@dimen/small_text_size"/>
 
+        <ProgressBar
+            android:id="@+id/trackingSettingsProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:outlineSpotShadowColor="@color/dark_blue"
+            android:visibility="invisible"/>
     </LinearLayout>
 
 </LinearLayout>

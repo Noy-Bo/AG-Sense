@@ -16,6 +16,6 @@
     <color name="yellow">#EFAC49</color>]
     <color name="fab">#35B33A</color>
     <color name="lightWhite">#ffffff</color>
-    <color name="transparent">#80000000</color>
+    <color name="transparent">#1fffffff</color>
 </resources>
 
