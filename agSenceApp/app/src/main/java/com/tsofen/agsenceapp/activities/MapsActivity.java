@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,29 +25,29 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
+
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
-import com.google.maps.android.clustering.view.ClusterRenderer;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+
 import com.tsofen.agsenceapp.entities.DeviceData;
+
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
-import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         ClusterManager.OnClusterItemClickListener<Place>,
@@ -54,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ClusterManager<Place> mClusterManager;
     private Renderer mRenderer;
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
     private ArrayList<LatLng> listPoints;
     private ArrayList<LatLng> listPointsPoly;
     private MarkerOptions markerOptions;
@@ -69,9 +74,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // 2. Map activity with timeline of device - shows polyline between them
     // 3. Map with last device location to define geofence
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         opCode = getIntent().getIntExtra("opcode", 1);
         switch (opCode) {
             case 1:
@@ -110,13 +117,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 setContentView(R.layout.activity_maps_geofence);
                 break;
         }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
+
         listPoints = new ArrayList<>();
         listPointsPoly = new ArrayList<>();
+
     }
     /**
      * Manipulates the map once available.
@@ -210,6 +220,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onDestroy();
     }
 
+    public void clearText(View view) {
+
+        searchView.setText("");
+        
+    }
+
     private void setUpClusterer() {
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
@@ -253,6 +269,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
         }
+
     }
 
     private void addPolylines() {
@@ -309,7 +326,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void clearText(View view) {
-        searchView.setText("");
-    }
 }
