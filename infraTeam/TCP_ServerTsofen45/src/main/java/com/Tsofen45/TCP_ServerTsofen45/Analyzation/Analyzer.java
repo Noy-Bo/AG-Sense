@@ -23,10 +23,10 @@ abstract public class Analyzer {
 	
 	abstract public void Analyze(DeviceData d) throws IOException;
 	
-	protected static void sendNotify(DeviceData d,JSONObject json) throws IOException {
+
+	protected static void sendNotify(String imei,int code,JSONObject json) throws IOException {
 		//something
-		 long imei = d.getImei();
-		 int code = 225;
+
 		 if(json==null) {
 			 GET_URL = GET_URL + "?imei="+  imei  +"&code="+code;
 			 }

@@ -16,7 +16,6 @@ public class AppLifecycleObserver implements LifecycleObserver {
 
 
 
-
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
 
     //Test

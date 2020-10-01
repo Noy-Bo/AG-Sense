@@ -61,6 +61,22 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
         hideKeyboard(this);
 
+       /* //dummy login cause server is down.
+        if (username.equals("admin"))
+        {
+            AppBaseActivity.setUser(new Admin());
+            Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
+            finishAffinity();
+            startActivity(intent);
+        }
+        else if (username.equals("user"))
+        {
+            AppBaseActivity.setUser(new Account());
+            Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
+            finishAffinity();
+            startActivity(intent);
+        }*/
+
         UserDataAdapter.getInstance().setContext(this);
         UserDataAdapter.getInstance().setCallback(this);
         UserDataAdapter.getInstance().userLogin(username, pass, new onUserLoginHandler() {
@@ -85,8 +101,13 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
             @Override
             public void onUserLoginFailed() {
-                Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.INVISIBLE);
+                LoginActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                });
             }
 
         });
