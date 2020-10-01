@@ -101,8 +101,13 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
 
             @Override
             public void onUserLoginFailed() {
-                Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.INVISIBLE);
+                LoginActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LoginActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                });
             }
 
         });

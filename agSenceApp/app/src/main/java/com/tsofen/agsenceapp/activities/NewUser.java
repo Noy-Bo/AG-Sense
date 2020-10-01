@@ -59,21 +59,22 @@ public class NewUser extends BackBaseActivity {
     public void addNewUser(View view) {
         boolean legal = true;
         String username = accountUsername.getText().toString();
-        String userType = (String)spin.getSelectedItem(), companyName = accountCompanyName.getText().toString(), email = EmailEditText.getText().toString();
+        String userType = (String) spin.getSelectedItem(), companyName = accountCompanyName.getText().toString(), email = EmailEditText.getText().toString();
         boolean receiveNotifications = false;
 
         if (!emailValidator(email)) {
             EmailEditText.setError("Invalid Email");
             legal = false;
         }
-        if (userType == null || companyName.equals("") || username.equals(""))
+        if (!userType.equals("Account"))
+            companyName = null;
+        if (userType == null || username.equals(""))
             legal = false;
-        if(!legal){
+        if (!legal) {
             showAlertBox(NewUser.this, AlertFlag.FAILURE, "Some details are missing or illegal");
             return;
         }
-        if(!userType.equals("Account"))
-            companyName = null;
+
         AddNewDataAdapter.getInstance().addNewUser(username, email, userType, companyName, new AddNewDataRequestHandler() {
             @Override
             public void onNewDataAddedSuccess() {

@@ -28,7 +28,7 @@ public class NewAccount extends BackBaseActivity {
             showAlertBox(NewAccount.this, AlertFlag.FAILURE, "You must enter the account name");
             return;
         }
-        AddNewDataAdapter.getInstance().addNewAccount(accountName.toString(), new AddNewDataRequestHandler() {
+        AddNewDataAdapter.getInstance().addNewAccount(name, new AddNewDataRequestHandler() {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewAccount.this,AlertFlag.SUCCESS, "New account had been added successfully");
