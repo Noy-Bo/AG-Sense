@@ -26,7 +26,7 @@ public class UserAccount extends User{
     		this.setname(string2);
     		this.setUserName(string3);
     		//this.setHashPassword(string4);
-    		this.hashPassword=hashPassword(string4);
+    		this.hashPassword=hashPassword("123456");
     		this.setType("Account");
     		this.setAccount(ac);
     	}
@@ -40,6 +40,9 @@ public class UserAccount extends User{
 		   jo.put("email", this.email);
 		   jo.put("id", this.sysId);
 		   jo.put("type", this.type);
+		   jo.put("numberOfDevices", this.account.getDevices().size());
+		   jo.put("faultyDevices", this.account.faultyDevices());
+		   jo.put("faultyAccount", this.account.faultyAccount());
 		   
 		   return jo;
 	}

@@ -13,15 +13,12 @@ public class InternalBatteryChargingAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(!d.isInternalBatteryCharching()) {
-			SendPostRequest(d);
+			System.out.println("Entere internal battery charg");
+
+			sendNotify(d.getImei()+"",4,json);
 
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -14,15 +14,13 @@ public class OutOfGeoFenceAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isOutOfGeoFenceActive()) {
-			SendPostRequest(d);
+			System.out.println("Entered geo fence");
+
+			sendNotify(d.getImei()+"",11,json);
 
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

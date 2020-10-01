@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,14 +21,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.VISIBLE;
+import android.telephony.SmsManager;
+import android.os.Build;
+import android.Manifest;
 
+import androidx.core.content.ContextCompat;
+import android.widget.Toast;
+
+
+import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.smsServices.OnAllSmsRecievedHandler;
+import com.tsofen.agsenceapp.smsServices.SmsMgr;
 
 public class DeviceSettings extends BackBaseActivity {
-
+    public static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
     Devices device;
     SearchableSpinner spinner;
     int flag = 0;
     ArrayAdapter<String> dataAdapter;
+
+    ArrayList<Devices> devicesList = new ArrayList<>();
     Devices chosenDevice;
 
     @Override
@@ -42,7 +55,8 @@ public class DeviceSettings extends BackBaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 b1.setVisibility(View.VISIBLE);
-                chosenDevice = (Devices) parentView.getAdapter().getItem(position);
+
+                chosenDevice = devicesList.get(position);
             }
 
             @Override
@@ -65,8 +79,10 @@ public class DeviceSettings extends BackBaseActivity {
             DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
                 @Override
                 public void onDeviceDataLoaded(final List<Devices> devices) {
-                    for (Devices devices1 : devices)
+                    for (Devices devices1 : devices) {
+                        devicesList.add(devices1);
                         list.add(devices1.getImei().toString());
+                    }
                     dataAdapter = new ArrayAdapter<>(DeviceSettings.this, android.R.layout.simple_spinner_item, list);
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     DeviceSettings.this.runOnUiThread(new Runnable() {
@@ -85,9 +101,10 @@ public class DeviceSettings extends BackBaseActivity {
     }
 
     public void openSpeedingAlertAndGeoFence(View view) {
-
         Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
-        intent.putExtra("deviceLatLng",new Place(chosenDevice.getLatitude(),chosenDevice.getLogitude()));
+
+        intent.putExtra("chosenPlace", new Place(Float.parseFloat(chosenDevice.getLatitude()), Float.parseFloat(chosenDevice.getLogitude())));
+
         startActivity(intent);
     }
 
@@ -99,5 +116,35 @@ public class DeviceSettings extends BackBaseActivity {
     public void openTracking(View view) {
         Intent intent2 = new Intent(this, TrackingSetting.class);
         startActivity(intent2);
+    }
+    public void sendMsg(String phoneNumber, String message) {
+        SmsManager smsMgr;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != getPackageManager().PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale( Manifest.permission.RECEIVE_SMS)) {
+                //user denied.
+                ;
+            } else {
+                //pop up for permission.
+                requestPermissions( new String[]{Manifest.permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  //settings check
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == getPackageManager().PERMISSION_GRANTED) {
+                try {
+
+                    smsMgr = SmsManager.getDefault();
+                    smsMgr.sendTextMessage(phoneNumber, null, message, null, null);
+                    Toast.makeText(this, R.string.msg_sent, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, R.string.error_send_msg, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
+                Toast.makeText(this, R.string.send_msg_again, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
     }
 }

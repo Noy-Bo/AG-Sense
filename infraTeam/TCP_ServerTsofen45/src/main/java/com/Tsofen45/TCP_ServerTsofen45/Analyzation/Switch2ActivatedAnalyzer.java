@@ -14,14 +14,10 @@ public class Switch2ActivatedAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSwitch2Activated()) {
-			SendPostRequest(d);
+			sendNotify(d.getImei()+"",6,json);
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

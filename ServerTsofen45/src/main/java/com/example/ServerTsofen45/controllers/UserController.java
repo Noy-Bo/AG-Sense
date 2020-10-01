@@ -14,6 +14,7 @@ import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.UserAccount;
 import com.example.ServerTsofen45.Beans.Account;
 import com.example.ServerTsofen45.Beans.Admin;
+import com.example.ServerTsofen45.Beans.Support;
 import com.example.ServerTsofen45.Beans.User;
 import com.example.ServerTsofen45.Repo.AccountRepository;
 import com.example.ServerTsofen45.Repo.AdminRepository;
@@ -97,22 +98,20 @@ public class UserController {
 
 
 
-	/*@GetMapping("Add")
-	public void AddToDb(@RequestParam String name,@RequestParam String email,@RequestParam String Username,@RequestParam String pass) throws NoSuchAlgorithmException
-	{
-		Account ac= new Account("bank");
-		ac.Adddevice(drepo.findById(1065024894));
-		accountrepo.save(ac);
-		//Admin ibra=new Admin(email ,name, Username, pass);
-		//adminRepository.save(ibra);
-		UserAccount account=new UserAccount(email ,name, Username, pass,ac);
-		useraccountRepository.save(account);
-
-
-	}*/
+	@GetMapping("addNewUser")
+	public boolean AddToDb(@RequestParam String username, @RequestParam String email, @RequestParam String userType, @RequestParam String accountName) throws NoSuchAlgorithmException {
+		return userBL.addNewUser(username, email, userType, accountName);
+	}
 	
+	@GetMapping("changeUserPassword")
+	public boolean changePass(@RequestParam int userId, @RequestParam String newPass) {
+		return userBL.setPass(userId, newPass);
+	}
 	
-	
+	@GetMapping("setPassword")
+	public boolean setPass(@RequestParam int userId, @RequestParam String pass) {
+		return userBL.setPass(userId, pass);
+	}
 	
 
 }

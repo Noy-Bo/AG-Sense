@@ -92,13 +92,13 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
-
         if (AppBaseActivity.user instanceof Admin) {
             account = (Account) getIntent().getSerializableExtra("account");
         }
         else {
             account = (Account) AppBaseActivity.user;
         }
+
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
@@ -141,6 +141,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                     @Override
                     public void run() {
                         searchView.setAdapter(new DevicesAdapter<Devices>(AccountDashboardActivity.this, devices));
+                        devicesList.clear();
                         devicesList.addAll(devices);
                         //                adapter = new ArrayAdapter<>(AccountDashboardActivity.this, 0,devicesList.toArray());
                         //                searchView.setAdapter(adapter);
@@ -149,6 +150,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                 });
 
             }
+
         });
     }
 
@@ -381,7 +383,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesList) {
-                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                Place newPlace = new Place(Float.parseFloat( device.getLatitude()), Float.parseFloat(device.getLogitude()));
                 if(device.getName()!=null) {
                     newPlace.setTitle(device.getName());
                 }
@@ -393,6 +395,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);
+            intent.putExtra("opcode", 1);
             startActivity(intent);
         }
     }

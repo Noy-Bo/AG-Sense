@@ -36,11 +36,10 @@ public class NotificationBL {
 	   
    }
 
-   public void setNotificationsReaded(int id) {
+   public int setNotificationsReaded(int notificationId, int accountId) {
 
-	   Notification notification = NotificationRepository.findById(id);
-	   notification.setReaded(true);
-	   NotificationRepository.save(notification);
+	    return NotificationRepository.setNotificationsReaded(notificationId, accountId);
+	  
 	
    }
 

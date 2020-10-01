@@ -1,5 +1,6 @@
 package com.example.ServerTsofen45.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -13,6 +14,9 @@ import com.example.ServerTsofen45.BL.AccountBL;
 import com.example.ServerTsofen45.Beans.Account;
 import com.example.ServerTsofen45.Beans.Device;
 import com.example.ServerTsofen45.Beans.UserAccount;
+import com.example.ServerTsofen45.Repo.AccountRepository;
+
+import Enums.DeviceType;
 
 @RestController
 @RequestMapping("Account")
@@ -20,6 +24,8 @@ public class AccountController {
 
 	@Autowired
 	AccountBL accountBL;
+	@Autowired
+	AccountRepository accountRepository;
 
 	@GetMapping("AccountByName")
 	public Account getAccountByName(@RequestParam String name) {
@@ -43,6 +49,30 @@ public class AccountController {
 		}
 		return jsonArray;
 
+	}
+
+	@GetMapping("Add")
+	public boolean addAccount(@RequestParam String accountName) {
+
+		if (accountBL.getAccountByName(accountName) != null)
+			return false;
+
+		Account account = new Account(accountName);
+		accountRepository.save(account);
+
+		return true;
+	}
+
+	@GetMapping("getAllAccountsName")
+	public ArrayList<String> getAllAccountsName() {
+		ArrayList<String> accounts = new ArrayList<>();
+		accounts = accountBL.findAllAccountsName();
+		return accounts;
+	}
+	
+	@GetMapping("editAccount")
+	public boolean editAccount(@RequestParam String prevName, @RequestParam String newName) {
+		return accountBL.editAccount(prevName, newName);
 	}
 
 }

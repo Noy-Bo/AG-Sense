@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -50,21 +52,29 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         //disable for all,  each activity enable for her own.
-        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setEnabled(false);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        if(user instanceof Admin)
+        if (user instanceof Admin)
             hideAccountOptions();
         else
             hideAdminOptions();
+
+        View header = navigationView.getHeaderView(0);
+        TextView usernameHeader = (TextView) header.findViewById(R.id.header_username);
+        TextView userEmailHeader = (TextView) header.findViewById(R.id.header_user_email);
+        if (user.getEmail() != null)
+            userEmailHeader.setText(user.getEmail());
+        if (user.getUsername() != null)
+            usernameHeader.setText(user.getUsername());
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.isChecked())
+        if (item.isChecked())
             return true;
         int id = item.getItemId();
         if (id == R.id.nav_admin_dashboard) {
@@ -73,26 +83,26 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             startActivity(new Intent(getApplicationContext(), AccountDashboardActivity.class));
         } else if (id == R.id.nav_accounts_status) {
             Intent intent = new Intent(this, AccountStatusFilter.class);
-            intent.putExtra("filter","all");
+            intent.putExtra("filter", "all");
             startActivity(intent);
         } else if (id == R.id.nav_account_devices_status) {
             Intent intent = new Intent(this, AccountDevicesStatus.class);
-            intent.putExtra("account",user);
-            intent.putExtra("filter","all");
+            intent.putExtra("account", user);
+            intent.putExtra("filter", "all");
             startActivity(intent);
-        }  else if (id == R.id.nav_admin_notifications) {
+        } else if (id == R.id.nav_admin_notifications) {
             Intent intent = new Intent(this, NotificationsActivity.class);
-            intent.putExtra("obj",(Admin)user);
+            intent.putExtra("obj", (Admin) user);
             startActivity(intent);
-        }   else if (id == R.id.nav_device_status) {
+        } else if (id == R.id.nav_device_status) {
             Intent intent = new Intent(this, DeviceStatus.class);
             intent.putExtra("filter", "all");
             startActivity(intent);
-        }else if(id == R.id.nav_other){
+        } else if (id == R.id.nav_other) {
             Intent intent = new Intent(this, OthersActivity.class);
             startActivity(intent);
-        }else if (id==R.id.nav_device_settings){
-            Intent intent = new Intent(this,DeviceSettings.class);
+        } else if (id == R.id.nav_device_settings) {
+            Intent intent = new Intent(this, DeviceSettings.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             CacheMgr.getInstance().clearCache();
@@ -113,6 +123,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         nav_Menu.findItem(R.id.nav_admin_notifications).setVisible(false);
         nav_Menu.findItem(R.id.nav_device_status).setVisible(false);
         nav_Menu.findItem(R.id.nav_other).setVisible(false);
+        nav_Menu.findItem(R.id.nav_device_settings).setVisible(false);
     }
 
     public void hideAccountOptions() {
@@ -126,5 +137,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         AppBaseActivity.user = user;
     }
 
-    public static User getUser(){return user; }
+    public static User getUser() {
+        return user;
+    }
 }

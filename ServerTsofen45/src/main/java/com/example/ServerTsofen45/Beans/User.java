@@ -23,7 +23,6 @@ public abstract class User {
 	int sysId;
 	String hashPassword;
 	Account account;
-
 	String type;
 	@Column
 	public String getType() {
@@ -65,10 +64,9 @@ public abstract class User {
 	public String getHashPassword() {
 		return hashPassword;
 	}
-	protected void setHashPassword(String Password)  {
+	public void setHashPassword(String Password)  {
 	//	this.hashPassword =  hashPassword(Password);
 		this.hashPassword =  Password;
-
 	}
 	@Column
 	public String getEmail() {
@@ -105,7 +103,7 @@ public abstract class User {
 		return (hashPassword(pass).equals(this.hashPassword));
 	}
 
-	protected String hashPassword(String base)
+	public String hashPassword(String base)
 	{
 	    try{
 	        MessageDigest digest = MessageDigest.getInstance("SHA-256");

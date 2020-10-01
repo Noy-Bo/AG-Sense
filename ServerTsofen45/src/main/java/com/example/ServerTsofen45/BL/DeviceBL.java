@@ -32,12 +32,10 @@ public class DeviceBL {
 	public Device getDeviceImei(long imei) {
 
 		Device device = deviceRepository.findByImei(imei);
-
 		return device;
 
 	}
 	
-
 	public ArrayList<Device> getDevicesByName(String name) {
 
 		ArrayList<Device> devices = deviceRepository.findByName(name);
@@ -122,6 +120,11 @@ return null;
 		return (ArrayList<Device>) devices.subList(start, devices.size() - 1);
 	}
 	
+	/*
+	 * public void editDevice(long imei , String phoneNumber , String password ) {
+	 * deviceRepository.updateDeviceByid(imei, phoneNumber, password); }
+	 */
+	
 	
 	
 //	public ArrayList<Device> filterDevices(int accountId , boolean healthy , boolean faulty , boolean bank , boolean gps ,
@@ -205,4 +208,16 @@ return null;
 	public String healtyDevicesNumber() {
 		return  deviceRepository.getHealtyDevicesNumber();
 	}
+	
+	public boolean editDevice(long imei,String newPhonenumber,String newPass) {
+		Device device= deviceRepository.findByImei(imei);
+		if(!(newPhonenumber.equalsIgnoreCase(null))) {
+			device.setPhoneNumber(newPhonenumber);}
+		if(!(newPass.equalsIgnoreCase(null))) {
+			device.setPassword(newPass);}
+		deviceRepository.save(device);
+		return true;
+		
+	}
+
 	}

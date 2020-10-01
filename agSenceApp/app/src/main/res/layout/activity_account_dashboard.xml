@@ -51,7 +51,7 @@
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/notification_red_circle_background"
                         android:gravity="center"
-                        android:text="12"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textSize="@dimen/extra_small_text_size"
                         android:textStyle="bold"
@@ -102,13 +102,9 @@
                         android:layout_marginStart="10dp"
                         android:background="@drawable/notification_red_circle_background"
                         android:gravity="center"
-
-                        android:text="76"
-
-
                         android:textColor="@color/white"
                         android:textSize="@dimen/extra_small_text_size"
-
+                        android:text="0"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -220,7 +216,7 @@
                                 android:layout_weight="0.08"
                                 android:background="@drawable/notification_red_circle_background"
                                 android:gravity="center"
-                                android:text="9"
+                                android:text="0"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"

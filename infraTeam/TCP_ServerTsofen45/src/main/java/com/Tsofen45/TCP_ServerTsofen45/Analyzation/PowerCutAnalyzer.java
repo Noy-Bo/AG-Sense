@@ -14,15 +14,12 @@ public class PowerCutAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isPowerCut()) {
-			SendPostRequest(d);
+			System.out.println("Entered power cut analyzer");
+			sendNotify(d.getImei()+"",8,json);
 
 		}
 	}
 
-	@Override
-	public void SendPostRequest(DeviceData d) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

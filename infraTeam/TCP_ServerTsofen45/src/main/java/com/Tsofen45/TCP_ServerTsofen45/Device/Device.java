@@ -1,6 +1,6 @@
 package com.Tsofen45.TCP_ServerTsofen45.Device;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,9 +23,9 @@ public class Device {
 	String name;
 	int accountId;
 	DeviceType type;
-	Time lastUpdate;
-	double logitude;
-	double latitude;
+	Timestamp lastUpdate;
+	String logitude;
+	String latitude;
 	boolean isRegistered;
 	boolean isFaulty;
 	List<Notification> notifications;
@@ -69,20 +69,20 @@ public class Device {
 	}
 
 	@Column
-	public Time getLastUpdate() {
+	public Timestamp getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(Time lastUpdate) {
+	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
 	@Column
-	public double getLogitude() {
+	public String getLogitude() {
 		return logitude;
 	}
 
-	public void setLogitude(double logitude) {
+	public void setLogitude(String logitude) {
 		this.logitude = logitude;
 	}
 
@@ -128,11 +128,11 @@ public class Device {
 	
 	
 	@Column
-	public double getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
@@ -164,11 +164,8 @@ public class Device {
 		result = prime * result + (int) (imei ^ (imei >>> 32));
 		result = prime * result + (isRegistered ? 1231 : 1237);
 		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(latitude);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(logitude);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((latitude == null) ? 0 : latitude.hashCode());
+		result = prime * result + ((logitude == null) ? 0 : logitude.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((notifications == null) ? 0 : notifications.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
@@ -202,9 +199,9 @@ public class Device {
 				return false;
 		} else if (!lastUpdate.equals(other.lastUpdate))
 			return false;
-		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+		if (!latitude.equals(other.latitude))
 			return false;
-		if (Double.doubleToLongBits(logitude) != Double.doubleToLongBits(other.logitude))
+		if (!logitude.equals(other.logitude))
 			return false;
 		if (name == null) {
 			if (other.name != null)
