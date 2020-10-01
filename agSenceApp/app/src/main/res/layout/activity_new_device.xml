@@ -239,8 +239,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/gradient_color_background"
-            android:onClick="UpdateDevice"
-            android:text="@string/update_btn_device_settings"
+            android:onClick="addNewDevice"
+            android:text="@string/add"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/small_text_size" />

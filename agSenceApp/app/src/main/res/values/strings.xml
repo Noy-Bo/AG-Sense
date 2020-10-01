@@ -158,5 +158,6 @@
     <string name="description_code">description code</string>
     <string name="device_imei">Device IMEI</string>
     <string name="tracking">Tracking</string>
+    <string name="add">Add</string>
 
 </resources>
