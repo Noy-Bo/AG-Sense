@@ -26,7 +26,7 @@ public enum  ServicesName {
     setDeviceSettingAuthorizedNumber("/Device/SetDeviceSettingAuthorizedNumber"),
     setDeviceSettingInterval("/Device/SetDeviceSettingInterval"),
     getSpicificDeviceByFilter("/Device/SpicificDeviceByFilter"),
-    
+
 
 
     //getAllDevices("/DeviceData/AllDeviceData"),
