@@ -49,7 +49,7 @@ public interface CacheManagerAPI {
     void addNewDeviceJob(Long imei, String deviceType, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler);
     void setPasswordJob(int userId, String password, PasswordSetHandler handler);
     void editAccountJob(String prevName, String newName, EditAccountHandler handler);
-    void editDeviceJob(Integer deviceIMEI, Integer newPhoneNumber, Integer newPass, EditDeviceHandler handler);
+    void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler);
     void changeUserPasswordJob(int userId, String newPass, UserPasswordChangeHandler handler);
     void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler);
     void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler);

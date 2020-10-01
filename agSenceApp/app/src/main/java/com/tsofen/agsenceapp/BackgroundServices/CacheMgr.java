@@ -440,7 +440,7 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void editDeviceJob(Integer deviceIMEI, Integer newPhoneNumber, Integer newPass, EditDeviceHandler handler) {
+    public void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler) {
 
     }
 
