@@ -47,6 +47,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CacheMgr implements CacheManagerAPI {
 
@@ -57,11 +59,12 @@ public class CacheMgr implements CacheManagerAPI {
 
     private final static int waitInterval = 60000;
     private boolean stopGetDevicesPeriodic = false;
+    private ReadWriteLock devicesReadWriteLock = new ReentrantReadWriteLock();
 
 
     private CacheMgr() {
         initializeAllServices();
-        notifications = new ArrayList<>();
+        devices = new ArrayList<>();
         accounts = new ArrayList<>();
         notifications = new ArrayList<>();
     }
@@ -137,7 +140,7 @@ public class CacheMgr implements CacheManagerAPI {
         @Override
         public void onDevicesDownloadFinished(List<Devices> devices) {
             Log.d("repeated","repeated task completed onDevicesDownloadFinished");
-            setDevices(devices);
+
             SystemClock.sleep(waitInterval); // 60
             cacheMgr.getThreadHandlerForGetDevicesPeriodic().post(cacheMgr.GetDevicesPeriodic);
 
@@ -150,7 +153,8 @@ public class CacheMgr implements CacheManagerAPI {
     };
 
 
-    private  BaseRunnable<Devices> GetDevicesPeriodic = new BaseRunnable<Devices>(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
+   //private  BaseRunnable<Devices> GetDevicesPeriodic = new BaseRunnable<Devices>(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
+    private  AdminGetDevicesPeriodicRunnable GetDevicesPeriodic = new AdminGetDevicesPeriodicRunnable(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
 
     public Runnable getGetDevicesPeriodicRunnable() {
         return this.GetDevicesPeriodic;
@@ -245,6 +249,7 @@ public class CacheMgr implements CacheManagerAPI {
 
                         retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
                         setDevices((List<Devices>)retrievedEntitiesList);
+                        devicesReadWriteLock.writeLock().unlock();
                         ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
                     }
                     else if (handler instanceof AccountDevicesHandler)
@@ -312,7 +317,7 @@ public class CacheMgr implements CacheManagerAPI {
 
         @Override
         public void run() {
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker(); //TODO static
+            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
             downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
             //downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
                 @Override
@@ -376,9 +381,7 @@ public class CacheMgr implements CacheManagerAPI {
     public void onNotificationRecieved()
     {
        //on notification recieved we want ot update all data.
-
         Log.d("notification","notification recieved, on onNotificationRecieved");
-
         getDevicesJob(0, 0, new DevicesHandler() {
             @Override
             public void onDevicesDownloadFinished(List<Devices> devices) {
@@ -437,6 +440,33 @@ public class CacheMgr implements CacheManagerAPI {
        /*GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
         runnable.run();
         */
+
+/*
+
+            if (getDevices().size() == 0)
+            {
+                devicesReadWriteLock.writeLock().lock(); // 1,2
+
+                if (getDevices().size() == 0)
+                {
+                    Map<String, String> params = new HashMap<>();
+                          // params.put("num",Integer.toString(num));
+                           //params.put("start",Integer.toString(start));
+                    BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllDevices);
+                    asyncGeneric.execute();
+
+                }
+
+                devicesReadWriteLock.writeLock().unlock();
+            }
+
+            devicesReadWriteLock.readLock().lock();
+            handler.onDevicesDownloadFinished(getDevices());
+            devicesReadWriteLock.readLock().unlock();
+*/
+
+
+
        if (getDevices().size() == 0) {
            Map<String, String> params = new HashMap<>();
            //       params.put("num",Integer.toString(num));
