@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.springframework.core.io.ClassPathResource;
+
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -16,9 +18,10 @@ public final class FireBaseAppInitializer {
         if (app == null)
         {
             try {
-            	//URL resourceUrl = URL.class.getResource("/WEB-INF/classes/RSA");
-                serviceAccount = new FileInputStream("src/main/java/com/example/ServerTsofen45/pushNotification/agsenceapp-f81e0-firebase-adminsdk-450eo-9159a7bbda.json");
-                FirebaseOptions options = new FirebaseOptions.Builder()
+            	
+                serviceAccount = new FileInputStream(new ClassPathResource("agsenceapp-f81e0-firebase-adminsdk-450eo-9159a7bbda.json").getFile());
+                @SuppressWarnings("deprecation")
+				FirebaseOptions options = new FirebaseOptions.Builder()
                         .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                         .setDatabaseUrl("https://agsenceapp-f81e0.firebaseio.com")
                         .build();
