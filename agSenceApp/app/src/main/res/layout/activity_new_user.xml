@@ -139,7 +139,7 @@
                 android:layout_gravity="center" />
 
             <EditText
-                android:id="@+id/account_name_edit"
+                android:id="@+id/account_company_name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="75dp"
@@ -175,11 +175,11 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/gradient_color_background"
-            android:text="@string/update_btn_device_settings"
+            android:text="@string/add"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/small_text_size"
-            android:onClick="UpdateNewUserDetails" />
+            android:onClick="addNewUser" />
     </LinearLayout>
 
 
