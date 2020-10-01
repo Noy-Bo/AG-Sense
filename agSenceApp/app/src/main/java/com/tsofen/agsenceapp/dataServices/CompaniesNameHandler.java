@@ -2,6 +2,6 @@ package com.tsofen.agsenceapp.dataServices;
 
 import java.util.List;
 
-public interface CompaniesName extends BaseHandler {
+public interface CompaniesNameHandler extends BaseHandler {
     void onCompaniesNameReady(List<String> companiesName);
 }
