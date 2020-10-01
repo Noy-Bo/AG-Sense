@@ -61,7 +61,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                 } else if (AppBaseActivity.getUser() instanceof Account) {
                     devicesArr.clear();
                     ((ArrayAdapter) devicesList.getAdapter()).notifyDataSetChanged();
-                    CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
+                    CacheMgr.getInstance().clearCacheDevices();
                     getDevicesRelatedToAccountFromCache();
                 }
 
