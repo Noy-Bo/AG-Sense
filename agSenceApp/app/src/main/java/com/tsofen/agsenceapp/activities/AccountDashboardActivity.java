@@ -84,7 +84,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
+                CacheMgr.getInstance().clearCacheDevices();
                 devicesList.clear();
                 getDevicesFromCache();
 

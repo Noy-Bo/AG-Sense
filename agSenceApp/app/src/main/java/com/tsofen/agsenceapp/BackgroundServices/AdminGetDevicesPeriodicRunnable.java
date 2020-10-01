@@ -46,7 +46,6 @@ public class AdminGetDevicesPeriodicRunnable implements Runnable {
                 if (handler instanceof DevicesHandler)
                 {
                     retrievedEntitiesList = CacheMgr.getInstance().parseToJsonArray(downloadedData, new Devices());
-                    CacheMgr.getInstance().setDevices((List<Devices>)retrievedEntitiesList);
                     ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
                 }
             }
