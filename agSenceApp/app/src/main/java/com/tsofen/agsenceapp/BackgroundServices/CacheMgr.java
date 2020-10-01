@@ -518,7 +518,7 @@ public class CacheMgr implements CacheManagerAPI {
 
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getSpecificDeviceDataById);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getAllDeviceDataById);
         asyncGeneric.execute();
 
     }
