@@ -1,16 +1,15 @@
 package com.tsofen.agsenceapp.dataServices;
 
 //for every service's list of paramerters you can check the swagger
-public enum ServicesName {
-// ??????????????????????????????????????????????????????????????????????????????????????? getAllDevices is duplicated !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+public enum  ServicesName {
+    // ??????????????????????????????????????????????????????????????????????????????????????? getAllDevices is duplicated !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     getAccountByName("/Account/AccountBy"),  // parameters :name
     editAccount("/Account/editAccount"),     // parameters :accountName
     addAccount("/Account/Add"),              //// parameters:accountName
-    getAllAccounts("/Account/AllAccounts"),  // parameters: num(int-number of accounts) ,start(int)
+    //getAllAccounts("/Account/AllAccounts"),  // parameters: num(int-number of accounts) ,start(int)
     getAllAccountsName("/Account/getAllAccountsName"),
-
-    getAllDevices("/Dashboard/AdminDashboardInfo"),  // parameters:id
-
+   // getAllDevices("/Dashboard/AdminDashboardInfo"),  // parameters:id
     AddNewDevice("/Device/Add"),             // parameters: accountName string,devicePassword string ,imei integer,phoneNumber  string ,type string
     getDeviceById("/Device/DeviceById"),     //parameters: deviceId integer
     getAllDevices("/Device/AllDevices"),
@@ -27,9 +26,12 @@ public enum ServicesName {
     setDeviceSettingAuthorizedNumber("/Device/SetDeviceSettingAuthorizedNumber"),
     setDeviceSettingInterval("/Device/SetDeviceSettingInterval"),
     getSpicificDeviceByFilter("/Device/SpicificDeviceByFilter"),
+    
 
-    getAllDevices("/DeviceData/AllDeviceData"),
+
+    //getAllDevices("/DeviceData/AllDeviceData"),
     getAllDeviceDataById("/DeviceData/getDeviceDataById"),    //id integer
+
 
     AddNotification("/Notification/AddNotification"),         // code integer,imei integer
     getNotifications("/Notifications/getNotifications"),      //num integer,start integer
@@ -38,12 +40,14 @@ public enum ServicesName {
     markNotificationAsRead("/Notifications/Readed"),        //accountIdList array[integer], notificationIdList array[integer]
 
 
+
     AddToDb("/User/addNewUser"),             // accountName string, email string,userType string, username string
     getAllAccounts("/User/AllAccounts"),     //num integer, start integer
     changePass("/User/changeUserPassword"),  //newPass string, userId integer
     Login("/User/Login"),                   //password string, username string
     setPass("/User/setPassword"),           //userId string, userId integer
     getSpecificAccountsByName("/User/SpecificAccountsByName");      // name string,num integer,start integer
+
 
 
    // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
@@ -57,8 +61,8 @@ public enum ServicesName {
         this.service = service;
     }
 
+
     public String getServiceName() {
         return this.service;
     }
 }
-
