@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -38,20 +39,26 @@ public class AccountsAdapter<A extends User> extends ArrayAdapter<Account> imple
         return accountsFilter;
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public View getView(int position, final View convertView, ViewGroup parent) {
 
         View layout = this.inflater.inflate(R.layout.activity_account_status_news_shape, null);
         final Account account = (Account) getItem(position);
-        TextView name = layout.findViewById(R.id.account_name);
+        TextView accountName = layout.findViewById(R.id.account_name);
+        TextView username = layout.findViewById(R.id.account_name);
         TextView amountofdevices = layout.findViewById((R.id.amountofdevices));
-        TextView accountlastupdate = layout.findViewById((R.id.accountlastupdate));
+        TextView accountLastUpdate = layout.findViewById((R.id.accountlastupdate));
         ImageView imageView = layout.findViewById(R.id.account_status_imageview);
-        imageView.setImageResource(R.drawable.faulty_accounts_icon);
+        assert account != null;
+        if (account.getFaultyAccount())
+            imageView.setImageResource(R.drawable.faulty_accounts_icon);
+        else
+            imageView.setImageResource(R.drawable.healthy_accounts_icon);
 
-        name.setText(account.getUsername());
-
-        LinearLayout linearLayout = layout.findViewById(R.id.AccountItemShape);
+        username.setText(account.getUsername());
+//        accountName.setText("");
+        LinearLayout linearLayout = layout.findViewById(R.id.account_item_shape);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,8 +68,8 @@ public class AccountsAdapter<A extends User> extends ArrayAdapter<Account> imple
             }
         });
 
-        // amountofdevices.setText(account.);
-        //name.setText(account.getUsername());
+        amountofdevices.setText(String.format("%d faulty devices out of %d", account.getFaultyDevices(), account.getNumberOfDevices()));
+        // accountLastUpdate.setText("");
         return layout;
     }
 
@@ -90,13 +97,13 @@ public class AccountsAdapter<A extends User> extends ArrayAdapter<Account> imple
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             clear();
-            addAll((List)filterResults.values);
+            addAll((List) filterResults.values);
             notifyDataSetChanged();
         }
 
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            return ((Account)resultValue).getUsername();
+            return ((Account) resultValue).getUsername();
         }
     };
 }

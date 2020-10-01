@@ -84,7 +84,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
+                CacheMgr.getInstance().clearCacheDevices();
                 devicesList.clear();
                 getDevicesFromCache();
 
@@ -92,13 +92,13 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
-
         if (AppBaseActivity.user instanceof Admin) {
             account = (Account) getIntent().getSerializableExtra("account");
         }
         else {
             account = (Account) AppBaseActivity.user;
         }
+
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
@@ -150,6 +150,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                 });
 
             }
+
         });
     }
 
@@ -382,7 +383,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesList) {
-                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                Place newPlace = new Place(Float.parseFloat( device.getLatitude()), Float.parseFloat(device.getLogitude()));
                 if(device.getName()!=null) {
                     newPlace.setTitle(device.getName());
                 }

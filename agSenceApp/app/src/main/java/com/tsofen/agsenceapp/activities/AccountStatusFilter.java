@@ -52,7 +52,7 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
             public void onRefresh() {
                 accountsArr.clear();
                 ((ArrayAdapter)accountsList.getAdapter()).notifyDataSetChanged();
-                CacheMgr.getInstance().setAccounts(new ArrayList<Account>());
+                CacheMgr.getInstance().clearCacheAccounts();
                 getAccountsFromCacheManager();
 
             }

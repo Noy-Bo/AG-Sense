@@ -36,36 +36,34 @@ import java.util.List;
 
 
 public class AccountDevicesStatus extends SearchBaseActivity {
-    boolean displayFaultyDevice = true;
-    boolean displayHealthyDevice = true;
+    boolean displayFaultyDevice;
+    boolean displayHealthyDevice;
     ArrayList<Devices> devicesArr = new ArrayList<>();
     ListView devicesList;
     Account account;
     UserMap userMap = new UserMap();
     ProgressDialog pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_account_devices_status, null, false);
-        pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
+        pd = GeneralProgressBar.displayProgressDialog(this, "loading devices...");
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               if(AppBaseActivity.getUser() instanceof Admin)
-               {
-                   getDevicesRelatedToAccountFromCache();
-               }
-               else if (AppBaseActivity.getUser() instanceof Account)
-               {
-                   devicesArr.clear();
-                   ((ArrayAdapter)devicesList.getAdapter()).notifyDataSetChanged();
-                   CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
-                   getDevicesRelatedToAccountFromCache();
-               }
+                if (AppBaseActivity.getUser() instanceof Admin) {
+                    getDevicesRelatedToAccountFromCache();
+                } else if (AppBaseActivity.getUser() instanceof Account) {
+                    devicesArr.clear();
+                    ((ArrayAdapter) devicesList.getAdapter()).notifyDataSetChanged();
+                    CacheMgr.getInstance().clearCacheDevices();
+                    getDevicesRelatedToAccountFromCache();
+                }
 
             }
         });
@@ -77,13 +75,38 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         searchView.setHint(R.string.search_device_hint);
 
         getDevicesRelatedToAccountFromCache();
+        String filterStr = getIntent().getStringExtra("filter");
+        assert filterStr != null;
+        if(filterStr.equals("healthy")){
+            displayHealthyDevice = true;
+            displayFaultyDevice = false;
+        }else if(filterStr.equals("faulty")){
+            displayHealthyDevice = false;
+            displayFaultyDevice = true;
+        }else{
+            displayHealthyDevice = true;
+            displayFaultyDevice = true;
+        }
 
+        switchColor((TextView) findViewById(R.id.display_faulty_button),displayFaultyDevice);
+        switchColor((TextView) findViewById(R.id.display_healthy_button),displayHealthyDevice);
+        updateList();
 
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(AccountDevicesStatus.this, DeviceView.class);
                 Devices device = (Devices) searchView.getAdapter().getItem(i);
+                intent.putExtra("device", device);
+                startActivity(intent);
+            }
+        });
+
+        devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AccountDevicesStatus.this, DeviceView.class);
+                Devices device = (Devices) devicesList.getAdapter().getItem(i);
                 intent.putExtra("device", device);
                 startActivity(intent);
             }
@@ -104,44 +127,43 @@ public class AccountDevicesStatus extends SearchBaseActivity {
 
     }
 
-    public void displayHealthyClicked(View view) {
-        TextView displayHealthyBox = view.findViewById(R.id.display_healthy_button);
-        if (displayHealthyDevice == true) // do not display healthy devices.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            displayHealthyDevice = false;
-        } else if (displayHealthyDevice == false) // displaying the healthy device.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
-            displayHealthyDevice = true;
+    public void switchButton(View view) {
+        TextView typeBox = (TextView) view;
+        if (typeBox.getId() == R.id.display_faulty_button) {
+            if (displayFaultyDevice) {
+                displayFaultyDevice = false;
+            } else {
+                displayFaultyDevice = true;
+            }
+            switchColor(typeBox, displayFaultyDevice);
+
+        } else if (typeBox.getId() == R.id.display_healthy_button) {
+            if (displayHealthyDevice) {
+                displayHealthyDevice = false;
+            }
+            else {
+                displayHealthyDevice = true;
+            }
+            switchColor(typeBox, displayHealthyDevice);
         }
         updateList();
     }
 
-    public void displayFaultyClicked(View view) {
-        TextView displayFaultyBox = view.findViewById(R.id.display_faulty_button);
-        if (displayFaultyDevice == true) // do not display faulty devices.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            displayFaultyDevice = false;
-        } else if (displayFaultyDevice == false) // displaying the faulty device.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
-            displayFaultyDevice = true;
+    private void switchColor(TextView typeBox, boolean isPressed) {
+        if (isPressed) {
+            typeBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+            typeBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+        } else {
+            typeBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
+            typeBox.setTextColor(ContextCompat.getColor(this, R.color.white));
         }
-        updateList();
     }
-
 
     public void updateList() {
         ArrayList<Devices> filteredDevices = new ArrayList<>();
         for (Devices device : devicesArr) {
-            if ((displayFaultyDevice && account.isFaulty() == true) ||
-                    (displayHealthyDevice && account.isFaulty() == false)) {
+            if ((displayFaultyDevice && account.isFaulty()) ||
+                    (displayHealthyDevice && !account.isFaulty())) {
                 filteredDevices.add(device);
             }
         }
@@ -154,11 +176,11 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesArr) {
-                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
-                if(device.getName()!=null) {
+                Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
+                if (device.getName() != null) {
                     newPlace.setTitle(device.getName());
                 }
-                if(device.getLastUpdate()!=null) {
+                if (device.getLastUpdate() != null) {
                     newPlace.setSnippet(device.getLastUpdate().toString());
                 }
                 userMap.addPlace(newPlace);
@@ -198,8 +220,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    public void getDevicesRelatedToAccountFromCache()
-    {
+    public void getDevicesRelatedToAccountFromCache() {
         DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {

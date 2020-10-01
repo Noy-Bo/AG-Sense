@@ -39,6 +39,7 @@ public class DeviceSettings extends BackBaseActivity {
     SearchableSpinner spinner;
     int flag = 0;
     ArrayAdapter<String> dataAdapter;
+
     ArrayList<Devices> devicesList = new ArrayList<>();
     Devices chosenDevice;
 
@@ -54,6 +55,7 @@ public class DeviceSettings extends BackBaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 b1.setVisibility(View.VISIBLE);
+
                 chosenDevice = devicesList.get(position);
             }
 
@@ -100,7 +102,9 @@ public class DeviceSettings extends BackBaseActivity {
 
     public void openSpeedingAlertAndGeoFence(View view) {
         Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
-        intent.putExtra("chosenPlace", new Place(chosenDevice.getLatitude(),chosenDevice.getLogitude()));
+
+        intent.putExtra("chosenPlace", new Place(Float.parseFloat(chosenDevice.getLatitude()), Float.parseFloat(chosenDevice.getLogitude())));
+
         startActivity(intent);
     }
 

@@ -17,16 +17,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
-import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
-import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -52,27 +45,29 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         //disable for all,  each activity enable for her own.
-        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setEnabled(false);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        if(user instanceof Admin)
+        if (user instanceof Admin)
             hideAccountOptions();
         else
             hideAdminOptions();
 
         View header = navigationView.getHeaderView(0);
-        TextView usernameHeader = (TextView)header.findViewById(R.id.header_username);
-        TextView userEmailHeader = (TextView)header.findViewById(R.id.header_user_email);
-        userEmailHeader.setText(user.getEmail());
-        usernameHeader.setText(user.getUsername());
+        TextView usernameHeader = (TextView) header.findViewById(R.id.header_username);
+        TextView userEmailHeader = (TextView) header.findViewById(R.id.header_user_email);
+        if (user.getEmail() != null)
+            userEmailHeader.setText(user.getEmail());
+        if (user.getUsername() != null)
+            usernameHeader.setText(user.getUsername());
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.isChecked())
+        if (item.isChecked())
             return true;
         int id = item.getItemId();
         if (id == R.id.nav_admin_dashboard) {
@@ -81,26 +76,26 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
             startActivity(new Intent(getApplicationContext(), AccountDashboardActivity.class));
         } else if (id == R.id.nav_accounts_status) {
             Intent intent = new Intent(this, AccountStatusFilter.class);
-            intent.putExtra("filter","all");
+            intent.putExtra("filter", "all");
             startActivity(intent);
         } else if (id == R.id.nav_account_devices_status) {
             Intent intent = new Intent(this, AccountDevicesStatus.class);
-            intent.putExtra("account",user);
-            intent.putExtra("filter","all");
+            intent.putExtra("account", user);
+            intent.putExtra("filter", "all");
             startActivity(intent);
-        }  else if (id == R.id.nav_admin_notifications) {
+        } else if (id == R.id.nav_admin_notifications) {
             Intent intent = new Intent(this, NotificationsActivity.class);
-            intent.putExtra("obj",(Admin)user);
+            intent.putExtra("obj", (Admin) user);
             startActivity(intent);
-        }   else if (id == R.id.nav_device_status) {
+        } else if (id == R.id.nav_device_status) {
             Intent intent = new Intent(this, DeviceStatus.class);
             intent.putExtra("filter", "all");
             startActivity(intent);
-        }else if(id == R.id.nav_other){
+        } else if (id == R.id.nav_other) {
             Intent intent = new Intent(this, OthersActivity.class);
             startActivity(intent);
-        }else if (id==R.id.nav_device_settings){
-            Intent intent = new Intent(this,DeviceSettings.class);
+        } else if (id == R.id.nav_device_settings) {
+            Intent intent = new Intent(this, DeviceSettings.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             CacheMgr.getInstance().clearCache();
@@ -135,5 +130,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         AppBaseActivity.user = user;
     }
 
-    public static User getUser(){return user; }
+    public static User getUser() {
+        return user;
+    }
 }

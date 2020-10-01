@@ -1,14 +1,18 @@
 package com.tsofen.agsenceapp.activities;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.utils.AlertFlag;
 
 public class BackBaseActivity extends AppCompatActivity {
 
@@ -26,5 +30,30 @@ public class BackBaseActivity extends AppCompatActivity {
 
     public void goBack(View view) {
         finish();
+    }
+
+    public void showAlertBox(final Context context, final AlertFlag flag, final String text){
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String title;
+                int iconSrc;
+                if(flag.equals(AlertFlag.SUCCESS)){
+                    title = "Success";
+                    iconSrc = R.drawable.success_icon;
+                }else{
+                    title = "Failure";
+                    iconSrc = R.drawable.failure_icon;
+                }
+
+                new AlertDialog.Builder(context)
+                        .setTitle(title)
+                        .setMessage(text)
+                        .setPositiveButton("Ok", null)
+                        .setIcon(iconSrc)
+                        .show();
+            }
+        });
+
     }
 }
