@@ -1,7 +1,8 @@
 package com.tsofen.agsenceapp.dataServices;
 
 //for every service's list of paramerters you can check the swagger
-public enum         ServicesName {
+
+public enum  ServicesName {
     // ??????????????????????????????????????????????????????????????????????????????????????? getAllDevices is duplicated !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     getAccountByName("/Account/AccountBy"),  // parameters :name
     editAccount("/Account/editAccount"),     // parameters :accountName
@@ -25,26 +26,42 @@ public enum         ServicesName {
     setDeviceSettingAuthorizedNumber("/Device/SetDeviceSettingAuthorizedNumber"),
     setDeviceSettingInterval("/Device/SetDeviceSettingInterval"),
     getSpicificDeviceByFilter("/Device/SpicificDeviceByFilter"),
+    
+
+
     //getAllDevices("/DeviceData/AllDeviceData"),
     getAllDeviceDataById("/DeviceData/getDeviceDataById"),    //id integer
+
+
     AddNotification("/Notification/AddNotification"),         // code integer,imei integer
     getNotifications("/Notifications/getNotifications"),      //num integer,start integer
     getNotificationRelatedToDevice("/Notifications/NotificationRelatedToDevice"),    //id integer, num integer,start integer
     getNotificationsRelatedToAccount("/Notifications/NotificationsRelatedToAccount"), //id integer, num integer,start integer
     markNotificationAsRead("/Notifications/Readed"),        //accountIdList array[integer], notificationIdList array[integer]
+
+
+
     AddToDb("/User/addNewUser"),             // accountName string, email string,userType string, username string
     getAllAccounts("/User/AllAccounts"),     //num integer, start integer
     changePass("/User/changeUserPassword"),  //newPass string, userId integer
     Login("/User/Login"),                   //password string, username string
     setPass("/User/setPassword"),           //userId string, userId integer
     getSpecificAccountsByName("/User/SpecificAccountsByName");      // name string,num integer,start integer
-    // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
-    //getSpicificDeviceByname(""),
+
+
+
+   // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
+   //getSpicificDeviceByname(""),
     //getDeviceSetting(""),
+
+
     String service;
+
     ServicesName(String service) {
         this.service = service;
     }
+
+
     public String getServiceName() {
         return this.service;
     }
