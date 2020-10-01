@@ -25,13 +25,6 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
                 handler.onAccountsDownloadFinished(accounts);
-
-//                List<Account> newData = new ArrayList<>();
-//                newData.add(new Account(1,"Lama Ghantous", "lama@gmail.com",true, 1));
-//                newData.add(new Account(1,"Ayat Taha", "ayat@gmail.com",false, 2));
-//
-//
-//                handler.onAccountsDownloadFinished(newData);
             }
         });
     }
@@ -41,11 +34,12 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
         cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
-//                List<Account> newData = new ArrayList<>();
-//                for(Account account : accounts)
-//                    if(account.isFaulty())
-//                        newData.add(account);
-                handler.onAccountsDownloadFinished(accounts);
+                List<Account> toReturn = new ArrayList<>();
+                for(Account account : accounts) {
+                    if (account.getFaultyAccount())
+                        toReturn.add(account);
+                }
+                handler.onAccountsDownloadFinished(toReturn);
 
             }
         });
@@ -56,12 +50,12 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
         cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
-//                List<Account> newData = new ArrayList<>();
-//                for(Account account : accounts)
-//                    if(account.isFaulty())
-//                        newData.add(account);
-//                handler.onAccountsDownloadFinished(newData);
-                handler.onAccountsDownloadFinished(accounts);
+                List<Account> toReturn = new ArrayList<>();
+                for(Account account : accounts) {
+                    if (!account.getFaultyAccount())
+                        toReturn.add(account);
+                }
+                handler.onAccountsDownloadFinished(toReturn);
             }
         });
     }

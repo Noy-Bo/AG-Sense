@@ -388,11 +388,8 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void editDeviceJob(long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler) {
-
-         // NO URL FROM SERVER
-
-
+    public void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler) {
+        // NO URL FROM SERVER
     }
 
     @Override

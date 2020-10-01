@@ -104,12 +104,12 @@
                     android:layout_weight="2" />
 
                 <EditText
-                    android:id="@+id/DeviceNewPhoneNumberEdit"
+                    android:id="@+id/edit_account_new_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
                     android:ems="16"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:textSize="10sp"
                     tools:ignore="TextFields" />
 
@@ -117,7 +117,6 @@
 
 
             <Switch
-
                 android:id="@+id/NotifiationsEditSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
