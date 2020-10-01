@@ -3,7 +3,7 @@ package com.tsofen.agsenceapp.BackgroundServices;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-import com.tsofen.agsenceapp.dataServices.CompaniesName;
+import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
@@ -45,11 +45,11 @@ public interface CacheManagerAPI {
     //v3 api
     void addNewUserJob(String username, String emailAddress, String userType, String accountName, NewUserAddedHandler handler);
     void addNewCompanyJob(String companyName, NewCompanyHandler handler);
-    void getAllCompaniesNameJob(CompaniesName handler);
+    void getAllCompaniesNameJob(CompaniesNameHandler handler);
     void addNewDeviceJob(Long imei, String deviceType, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler);
     void setPasswordJob(int userId, String password, PasswordSetHandler handler);
     void editAccountJob(String prevName, String newName, EditAccountHandler handler);
-    void editDeviceJob(Integer deviceIMEI, Integer newPhoneNumber, Integer newPass, EditDeviceHandler handler);
+    void editDeviceJob(long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler);
     void changeUserPasswordJob(int userId, String newPass, UserPasswordChangeHandler handler);
     void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler);
     void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler);
