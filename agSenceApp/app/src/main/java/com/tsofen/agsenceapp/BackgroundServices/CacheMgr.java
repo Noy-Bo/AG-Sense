@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 
 
@@ -41,11 +42,19 @@ import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.StampedLock;
 
 public class CacheMgr implements CacheManagerAPI {
 
@@ -59,6 +68,18 @@ public class CacheMgr implements CacheManagerAPI {
     private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
     private Handler threadHandlerForGetDevicesPeriodic;
 
+    private StampedLock devicesReadWriteLock = new StampedLock();
+    private StampedLock accountsReadWriteLock = new StampedLock();
+
+    private boolean isExecuted = false;
+
+    private  int waitBetweenRequests = 5000; // millis.
+    Timestamp devicesTimeStamp = new Timestamp(System.currentTimeMillis());
+
+
+
+    private boolean executedDevices;
+
     private TextDownloader downloader = TextDownloader.getInstance();
 
     // ==================================================================================
@@ -71,6 +92,20 @@ public class CacheMgr implements CacheManagerAPI {
         devices = new ArrayList<>();
         accounts = new ArrayList<>();
         notifications = new ArrayList<>();
+    }
+
+    public void setExecuted(boolean executed) {
+        isExecuted = executed;
+    }
+
+    public void setDevicesTimeStamp(Timestamp devicesTimeStamp) {
+        this.devicesTimeStamp = devicesTimeStamp;
+    }
+    public StampedLock getDevicesReadWriteLock() {
+        return devicesReadWriteLock;
+    }
+    public StampedLock getAccountsReadWriteLock() {
+        return accountsReadWriteLock;
     }
 
     public List<Notification> getNotifications() {
@@ -134,7 +169,9 @@ public class CacheMgr implements CacheManagerAPI {
         @Override
         public void onDevicesDownloadFinished(List<Devices> devices) {
             Log.d("repeated","repeated task completed onDevicesDownloadFinished");
+            devicesReadWriteLock.asReadWriteLock().writeLock().lock();
             setDevices(devices);
+            devicesReadWriteLock.asReadWriteLock().writeLock().unlock();
             SystemClock.sleep(waitInterval);
             cacheMgr.getThreadHandlerForGetDevicesPeriodic().post(cacheMgr.GetDevicesPeriodic);
 
@@ -216,27 +253,61 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void getAccountsJob(int start, int num, AccountsHandler handler) {
+    public void getAccountsJob(int start, int num, AccountsHandler handler) throws Exception {
+
         if (getAccounts().size() == 0)
         {
-            Map<String, String> params = new HashMap<>();
-            params.put("num", Integer.toString(num));
-            params.put("start", Integer.toString(start));
-            BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllAccounts);
-            asyncGeneric.execute();
+            accountsReadWriteLock.asReadWriteLock().writeLock().lock();
+            try {
+                if (getAccounts().size() == 0) {
+                    if (isExecuted == false) {
 
+                        Map<String, String> params = new HashMap<>();
+                        params.put("num", Integer.toString(num));
+                        params.put("start", Integer.toString(start));
+                        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllAccounts);
+                        isExecuted = true;
+                        asyncGeneric.execute();
+                        return;
+                    }
+                }
+            }
+            finally {
+
+                devicesReadWriteLock.asReadWriteLock().writeLock().unlock();
+            }
+//            catch (Exception e)
+//            {
+//                devicesReadWriteLock.asReadWriteLock().writeLock().unlock();
+//                throw new Exception(e);
+//            }
+
+            //accountsReadWriteLock.asReadWriteLock().writeLock().unlock();
         }
-        else
-        {
-            handler.onAccountsDownloadFinished(getAccounts());
-        }
+
+        accountsReadWriteLock.asReadWriteLock().readLock().lock();
+        handler.onAccountsDownloadFinished(getAccounts());
+        accountsReadWriteLock.asReadWriteLock().readLock().unlock();
+
     }
     @Override
     public void getDevicesJob(int start, int num, DevicesHandler handler) {
 
+        if (getDevices().size() == 0)
+        {
+            Map<String, String> params = new HashMap<>();
+            //params.put("num",Integer.toString(num));
+            //params.put("start",Integer.toString(start));
+            BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllDevices);
+            asyncGeneric.execute();
+            return;
+        }
+
+        handler.onDevicesDownloadFinished(getDevices());
 
 
-       if (getDevices().size() == 0) {
+
+      /* if (getDevices().size() == 0) {
            Map<String, String> params = new HashMap<>();
            //       params.put("num",Integer.toString(num));
            //       params.put("start",Integer.toString(start));
@@ -246,7 +317,7 @@ public class CacheMgr implements CacheManagerAPI {
        else
        {
            handler.onDevicesDownloadFinished(getDevices());
-       }
+       }*/
 
     }
 
@@ -273,7 +344,42 @@ public class CacheMgr implements CacheManagerAPI {
         }
         else if (AppBaseActivity.getUser() instanceof Account)
         {
-            if  ( getDevices().size() == 0)
+            if (getDevices().size() == 0)
+            {
+                devicesReadWriteLock.asReadWriteLock().writeLock().lock();
+                try
+                {
+                    if (getDevices().size() == 0)
+                    {
+
+                        Map<String, String> params = new HashMap<>();
+                        params.put("id", Integer.toString(accountId));
+                        params.put("num", Integer.toString(num));
+                        params.put("start", Integer.toString(start));
+                        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<Devices>(handler, params, ServicesName.getDeviceRelatedToAccount) ;
+                        asyncGeneric.execute();
+                    }
+                }
+                finally {
+                    devicesReadWriteLock.asReadWriteLock().writeLock().unlock();
+                }
+
+            }
+            else
+            {
+                devicesReadWriteLock.asReadWriteLock().writeLock().unlock();
+            }
+
+
+            devicesReadWriteLock.asReadWriteLock().readLock().lock();
+            handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
+            devicesReadWriteLock.asReadWriteLock().readLock().unlock();
+
+
+
+
+
+         /*   if  ( getDevices().size() == 0)
             {
                 Map<String, String> params = new HashMap<>();
                 params.put("id", Integer.toString(accountId));
@@ -285,7 +391,7 @@ public class CacheMgr implements CacheManagerAPI {
             else
             {
                 handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
-            }
+            }*/
         }
 
 
@@ -418,9 +524,30 @@ public class CacheMgr implements CacheManagerAPI {
     // ==================================================================================
     // --------------------------- Clear Data API for Adatpers --------------------------
     // ==================================================================================
+    private boolean isServerRequest()
+    {
+        if (devicesTimeStamp.getTime() + waitBetweenRequests < System.currentTimeMillis()) {
+            devicesTimeStamp.setTime(System.currentTimeMillis());
+            return true;
+        }
+        return false;
+    }
+    public void clearCacheDevices(){
+        devicesReadWriteLock.asReadWriteLock().writeLock().lock();
+        if (isServerRequest())
+        {
 
-    public void clearCacheDevices(){devices.clear();}
-    public void clearCacheAccounts(){accounts.clear();}
+            Log.d("timestamp", "Requesting server ... ");
+            devices.clear();
+        }
+        devicesReadWriteLock.asReadWriteLock().writeLock().unlock();
+    }
+    public boolean isExecuting = false;
+    public void clearCacheAccounts(){
+        accountsReadWriteLock.asReadWriteLock().writeLock().lock();
+        accounts.clear();
+        accountsReadWriteLock.asReadWriteLock().writeLock().unlock();
+    }
     public void clearCacheNotification(){notifications.clear();}
 
     public  void clearCache(){
