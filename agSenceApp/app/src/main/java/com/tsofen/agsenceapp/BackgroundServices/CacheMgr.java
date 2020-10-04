@@ -5,16 +5,12 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Log;
-
-
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
-
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
@@ -26,10 +22,8 @@ import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
-
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
-
 import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
 import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
@@ -39,16 +33,12 @@ import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Notification;
-
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 public class CacheMgr implements CacheManagerAPI {
@@ -91,7 +81,7 @@ public class CacheMgr implements CacheManagerAPI {
 
         return cacheMgr;
     }
-    
+
     public List<Notification> getNotifications() { return notifications; }
     public  void setNotifications(List<Notification> notifications) { this.notifications = notifications; }// public setter for firebase notification onReceive
     public void setStopGetDevicesPeriodic(boolean stopGetDevicesPeriodic) { this.stopGetDevicesPeriodic = stopGetDevicesPeriodic; }
@@ -276,6 +266,7 @@ public class CacheMgr implements CacheManagerAPI {
             handler.onAccountsDownloadFinished(getAccounts());
 
     }
+
     @Override
     public void getLatestAccountsJob(int start, int num, AccountsHandler handler) {
         Log.d("testing stamps","on getLatestAccountsJob");
@@ -294,6 +285,7 @@ public class CacheMgr implements CacheManagerAPI {
         getAccountsJob(start,num,handler);
 
     }
+
     @Override
     public void getDevicesJob(int start, int num, DevicesHandler handler) {
         Log.d("testing stamps","on getDevicesJob");
@@ -313,6 +305,7 @@ public class CacheMgr implements CacheManagerAPI {
 
 
     }
+
     @Override
     public void getLatestDevicesJob(int start, int num, DevicesHandler handler) {
         Log.d("testing stamps","on getLatestDevicesJob");
@@ -526,7 +519,7 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
-// ==================================================================================
+    // ==================================================================================
     // ------------------------- Clear Data, Time Stamps checks  ------------------------
     // ==================================================================================
 
@@ -534,6 +527,7 @@ public class CacheMgr implements CacheManagerAPI {
     {
         timestamp.setTime(System.currentTimeMillis());
     }
+
     public synchronized boolean isServerRequestDevices(Timestamp timeStamp)
     {
         if (timeStamp.getTime() + intervalBetweenServerRequestsForDevices < System.currentTimeMillis()) {
