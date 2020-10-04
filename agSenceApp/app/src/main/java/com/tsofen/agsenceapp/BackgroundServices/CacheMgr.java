@@ -6,10 +6,7 @@ import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.google.gson.GsonBuilder;
 
-
-import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
@@ -17,30 +14,32 @@ import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 
+import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
+import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
+import com.tsofen.agsenceapp.dataServices.NewCompanyHandler;
+import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
+import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
 
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
 
+import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
 import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
+import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
+import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
+import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Notification;
 
 import com.tsofen.agsenceapp.entities.Admin;
-import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
-import com.tsofen.agsenceapp.entities.User;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,16 +51,24 @@ public class CacheMgr implements CacheManagerAPI {
 
     private static CacheMgr cacheMgr=null;
     private List<Notification> notifications;
-    private List<Account> accounts = new ArrayList<Account>();
-    private List<Devices> devices = new ArrayList<Devices>();
+    private List<Account> accounts;
+    private List<Devices> devices;
 
     private final static int waitInterval = 60000;
     private boolean stopGetDevicesPeriodic = false;
+    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
+    private Handler threadHandlerForGetDevicesPeriodic;
+
+    private TextDownloader downloader = TextDownloader.getInstance();
+
+    // ==================================================================================
+    // ---------------------------- CTOR Getters / Setters -------------------------------
+    // ==================================================================================
 
 
     private CacheMgr() {
         initializeAllServices();
-        notifications = new ArrayList<>();
+        devices = new ArrayList<>();
         accounts = new ArrayList<>();
         notifications = new ArrayList<>();
     }
@@ -70,7 +77,7 @@ public class CacheMgr implements CacheManagerAPI {
         return notifications;
     }
 
-    public void setNotifications(List<Notification> notifications) {
+    public  void setNotifications(List<Notification> notifications) { // public setter for firebase notification on recieve
         this.notifications = notifications;
     }
     public void setStopGetDevicesPeriodic(boolean stopGetDevicesPeriodic) {
@@ -99,17 +106,9 @@ public class CacheMgr implements CacheManagerAPI {
 
         return cacheMgr;
     }
+
+
     // periodic GetDevices configs
-
-
-
-    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
-    private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
-
-
-    private Handler threadHandlerForLogin;
-    private Handler threadHandlerForGetDevicesPeriodic;
-    private TextDownloader downloader = TextDownloader.getInstance();
 
     public HandlerThread getHandlerThreadForGetDevicesPeriodic(){
         return handlerThreadForGetDevicesPeriodic;
@@ -118,100 +117,43 @@ public class CacheMgr implements CacheManagerAPI {
         return threadHandlerForGetDevicesPeriodic;
     }
 
-    private void initializeAllServices() // remove public
+    private void initializeAllServices()
     {
 
         //initializing the handlers
         handlerThreadForGetDevicesPeriodic.start();
         threadHandlerForGetDevicesPeriodic = new Handler(handlerThreadForGetDevicesPeriodic.getLooper());
 
-        handlerThreadLogin.start();
-        threadHandlerForLogin = new Handler(handlerThreadLogin.getLooper());
-
-
     }
 
-    // repeated job.
+    // ==================================================================================
+    // -------------------------------- Repeated Job Admin ------------------------------
+    // ==================================================================================
 
     private DevicesHandler handlerForRepeatedGetDevicesJob  = new DevicesHandler() {
         @Override
         public void onDevicesDownloadFinished(List<Devices> devices) {
             Log.d("repeated","repeated task completed onDevicesDownloadFinished");
             setDevices(devices);
-            SystemClock.sleep(waitInterval); // 60
+            SystemClock.sleep(waitInterval);
             cacheMgr.getThreadHandlerForGetDevicesPeriodic().post(cacheMgr.GetDevicesPeriodic);
 
-            if (stopGetDevicesPeriodic == true) // this need to be fixed and changed to RemoveCallBacks via handler.
+            if (stopGetDevicesPeriodic == true)
             {
                 cacheMgr.getThreadHandlerForGetDevicesPeriodic().removeCallbacksAndMessages(null);
                 stopGetDevicesPeriodic = false;
             }
         }
     };
-
-
-    private  BaseRunnable<Devices> GetDevicesPeriodic = new BaseRunnable<Devices>(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
-
+    private  AdminGetDevicesPeriodicRunnable GetDevicesPeriodic = new AdminGetDevicesPeriodicRunnable(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
     public Runnable getGetDevicesPeriodicRunnable() {
         return this.GetDevicesPeriodic;
     }
 
-    // handlers and loopers.
 
-    private class LoginJobRunnable implements Runnable {
-        private String username;
-        private String password;
-        private LoginHandler handler;
-
-        public LoginJobRunnable(String username, String password, LoginHandler handler) {
-            this.username = username;
-            this.password = password;
-            this.handler = handler;
-        }
-
-        @Override
-        public void run() {
-
-
-            //URL Connection.
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
-            Map<String, String> params = new HashMap<>();
-            params.put("username",this.username);
-            params.put("password",this.password);
-
-
-            downloader.getText(urlConnectionMaker.createUrl(ServicesName.Login,params), new OnDataReadyHandler() {
-                @Override
-                public void onDataDownloadCompleted(String downloadedData) {
-                    try {
-
-                        //parsing json
-                        JSONObject userJSON = new JSONObject(downloadedData);
-                        User user;
-                        //{"accountid":8,"id":9,"type":"account","email":"ibra123@gmail.com","username":"ibra"}
-
-                        if(userJSON.getString("type").equals("account"))
-                        {
-                            user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
-                        }
-                        else {
-                            user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
-                        }
-                        handler.onLoginSuccess(user);
-                    }
-                    catch (Exception e)
-                    {
-                        handler.onLoginFailure();
-                    }
-                }
-
-                @Override
-                public void onDownloadError() {
-                    handler.onLoginFailure();
-                }
-            });
-        }
-    }
+    // ==================================================================================
+    // ---------------------------- Main Generic Async Task. ----------------------------
+    // ==================================================================================
 
     private class BaseAsyncTask<E> extends AsyncTask<Void, Void, Void>
     {
@@ -229,188 +171,46 @@ public class CacheMgr implements CacheManagerAPI {
 
         @Override
         protected Void doInBackground(Void... voids) {
+
             UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
             downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
-                //downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
                     Log.d("generics","onDataDownloadCompleted");
                     // JSON Parser
-
-
-                    List<E> retrievedEntitiesList = new ArrayList<>();
-
-                    if (handler instanceof DevicesHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        setDevices((List<Devices>)retrievedEntitiesList);
-                        ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountDevicesHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        if (AppBaseActivity.getUser() instanceof Account)
-                        {
-                            setDevices((List<Devices>)retrievedEntitiesList);
-                        }
-                        ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
-
-                    }
-                    else if(handler instanceof DeviceDataHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
-
-                        ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
-                    }
-                    else if(handler instanceof AccountsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
-                        setAccounts((List<Account>)retrievedEntitiesList);
-                        ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof DeviceNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof NotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
+                    CacheManagerHandlers.parseDataAndSendCallback(downloadedData,handler);
 
                 }
 
                 @Override
                 public void onDownloadError() {
-
+                    if (handler instanceof LoginHandler)
+                    {
+                        ((LoginHandler)handler).onLoginFailure();
+                    }
                 }
             });
 
             return null;
         }
     }
-    // general runnable generic class.
-     private class BaseRunnable<E>  implements Runnable {
-        private BaseHandler handler;
-        Map<String, String> params;
-        ServicesName serviceName;
-
-        public BaseRunnable(BaseHandler handler, Map<String, String> params,ServicesName serviceName) {
-            this.serviceName = serviceName;
-            this.handler = handler;
-            this.params = params;
-        }
-
-        @Override
-        public void run() {
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker(); //TODO static
-            downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
-            //downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
-                @Override
-                public void onDataDownloadCompleted(String downloadedData) {
-                    Log.d("generics","onDataDownloadCompleted");
-                    // JSON Parser
-
-
-                    List<E> retrievedEntitiesList = new ArrayList<>();
-
-                    if (handler instanceof DevicesHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountDevicesHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
-                    }
-                    else if(handler instanceof DeviceDataHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
-
-                        ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
-                    }
-                    else if(handler instanceof AccountsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
-                        ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof DeviceNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof NotificationsHandler)
-                    {
-                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-
-                }
-
-                @Override
-                public void onDownloadError() {
-
-                }
-            });
-        }
-    }
-
-
-    public void onNotificationRecieved()
-    {
-       //on notification recieved we want ot update all data.
-
-        Log.d("notification","notification recieved, on onNotificationRecieved");
-
-        getDevicesJob(0, 0, new DevicesHandler() {
-            @Override
-            public void onDevicesDownloadFinished(List<Devices> devices) {
-                setDevices(devices);
-            }
-        });
-
-        getAccountsJob(0, 0, new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                setAccounts(accounts);
-            }
-        });
-
-        getNotificationsJob(0, 0, new NotificationsHandler() {
-            @Override
-            public void onNotificationsDownloadFinished(List<Notification> notifications) {
-                setNotifications(notifications);
-            }
-        });
 
 
 
-    }
 
-
-    // API -
+    // ==================================================================================
+    // ---------------------------- Jobs API for Adapters.-------------------------------
+    // ==================================================================================
 
     @Override
     public void loginJob(final String username, final String password, final LoginHandler handler) {
-        LoginJobRunnable runnable = new LoginJobRunnable(username,password,handler);
-        threadHandlerForLogin.post(runnable); // TODO test this one.
+
+        Map<String, String> params = new HashMap<>();
+        params.put("username",username);
+        params.put("password",password);
+        BaseAsyncTask<String> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.Login);
+        asyncGeneric.execute();
+
 
 
     }
@@ -434,9 +234,8 @@ public class CacheMgr implements CacheManagerAPI {
     @Override
     public void getDevicesJob(int start, int num, DevicesHandler handler) {
 
-       /*GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
-        runnable.run();
-        */
+
+
        if (getDevices().size() == 0) {
            Map<String, String> params = new HashMap<>();
            //       params.put("num",Integer.toString(num));
@@ -518,36 +317,111 @@ public class CacheMgr implements CacheManagerAPI {
 
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getSpecificDeviceDataById);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getAllDeviceDataById);
         asyncGeneric.execute();
 
     }
 
 
 
-    public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
-        JSONObject jObj = null;
-        jObj = new JSONObject(jsonStr);
-        if (jObj == null)
-            throw new JSONException("json allocation failed");
-        return jObj;
+    @Override
+    public void addNewUserJob(String username, String emailAddress, String userType, String accountName, NewUserAddedHandler handler) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("accountName",accountName);
+        params.put("username",username);
+        params.put("userType",userType);
+        params.put("email",emailAddress);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.AddToDb);
+        asyncGeneric.execute();
+
+    }
+
+    @Override
+    public void addNewCompanyJob(String companyName, NewCompanyHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("accountName",companyName);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.addAccount);
+        asyncGeneric.execute();
+    }
+
+    @Override
+    public void getAllCompaniesNameJob(CompaniesNameHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getAllAccountsName);
+        asyncGeneric.execute();
+    }
+
+    @Override
+    public void addNewDeviceJob(Long imei, String deviceType, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("accountName",accountName);
+        params.put("devicePassword",devicePassword);
+        params.put("imei",Long.toString(imei));
+        params.put("phoneNumber",devicePhoneNumber);
+        params.put("type",deviceType);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.AddNewDevice);
+        asyncGeneric.execute();
+
+
+    }
+
+    @Override
+    public void setPasswordJob(int userId, String password, PasswordSetHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userId",Long.toString(userId));
+        params.put("pass",password);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.setPass);
+        asyncGeneric.execute();
+        //setPass("/User/setPassword"),           //userId string, userId integer
+
+    }
+
+    @Override
+    public void editAccountJob(String prevName, String newName, EditAccountHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("prevName",prevName);
+        params.put("newName",newName);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.editAccount);
+        asyncGeneric.execute();
+
+    }
+
+    @Override
+    public void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler) {
+        // NO URL FROM SERVER
+    }
+
+    @Override
+    public void changeUserPasswordJob(int userId, String newPass, UserPasswordChangeHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("newPass",newPass);
+        params.put("userId",Integer.toString(userId));
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.changePass);
+        asyncGeneric.execute();
+
 
     }
 
 
-    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
-        try {
-            Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
-            return new GsonBuilder().create().fromJson(jsonArray, typeOfT);
-
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-
+    @Override
+    public void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler) {
+        // NO URL FROM SERVER
     }
+
+    @Override
+    public void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler) {
+        // NO URL FROM SERVER
+    }
+
+
+    // ==================================================================================
+    // --------------------------- Clear Data API for Adatpers --------------------------
+    // ==================================================================================
+
+    public void clearCacheDevices(){devices.clear();}
+    public void clearCacheAccounts(){accounts.clear();}
+    public void clearCacheNotification(){notifications.clear();}
 
     public  void clearCache(){
         accounts.clear();

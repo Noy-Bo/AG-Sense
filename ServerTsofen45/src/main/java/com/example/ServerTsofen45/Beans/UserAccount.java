@@ -43,7 +43,7 @@ public class UserAccount extends User{
 		   jo.put("numberOfDevices", this.account.getDevices().size());
 		   jo.put("faultyDevices", this.account.faultyDevices());
 		   jo.put("faultyAccount", this.account.faultyAccount());
-		   
+		   jo.put("phoneNumber", this.phoneNumber);
 		   return jo;
 	}
 

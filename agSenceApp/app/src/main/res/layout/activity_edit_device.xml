@@ -15,10 +15,8 @@
         tools:ignore="MissingConstraints">
 
         <include
-
             android:id="@+id/included"
             layout="@layout/activity_back_base"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -197,7 +195,7 @@
                     android:layout_weight="1.38" />
 
                 <EditText
-                    android:id="@+id/NewAccountNameEdit"
+                    android:id="@+id/edit_device_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
@@ -218,7 +216,8 @@
                 android:text="@string/update_btn_device_settings"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/small_text_size" />
+                android:textSize="@dimen/small_text_size"
+                android:onClick="updateDevice"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

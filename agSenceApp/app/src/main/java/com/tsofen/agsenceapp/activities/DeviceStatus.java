@@ -61,7 +61,7 @@ public class DeviceStatus extends SearchBaseActivity {
                 devicesArr.clear();
                 filteredDevices.clear();
                 ((ArrayAdapter)devicesList.getAdapter()).notifyDataSetChanged();
-                CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
+                CacheMgr.getInstance().clearCacheDevices();
                 getAllDevicesFromCache();
 
 
