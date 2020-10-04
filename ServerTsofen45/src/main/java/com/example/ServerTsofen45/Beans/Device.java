@@ -28,6 +28,7 @@ public class Device {
 	String latitude;
 	boolean isRegistered;
 	boolean isFaulty;
+	Timestamp faultyTime;
 	String phoneNumber;
 	String password;
 	List<Notification> notifications;
@@ -67,7 +68,7 @@ public class Device {
 		this.password = password;
 	}
 	
-
+	
 	@Column
 	public long getImei() {
 		return imei;
@@ -190,7 +191,15 @@ public class Device {
 	}
 
 	
-	
+	@Column
+	public Timestamp getFaultyTime() {
+		return faultyTime;
+	}
+
+	public void setFaultyTime(Timestamp faultyTime) {
+		this.faultyTime = faultyTime;
+	}
+
 	@Column
 	public String getPassword() {
 		return password;
@@ -213,6 +222,7 @@ public class Device {
 		int result = 1;
 		result = prime * result + accountId;
 		result = prime * result + ((deviceData == null) ? 0 : deviceData.hashCode());
+		result = prime * result + ((faultyTime == null) ? 0 : faultyTime.hashCode());
 		result = prime * result + id;
 		result = prime * result + (int) (imei ^ (imei >>> 32));
 		result = prime * result + (isFaulty ? 1231 : 1237);
@@ -243,6 +253,11 @@ public class Device {
 			if (other.deviceData != null)
 				return false;
 		} else if (!deviceData.equals(other.deviceData))
+			return false;
+		if (faultyTime == null) {
+			if (other.faultyTime != null)
+				return false;
+		} else if (!faultyTime.equals(other.faultyTime))
 			return false;
 		if (id != other.id)
 			return false;
@@ -293,8 +308,5 @@ public class Device {
 	}
 
 	
-
-
-
 
 }
