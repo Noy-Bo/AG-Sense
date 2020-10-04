@@ -30,10 +30,12 @@ public interface CacheManagerAPI {
 
     // Admin Methods
 
-    void getAccountsJob(int start, int num, AccountsHandler handler) throws Exception;
+    void getAccountsJob(int start, int num, AccountsHandler handler);
     void getDevicesJob(int start, int num, DevicesHandler handler);
+    void getLatestDevicesJob(int start, int num, DevicesHandler handler);
     void getNotificationsJob(int start, int num, NotificationsHandler handler);
     void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler);
+    void getLatestAccountsJob(int start, int num, AccountsHandler handler);
 
 
     // Account methods

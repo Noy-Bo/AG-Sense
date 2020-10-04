@@ -38,7 +38,7 @@ public class EditDevice extends BackBaseActivity {
     }
 
     private void UpdateDevicesList() {
-        DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
 

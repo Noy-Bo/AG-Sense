@@ -20,13 +20,26 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
     }
 
     @Override
-    public void getAllAccounts(final AccountsHandler handler) {
-        cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                handler.onAccountsDownloadFinished(accounts);
-            }
-        });
+    public void getAllAccounts(boolean reqeustLatestData,final AccountsHandler handler) {
+        if (reqeustLatestData == true)
+        {
+            cacheManager.getLatestAccountsJob(0, 0, new AccountsHandler() {
+                @Override
+                public void onAccountsDownloadFinished(List<Account> accounts) {
+                    handler.onAccountsDownloadFinished(accounts);
+                }
+            });
+        }
+        else
+        {
+            cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
+                @Override
+                public void onAccountsDownloadFinished(List<Account> accounts) {
+                    handler.onAccountsDownloadFinished(accounts);
+                }
+            });
+        }
+
     }
 
     @Override

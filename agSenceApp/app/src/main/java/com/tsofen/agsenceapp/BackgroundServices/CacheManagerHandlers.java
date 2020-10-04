@@ -79,8 +79,7 @@ public class CacheManagerHandlers {
         {
 
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-            CacheMgr.getInstance().setDevices((List<Devices>)retrievedEntitiesList);
-            CacheMgr.getInstance().getDevicesReadWriteLock().asReadWriteLock().writeLock().unlock();
+           CacheMgr.getInstance().setDevices((List<Devices>)retrievedEntitiesList);
             ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
 
 
@@ -92,7 +91,6 @@ public class CacheManagerHandlers {
             if (AppBaseActivity.getUser() instanceof Account)
             {
                 CacheMgr.getInstance().setDevices((List<Devices>)retrievedEntitiesList);
-                CacheMgr.getInstance().getDevicesReadWriteLock().asReadWriteLock().writeLock().unlock();
             }
             ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
 
@@ -108,7 +106,6 @@ public class CacheManagerHandlers {
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
             CacheMgr.getInstance().setAccounts((List<Account>)retrievedEntitiesList);
-            CacheMgr.getInstance().setExecuted(false);
             ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
         }
         else if (handler instanceof AccountNotificationsHandler)

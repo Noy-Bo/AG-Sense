@@ -59,7 +59,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
             }
         });
 
-        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+        AccountsDataAdapter.getInstance().getAllAccounts(false,new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(final List<Account> accounts) {
                 AdminDashboardActivity.this.runOnUiThread(new Runnable() {
