@@ -25,7 +25,8 @@ public class DeviceBL {
 	@Autowired
 	UserBL userBL;
 	
-	//if you need the devices for the user you must use the user account_id  
+	// if you need the user devices you must use the user account_id not id  
+	// account_id = userBL.getAccountIDForUser(id);
 	
 	public Device getDeviceById(int deviceId) {
 
