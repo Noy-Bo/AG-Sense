@@ -25,7 +25,7 @@ public class DeviceDataController {
 	
 	
 	@GetMapping("AllDevicesData")
-	public ArrayList<DeviceData> getAllDevices() {
+	public ArrayList<DeviceData> getAllDevicesData() {
 
 		ArrayList<DeviceData> devices = new ArrayList<DeviceData>();
 		devices = deviceDataBL.findAll();
