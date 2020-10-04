@@ -56,7 +56,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
         name.setText(device.getName());
         accountNname.setText(device.getAccountId().toString());
         devicetypeid.setText((device.getType()));
-        if (device.getFaultyTime() == null)
+        if (!device.getFaulty() || device.getFaultyTime() == null)
             faultytime.setText("");
         else
             faultytime.setText(String.valueOf(device.getFaultyTime()));
@@ -91,7 +91,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
                 for (Devices device : allDevices) {
-                    if (device.getName().toLowerCase().contains(filterPattern))
+                    if ((device.getName()!=null && device.getName().toLowerCase().contains(filterPattern)) || (device.getImei() != null && device.getImei().toString().contains((filterPattern))))
                         suggestions.add(device);
                 }
             }
