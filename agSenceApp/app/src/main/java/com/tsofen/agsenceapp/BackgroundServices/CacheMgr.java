@@ -446,12 +446,13 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void addNewDeviceJob(Long imei, String deviceType, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler) {
+    public void addNewDeviceJob(Long imei, String deviceType, String deviceName, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler) {
         Map<String, String> params = new HashMap<>();
         params.put("accountName",accountName);
         params.put("devicePassword",devicePassword);
         params.put("imei",Long.toString(imei));
         params.put("phoneNumber",devicePhoneNumber);
+        params.put("deviceName",deviceName);
         params.put("type",deviceType);
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.AddNewDevice);
         asyncGeneric.execute();

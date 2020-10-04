@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.dataAdapters;
 
 import com.tsofen.agsenceapp.adaptersInterfaces.AccountsDataAdapterAPI;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Devices;
 
@@ -69,6 +70,16 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
                         toReturn.add(account);
                 }
                 handler.onAccountsDownloadFinished(toReturn);
+            }
+        });
+    }
+
+    @Override
+    public void getAllCompaniesName(CompaniesNameHandler handler) {
+        cacheManager.getAllCompaniesNameJob(new CompaniesNameHandler() {
+            @Override
+            public void onCompaniesNameReady(List<String> companiesName) {
+                handler.onCompaniesNameReady(companiesName);
             }
         });
     }

@@ -98,7 +98,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             account = (Account) AppBaseActivity.user;
         }
 
-        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getId(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
                 AccountDashboardActivity.this.runOnUiThread(new Runnable() {
@@ -132,7 +132,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     public void getDevicesFromCache()
     {
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getId(), 0, 0, new DeviceDataRequestHandler() {
 
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {

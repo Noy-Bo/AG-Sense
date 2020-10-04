@@ -31,7 +31,7 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	ArrayList<Device> findAllByOrderByLastUpdateDesc();
 
-	@Query(nativeQuery = true, value = " SELECT " + "			 * " + "			 FROM  " + "			 devices  "
+	@Query(nativeQuery = true, value = " SELECT  *  FROM  devices  "
 			+ "			  where  faulty in (?1, ?2) AND type in (?3, ?4, ?5) AND account_id = ?6 " +
 
 			"  ORDER BY last_update DESC ;")
