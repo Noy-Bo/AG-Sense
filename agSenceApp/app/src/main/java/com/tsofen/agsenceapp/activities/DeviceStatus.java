@@ -44,6 +44,7 @@ public class DeviceStatus extends SearchBaseActivity {
     View contentView;
     ListView devicesList;
     ProgressDialog pd;
+    CacheMgr cacheMgr = CacheMgr.getInstance();
 
 
     @Override
@@ -57,11 +58,13 @@ public class DeviceStatus extends SearchBaseActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                devicesArr.clear();
+                //devicesArr.clear(); // do not use this!. down below you take Devices from cache and assign it directly to this variable, therefore controlling cache from here. this is bad
+                // if u still need to use it. do not take direct refrence from cache!.
                 filteredDevices.clear();
-                ((ArrayAdapter) devicesList.getAdapter()).notifyDataSetChanged();
-                CacheMgr.getInstance().clearCacheDevices();
-                getAllDevicesFromCache();
+
+                ((ArrayAdapter)devicesList.getAdapter()).notifyDataSetChanged();
+                getAllDevicesFromCache(true);
+
 
 
             }
@@ -69,7 +72,7 @@ public class DeviceStatus extends SearchBaseActivity {
         devicesList = contentView.findViewById(R.id.listOfDevices);
         searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
         searchView.setHint(R.string.search_device_hint);
-        DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {
                 DeviceStatus.this.runOnUiThread(new Runnable() {
@@ -92,7 +95,7 @@ public class DeviceStatus extends SearchBaseActivity {
         });
 
 
-        getAllDevicesFromCache();
+        getAllDevicesFromCache(false);
 
         devicesList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -212,8 +215,12 @@ public class DeviceStatus extends SearchBaseActivity {
         }
     }
 
-    public void getAllDevicesFromCache() {
-        DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+
+    public void getAllDevicesFromCache(boolean requestLatestData)
+    {
+
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0,requestLatestData, new DeviceDataRequestHandler() {
+
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {
                 DeviceStatus.this.runOnUiThread(new Runnable() {
@@ -227,5 +234,6 @@ public class DeviceStatus extends SearchBaseActivity {
 
             }
         });
+
     }
 }

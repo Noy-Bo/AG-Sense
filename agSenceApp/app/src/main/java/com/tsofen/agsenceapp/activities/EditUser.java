@@ -36,7 +36,7 @@ public class EditUser extends BackBaseActivity {
         newEmailTxt = findViewById(R.id.edit_user_new_email);
         newPhoneTxt = findViewById(R.id.edit_user_new_phone_number);
         notificationsSwitch = findViewById(R.id.edit_user_notifications_switch);
-        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+        AccountsDataAdapter.getInstance().getAllAccounts(false,new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
                 allAccounts=new ArrayList<>(accounts);

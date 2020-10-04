@@ -76,7 +76,7 @@ public class DeviceSettings extends BackBaseActivity {
             spinner.setSelection(0);
             b1.setVisibility(View.VISIBLE);
         } else {
-            DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+            DeviceDataAdapter.getInstance().getAllDevices(0, 0, false,new DeviceDataRequestHandler() {
                 @Override
                 public void onDeviceDataLoaded(final List<Devices> devices) {
                     for (Devices devices1 : devices) {

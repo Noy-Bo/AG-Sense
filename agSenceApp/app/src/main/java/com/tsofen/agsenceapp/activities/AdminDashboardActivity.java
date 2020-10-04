@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,9 +23,11 @@ import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.utils.AdminDashboardInfo;
 import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 import java.util.ArrayList;
@@ -35,8 +38,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     private long backPressedTime;
     private Toast backtoast;
     private ProgressDialog pd;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
             }
         });
 
-        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+        AccountsDataAdapter.getInstance().getAllAccounts(false,new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(final List<Account> accounts) {
                 AdminDashboardActivity.this.runOnUiThread(new Runnable() {
@@ -80,9 +81,19 @@ public class AdminDashboardActivity extends SearchBaseActivity {
                 startActivity(intent);
             }
         });
+
         // observer registeration for onforeground. -- read AppLifeCycleObserver.
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
+
+//        CacheMgr.getInstance().getAdminDashboardInfoJob(7, new AdminDashboardInfoHandler() {
+//            @Override
+//            public void onAdminDashboardInfoReceived(AdminDashboardInfo adminDashboardInfo) {
+//                Log.d("testing adminDashboard","results:   "+adminDashboardInfo.toString());
+//            }
+//        });
+
     }
 
     public void goToNotifications(View view) {
@@ -115,7 +126,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         intent.putExtra("filter", "healthy");
         startActivity(intent);
 
-
     }
 
     public void goToHealthyDevices(View view) {
@@ -124,8 +134,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         Intent intent = new Intent(AdminDashboardActivity.this, DeviceStatus.class);
         intent.putExtra("filter", "healthy");
         startActivity(intent);
-
-
 
     }
 
@@ -170,10 +178,6 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         super.onResume();
         GeneralProgressBar.removeProgressDialog(pd);
 
-
     }
-
-
-
 
 }

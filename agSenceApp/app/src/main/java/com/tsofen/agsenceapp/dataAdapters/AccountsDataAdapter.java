@@ -4,6 +4,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.AccountsDataAdapterAPI;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.entities.Devices;
 
 import java.util.ArrayList;
@@ -21,13 +22,26 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
     }
 
     @Override
-    public void getAllAccounts(final AccountsHandler handler) {
-        cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                handler.onAccountsDownloadFinished(accounts);
-            }
-        });
+    public void getAllAccounts(boolean reqeustLatestData,final AccountsHandler handler) {
+        if (reqeustLatestData == true)
+        {
+            cacheManager.getLatestAccountsJob(0, 0, new AccountsHandler() {
+                @Override
+                public void onAccountsDownloadFinished(List<Account> accounts) {
+                    handler.onAccountsDownloadFinished(accounts);
+                }
+            });
+        }
+        else
+        {
+            cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
+                @Override
+                public void onAccountsDownloadFinished(List<Account> accounts) {
+                    handler.onAccountsDownloadFinished(accounts);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -63,9 +77,9 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
 
     @Override
     public void getAllCompaniesName(CompaniesNameHandler handler) {
-        cacheManager.getAllCompaniesNameJob(new CompaniesNameHandler() {
+        cacheManager.getAllCompaniesNameJob(0,0,new CompaniesNameHandler() {
             @Override
-            public void onCompaniesNameReady(List<String> companiesName) {
+            public void onCompaniesNameReady(List<AccountCompany> companiesName) {
                 handler.onCompaniesNameReady(companiesName);
             }
         });

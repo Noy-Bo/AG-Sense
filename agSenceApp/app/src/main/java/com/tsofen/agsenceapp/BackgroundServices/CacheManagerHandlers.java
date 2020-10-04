@@ -6,6 +6,7 @@ import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
@@ -14,6 +15,7 @@ import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
+import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
 import com.tsofen.agsenceapp.dataServices.NewCompanyHandler;
 import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
@@ -23,11 +25,13 @@ import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.utils.AdminDashboardInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,8 +44,14 @@ public class CacheManagerHandlers {
    static List retrievedEntitiesList = new ArrayList<>();
 
 
+    // ==================================================================================
+    // ----------------------------- main switch function -------------------------------
+    // ==================================================================================
+
+
     public static void parseDataAndSendCallback(String downloadedData, BaseHandler handler)
     {
+
         if (handler instanceof LoginHandler)
         {
             try {
@@ -65,17 +75,16 @@ public class CacheManagerHandlers {
             }
         }
 
-
         else if (handler instanceof DevicesHandler)
         {
 
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-            CacheMgr.getInstance().setDevices((List<Devices>)retrievedEntitiesList);
-
+           CacheMgr.getInstance().setDevices((List<Devices>)retrievedEntitiesList);
             ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
 
 
         }
+
         else if (handler instanceof AccountDevicesHandler)
         {
 
@@ -87,6 +96,7 @@ public class CacheManagerHandlers {
             ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
 
         }
+
         else if(handler instanceof DeviceDataHandler)
         {
 
@@ -94,92 +104,116 @@ public class CacheManagerHandlers {
 
             ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
         }
+
         else if(handler instanceof AccountsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
             CacheMgr.getInstance().setAccounts((List<Account>)retrievedEntitiesList);
             ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
         }
+
         else if (handler instanceof AccountNotificationsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
+
         else if (handler instanceof DeviceNotificationsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
+
         else if (handler instanceof NotificationsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
+
         else if (handler instanceof EditDeviceHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((EditDeviceHandler) handler).onDeviceEditedFinished(result);
         }
+
         else if (handler instanceof NewCompanyHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewCompanyHandler) handler).onNewCompanyAddedFinished(result);
         }
+
         else if (handler instanceof NewUserAddedHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewUserAddedHandler) handler).onNewUserAddedFinished(result);
         }
+
         else if (handler instanceof CompaniesNameHandler)
         {
-            retrievedEntitiesList = parseToJsonArray(downloadedData, new String());
-            ((CompaniesNameHandler) handler).onCompaniesNameReady((List<String>)retrievedEntitiesList);
+            retrievedEntitiesList = parseToJsonArray(downloadedData, new AccountCompany());
+            ((CompaniesNameHandler) handler).onCompaniesNameReady((List<AccountCompany>) retrievedEntitiesList);
         }
+
         else if (handler instanceof NewDeviceAddedHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewDeviceAddedHandler) handler).onNewDeviceAddedFinished(result);
         }
+
         else if (handler instanceof NewDeviceAddedHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewDeviceAddedHandler) handler).onNewDeviceAddedFinished(result);
         }
+
         else if (handler instanceof PasswordSetHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((PasswordSetHandler) handler).onPasswordSetFinished(result);
         }
+
         else if (handler instanceof EditAccountHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((EditAccountHandler) handler).onAccountEditedFinished(result);
         }
+
         else if (handler instanceof EditDeviceHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((EditDeviceHandler) handler).onDeviceEditedFinished(result);
         }
+
         else if (handler instanceof UserPasswordChangeHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((UserPasswordChangeHandler) handler).onUserPasswordChangedFinished(result);
         }
+
         else if (handler instanceof VerificationCodeSentHandler)
         {
             ((VerificationCodeSentHandler) handler).onVerificationCodeSent();
         }
+
         else if (handler instanceof VerificationCodeCheckHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((VerificationCodeCheckHandler) handler).onVerificationCodeFinished(result);
         }
 
+        else if (handler instanceof AdminDashboardInfoHandler)
+        {
+            retrievedEntitiesList = parseToJsonArray(downloadedData, new AdminDashboardInfo());
+            ((AdminDashboardInfoHandler) handler).onAdminDashboardInfoReceived((AdminDashboardInfo) retrievedEntitiesList.get(0));
+        }
+
+        else if (handler instanceof MarkNotificationAsReadHandler)
+        {
+            Boolean result = Boolean.valueOf(downloadedData);
+            ((MarkNotificationAsReadHandler) handler).onNotificationMarkedAsRead(result);
+        }
+
     }
-
-
-
-
 
     // ==================================================================================
     // ------------------------------- JSON Parsers -------------------------------------
