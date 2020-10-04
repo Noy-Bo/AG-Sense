@@ -36,7 +36,7 @@ public class UserBL {
 
 		User byUserName = userRepository.findByUserName(Username);
 		if (byUserName != null && byUserName.validate(password)) {
-			byUserName.updateType();
+			
 
 			return byUserName;
 		}
@@ -62,10 +62,15 @@ public class UserBL {
 			
 		}
 		
+		public int getAccountIDForUser(int id) {
+			
+			return  userRepository.getAccountIDForUser(id);
+		}
+		
 		public boolean addNewUser(String username, String email, String userType, String accountName) throws NoSuchAlgorithmException {
 			Account acc = accountRepository.findByName(accountName);
 			if (userType.contentEquals("Admin")) {
-				Admin admin = new Admin(email,username,username,null);
+				Admin admin = new Admin(email,username,username,null,acc);
 				adminRepository.save(admin);
 			}
 			else if(userType.contentEquals("Account")) {

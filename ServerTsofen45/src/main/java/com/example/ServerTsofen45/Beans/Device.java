@@ -59,13 +59,16 @@ public class Device {
 	
 	
 	
-	public Device(long imei, int accountId, DeviceType type, String phoneNumber, String password) {
+	public Device(long imei, int accountId, DeviceType type, String deviceName, String phoneNumber, String password) {
 		super();
 		this.imei = imei;
 		this.accountId = accountId;
 		this.type = type;
+		this.name = deviceName;
 		this.phoneNumber = phoneNumber;
 		this.password = password;
+		this.isFaulty = false;
+		this.isRegistered = false;
 	}
 	
 	
