@@ -9,7 +9,6 @@ public class Account extends User implements Serializable {
     public int accountid;
     private List<Devices> devices;
     private Integer faultyDevices;
-    private String phoneNumber;
     private Boolean faultyAccount;
     private Integer numberOfDevices;
 

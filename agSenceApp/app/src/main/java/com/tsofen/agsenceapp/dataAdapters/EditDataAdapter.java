@@ -39,4 +39,9 @@ public class EditDataAdapter extends  BaseDataAdapter implements EditDataAdapter
             }
         });
     }
+
+    @Override
+    public void editUser(Integer userId, String newEmail, String newPhoneNumber, EditDataRequestHandler handler) {
+
+    }
 }
