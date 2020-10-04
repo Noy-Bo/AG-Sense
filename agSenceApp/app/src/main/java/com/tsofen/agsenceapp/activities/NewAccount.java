@@ -12,22 +12,25 @@ import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adaptersInterfaces.AddNewDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AddNewDataAdapter;
 import com.tsofen.agsenceapp.utils.AlertFlag;
+import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 public class NewAccount extends BackBaseActivity {
-
+    GeneralProgressBar pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_account);
+        GeneralProgressBar.displayProgressDialog(this, "loading...");
     }
 
     public void AddNewAccount(View view) {
         EditText accountName = findViewById(R.id.new_account_name);
         String name = accountName.getText().toString();
-        if (name.equals("")) {
+        if (name.equals("")){
             showAlertBox(NewAccount.this, AlertFlag.FAILURE, "You must enter the account name");
             return;
         }
+        view.setEnabled(false);
         AddNewDataAdapter.getInstance().addNewAccount(name, new AddNewDataRequestHandler() {
             @Override
             public void onNewDataAddedSuccess() {

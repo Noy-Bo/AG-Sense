@@ -97,7 +97,11 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.nav_device_settings) {
             Intent intent = new Intent(this, DeviceSettings.class);
             startActivity(intent);
-        } else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(this, UserProfile.class);
+            intent.putExtra("user",user);
+            startActivity(intent);
+        }else if (id == R.id.nav_logout) {
             CacheMgr.getInstance().clearCache();
             finishAffinity();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));

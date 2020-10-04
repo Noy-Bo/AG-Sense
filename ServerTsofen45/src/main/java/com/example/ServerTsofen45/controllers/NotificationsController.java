@@ -125,7 +125,7 @@ public class NotificationsController {
 		 
 		}
 	  
-	  @GetMapping("Readed")
+	  @GetMapping("Read")
 	  public int markNotificationAsRead (@RequestParam ArrayList<Integer> notificationIdList, @RequestParam ArrayList<Integer> accountIdList )
 		{
 			int count = 0;
