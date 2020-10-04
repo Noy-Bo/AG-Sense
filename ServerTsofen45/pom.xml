@@ -93,13 +93,29 @@
 
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			
-		</plugins>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.tomcat.maven</groupId>
+			<artifactId>tomcat7-maven-plugin</artifactId>
+			<version>2.2</version>
+			<configuration>
+				<url>http://localhost:8080/manager/text</url>
+				<path>/DeployMavenToTomcat</path>
+				<!-- Set update to true to avoid exist war package can not be override 
+					error -->
+				<update>true</update>
+				<!-- Because deploy this maven project using plugin in pom so use the 
+					manager-script role user. -->
+				<username>tomcat</username>
+				<password>tomcat</password>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+		</plugin>
+
+	</plugins>
 	</build>
 
 </project>
