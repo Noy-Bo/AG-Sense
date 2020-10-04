@@ -46,7 +46,7 @@ public class AccountsAdapter<A extends User> extends ArrayAdapter<Account> imple
         View layout = this.inflater.inflate(R.layout.activity_account_status_news_shape, null);
         final Account account = (Account) getItem(position);
         TextView accountName = layout.findViewById(R.id.account_name);
-        TextView username = layout.findViewById(R.id.account_name);
+        TextView username = layout.findViewById(R.id.account_username);
         TextView amountofdevices = layout.findViewById((R.id.amountofdevices));
         TextView accountLastUpdate = layout.findViewById((R.id.accountlastupdate));
         ImageView imageView = layout.findViewById(R.id.account_status_imageview);
