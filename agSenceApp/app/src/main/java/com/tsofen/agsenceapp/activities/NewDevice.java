@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewDevice extends BackBaseActivity {
-    EditText IEMIEdit, DevicePhoneNumberEdit, DevicePasswordEdit;
+    EditText iemiEdit, devicePhoneNumberEdit, devicePasswordEdit, deviceNameEdit;
     Spinner DeviceTypeSpinner, AccountNameSpinner;
     final List<String> _accountsnames = new ArrayList<>();
 
@@ -63,36 +63,38 @@ public class NewDevice extends BackBaseActivity {
     }
 
     public void addNewDevice(View view) {
-        DevicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
-        DevicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
-        IEMIEdit = findViewById(R.id.IEMIEdit);
+        devicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
+        devicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
+        deviceNameEdit = findViewById(R.id.DeviceNameEdit);
+        iemiEdit = findViewById(R.id.IEMIEdit);
 
         String iemiRegex = "[0-9]+";
         boolean legal = true;
-        if (!validatePhoneNumber(DevicePhoneNumberEdit.getText().toString())) {
-            DevicePhoneNumberEdit.setError("Invalid Phone number");
+        if (!validatePhoneNumber(devicePhoneNumberEdit.getText().toString())) {
+            devicePhoneNumberEdit.setError("Invalid Phone number");
             legal = false;
         }
-        if (!validatePassword(DevicePasswordEdit.getText().toString())) {
-            DevicePasswordEdit.setError("Password is weak");
+        if (!validatePassword(devicePasswordEdit.getText().toString())) {
+            devicePasswordEdit.setError("Password is weak");
             legal = false;
         }
-        if (!IEMIEdit.getText().toString().matches(iemiRegex)) {
-            IEMIEdit.setError("Illegal IEMI");
+        if (!iemiEdit.getText().toString().matches(iemiRegex)) {
+            iemiEdit.setError("Illegal IEMI");
             legal = false;
         }
-        if (DeviceTypeSpinner.getSelectedItem() == null || AccountNameSpinner.getSelectedItem() == null) {
+        if (DeviceTypeSpinner.getSelectedItem() == null || AccountNameSpinner.getSelectedItem() == null || deviceNameEdit.getText().toString().equals("")) {
             showAlertBox(NewDevice.this, AlertFlag.FAILURE, "Some details are missing");
             legal = false;
         }
         if (!legal)
             return;
-        Long iemi = Long.parseLong(IEMIEdit.getText().toString());
+        Long iemi = Long.parseLong(iemiEdit.getText().toString());
         String accountName = (String) AccountNameSpinner.getSelectedItem();
-        String phoneNumber = DevicePhoneNumberEdit.getText().toString();
-        String password = DevicePasswordEdit.getText().toString();
+        String phoneNumber = devicePhoneNumberEdit.getText().toString();
+        String password = devicePasswordEdit.getText().toString();
+        String name = deviceNameEdit.getText().toString();
         String type = (String) DeviceTypeSpinner.getSelectedItem().toString().replace(" ","");
-        AddNewDataAdapter.getInstance().addNewDevice(iemi, type, accountName, phoneNumber, password, new AddNewDataRequestHandler() {
+        AddNewDataAdapter.getInstance().addNewDevice(iemi, type,name, accountName, phoneNumber, password, new AddNewDataRequestHandler() {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewDevice.this, AlertFlag.SUCCESS, "Added new device successfully");

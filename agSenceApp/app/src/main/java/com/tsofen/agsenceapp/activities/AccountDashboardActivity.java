@@ -133,7 +133,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     public void getDevicesFromCache()
     {
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getId(), 0, 0, new DeviceDataRequestHandler() {
 
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {

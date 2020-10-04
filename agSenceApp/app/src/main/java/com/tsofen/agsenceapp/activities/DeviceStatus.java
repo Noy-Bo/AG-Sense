@@ -46,13 +46,12 @@ public class DeviceStatus extends SearchBaseActivity {
     ProgressDialog pd;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
-        pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
+        pd = GeneralProgressBar.displayProgressDialog(this, "loading devices...");
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -60,7 +59,7 @@ public class DeviceStatus extends SearchBaseActivity {
             public void onRefresh() {
                 devicesArr.clear();
                 filteredDevices.clear();
-                ((ArrayAdapter)devicesList.getAdapter()).notifyDataSetChanged();
+                ((ArrayAdapter) devicesList.getAdapter()).notifyDataSetChanged();
                 CacheMgr.getInstance().clearCacheDevices();
                 getAllDevicesFromCache();
 
@@ -111,7 +110,7 @@ public class DeviceStatus extends SearchBaseActivity {
         devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(swipeRefreshLayout.isRefreshing())
+                if (swipeRefreshLayout.isRefreshing())
                     return;
 
                 Intent intent = new Intent(getApplicationContext(), DeviceView.class);
@@ -166,24 +165,25 @@ public class DeviceStatus extends SearchBaseActivity {
     private void updatingUI() {
         filteredDevices = new ArrayList<>();
 
-        String filter = getIntent().getExtras().getString("filter");
+        String filter = getIntent().getStringExtra("filter");
         if (filter != null) {
-            if (filter.equals("faulty") ) {
+            if (filter.equals("faulty")) {
                 for (Devices device : devicesArr) {
-                    if (device.getFaulty() == true){
+                    if (device.getFaulty()) {
                         filteredDevices.add(device);
                     }
                 }
-            }else{
+            } else if (filter.equals("healthy")) {
                 for (Devices device : devicesArr) {
-                    if (device.getFaulty() == false){
+                    if (!device.getFaulty()) {
                         filteredDevices.add(device);
                     }
                 }
-            }
+            } else
+                filteredDevices.addAll(devicesArr);
 
         }
-        final ListAdapter myAdapter = new DevicesAdapter<Devices>(DeviceStatus.this,  filteredDevices);
+        final ListAdapter myAdapter = new DevicesAdapter<Devices>(DeviceStatus.this, filteredDevices);
         devicesList.setAdapter(myAdapter);
         GeneralProgressBar.removeProgressDialog(pd);
         swipeRefreshLayout.setRefreshing(false);
@@ -193,15 +193,17 @@ public class DeviceStatus extends SearchBaseActivity {
         if (filteredDevices == null || filteredDevices.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
-            for (Devices device :  filteredDevices) {
-                Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
-                if(device.getName()!=null) {
-                    newPlace.setTitle(device.getName());
+            for (Devices device : filteredDevices) {
+                if (device.getLatitude() != null && device.getLogitude() != null) {
+                    Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
+                    if (device.getName() != null) {
+                        newPlace.setTitle(device.getName());
+                    }
+                    if (device.getLastUpdate() != null) {
+                        newPlace.setSnippet(device.getLastUpdate().toString());
+                    }
+                    userMap.addPlace(newPlace);
                 }
-                if(device.getLastUpdate()!=null) {
-                    newPlace.setSnippet(device.getLastUpdate().toString());
-                }
-                userMap.addPlace(newPlace);
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);
@@ -210,8 +212,7 @@ public class DeviceStatus extends SearchBaseActivity {
         }
     }
 
-    public void getAllDevicesFromCache()
-    {
+    public void getAllDevicesFromCache() {
         DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {
