@@ -12,6 +12,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.AddNewDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.AddNewDataAdapter;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.utils.AlertFlag;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
 public class NewDevice extends BackBaseActivity {
     EditText iemiEdit, devicePhoneNumberEdit, devicePasswordEdit, deviceNameEdit;
     Spinner DeviceTypeSpinner, AccountNameSpinner;
-    final List<String> _accountsnames = new ArrayList<>();
+    final List<AccountCompany> _accountsnames = new ArrayList<>();
 
     /**/
     @Override
@@ -30,7 +31,7 @@ public class NewDevice extends BackBaseActivity {
 //      _accountsnames.add(0,"Choose Type");
         UpdateAccountsName();
         AccountNameSpinner = (Spinner) findViewById(R.id.AccountNameSpinner);
-        ArrayAdapter<String> dataAdapter;
+        ArrayAdapter<AccountCompany> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, _accountsnames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AccountNameSpinner.setAdapter(dataAdapter);
@@ -55,7 +56,7 @@ public class NewDevice extends BackBaseActivity {
     private void UpdateAccountsName() {
         AccountsDataAdapter.getInstance().getAllCompaniesName(new CompaniesNameHandler() {
             @Override
-            public void onCompaniesNameReady(List<String> companiesName) {
+            public void onCompaniesNameReady(List<AccountCompany> companiesName) {
                 _accountsnames.addAll(companiesName);
 
             }

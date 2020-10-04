@@ -1,7 +1,5 @@
 package com.tsofen.agsenceapp.BackgroundServices;
 
-import androidx.constraintlayout.solver.Cache;
-
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
@@ -27,6 +25,7 @@ import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
@@ -53,7 +52,6 @@ public class CacheManagerHandlers {
     public static void parseDataAndSendCallback(String downloadedData, BaseHandler handler)
     {
 
-
         if (handler instanceof LoginHandler)
         {
             try {
@@ -77,7 +75,6 @@ public class CacheManagerHandlers {
             }
         }
 
-
         else if (handler instanceof DevicesHandler)
         {
 
@@ -87,6 +84,7 @@ public class CacheManagerHandlers {
 
 
         }
+
         else if (handler instanceof AccountDevicesHandler)
         {
 
@@ -98,6 +96,7 @@ public class CacheManagerHandlers {
             ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
 
         }
+
         else if(handler instanceof DeviceDataHandler)
         {
 
@@ -105,97 +104,114 @@ public class CacheManagerHandlers {
 
             ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
         }
+
         else if(handler instanceof AccountsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
             CacheMgr.getInstance().setAccounts((List<Account>)retrievedEntitiesList);
             ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
         }
+
         else if (handler instanceof AccountNotificationsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
+
         else if (handler instanceof DeviceNotificationsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
+
         else if (handler instanceof NotificationsHandler)
         {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
+
         else if (handler instanceof EditDeviceHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((EditDeviceHandler) handler).onDeviceEditedFinished(result);
         }
+
         else if (handler instanceof NewCompanyHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewCompanyHandler) handler).onNewCompanyAddedFinished(result);
         }
+
         else if (handler instanceof NewUserAddedHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewUserAddedHandler) handler).onNewUserAddedFinished(result);
         }
+
         else if (handler instanceof CompaniesNameHandler)
         {
-            // parse the StringList?
-            ((CompaniesNameHandler) handler).onCompaniesNameReady(/* ADD RESULT OBJECT HERE*/null);
+            retrievedEntitiesList = parseToJsonArray(downloadedData, new AccountCompany());
+            ((CompaniesNameHandler) handler).onCompaniesNameReady((List<AccountCompany>) retrievedEntitiesList);
         }
+
         else if (handler instanceof NewDeviceAddedHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewDeviceAddedHandler) handler).onNewDeviceAddedFinished(result);
         }
+
         else if (handler instanceof NewDeviceAddedHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((NewDeviceAddedHandler) handler).onNewDeviceAddedFinished(result);
         }
+
         else if (handler instanceof PasswordSetHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((PasswordSetHandler) handler).onPasswordSetFinished(result);
         }
+
         else if (handler instanceof EditAccountHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((EditAccountHandler) handler).onAccountEditedFinished(result);
         }
+
         else if (handler instanceof EditDeviceHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((EditDeviceHandler) handler).onDeviceEditedFinished(result);
         }
+
         else if (handler instanceof UserPasswordChangeHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((UserPasswordChangeHandler) handler).onUserPasswordChangedFinished(result);
         }
+
         else if (handler instanceof VerificationCodeSentHandler)
         {
             ((VerificationCodeSentHandler) handler).onVerificationCodeSent();
         }
+
         else if (handler instanceof VerificationCodeCheckHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((VerificationCodeCheckHandler) handler).onVerificationCodeFinished(result);
         }
+
         else if (handler instanceof AdminDashboardInfoHandler)
         {
-            retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-            ((AdminDashboardInfoHandler) handler).onAdminDashboardInfoRecieved(/* ADD RESULT OBJECT HERE*/null);
+            retrievedEntitiesList = parseToJsonArray(downloadedData, new AdminDashboardInfo());
+            ((AdminDashboardInfoHandler) handler).onAdminDashboardInfoReceived((AdminDashboardInfo) retrievedEntitiesList.get(0));
         }
+
         else if (handler instanceof MarkNotificationAsReadHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((MarkNotificationAsReadHandler) handler).onNotificationMarkedAsRead(result);
         }
-
 
     }
 

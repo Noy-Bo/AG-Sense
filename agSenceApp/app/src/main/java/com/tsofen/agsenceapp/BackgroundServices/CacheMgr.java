@@ -91,6 +91,7 @@ public class CacheMgr implements CacheManagerAPI {
 
         return cacheMgr;
     }
+    
     public List<Notification> getNotifications() { return notifications; }
     public  void setNotifications(List<Notification> notifications) { this.notifications = notifications; }// public setter for firebase notification onReceive
     public void setStopGetDevicesPeriodic(boolean stopGetDevicesPeriodic) { this.stopGetDevicesPeriodic = stopGetDevicesPeriodic; }
@@ -121,7 +122,6 @@ public class CacheMgr implements CacheManagerAPI {
     // ==================================================================================
     // --------------------------- Admin's Periodic GetDevices --------------------------
     // ==================================================================================
-
 
 
     private class AdminGetDevicesPeriodicRunnable implements Runnable {
@@ -405,7 +405,6 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-
     public void getSpecificDeviceDataByIdJob(int deviceId, DeviceDataHandler handler) {
 
         Map<String, String> params = new HashMap<>();
@@ -414,8 +413,6 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
 
     }
-
-
 
     @Override
     public void addNewUserJob(String username, String emailAddress, String userType, String accountName, NewUserAddedHandler handler) {
@@ -439,9 +436,11 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void getAllCompaniesNameJob(CompaniesNameHandler handler) {
+    public void getAllCompaniesNameJob(int num, int start, CompaniesNameHandler handler) {
         Map<String, String> params = new HashMap<>();
-        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getAllAccountsName);
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getAllAccountsAccountController);
         asyncGeneric.execute();
     }
 
@@ -506,6 +505,7 @@ public class CacheMgr implements CacheManagerAPI {
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.adminDashboardInfo);
         asyncGeneric.execute();
     }
+
     @Override
     public void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -514,6 +514,7 @@ public class CacheMgr implements CacheManagerAPI {
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.markNotificationAsRead);
         asyncGeneric.execute();
     }
+
     @Override
     public void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler) {
         // NO URL FROM SERVER
@@ -523,7 +524,6 @@ public class CacheMgr implements CacheManagerAPI {
     public void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler) {
         // NO URL FROM SERVER
     }
-
 
 
 // ==================================================================================

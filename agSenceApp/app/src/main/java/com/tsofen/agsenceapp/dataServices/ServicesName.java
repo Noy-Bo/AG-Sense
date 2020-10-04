@@ -8,7 +8,7 @@ public enum  ServicesName {
     editAccount("/Account/editAccount"),     // parameters :accountName
     editDevice("/Device/editDevice"),     // parameters : deviceIMEI, newPass, newPhoneNumber
     addAccount("/Account/Add"),              //// parameters:accountName
-    //getAllAccounts("/Account/AllAccounts"),  // parameters: num(int-number of accounts) ,start(int)
+    getAllAccountsAccountController("/Account/AllAccounts"),  // parameters: num(int-number of accounts) ,start(int)
     getAllAccountsName("/Account/getAllAccountsName"),
     adminDashboardInfo("/Dashboard/AdminDashboardInfo"),  // parameters:id
     AddNewDevice("/Device/Add"),             // parameters: accountName string,devicePassword string ,imei integer,phoneNumber  string ,type string

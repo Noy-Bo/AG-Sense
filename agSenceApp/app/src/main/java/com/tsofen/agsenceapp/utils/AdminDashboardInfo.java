@@ -7,6 +7,7 @@ public class AdminDashboardInfo {
     private String faultyAccountsNumber;
     private String healtyDevicesNumber;
 
+    public AdminDashboardInfo(){ }
     public AdminDashboardInfo(String unreadNotificationsNumber, String faultyDevicesNumber, String healtyAccountsNumber, String faultyAccountsNumber, String healtyDevicesNumber) {
         this.unreadNotificationsNumber = unreadNotificationsNumber;
         this.faultyDevicesNumber = faultyDevicesNumber;
@@ -53,5 +54,16 @@ public class AdminDashboardInfo {
 
     public void setHealtyDevicesNumber(String healtyDevicesNumber) {
         this.healtyDevicesNumber = healtyDevicesNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "AdminDashboardInfo{" +
+                "unreadNotificationsNumber='" + unreadNotificationsNumber + '\'' +
+                ", faultyDevicesNumber='" + faultyDevicesNumber + '\'' +
+                ", healtyAccountsNumber='" + healtyAccountsNumber + '\'' +
+                ", faultyAccountsNumber='" + faultyAccountsNumber + '\'' +
+                ", healtyDevicesNumber='" + healtyDevicesNumber + '\'' +
+                '}';
     }
 }

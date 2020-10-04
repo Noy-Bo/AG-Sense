@@ -53,7 +53,7 @@ public interface CacheManagerAPI {
     //v3 api
     void addNewUserJob(String username, String emailAddress, String userType, String accountName, NewUserAddedHandler handler);
     void addNewCompanyJob(String companyName, NewCompanyHandler handler);
-    void getAllCompaniesNameJob(CompaniesNameHandler handler);
+    void getAllCompaniesNameJob(int num , int start, CompaniesNameHandler handler);
     void addNewDeviceJob(Long imei, String deviceType, String deviceName, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler);
     void setPasswordJob(int userId, String password, PasswordSetHandler handler);
     void editAccountJob(String prevName, String newName, EditAccountHandler handler);
