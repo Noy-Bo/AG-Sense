@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
+import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 
@@ -19,6 +20,7 @@ import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
+import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
 import com.tsofen.agsenceapp.dataServices.NewCompanyHandler;
 import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
@@ -478,7 +480,12 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler) {
-        // NO URL FROM SERVER
+        Map<String, String> params = new HashMap<>();
+        params.put("deviceIMEI",Long.toString(deviceIMEI));
+        params.put("newPass",newPhoneNumber);
+        params.put("newPhoneNumber",newPhoneNumber);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.editDevice);
+        asyncGeneric.execute();
     }
 
     @Override
@@ -491,7 +498,21 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
-
+    @Override
+    public void getAdminDashboardInfoJob(int adminId, AdminDashboardInfoHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id",Integer.toString(adminId));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.adminDashboardInfo);
+        asyncGeneric.execute();
+    }
+    @Override
+    public void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("notificationId",Integer.toString(userId));
+        params.put("notificationId",Integer.toString(notificationId));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.markNotificationAsRead);
+        asyncGeneric.execute();
+    }
     @Override
     public void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler) {
         // NO URL FROM SERVER
@@ -503,7 +524,8 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
 
-    // ==================================================================================
+
+// ==================================================================================
     // ------------------------- Clear Data, Time Stamps checks  ------------------------
     // ==================================================================================
 
@@ -529,25 +551,6 @@ public class CacheMgr implements CacheManagerAPI {
         }
         return false;
     }
-//    private void clearCacheDevices(){
-//
-//        if (isServerRequestDevices(devicesTimeStamp))
-//        {
-//            Log.d("timestamp", "Requesting server for devices");
-//            devices.clear();
-//        }
-//
-//    }
-//    private void clearCacheAccounts(){
-//
-//        if (isServerRequestDevices(accountsTimeStamp))
-//        {
-//            Log.d("timestamp", "Requesting server for accounts");
-//            accounts.clear();
-//        }
-//
-//    }
-
     public void clearCacheNotification(){notifications.clear();}
 
     public  void clearCache(){

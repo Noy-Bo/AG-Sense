@@ -3,6 +3,7 @@ package com.tsofen.agsenceapp.BackgroundServices;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
@@ -10,6 +11,7 @@ import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
+import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
 import com.tsofen.agsenceapp.dataServices.NewCompanyHandler;
 import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
@@ -18,6 +20,10 @@ import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
 import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
+import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.utils.AdminDashboardInfo;
+
+import java.util.ArrayList;
 
 public interface CacheManagerAPI {
     /**
@@ -55,6 +61,9 @@ public interface CacheManagerAPI {
     void changeUserPasswordJob(int userId, String newPass, UserPasswordChangeHandler handler);
     void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler);
     void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler);
+    void getAdminDashboardInfoJob(int adminId, AdminDashboardInfoHandler handler);
+    void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler);
+
 
 
 

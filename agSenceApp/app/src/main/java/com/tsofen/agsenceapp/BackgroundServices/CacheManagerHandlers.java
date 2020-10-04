@@ -8,6 +8,7 @@ import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
@@ -16,6 +17,7 @@ import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
+import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
 import com.tsofen.agsenceapp.dataServices.NewCompanyHandler;
 import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
@@ -30,6 +32,7 @@ import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 import com.tsofen.agsenceapp.entities.User;
+import com.tsofen.agsenceapp.utils.AdminDashboardInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -140,8 +143,8 @@ public class CacheManagerHandlers {
         }
         else if (handler instanceof CompaniesNameHandler)
         {
-            retrievedEntitiesList = parseToJsonArray(downloadedData, new String());
-            ((CompaniesNameHandler) handler).onCompaniesNameReady((List<String>)retrievedEntitiesList);
+            // parse the StringList?
+            ((CompaniesNameHandler) handler).onCompaniesNameReady(/* ADD RESULT OBJECT HERE*/null);
         }
         else if (handler instanceof NewDeviceAddedHandler)
         {
@@ -182,12 +185,19 @@ public class CacheManagerHandlers {
             Boolean result = Boolean.valueOf(downloadedData);
             ((VerificationCodeCheckHandler) handler).onVerificationCodeFinished(result);
         }
+        else if (handler instanceof AdminDashboardInfoHandler)
+        {
+            // code here, parse data.
+            ((AdminDashboardInfoHandler) handler).onAdminDashboardInfoRecieved(/* ADD RESULT OBJECT HERE*/null);
+        }
+        else if (handler instanceof MarkNotificationAsReadHandler)
+        {
+            Boolean result = Boolean.valueOf(downloadedData);
+            ((MarkNotificationAsReadHandler) handler).onNotificationMarkedAsRead(result);
+        }
+
 
     }
-
-
-
-
 
     // ==================================================================================
     // ------------------------------- JSON Parsers -------------------------------------
