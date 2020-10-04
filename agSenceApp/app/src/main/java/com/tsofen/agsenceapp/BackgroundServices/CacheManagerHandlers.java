@@ -187,7 +187,7 @@ public class CacheManagerHandlers {
         }
         else if (handler instanceof AdminDashboardInfoHandler)
         {
-            // code here, parse data.
+            retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((AdminDashboardInfoHandler) handler).onAdminDashboardInfoRecieved(/* ADD RESULT OBJECT HERE*/null);
         }
         else if (handler instanceof MarkNotificationAsReadHandler)
