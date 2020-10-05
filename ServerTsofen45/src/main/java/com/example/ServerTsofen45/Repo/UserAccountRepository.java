@@ -13,6 +13,7 @@ public interface UserAccountRepository extends UserRepository<UserAccount> ,Crud
 	@Override
 	UserAccount findByUserName(String UserName);
 	//ArrayList<UserAccount> findAllByOrderBySysIdDesc();
+	UserAccount findBysysId(int sysId);
 
 	
 

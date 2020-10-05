@@ -51,7 +51,7 @@ public class UserBL {
 	}
 
 		public List<UserAccount> findallByName(String Name) {
-			return UseraccountRepository. findByNameContaining(Name);
+			return UseraccountRepository.findByNameContaining(Name);
 
 	}
 		
@@ -79,7 +79,7 @@ public class UserBL {
 			}
 			else if(userType.contentEquals("Support")) {
 				Support sup = new Support();
-				userRepository.save(sup);
+				supportRepository.save(sup);
 			}
 			return true;
 		}
@@ -90,6 +90,20 @@ public class UserBL {
 			general_user.setHashPassword(pass);
 			return true;
 			
+		}
+		
+		public boolean edit_user(int userId,String newMail,String newPhone,boolean newNFlag) {
+			User userAcc =  userRepository.findBysysId(userId);
+			if (!(newMail.isEmpty())) {
+				userAcc.setEmail(newMail);
+			}
+			if (!(newPhone.isEmpty())) {
+				userAcc.setPhoneNumber(newPhone);
+			}
+			if (userAcc.getNotificationFlag()!=newNFlag) {
+				userAcc.setNotificationFlag(newNFlag);
+			}
+			return true;
 		}
 		
 		
