@@ -147,6 +147,15 @@ public class DeviceController {
 	
 	
 	
+	public String getPassAndPhone(long imei)
+	{
+		Device device =deviceBL.getDeviceImei(imei);
+		return ""+device.getPassword()+","+device.getPhoneNumber()+"";
+		
+	}
+	
+	
+	
 	
 	/*
 	 * @GetMapping("Edit") public boolean editDevice(@RequestParam long
