@@ -15,6 +15,7 @@ public class Admin extends User {
     		this.hashPassword=hashPassword("123456");
     		this.setAccount(acc);
     		this.setType("admin");
+    		this.notificationFlag=1;
     	}
 
 	public Admin() {

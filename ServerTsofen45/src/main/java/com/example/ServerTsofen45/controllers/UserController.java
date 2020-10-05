@@ -114,7 +114,7 @@ public class UserController {
 	}
 	
 	@GetMapping("editUser")
-	public boolean editUser(@RequestParam int userId, @RequestParam String newEmail, @RequestParam String newPhoneNumber,@RequestParam boolean newNotificationFlag) {
+	public boolean editUser(@RequestParam int userId, @RequestParam String newEmail, @RequestParam String newPhoneNumber,@RequestParam int newNotificationFlag) {
 		return userBL.edit_user(userId,newEmail,newPhoneNumber,newNotificationFlag);
 	}
 	

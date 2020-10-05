@@ -91,18 +91,19 @@ public class UserBL {
 			return true;
 			
 		}
-		
-		public boolean edit_user(int userId,String newMail,String newPhone,boolean newNFlag) {
+		// http://localhost:8080//User/editUser?userId=101&newEmail=%22newEmail@gmail.com%22&newPhoneNumber=0501234567&newNotificationFlag=1
+		public boolean edit_user(int userId,String newMail,String newPhone,int newNFlag) {
 			User userAcc =  userRepository.findBysysId(userId);
-			if (!(newMail.isEmpty())) {
+			if (!(newMail.isEmpty())||(newMail.equalsIgnoreCase(null))) {
 				userAcc.setEmail(newMail);
 			}
 			if (!(newPhone.isEmpty())) {
 				userAcc.setPhoneNumber(newPhone);
 			}
-			if (userAcc.getNotificationFlag()!=newNFlag) {
+			if (newNFlag!=3) {
 				userAcc.setNotificationFlag(newNFlag);
 			}
+			userRepository.save(userAcc);
 			return true;
 		}
 		
