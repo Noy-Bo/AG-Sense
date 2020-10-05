@@ -21,7 +21,7 @@ public abstract class User {
 	String name;
 	String userName;
 	String phoneNumber;
-	boolean notificationFlag;
+	int notificationFlag;
 	int sysId;
 	String hashPassword;
 	Account account;
@@ -36,12 +36,12 @@ public abstract class User {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setNotificationFlag(boolean notificationFlag) {
+	public void setNotificationFlag(int notificationFlag) {
 		this.notificationFlag = notificationFlag;
 	}
 	
 	@Column
-	public boolean getNotificationFlag() {
+	public int getNotificationFlag() {
 		return notificationFlag;
 	}
 	
