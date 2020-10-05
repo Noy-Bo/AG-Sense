@@ -48,18 +48,38 @@ public class CacheMgr implements CacheManagerAPI {
     private List<Account> accounts;
     private List<Devices> devices;
 
-    private final static int waitInterval = 60000; // millis.
+    /**
+     * this waitInterval sets the interval time to request new devices data from server.
+     * every waitInterval/1000 we will make a background request for new devices.
+     * for further info read Periodic Admin
+     */
+    private final static int getDevicesPeriodicWaitInterval = 60000; // millis.
+
+    /**
+     * this is part of the periodicThread mechanism. do not change.
+     * for more info look at handlerForRepeatedGetDevicesJob.
+     */
     private boolean stopGetDevicesPeriodic = false;
-    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
-    private Handler threadHandlerForGetDevicesPeriodic;
 
-
+    /**
+     * minimum interval time for requesting new devices. - if our devices timestamp is older then this parameter, we will request new data.
+     * otherwise we will deny the request and return current data.
+     */
     private  int intervalBetweenServerRequestsForDevices = 5000; // millis.
-    private  int intervalBetweenServerRequestsForAccounts = 5000; // millis.
 
+    /**
+     * minimum interval time for requesting new accounts. - if our accounts timestamp is older then this parameter, we will request new data.
+     * otherwise we will deny the request and return current data.
+     */
+    private  int intervalBetweenServerRequestsForAccounts = 5000; // millis.
 
     private Timestamp devicesTimeStamp;
     private Timestamp accountsTimeStamp ;
+
+    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("handlerThreadForGetDevicesPeriodic");
+    private Handler threadHandlerForGetDevicesPeriodic = new Handler();
+
+
 
     private TextDownloader downloader = TextDownloader.getInstance();
 
@@ -75,12 +95,25 @@ public class CacheMgr implements CacheManagerAPI {
         notifications = new ArrayList<>();
     }
 
+    /**
+     * synchronized getInstance, singleton class.
+     * @return returns the singleton CacheManager class
+     */
     public static CacheMgr getInstance() {
         if (cacheMgr == null)
-            cacheMgr = new CacheMgr(); // TODO - add synchronized.
-
+        {
+            synchronized (CacheMgr.class)
+            {
+                if (cacheMgr == null)
+                {
+                    cacheMgr = new CacheMgr();
+                }
+            }
+        }
         return cacheMgr;
     }
+
+    //getters \ setters
 
     public List<Notification> getNotifications() { return notifications; }
     public  void setNotifications(List<Notification> notifications) { this.notifications = notifications; }// public setter for firebase notification onReceive
@@ -94,12 +127,19 @@ public class CacheMgr implements CacheManagerAPI {
 
     public HandlerThread getHandlerThreadForGetDevicesPeriodic(){ return handlerThreadForGetDevicesPeriodic; }
     public Handler getThreadHandlerForGetDevicesPeriodic() { return threadHandlerForGetDevicesPeriodic; }
+
+
+    /**
+     * this function initialises:
+     * looper and handler for periodic thread.
+     * setting timestamps to: current timestamp - matching interval.
+     */
     private void initializeAllServicesAndParameters()
     {
 
         //initializing the handlers
-        handlerThreadForGetDevicesPeriodic.start();
         threadHandlerForGetDevicesPeriodic = new Handler(handlerThreadForGetDevicesPeriodic.getLooper());
+        handlerThreadForGetDevicesPeriodic.start();
 
         devicesTimeStamp = new Timestamp(System.currentTimeMillis());
         devicesTimeStamp.setTime(System.currentTimeMillis() - intervalBetweenServerRequestsForDevices);
@@ -113,7 +153,16 @@ public class CacheMgr implements CacheManagerAPI {
     // --------------------------- Admin's Periodic GetDevices --------------------------
     // ==================================================================================
 
-
+    /**
+     * this class is the runnable class that runs on the PeriodicTask.
+     * the flow is similar to the "GenericAsyncServerRequest"
+     * this is the runnable that responsible for requesting the server for devices periodicaly once every  getDevicesPeriodicWaitInterval(variable),
+     *  parsing it, and invoking the handlerForRepeatedGetDevicesJob.
+     * u must create this class according to its CTOR, it receives handler, hashmap with params to create URL and enum ServiceName.
+     * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+     * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, the data is then parsed and a devices array is made
+     * the array is then  set to be the new Devices Array of the cache.
+     */
     private class AdminGetDevicesPeriodicRunnable implements Runnable {
 
         private BaseHandler handler;
@@ -127,13 +176,20 @@ public class CacheMgr implements CacheManagerAPI {
         }
 
 
+        /**
+         * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+         * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, the data is then parsed and a devices array is made
+         * the array is then  set to be the new Devices Array of the cache.
+         */
         @Override
         public void run() {
 
             if (isServerRequestDevices(devicesTimeStamp))
             {
-
+                //creating the URL via UrlConnectionMaker class
                 UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+
+                //downloading text via TextDownloader class
                 TextDownloader.getInstance().getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
                     @Override
                     public void onDataDownloadCompleted(String downloadedData) {
@@ -156,19 +212,22 @@ public class CacheMgr implements CacheManagerAPI {
             }
             else
             {
-
                 ((DevicesHandler) handler).onDevicesDownloadFinished(CacheMgr.getInstance().getDevices());
             }
         }
     }
 
-
+    /**
+     * this is part of the PeriodicTask. this handler is set to be the handler of the runnable.
+     * this handler waits the getDevicesPeriodicWaitInterval after finishing the task. and then posts
+     * a new runnable of the same kind. using this handler achieves the periodic task.
+     */
     private DevicesHandler handlerForRepeatedGetDevicesJob  = new DevicesHandler() {
         @Override
         public void onDevicesDownloadFinished(List<Devices> devices) {
             Log.d("repeated","repeated task completed onDevicesDownloadFinished");
             setDevices(devices);
-            SystemClock.sleep(waitInterval);
+            SystemClock.sleep(getDevicesPeriodicWaitInterval);
             cacheMgr.getThreadHandlerForGetDevicesPeriodic().post(cacheMgr.GetDevicesPeriodic);
 
             if (stopGetDevicesPeriodic == true)
@@ -189,6 +248,14 @@ public class CacheMgr implements CacheManagerAPI {
     // ---------------------------- Main Generic Async Task. ----------------------------
     // ==================================================================================
 
+    /**
+     * this is the AyncTask that responsible for requesting the server for data, parsing it, and invoking handlers callback with the requested data.
+     * u must create this class according to its CTOR, it receives handler, hashmap with params to create URL and enum ServiceName.
+     * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+     * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, from we send the downloadedData to CacheManagerHandlers
+     * there we detect the handler type, and parse the data accordingly, and invoke the handler's callback with the requested data.
+     * @param <E> currently not used.
+     */
     private class GenericAsyncServerRequest<E> extends AsyncTask<Void, Void, Void>
     {
         private BaseHandler handler;
@@ -202,16 +269,25 @@ public class CacheMgr implements CacheManagerAPI {
         }
 
 
-
+        /**
+         * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+         * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, from we send the downloadedData to CacheManagerHandlers
+         * there we detect the handler type, and parse the data accordingly, and invoke the handler's callback with the requested data.
+         * @param voids we use class parameters here.
+         * @return no ret val.
+         */
         @Override
         protected Void doInBackground(Void... voids) {
-
+            //creating the URL via UrlConnectionMaker class
             UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+
+            //downloading text via TextDownloader class
             downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
                     Log.d("generics","onDataDownloadCompleted");
-                    // JSON Parser
+
+                    //sending downloaded data to parse and finish.
                     CacheManagerHandlers.parseDataAndSendCallback(downloadedData,handler);
 
                 }
@@ -294,8 +370,7 @@ public class CacheMgr implements CacheManagerAPI {
             Log.d("testing stamps","getting devices from server");
             newTimeStamp(devicesTimeStamp);
             Map<String, String> params = new HashMap<>();
-            //params.put("num",Integer.toString(num));
-            //params.put("start",Integer.toString(start));
+
             GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getAllDevices);
             asyncGeneric.execute();
             return;
@@ -327,11 +402,17 @@ public class CacheMgr implements CacheManagerAPI {
 
     @Override
     public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
-        Map<String, String> params = new HashMap<>();
-        params.put("num",Integer.toString(num));
-        params.put("start",Integer.toString(start));
-        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getNotifications);
-        asyncGeneric.execute();
+        if (getNotifications().size() == 0)
+        {
+            Map<String, String> params = new HashMap<>();
+            params.put("num", Integer.toString(num));
+            params.put("start", Integer.toString(start));
+            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getNotifications);
+            asyncGeneric.execute();
+            return;
+        }
+        handler.onNotificationsDownloadFinished(getNotifications());
+
     }
 
     @Override
@@ -523,11 +604,25 @@ public class CacheMgr implements CacheManagerAPI {
     // ------------------------- Clear Data, Time Stamps checks  ------------------------
     // ==================================================================================
 
+    /**
+     * sets a given TimeStamp to the current time in miilis
+     * @param timestamp TimeStamp Object.
+     */
     public synchronized void newTimeStamp(Timestamp timestamp)
     {
         timestamp.setTime(System.currentTimeMillis());
     }
 
+    /**
+     * this function checks if the given stamp object is older then the current time by intervalBetweenServerRequestsForDevices
+     * if so, we will make a new stamp, return true, and therefore signaling that Devices array in the cache is old and we need to replace it with
+     * new data from server.
+     * if the time between the given stamp and the current time is less then intervalBetweenServerRequestsForDevices, we return true to signal that
+     * we have latest data and we do not need to request the server.
+     * Note that this function is synchronized to prevent race condition over the stamp.
+     * @param timeStamp TimeStamp object, pass devicesTimeStamp to check device's timestamp.
+     * @return we return true to indicate that the data is old and we need to request new one, false otherwise.
+     */
     public synchronized boolean isServerRequestDevices(Timestamp timeStamp)
     {
         if (timeStamp.getTime() + intervalBetweenServerRequestsForDevices < System.currentTimeMillis()) {
@@ -537,6 +632,16 @@ public class CacheMgr implements CacheManagerAPI {
         return false;
     }
 
+    /**
+     * this function checks if the given stamp object is older then the current time by intervalBetweenServerRequestsForAccount
+     * if so, we will make a new stamp, return true, and therefore signaling that Accounts array in the cache is old and we need to replace it with
+     * new data from server.
+     * if the time between the given stamp and the current time is less then intervalBetweenServerRequestsForAccounts, we return true to signal that
+     * we have latest data and we do not need to request the server.
+     * Note that this function is synchronized to prevent race condition over the stamp.
+     * @param timeStamp TimeStamp object, pass accountsTimeStamp to check account's timestamp.
+     * @return we return true to indicate that the data is old and we need to request new one, false otherwise.
+     */
     public synchronized boolean isServerRequestAccounts(Timestamp timeStamp)
     {
 
@@ -546,8 +651,13 @@ public class CacheMgr implements CacheManagerAPI {
         }
         return false;
     }
+
+
     public void clearCacheNotification(){notifications.clear();}
 
+    /**
+     * this function clears all data currently in cache.
+     */
     public  void clearCache(){
         accounts.clear();
         devices.clear();
