@@ -1,0 +1,48 @@
+SMS Management Feature
+
+Description:
+SMS manger is a feature responsible for sending and tracking SMS received from devices,it 
+uses multiple classes to achieve this.
+
+Description of Class and functions:
+
+	TrackingSMS:
+					constructor:
+					public TrackingSMS(ArrayList<SmsMgr.Response> commands, String deviceNumber,
+					OnAllSmsRecievedHandler handler,SmsMgr.settingType type)
+
+					Description:
+					Tracks counts many SMS did we receive from a device, how many SMS are we 
+					still waiting for , after all SMS is received we run a handler that was 
+					handed to us by the activity to signal job is executed.
+
+
+	SMS receiver: 
+					Description:
+					An android service that executed whenever we receive a new SMS to phone, 
+					its responsible for filtering and parsing SMS.
+
+
+	SMSMgr: 
+					Description:
+					menages all trackers and deletion of trackers.
+
+
+Flow:
+when an activity (usually setting) want to send a SMS to device it need to define a couple
+of parameters.
+	- what responses expected to receive for conformation of send SMS.
+	-phone number pf device
+	-handler for when all SMS are received 
+	-type of setting.
+from these prams we create a new tracker, the tracker is stored in SMSMgr .
+The activity sends SMS to Device using special function :
+
+	public void sendMsg(String phoneNumber, String message) 
+
+	this function takes a phone number and a message and send that message to the phone number
+	the number need to be Internationale format with "+"  sign.
+
+and then we create a tracker specific to the SMS sent.
+when an SMS is received it is processed through SMS receiver and a specific tracker is invoked to 
+update its SMS list, once list is empty it invokes handler and signals SMSMgr to delete itself.

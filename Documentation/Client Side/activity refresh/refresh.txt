@@ -1,0 +1,28 @@
+===============ACCOUNT===============
+Policy:
+	X -- Notifcation - updated through notification callback.
+	Account X
+	@PROBLEMATIC@ -- Devices - Oncreate + ORefresh.
+	 X -- DevicesData - per view + OnRefresh
+	
+TODO:
+	activities - ACCOUNT
+	update Devices at deviceStatus, accountDashboard
+	 X -- update DeviceData at deviceView
+===============ADMIN===============
+Policy:
+	 X -- Notifcation - updated through notifcation callback
+	 X -- Account - onCreate. + OnRefresh.
+	
+	Devices - 60sec bigThread. + OnRefresh.
+	 X -- DevicesData - per view + OnRefresh.
+TODO:
+	activities - ADMIN
+	 X -- update ACCOUNT at accountStatus.
+	
+	update DEVICES at deviceStatus.
+	
+	 X -- update ACCOUNT & DEVICES at AdminDashboard.
+	// setting only infrastructure for now. untill server API is ready.
+	
+	 X -- update DeviceData: deviceView
