@@ -55,7 +55,7 @@ public class DeviceSettings extends BackBaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 b1.setVisibility(View.VISIBLE);
-
+                spinner.setSelection(position);
                 chosenDevice = devicesList.get(position);
             }
 
@@ -66,11 +66,12 @@ public class DeviceSettings extends BackBaseActivity {
         });
 
 
-        final ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         device = (Devices) getIntent().getSerializableExtra("device");
         if (device != null) {
             list.add(device.getImei().toString());
-            dataAdapter = new ArrayAdapter<>(DeviceSettings.this, android.R.layout.simple_spinner_item, list);
+            devicesList.add(device);
+            dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(dataAdapter);
             spinner.setSelection(0);
@@ -101,11 +102,9 @@ public class DeviceSettings extends BackBaseActivity {
     }
 
     public void openSpeedingAlertAndGeoFence(View view) {
-        Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
-
-        intent.putExtra("chosenPlace", new Place(Float.parseFloat(chosenDevice.getLatitude()), Float.parseFloat(chosenDevice.getLogitude())));
-
-        startActivity(intent);
+            Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
+            intent.putExtra("chosenPlace", new Place(Float.parseFloat(chosenDevice.getLatitude()), Float.parseFloat(chosenDevice.getLogitude())));
+            startActivity(intent);
     }
 
     public void openAuthorizationNumber(View view) {
