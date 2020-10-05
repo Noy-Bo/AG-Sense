@@ -146,7 +146,8 @@ public class DeviceController {
 	
 	
 	
-	
+	@GetMapping("getPassAndPhone")
+
 	public String getPassAndPhone(long imei)
 	{
 		Device device =deviceBL.getDeviceImei(imei);
