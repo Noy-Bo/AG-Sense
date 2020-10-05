@@ -7,18 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Component
 public class ReportTimer {
     private static ReportTimer report_instance = null;
     private static Timer timer_ = null;
-    private static HashMap<String,NodeIndex> imei_list = null;
-    private static ArrayList[] lists_ = null;
+    private static HashMap<String,HashSet> imei_list = null;
+    private static HashSet[] lists_ = null;
     int mins = 2;
     @Autowired
     private DeviceRepository devicerRepo;
@@ -26,9 +23,9 @@ public class ReportTimer {
     public ReportTimer(){
         timer_ = new Timer();
         if(lists_ == null) {
-            lists_ = new ArrayList[mins * 6 + 1];
+            lists_ = new HashSet[mins * 6 + 1];
             for (int i = 0; i < mins * 6 + 1; i++)
-                lists_[i] = new ArrayList<String>();
+                lists_[i] = new HashSet<String>();
             imei_list = new HashMap<>();
         }
     }
@@ -39,23 +36,23 @@ public class ReportTimer {
             long imei = device.getImei();
             if(imei_list.get(""+ imei) == null) {
                 lists_[0].add("" + imei);
-                imei_list.put("" + imei, new NodeIndex(lists_[0], lists_[0].size() - 1));
+                imei_list.put("" + imei,lists_[0]);
             }
         }
     }
-    public static HashMap<String, NodeIndex> getImei_list() {
+    public static HashMap<String, HashSet> getImei_list() {
         return imei_list;
     }
 
-    public static void setImei_list(HashMap<String, NodeIndex> imei_list) {
+    public static void setImei_list(HashMap<String, HashSet> imei_list) {
         ReportTimer.imei_list = imei_list;
     }
 
-    public static ArrayList[] getLists_() {
+    public static HashSet[] getLists_() {
         return lists_;
     }
 
-    public static void setLists_(ArrayList[] lists_) {
+    public static void setLists_(HashSet[] lists_) {
         ReportTimer.lists_ = lists_;
     }
 
@@ -73,7 +70,11 @@ public class ReportTimer {
             for (int i = 0 ; i < mins * 6  ; i++){
                 lists_[mins * 6 - i] = lists_[mins * 6 - i - 1];
             }
-            lists_[0] = new ArrayList<String>();
+            lists_[0] = new HashSet<String>();
+            new Thread(new NotifyMaulfunction("864403044133669")).start();
+            new Thread(new NotifyMaulfunction("866854035804858")).start();
+            new Thread(new NotifyMaulfunction("864403044179308")).start();
+
         }
     }
     class ReportTask extends TimerTask{
@@ -94,6 +95,7 @@ public class ReportTimer {
         //check if in the list[12] any devices and report back.
     }
 }
+/*
 class NodeIndex{
     private ArrayList<String> ListHead = null;
     private int index = -1;
@@ -117,4 +119,4 @@ class NodeIndex{
     public void setIndex(int index) {
         this.index = index;
     }
-}
+}*/
