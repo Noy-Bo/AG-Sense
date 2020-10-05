@@ -72,7 +72,7 @@ public class DeviceView extends AppBaseActivity {
 
         getDeviceDataFromCacheManager();
 
-        if (AppBaseActivity.user instanceof Account) {
+        if (AppBaseActivity.getUser() instanceof Account) {
             Button settings = (Button) findViewById(R.id.device_status_settings);
             settings.setVisibility(View.GONE);
         }

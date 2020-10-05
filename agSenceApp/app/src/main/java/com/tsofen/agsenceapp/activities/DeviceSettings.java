@@ -49,18 +49,19 @@ public class DeviceSettings extends BackBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_settings);
         spinner = (SearchableSpinner) findViewById(R.id.settingSpinner);
-        final LinearLayout b1 = findViewById(R.id.buttonsPanel);
-        b1.setVisibility(View.INVISIBLE);
+        final LinearLayout settingButtons = findViewById(R.id.buttonsPanel);
+        settingButtons.setVisibility(View.INVISIBLE);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                b1.setVisibility(View.VISIBLE);
-                spinner.setSelection(position);
+                settingButtons.setVisibility(View.VISIBLE);
                 chosenDevice = devicesList.get(position);
+                spinner.setSelection(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
+
             }
 
         });
@@ -74,8 +75,6 @@ public class DeviceSettings extends BackBaseActivity {
             dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(dataAdapter);
-            spinner.setSelection(0);
-            b1.setVisibility(View.VISIBLE);
         } else {
             DeviceDataAdapter.getInstance().getAllDevices(0, 0, false,new DeviceDataRequestHandler() {
                 @Override

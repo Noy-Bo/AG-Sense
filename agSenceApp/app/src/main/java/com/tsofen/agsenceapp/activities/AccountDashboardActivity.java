@@ -91,11 +91,11 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             }
         });
 
-        if (AppBaseActivity.user instanceof Admin) {
+        if (AppBaseActivity.getUser() instanceof Admin) {
             account = (Account) getIntent().getSerializableExtra("account");
         }
         else {
-            account = (Account) AppBaseActivity.user;
+            account = (Account) AppBaseActivity.getUser();
         }
         // get notification related to account
         NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getId(), 0, 0, new NotificationsDataRequestHandler() {
@@ -371,7 +371,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (AppBaseActivity.user instanceof Admin) {
+        if (AppBaseActivity.getUser() instanceof Admin) {
             finish();
             return;
         }
