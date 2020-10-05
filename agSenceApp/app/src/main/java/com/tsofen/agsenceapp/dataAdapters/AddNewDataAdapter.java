@@ -43,8 +43,8 @@ public class AddNewDataAdapter extends BaseDataAdapter implements AddNewDataAdap
     }
 
     @Override
-    public void addNewDevice(Long imei, String deviceType, String accountName, String devicePhoneNumber, String devicePassword, final AddNewDataRequestHandler handler) {
-        cacheManager.addNewDeviceJob(imei, deviceType, accountName, devicePhoneNumber, devicePassword, new NewDeviceAddedHandler() {
+    public void addNewDevice(Long imei, String deviceType,String deviceName, String accountName, String devicePhoneNumber, String devicePassword, final AddNewDataRequestHandler handler) {
+        cacheManager.addNewDeviceJob(imei, deviceType, deviceName, accountName, devicePhoneNumber, devicePassword, new NewDeviceAddedHandler() {
             @Override
             public void onNewDeviceAddedFinished(Boolean finishedSuccessfully) {
                 if(finishedSuccessfully)

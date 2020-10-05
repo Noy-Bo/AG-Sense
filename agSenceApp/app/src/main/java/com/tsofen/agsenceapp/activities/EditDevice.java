@@ -38,7 +38,7 @@ public class EditDevice extends BackBaseActivity {
     }
 
     private void UpdateDevicesList() {
-        DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
 
@@ -67,7 +67,7 @@ public class EditDevice extends BackBaseActivity {
             deviceVerifyPassword.setError("Password Doesn't Match");
             legal = false;
         }
-        if (!CheckPassword(deviceNewPassword.getText().toString())) {
+        if (!deviceNewPassword.getText().toString().equals("") && !validatePassword(deviceNewPassword.getText().toString())) {
             deviceNewPassword.setError("Password is weak");
             legal = false;
         }
@@ -86,42 +86,16 @@ public class EditDevice extends BackBaseActivity {
         EditDataAdapter.getInstance().editDevice(Long.parseLong(imei), deviceNewPhoneNumberEdit.getText().toString(), deviceNewPassword.getText().toString(), new EditDataRequestHandler() {
             @Override
             public void onDataEditedSuccess() {
-                showAlertBox(EditDevice.this, AlertFlag.SUCCESS, "Edited device successfully");
-                return;
+                showAlertBox(EditDevice.this, AlertFlag.SUCCESS, "Edited device successfully");;
             }
 
             @Override
             public void onDataEditedFailure() {
-                showAlertBox(EditDevice.this, AlertFlag.FAILURE, "Failed to edit device");
-                return;
+                showAlertBox(EditDevice.this, AlertFlag.FAILURE, "Failed to edit device");;
             }
         });
 
 
     }
-
-    private boolean CheckPassword(String toString) {
-
-        boolean hasUpperCase = false;
-        boolean hasLowerCase = false;
-        boolean hasDigit = false;
-        if (deviceNewPassword.getText().toString().length() >= 8) {
-            for (int i = 0; i < deviceNewPassword.getText().toString().length(); i++) {
-                char temp = deviceNewPassword.getText().toString().charAt(i);
-                if (Character.isUpperCase(temp))
-                    hasUpperCase = true;
-                else if (Character.isLowerCase(temp))
-                    hasLowerCase = true;
-                else if (Character.isDigit(temp))
-                    hasDigit = true;
-
-                if (hasDigit && hasLowerCase && hasUpperCase) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 
 }

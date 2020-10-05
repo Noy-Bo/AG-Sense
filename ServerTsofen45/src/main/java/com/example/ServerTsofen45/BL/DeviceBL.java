@@ -22,6 +22,12 @@ public class DeviceBL {
 	@Autowired
 	DeviceRepository deviceRepository;
 
+	@Autowired
+	UserBL userBL;
+	
+	// if you need the user devices you must use the user account_id not id  
+	// account_id = userBL.getAccountIDForUser(id);
+	
 	public Device getDeviceById(int deviceId) {
 
 		Device device = deviceRepository.findById(deviceId);
@@ -83,6 +89,9 @@ return null;
 
 	public ArrayList<Device> getDeviceRelatedToAccount(int id, int start, int num) {
 		ArrayList<Device> devices;
+		id = userBL.getAccountIDForUser(id);
+		
+		
 		if (start == 0 && num == 0) {
 			devices = deviceRepository.findByaccountId(id);
 			return devices;
@@ -98,7 +107,9 @@ return null;
 		Device device = deviceRepository.findById(id);
 		List<DeviceData> deviceDatas = device.getDeviceData();
 		ArrayList<String> locations = new ArrayList<String>();
-
+		id = userBL.getAccountIDForUser(id);
+		
+		
 		for (DeviceData deviceData : deviceDatas) {
 			String location = "'" + deviceData.getLat() + "," + deviceData.getLon() + "," + deviceData.getDateAndTime()
 					+ "'";
@@ -161,6 +172,7 @@ return null;
 	public List<Device> getSpicificDeviceByFilter(int id, boolean healthy, boolean faulty, boolean bank,
 			boolean gps, boolean tank, int start, int num) {
 		
+		id = userBL.getAccountIDForUser(id);
 		
 		boolean _healthy = false;
 		boolean _faulty = true ;

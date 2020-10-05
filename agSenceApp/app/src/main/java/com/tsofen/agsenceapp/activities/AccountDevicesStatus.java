@@ -61,7 +61,6 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                 } else if (AppBaseActivity.getUser() instanceof Account) {
                     devicesArr.clear();
                     ((ArrayAdapter) devicesList.getAdapter()).notifyDataSetChanged();
-                    CacheMgr.getInstance().clearCacheDevices();
                     getDevicesRelatedToAccountFromCache();
                 }
 
@@ -76,6 +75,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
 
         getDevicesRelatedToAccountFromCache();
         String filterStr = getIntent().getStringExtra("filter");
+
         assert filterStr != null;
         if(filterStr.equals("healthy")){
             displayHealthyDevice = true;
@@ -88,8 +88,26 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             displayFaultyDevice = true;
         }
 
-        switchColor((TextView) findViewById(R.id.display_faulty_button),displayFaultyDevice);
-        switchColor((TextView) findViewById(R.id.display_healthy_button),displayHealthyDevice);
+
+        if (filterStr != null) {
+            if (filterStr.equals("faulty")) {
+                TextView displayHealthyBox = findViewById(R.id.display_healthy_button);
+                displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+            } else if (filterStr.equals("healthy")) {
+                TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
+                displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+            } else {
+                TextView displayHealthyBox = findViewById(R.id.display_healthy_button);
+                displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+                TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
+                displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
+                displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+            }
+        }
+
         updateList();
 
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -130,21 +148,21 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     public void switchButton(View view) {
         TextView typeBox = (TextView) view;
         if (typeBox.getId() == R.id.display_faulty_button) {
+            switchColor(typeBox, displayFaultyDevice);
             if (displayFaultyDevice) {
                 displayFaultyDevice = false;
             } else {
                 displayFaultyDevice = true;
             }
-            switchColor(typeBox, displayFaultyDevice);
 
         } else if (typeBox.getId() == R.id.display_healthy_button) {
+            switchColor(typeBox, displayHealthyDevice);
             if (displayHealthyDevice) {
                 displayHealthyDevice = false;
             }
             else {
                 displayHealthyDevice = true;
             }
-            switchColor(typeBox, displayHealthyDevice);
         }
         updateList();
     }
@@ -162,8 +180,8 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     public void updateList() {
         ArrayList<Devices> filteredDevices = new ArrayList<>();
         for (Devices device : devicesArr) {
-            if ((displayFaultyDevice && account.isFaulty()) ||
-                    (displayHealthyDevice && !account.isFaulty())) {
+            if ((displayFaultyDevice && device.getFaulty()) ||
+                    (displayHealthyDevice && !device.getFaulty())) {
                 filteredDevices.add(device);
             }
         }
@@ -176,15 +194,17 @@ public class AccountDevicesStatus extends SearchBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesArr) {
-                Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
-                if (device.getName() != null) {
-                    newPlace.setTitle(device.getName());
+                if (device.getLatitude() != null && device.getLogitude() != null) {
+                    Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
+                    if (device.getName() != null) {
+                        newPlace.setTitle(device.getName());
+                    }
+                    if (device.getLastUpdate() != null) {
+                        newPlace.setSnippet(device.getLastUpdate().toString());
+                    }
+                    userMap.addPlace(newPlace);
+                    //                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
                 }
-                if (device.getLastUpdate() != null) {
-                    newPlace.setSnippet(device.getLastUpdate().toString());
-                }
-                userMap.addPlace(newPlace);
-                //                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);
@@ -221,7 +241,7 @@ public class AccountDevicesStatus extends SearchBaseActivity {
     }
 
     public void getDevicesRelatedToAccountFromCache() {
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getId(), 0, 0, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {
                 AccountDevicesStatus.this.runOnUiThread(new Runnable() {

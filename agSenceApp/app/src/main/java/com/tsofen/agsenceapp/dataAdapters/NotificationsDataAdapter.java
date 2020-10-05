@@ -56,7 +56,7 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
     }
 
     @Override
-    public void setNotificationAsRead(int userID, ArrayList<Integer> arrayList, MarkNotificationRequestHandler handler) {
+    public void setNotificationAsRead(int userID,int notificationId, MarkNotificationRequestHandler handler) {
 
     }
 

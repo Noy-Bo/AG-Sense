@@ -134,12 +134,12 @@ public abstract class User {
 		return "User [email=" + email + ", name=" + name + ", userName=" + userName + ", type=" + type + "]";
 	}
 	
-	public void updateType() {
-		if(this.account==null)
-			this.type="admin";
-		else
-			this.type="account";			
-	}
+//	public void updateType() {
+//		if(this.account==null)
+//			this.type="admin";
+//		else
+//			this.type="account";			
+//	}
 	@SuppressWarnings("unchecked")
 	public JSONObject toJson()
 	{
@@ -149,6 +149,7 @@ public abstract class User {
 		   jo.put("email", this.email);
 		   jo.put("id", this.sysId);
 		   jo.put("type", this.type);
+		   jo.put("phoneNumber", this.phoneNumber);
 		   
 		   return jo;
 	}
