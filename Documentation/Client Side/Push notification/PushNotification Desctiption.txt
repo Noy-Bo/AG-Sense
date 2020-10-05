@@ -1,0 +1,28 @@
+Push notification Feature
+
+Description:
+When ever a device has a critical issue the server send a notification to the accounts associated 
+with the device.
+
+Description of Class and functions:
+
+	TokenRegistrationHandler:
+					Description:
+					class responsible for registering the user with its device to the Firebase database
+
+
+Flow:
+when the user  first logs in successful  we will register that user with a device identifier using the 
+TokenRegistrationHandler class to the Firebase server.
+whenever the is a need for a notification, the server team check who the device associated
+with the notification is connected to (which accounts) when the server send a signal to 
+the Firebase server to send a notification, the code responsible for manual notification is 
+in backEnd project located in the same repository.
+
+there is two option for sending a notification:
+-send to one person
+-sending to multiple people
+
+
+when the user logs out, we remove the device and user account pair from the Firebase database
+so that that phone wont receive notification related to that used.

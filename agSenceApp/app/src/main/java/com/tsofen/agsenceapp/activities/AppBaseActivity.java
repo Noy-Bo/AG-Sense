@@ -27,7 +27,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
     protected DrawerLayout drawer;
     protected NavigationView navigationView;
     protected Toolbar toolbar;
-    static User user;
+    private static User user;
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Override

@@ -102,7 +102,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
             @Override
             public void onNotificationsReceived(List<Notification> notifications) {
                 Intent intent = new Intent(AdminDashboardActivity.this, NotificationsActivity.class);
-                intent.putExtra("obj", (Admin) AppBaseActivity.user);
+                intent.putExtra("obj", (Admin) AppBaseActivity.getUser());
                 startActivity(intent);
             }
         });
