@@ -76,8 +76,8 @@ public class CacheMgr implements CacheManagerAPI {
     private Timestamp devicesTimeStamp;
     private Timestamp accountsTimeStamp ;
 
-    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("handlerThreadForGetDevicesPeriodic");
-    private Handler threadHandlerForGetDevicesPeriodic = new Handler();
+    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
+    private Handler threadHandlerForGetDevicesPeriodic;
 
 
 
@@ -138,8 +138,8 @@ public class CacheMgr implements CacheManagerAPI {
     {
 
         //initializing the handlers
-        threadHandlerForGetDevicesPeriodic = new Handler(handlerThreadForGetDevicesPeriodic.getLooper());
         handlerThreadForGetDevicesPeriodic.start();
+        threadHandlerForGetDevicesPeriodic = new Handler(handlerThreadForGetDevicesPeriodic.getLooper());
 
         devicesTimeStamp = new Timestamp(System.currentTimeMillis());
         devicesTimeStamp.setTime(System.currentTimeMillis() - intervalBetweenServerRequestsForDevices);
