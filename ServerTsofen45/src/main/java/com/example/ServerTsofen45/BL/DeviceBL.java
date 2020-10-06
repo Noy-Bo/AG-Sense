@@ -221,6 +221,16 @@ return null;
 		return  deviceRepository.getHealtyDevicesNumber();
 	}
 	
+	public String getFaultyDevicesNumberForId(int accountId) {
+		
+		return  deviceRepository.getFaultyDevicesNumberForId(accountId);
+	}
+	
+	public String getDevicesNumberForId(int accountId) {
+		
+		return  deviceRepository.getDevicesNumberForId(accountId);
+	}
+	
 	public boolean editDevice(long imei,String newPhonenumber,String newPass) {
 		Device device= deviceRepository.findByImei(imei);
 		if(!(newPhonenumber.equalsIgnoreCase(null))) {

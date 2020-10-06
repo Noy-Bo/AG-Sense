@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +90,22 @@ public class UserBL {
 			general_user = userRepository.findBysysId(id);
 			general_user.setHashPassword(pass);
 			return true;
+			
+		}
+
+		@SuppressWarnings("unchecked")
+		public JSONObject getEmailAndPhonenumberForUser(String userName) {
+			
+			User user = userRepository.findByUserName(userName);
+			
+			JSONObject jo = new JSONObject();
+			
+			String email = user.getEmail().replaceAll("(\\w{1,2})(\\w+)(@.*)", "$1******$3");
+			String phoneNumber =  user.getPhoneNumber().replaceAll("\\d(?=\\d{2})", "*");
+			   jo.put("email", email);
+			   jo.put("phoneNumber",phoneNumber);
+			   
+			   return jo;
 			
 		}
 		
