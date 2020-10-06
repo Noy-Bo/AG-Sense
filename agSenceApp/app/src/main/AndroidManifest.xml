@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:supportsRtl">
-        <activity android:name=".activities.UserProfile"></activity>
+        <activity android:name=".activities.CompanyStatus"></activity>
+        <activity android:name=".activities.UserProfile" />
         <activity android:name=".activities.EditUser" />
         <activity android:name=".activities.TrackingSetting" />
         <activity android:name=".VerifyOTP" />

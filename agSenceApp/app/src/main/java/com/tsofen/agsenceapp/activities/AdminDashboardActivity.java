@@ -99,7 +99,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
         pd = GeneralProgressBar.displayProgressDialog(this, "loading...");
 
-        Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+        Intent intent = new Intent(AdminDashboardActivity.this, CompanyStatus.class);
         intent.putExtra("filter", "faulty");
         startActivity(intent);
 
@@ -108,7 +108,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     public void goToHealthyAccounts(View view) {
         pd = GeneralProgressBar.displayProgressDialog(this, "loading...");
 
-        Intent intent = new Intent(AdminDashboardActivity.this, AccountStatusFilter.class);
+        Intent intent = new Intent(AdminDashboardActivity.this, CompanyStatus.class);
         intent.putExtra("filter", "healthy");
         startActivity(intent);
 
