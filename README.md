@@ -1,5 +1,4 @@
 #  AG-Sense 
-Format: ![Alt Text](https://imgur.com/wNI1k0Q)
 
 This project is about developing android application to help communicate to Ag-Sense devices, the product was  developed in costumer experience in mind.
 
