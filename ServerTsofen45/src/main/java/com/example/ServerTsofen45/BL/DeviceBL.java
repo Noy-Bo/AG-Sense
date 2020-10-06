@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -221,6 +222,16 @@ return null;
 		return  deviceRepository.getHealtyDevicesNumber();
 	}
 	
+	public String getFaultyDevicesNumberForId(int accountId) {
+		
+		return  deviceRepository.getFaultyDevicesNumberForId(accountId);
+	}
+	
+	public String getDevicesNumberForId(int accountId) {
+		
+		return  deviceRepository.getDevicesNumberForId(accountId);
+	}
+	
 	public boolean editDevice(long imei,String newPhonenumber,String newPass) {
 		Device device= deviceRepository.findByImei(imei);
 		if(!(newPhonenumber.equalsIgnoreCase(null))) {
@@ -230,6 +241,14 @@ return null;
 		deviceRepository.save(device);
 		return true;
 		
+	}
+	
+	public JSONObject getDeviceSMSinfo(long imei) {
+		Device device =deviceRepository.findByImei(imei);
+		JSONObject json = new JSONObject();
+		json.put("PhoneNumber",device.getPhoneNumber());
+		json.put("password", device.getPassword());
+		return json;
 	}
 
 	}

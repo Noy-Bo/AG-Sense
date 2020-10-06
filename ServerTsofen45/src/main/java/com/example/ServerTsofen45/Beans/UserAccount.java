@@ -29,12 +29,15 @@ public class UserAccount extends User{
     		this.setAccount(ac);
     		this.setNotificationFlag(1);
     	}
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONObject toJson()
 	{
+		
+		
 		   JSONObject jo = new JSONObject();
-		   jo.put("accountid", this.account.getId());
 		   jo.put("username", this.userName);
 		   jo.put("email", this.email);
 		   jo.put("id", this.sysId);
@@ -44,13 +47,31 @@ public class UserAccount extends User{
 		   jo.put("faultyAccount", this.account.faultyAccount());
 		   jo.put("phoneNumber", this.phoneNumber);
 		   jo.put("notificationFlag",this.notificationFlag);
+		   jo.put("CompanyName",this.account.getName());
 		   return jo;
 	}
 
 
     
 
-
+	@SuppressWarnings("unchecked")
+	public JSONObject toJson(String faultyDevices, String numberOfDevices)
+	{
+		
+		
+		
+		   JSONObject jo = new JSONObject();
+		   jo.put("username", this.userName);
+		   jo.put("email", this.email);
+		   jo.put("id", this.sysId);
+		   jo.put("type", this.type);
+		   jo.put("numberOfDevices", numberOfDevices);
+		   jo.put("faultyDevices", faultyDevices);
+		   jo.put("faultyAccount", (Integer.parseInt(faultyDevices) >0));
+		   jo.put("phoneNumber", this.phoneNumber);
+		   jo.put("CompanyName",this.account.getName());
+		   return jo;
+	}
 
 
 

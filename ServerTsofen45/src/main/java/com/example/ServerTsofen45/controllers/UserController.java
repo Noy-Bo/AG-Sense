@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.json.simple.*;
+
+import com.example.ServerTsofen45.BL.DeviceBL;
 import com.example.ServerTsofen45.BL.UserBL;
 import com.example.ServerTsofen45.Beans.UserAccount;
 import com.example.ServerTsofen45.Beans.Account;
@@ -34,6 +36,8 @@ public class UserController {
 	AccountRepository accountrepo;
 	@Autowired
 	DeviceRepository drepo;
+	@Autowired
+	DeviceBL deviceBL;
 	
 
 	@GetMapping("Login")
@@ -49,7 +53,15 @@ public class UserController {
 
 	}
 
-
+	
+	@GetMapping("ForgotPassword")
+		public JSONObject getEmailAndPhonenumberForUser(@RequestParam String userName)
+		{
+		
+		JSONObject jo = userBL.getEmailAndPhonenumberForUser(userName);
+		return jo;
+		
+		}
 
 	//	*return all userProfiles in Database
 	@SuppressWarnings("unchecked")
@@ -58,16 +70,25 @@ public class UserController {
 	JSONArray getAllAccounts(@RequestParam int start,@RequestParam int num) 
 	{
 		List<UserAccount> res= userBL.findall();
-	    JSONArray jsonArray = new JSONArray();
+		JSONArray jsonArray = new JSONArray();
+		
 		if(start+num>res.size())
 			res=res.subList(start, res.size()-1);
+		
 		else if(!(start==0&&num==0))
 			res=  res.subList(start, start+num);
-	    for(int i=0;i<res.size();i++)
-	    {
-	    	jsonArray.add(res.get(i).toJson());
-	    }
-	    return jsonArray;
+		
+		
+		
+		for(int i=0;i<res.size();i++)
+		{
+			String faultyDevices = deviceBL.getFaultyDevicesNumberForId(res.get(i).getAccount().getId());
+			String numberOfDevices = deviceBL.getDevicesNumberForId(res.get(i).getAccount().getId());
+			
+			jsonArray.add(res.get(i).toJson(faultyDevices, numberOfDevices));
+		}
+		
+		return jsonArray;
 
 
 		

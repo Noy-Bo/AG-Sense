@@ -3,6 +3,7 @@ package com.example.ServerTsofen45.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -155,7 +156,12 @@ public class DeviceController {
 		
 	}
 	
-	
+	@GetMapping("getSMSInfo")
+	public JSONObject getSMSInfo(@RequestParam long imei)
+	{
+		 return deviceBL.getDeviceSMSinfo(imei);
+		
+	}
 	
 	
 	/*
