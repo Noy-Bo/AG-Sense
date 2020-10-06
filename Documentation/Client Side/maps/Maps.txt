@@ -6,9 +6,9 @@ Has three uses, according to the op-code passed to the activity:
 
 1. When op-code = 1, the activity will display all devices passed to it, in their last updated location, with the ability to search for a specific device in the entire map.
 
-2. When op-code = 2, the activity will display the complete timeline of a devices passed to it. Between every consecutive marker a line will be drawn to indicate the movement of the device.
+2. When op-code = 2, the activity will display the complete timeline of a devices passed to it. Between every consecutive marker a line will be drawn to indicate the movement of the device, each point on the map will display a timestamp of when that message was recieved from the device.
 
-3. When op-code = 3, the activity will display only the last location of the device passed to it, and the user will need to define a geofence for the device. The device's location need to be inside the geofence.
+3. When op-code = 3, the activity will display only the last location of the device passed to it, and the user will need to define a geofence for the device. The device's location need to be inside the geofence. the user need to long press to define two points , those two points represent two oppossit  corners  of a rectangle and that defines the geo fence of device. 
 
 Entities:
 
