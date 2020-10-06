@@ -91,7 +91,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
 
     public void goToNotifications(View view) {
         Intent intent = new Intent(AdminDashboardActivity.this, NotificationsActivity.class);
-        intent.putExtra("obj", (Admin) AppBaseActivity.user);
+        intent.putExtra("obj", (Admin) AppBaseActivity.getUser());
         startActivity(intent);
     }
 
@@ -167,7 +167,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     private void initDashboard() {
-        CacheMgr.getInstance().getAdminDashboardInfoJob(user.getId(), new AdminDashboardInfoHandler() {
+        CacheMgr.getInstance().getAdminDashboardInfoJob(AppBaseActivity.getUser().getId(), new AdminDashboardInfoHandler() {
             @Override
             public void onAdminDashboardInfoReceived(AdminDashboardInfo adminDashboardInfo) {
                 TextView faultyAccountsCount = findViewById(R.id.faulty_accounts_count);
