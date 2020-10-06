@@ -12,8 +12,6 @@ import org.json.simple.JSONObject;
 @Entity
 public class UserAccount extends User{
 	
-   
-	
 	
     public UserAccount() {
 		super();
@@ -29,6 +27,7 @@ public class UserAccount extends User{
     		this.hashPassword=hashPassword("123456");
     		this.setType("Account");
     		this.setAccount(ac);
+    		this.setNotificationFlag(1);
     	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -44,6 +43,7 @@ public class UserAccount extends User{
 		   jo.put("faultyDevices", this.account.faultyDevices());
 		   jo.put("faultyAccount", this.account.faultyAccount());
 		   jo.put("phoneNumber", this.phoneNumber);
+		   jo.put("notificationFlag",this.notificationFlag);
 		   return jo;
 	}
 
