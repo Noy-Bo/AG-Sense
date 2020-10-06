@@ -12,8 +12,6 @@ import org.json.simple.JSONObject;
 @Entity
 public class UserAccount extends User{
 	
-   
-	
 	
     public UserAccount() {
 		super();
@@ -29,6 +27,7 @@ public class UserAccount extends User{
     		this.hashPassword=hashPassword("123456");
     		this.setType("Account");
     		this.setAccount(ac);
+    		this.setNotificationFlag(1);
     	}
 	
 	
@@ -47,6 +46,8 @@ public class UserAccount extends User{
 		   jo.put("faultyDevices", this.account.faultyDevices());
 		   jo.put("faultyAccount", this.account.faultyAccount());
 		   jo.put("phoneNumber", this.phoneNumber);
+		   jo.put("notificationFlag",this.notificationFlag);
+		   jo.put("CompanyName",this.account.getName());
 		   return jo;
 	}
 

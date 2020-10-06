@@ -12,6 +12,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.EditDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.EditDataAdapter;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.utils.AlertFlag;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class EditAccount extends BackBaseActivity {
     EditText newNameTxt;
     Switch notificationsSwitch;
     Spinner prevNameTxt;
-    List<String> companies;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +33,9 @@ public class EditAccount extends BackBaseActivity {
         prevNameTxt = findViewById(R.id.PreviousAccountNameSpinner);
         AccountsDataAdapter.getInstance().getAllCompaniesName(new CompaniesNameHandler() {
             @Override
-            public void onCompaniesNameReady(List<String> companiesName) {
-                companies = new ArrayList<>(companiesName);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(EditAccount.this, android.R.layout.simple_spinner_item, companies);
+            public void onCompaniesNameReady(List<AccountCompany> companiesName) {
+
+                ArrayAdapter<AccountCompany> dataAdapter = new ArrayAdapter<>(EditAccount.this, android.R.layout.simple_spinner_item, companiesName);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 EditAccount.this.runOnUiThread(new Runnable() {
                     @Override

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class UserMap implements Serializable {
     private String title;
-    private ArrayList<Place> places = new ArrayList<>();
+    private ArrayList<Place> places;
 
     public UserMap() {
+        places = new ArrayList<>();
     }
 
     public UserMap(String title) {

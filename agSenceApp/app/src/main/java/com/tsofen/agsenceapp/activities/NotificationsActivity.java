@@ -97,7 +97,7 @@ public class NotificationsActivity extends SearchBaseActivity {
 
             searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
             searchView.setHint(R.string.search_device_hint);
-            DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+            DeviceDataAdapter.getInstance().getAllDevices(0, 0, false, new DeviceDataRequestHandler() {
                 @Override
                 public void onDeviceDataLoaded(final List<Devices> devices) {
                     NotificationsActivity.this.runOnUiThread(new Runnable() {
@@ -145,7 +145,7 @@ public class NotificationsActivity extends SearchBaseActivity {
 
             searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
             searchView.setHint(R.string.search_account_hint);
-            AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+            AccountsDataAdapter.getInstance().getAllAccounts(false, new AccountsHandler() {
                 @Override
                 public void onAccountsDownloadFinished(final List<Account> accounts) {
                     NotificationsActivity.this.runOnUiThread(new Runnable() {

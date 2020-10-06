@@ -12,15 +12,16 @@ import com.tsofen.agsenceapp.adaptersInterfaces.AddNewDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.AddNewDataAdapter;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.utils.AlertFlag;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewDevice extends BackBaseActivity {
-    EditText IEMIEdit, DevicePhoneNumberEdit, DevicePasswordEdit;
+    EditText iemiEdit, devicePhoneNumberEdit, devicePasswordEdit, deviceNameEdit;
     Spinner DeviceTypeSpinner, AccountNameSpinner;
-    final List<String> _accountsnames = new ArrayList<>();
+    final List<AccountCompany> _accountsnames = new ArrayList<>();
 
     /**/
     @Override
@@ -30,7 +31,7 @@ public class NewDevice extends BackBaseActivity {
 //      _accountsnames.add(0,"Choose Type");
         UpdateAccountsName();
         AccountNameSpinner = (Spinner) findViewById(R.id.AccountNameSpinner);
-        ArrayAdapter<String> dataAdapter;
+        ArrayAdapter<AccountCompany> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, _accountsnames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AccountNameSpinner.setAdapter(dataAdapter);
@@ -55,7 +56,7 @@ public class NewDevice extends BackBaseActivity {
     private void UpdateAccountsName() {
         AccountsDataAdapter.getInstance().getAllCompaniesName(new CompaniesNameHandler() {
             @Override
-            public void onCompaniesNameReady(List<String> companiesName) {
+            public void onCompaniesNameReady(List<AccountCompany> companiesName) {
                 _accountsnames.addAll(companiesName);
 
             }
@@ -63,36 +64,34 @@ public class NewDevice extends BackBaseActivity {
     }
 
     public void addNewDevice(View view) {
-        DevicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
-        DevicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
-        IEMIEdit = findViewById(R.id.IEMIEdit);
+        devicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
+        devicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
+        deviceNameEdit = findViewById(R.id.DeviceNameEdit);
+        iemiEdit = findViewById(R.id.IEMIEdit);
 
         String iemiRegex = "[0-9]+";
         boolean legal = true;
-        if (!validatePhoneNumber(DevicePhoneNumberEdit.getText().toString())) {
-            DevicePhoneNumberEdit.setError("Invalid Phone number");
+        if (!validatePhoneNumber(devicePhoneNumberEdit.getText().toString())) {
+            devicePhoneNumberEdit.setError("Invalid Phone number");
             legal = false;
         }
-        if (!validatePassword(DevicePasswordEdit.getText().toString())) {
-            DevicePasswordEdit.setError("Password is weak");
+        if (!iemiEdit.getText().toString().matches(iemiRegex)) {
+            iemiEdit.setError("Illegal IEMI");
             legal = false;
         }
-        if (!IEMIEdit.getText().toString().matches(iemiRegex)) {
-            IEMIEdit.setError("Illegal IEMI");
-            legal = false;
-        }
-        if (DeviceTypeSpinner.getSelectedItem() == null || AccountNameSpinner.getSelectedItem() == null) {
+        if (devicePasswordEdit.getText().toString().equals("") || DeviceTypeSpinner.getSelectedItem() == null || AccountNameSpinner.getSelectedItem() == null || deviceNameEdit.getText().toString().equals("")) {
             showAlertBox(NewDevice.this, AlertFlag.FAILURE, "Some details are missing");
             legal = false;
         }
         if (!legal)
             return;
-        Long iemi = Long.parseLong(IEMIEdit.getText().toString());
+        Long iemi = Long.parseLong(iemiEdit.getText().toString());
         String accountName = (String) AccountNameSpinner.getSelectedItem();
-        String phoneNumber = DevicePhoneNumberEdit.getText().toString();
-        String password = DevicePasswordEdit.getText().toString();
+        String phoneNumber = devicePhoneNumberEdit.getText().toString();
+        String password = devicePasswordEdit.getText().toString();
+        String name = deviceNameEdit.getText().toString();
         String type = (String) DeviceTypeSpinner.getSelectedItem().toString().replace(" ","");
-        AddNewDataAdapter.getInstance().addNewDevice(iemi, type, accountName, phoneNumber, password, new AddNewDataRequestHandler() {
+        AddNewDataAdapter.getInstance().addNewDevice(iemi, type,name, accountName, phoneNumber, password, new AddNewDataRequestHandler() {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewDevice.this, AlertFlag.SUCCESS, "Added new device successfully");

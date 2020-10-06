@@ -13,6 +13,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.AddNewDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataAdapters.AddNewDataAdapter;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.utils.AlertFlag;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class NewUser extends BackBaseActivity {
 
     EditText EmailEditText, accountUsername, phoneNumberTxt;
     Spinner spin, accountCompanyName;
-    List<String> companies;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,8 @@ public class NewUser extends BackBaseActivity {
         accountCompanyName = findViewById(R.id.account_company_name_edit);
         AccountsDataAdapter.getInstance().getAllCompaniesName(new CompaniesNameHandler() {
             @Override
-            public void onCompaniesNameReady(List<String> companiesName) {
-                companies = new ArrayList<>(companiesName);
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(NewUser.this, android.R.layout.simple_spinner_item, companies);
+            public void onCompaniesNameReady(List<AccountCompany> companiesName) {
+                ArrayAdapter<AccountCompany> dataAdapter = new ArrayAdapter<>(NewUser.this, android.R.layout.simple_spinner_item, companiesName);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 NewUser.this.runOnUiThread(new Runnable() {
                     @Override

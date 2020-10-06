@@ -13,7 +13,4 @@ public interface AccountRepository  extends CrudRepository<Account, Integer>  {
 	Account findByName(String name);
 	ArrayList<Account> findAll();
 	
-	@Query(nativeQuery = true,value = "SELECT Text FROM public.account;")
-	public ArrayList<Account> findAllAccountsName();
-	
 }

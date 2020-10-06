@@ -21,6 +21,7 @@ public abstract class User {
 	String name;
 	String userName;
 	String phoneNumber;
+	int notificationFlag;
 	int sysId;
 	String hashPassword;
 	Account account;
@@ -34,6 +35,16 @@ public abstract class User {
 
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void setNotificationFlag(int notificationFlag) {
+		this.notificationFlag = notificationFlag;
+	}
+	
+	@Column
+	public int getNotificationFlag() {
+		return notificationFlag;
+	}
+	
 	public void setType(String type) {
 		this.type=type;
 }

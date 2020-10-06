@@ -10,9 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.activities.AppBaseActivity;
+import com.tsofen.agsenceapp.adaptersInterfaces.MarkNotificationRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.NotificationsDataAdapter;
+import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
 import com.tsofen.agsenceapp.entities.Notification;
+import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.utils.Severity;
 
 import java.util.List;
@@ -26,7 +31,6 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
         super(context,0,notificationArray);
         inflater = LayoutInflater.from(context);
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
@@ -69,11 +73,28 @@ public class NotificationListAdaptor extends ArrayAdapter<Notification> {
             @Override
             public void onClick(View view) {
                 if(!notification.getReaded()) {
-                    deviceNameDeviceTypeBox.setTypeface(null, Typeface.NORMAL);
-                    errorMessageBox.setTypeface(null, Typeface.NORMAL);
-                    timeBox.setTypeface(null, Typeface.NORMAL);
-                    notification.setReaded(true);
-                    //handler here
+//                    CacheMgr.getInstance().markNotificationAsReadJob(AppBaseActivity.getUser().getId(), notification.getId(), new MarkNotificationAsReadHandler() {
+//                        @Override
+//                        public void onNotificationMarkedAsRead(Boolean finishedSuccessfully) {
+//                            if(finishedSuccessfully) {
+//                                deviceNameDeviceTypeBox.setTypeface(null, Typeface.NORMAL);
+//                                errorMessageBox.setTypeface(null, Typeface.NORMAL);
+//                                timeBox.setTypeface(null, Typeface.NORMAL);
+//                                notification.setReaded(true);
+//                            }
+//                        }
+//                    });
+                    int userId = AppBaseActivity.getUser().getId();
+                    NotificationsDataAdapter.getInstance().setNotificationAsRead(userId, notification.getId(), new MarkNotificationRequestHandler() {
+                        @Override
+                        public void onInfoReceived(Boolean answer) {
+                            if (answer)
+                                deviceNameDeviceTypeBox.setTypeface(null, Typeface.NORMAL);
+                                errorMessageBox.setTypeface(null, Typeface.NORMAL);
+                                timeBox.setTypeface(null, Typeface.NORMAL);
+                                notification.setReaded(true);
+                        }
+                    });
 
                 }
             }

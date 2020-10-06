@@ -4,12 +4,9 @@ import java.util.Map;
 
 
 public class UrlConnectionMaker {
-    //http://206.72.198.59:8080/ServerTsofen45/User/Login?password=123123&userName=admin&
-    //http://206.72.198.59:8080/ServerTsofen45/User/Login?password=123123&username=admin
-    static String baseurl = "http://206.72.198.59:8080/ServerTsofen45v5";
-//    http://87.70.6.234:8080/ServerTsofen45v5/swagger-ui.html#
 
-//    static String baseurl = "http://87.70.6.234:8080/ServerTsofen45v5";
+    static String baseurl = "http://206.72.198.59:8080/ServerTsofen45v6";
+
     public static String createUrl(ServicesName serviceName, Map<String, String> params) {
         String url = baseurl+serviceName.getServiceName()+"?";
         for(String key : params.keySet())
