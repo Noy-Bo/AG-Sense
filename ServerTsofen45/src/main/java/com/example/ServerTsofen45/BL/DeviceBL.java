@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -240,6 +241,14 @@ return null;
 		deviceRepository.save(device);
 		return true;
 		
+	}
+	
+	public JSONObject getDeviceSMSinfo(long imei) {
+		Device device =deviceRepository.findByImei(imei);
+		JSONObject json = new JSONObject();
+		json.put("PhoneNumber",device.getPhoneNumber());
+		json.put("password", device.getPassword());
+		return json;
 	}
 
 	}
