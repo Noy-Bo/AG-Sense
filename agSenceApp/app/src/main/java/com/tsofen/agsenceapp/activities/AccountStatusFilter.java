@@ -50,10 +50,10 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                accountsArr.clear();
+                //accountsArr.clear(); // do not use this!. down below you take Accounts from cache and assign it directly to this variable, therefore controlling cache from here. this is bad
+                // if u still need to use it. do not take direct refrence from cache!.
                 ((ArrayAdapter)accountsList.getAdapter()).notifyDataSetChanged();
-                CacheMgr.getInstance().setAccounts(new ArrayList<Account>());
-                getAccountsFromCacheManager();
+                getAccountsFromCacheManager(true);
 
             }
         });
@@ -88,7 +88,7 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
         searchView.setHint(R.string.search_account_hint);
 
 
-        getAccountsFromCacheManager();
+        getAccountsFromCacheManager(false);
 
         accountsList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -168,8 +168,8 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
     }
 
 
-    public void getAccountsFromCacheManager() {
-        AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+    public void getAccountsFromCacheManager(boolean requestLatestData) {
+        AccountsDataAdapter.getInstance().getAllAccounts(requestLatestData,new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(final List<Account> accounts) {
                 accountsArr = (ArrayList<Account>) accounts;

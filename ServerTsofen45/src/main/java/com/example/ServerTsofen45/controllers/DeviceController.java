@@ -3,6 +3,7 @@ package com.example.ServerTsofen45.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,7 +130,7 @@ public class DeviceController {
 	}
 
 	@GetMapping("Add")
-	public boolean AddNewDevice(@RequestParam long imei, @RequestParam DeviceType type,
+	public boolean AddNewDevice(@RequestParam long imei, @RequestParam DeviceType type, @RequestParam String deviceName, 
 			@RequestParam String accountName, @RequestParam String phoneNumber, String devicePassword) {
 
 		if (deviceBL.getDeviceImei(imei) != null)
@@ -138,27 +139,38 @@ public class DeviceController {
 		Account account = accountBL.getAccountByName(accountName);
 		int accountId = account.getId();
 
-		Device device = new Device(imei, accountId, type, phoneNumber, devicePassword);
+		Device device = new Device(imei, accountId, type, deviceName, phoneNumber, devicePassword);
 
 		deviceRepository.save(device);
 		return true;
 	}
 	
-	@GetMapping("editDevice")
-	public boolean editDevice(@RequestParam long deviceIMEI,@RequestParam String newPhoneNumber,@RequestParam String newPass) {
-		return deviceBL.editDevice(deviceIMEI, newPhoneNumber, newPass);
-	}
 	
 	
-	
-	@GetMapping("Edit")
-	public boolean editDevice(@RequestParam long deviceIMEI, @RequestParam String newPhoneNumber, @RequestParam String newPass) {
-		if (deviceBL.getDeviceImei(deviceIMEI) == null) return false;
+	@GetMapping("getPassAndPhone")
+
+	public String getPassAndPhone(long imei)
+	{
+		Device device =deviceBL.getDeviceImei(imei);
+		return ""+device.getPassword()+","+device.getPhoneNumber()+"";
 		
-		deviceBL.editDevice(deviceIMEI, newPhoneNumber, newPass);
-		return true;
 	}
 	
+	@GetMapping("getSMSInfo")
+	public JSONObject getSMSInfo(@RequestParam long imei)
+	{
+		 return deviceBL.getDeviceSMSinfo(imei);
+		
+	}
+	
+	
+	/*
+	 * @GetMapping("Edit") public boolean editDevice(@RequestParam long
+	 * deviceIMEI, @RequestParam String newPhoneNumber, @RequestParam String
+	 * newPass) { if (deviceBL.getDeviceImei(deviceIMEI) == null) return false;
+	 * 
+	 * deviceBL.editDevice(deviceIMEI, newPhoneNumber, newPass); return true; }
+	 */
 	
 	/*************************SETTINGS******************************/
 	
@@ -190,6 +202,9 @@ public class DeviceController {
 		
 	}
 	
-	
+	@GetMapping("editDevice")
+	public boolean editDevice(@RequestParam long deviceIMEI,@RequestParam String newPhoneNumber,@RequestParam String newPass) {
+		return deviceBL.editDevice(deviceIMEI, newPhoneNumber, newPass);
+	}
 	
 }

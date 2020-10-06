@@ -2,7 +2,9 @@ package com.tsofen.agsenceapp.dataAdapters;
 
 import com.tsofen.agsenceapp.adaptersInterfaces.AccountsDataAdapterAPI;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.AccountCompany;
 import com.tsofen.agsenceapp.entities.Devices;
 
 import java.util.ArrayList;
@@ -20,20 +22,26 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
     }
 
     @Override
-    public void getAllAccounts(final AccountsHandler handler) {
-        cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                handler.onAccountsDownloadFinished(accounts);
+    public void getAllAccounts(boolean reqeustLatestData,final AccountsHandler handler) {
+        if (reqeustLatestData == true)
+        {
+            cacheManager.getLatestAccountsJob(0, 0, new AccountsHandler() {
+                @Override
+                public void onAccountsDownloadFinished(List<Account> accounts) {
+                    handler.onAccountsDownloadFinished(accounts);
+                }
+            });
+        }
+        else
+        {
+            cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
+                @Override
+                public void onAccountsDownloadFinished(List<Account> accounts) {
+                    handler.onAccountsDownloadFinished(accounts);
+                }
+            });
+        }
 
-//                List<Account> newData = new ArrayList<>();
-//                newData.add(new Account(1,"Lama Ghantous", "lama@gmail.com",true, 1));
-//                newData.add(new Account(1,"Ayat Taha", "ayat@gmail.com",false, 2));
-//
-//
-//                handler.onAccountsDownloadFinished(newData);
-            }
-        });
     }
 
     @Override
@@ -41,11 +49,12 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
         cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
-//                List<Account> newData = new ArrayList<>();
-//                for(Account account : accounts)
-//                    if(account.isFaulty())
-//                        newData.add(account);
-                handler.onAccountsDownloadFinished(accounts);
+                List<Account> toReturn = new ArrayList<>();
+                for(Account account : accounts) {
+                    if (account.getFaultyAccount())
+                        toReturn.add(account);
+                }
+                handler.onAccountsDownloadFinished(toReturn);
 
             }
         });
@@ -56,12 +65,22 @@ public class AccountsDataAdapter extends BaseDataAdapter implements AccountsData
         cacheManager.getAccountsJob(0, 0, new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(List<Account> accounts) {
-//                List<Account> newData = new ArrayList<>();
-//                for(Account account : accounts)
-//                    if(account.isFaulty())
-//                        newData.add(account);
-//                handler.onAccountsDownloadFinished(newData);
-                handler.onAccountsDownloadFinished(accounts);
+                List<Account> toReturn = new ArrayList<>();
+                for(Account account : accounts) {
+                    if (!account.getFaultyAccount())
+                        toReturn.add(account);
+                }
+                handler.onAccountsDownloadFinished(toReturn);
+            }
+        });
+    }
+
+    @Override
+    public void getAllCompaniesName(CompaniesNameHandler handler) {
+        cacheManager.getAllCompaniesNameJob(0,0,new CompaniesNameHandler() {
+            @Override
+            public void onCompaniesNameReady(List<AccountCompany> companiesName) {
+                handler.onCompaniesNameReady(companiesName);
             }
         });
     }

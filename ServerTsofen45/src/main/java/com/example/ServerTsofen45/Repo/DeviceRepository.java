@@ -31,7 +31,7 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 
 	ArrayList<Device> findAllByOrderByLastUpdateDesc();
 
-	@Query(nativeQuery = true, value = " SELECT " + "			 * " + "			 FROM  " + "			 devices  "
+	@Query(nativeQuery = true, value = " SELECT  *  FROM  devices  "
 			+ "			  where  faulty in (?1, ?2) AND type in (?3, ?4, ?5) AND account_id = ?6 " +
 
 			"  ORDER BY last_update DESC ;")
@@ -56,6 +56,13 @@ public interface DeviceRepository extends CrudRepository<Device, Integer> {
 	@Query(nativeQuery = true, value = "select count(distinct id) " + "from public.devices " + "where faulty = FALSE;")
 	public String getHealtyDevicesNumber();
 
+	@Query(nativeQuery = true, value = "select count(distinct id) " + " from public.devices " + " where faulty = TRUE AND account_id =?1 	;")
+	public String getFaultyDevicesNumberForId(int accountId);
+	
+	@Query(nativeQuery = true, value = "select count(distinct id) " + " from public.devices " + " where account_id =?1 ;")
+	public String getDevicesNumberForId(int accountId);
+	
+	
 	@Modifying
 	@Query(nativeQuery = true, value = "update devices d "+"set d.phone_number =?2 and d.password =?3 "+"where d.imei =?1")
 	void updateDeviceByid(long deviceIMEI, String newPhoneNumber, String newPass);

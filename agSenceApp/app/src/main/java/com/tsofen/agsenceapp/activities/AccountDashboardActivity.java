@@ -84,22 +84,20 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
                 devicesList.clear();
                 getDevicesFromCache();
-
-
+                getNotificationsFromCache();
             }
         });
 
-
-        if (AppBaseActivity.user instanceof Admin) {
+        if (AppBaseActivity.getUser() instanceof Admin) {
             account = (Account) getIntent().getSerializableExtra("account");
         }
         else {
-            account = (Account) AppBaseActivity.user;
+            account = (Account) AppBaseActivity.getUser();
         }
-        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getAccountid(), 0, 0, new NotificationsDataRequestHandler() {
+        // get notification related to account
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getId(), 0, 0, new NotificationsDataRequestHandler() {
             @Override
             public void onNotificationsReceived(final List<Notification> notifications) {
                 AccountDashboardActivity.this.runOnUiThread(new Runnable() {
@@ -127,13 +125,35 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         });
 
         getDevicesFromCache();
-
+        getNotificationsFromCache();
     }
 
+    private void getNotificationsFromCache() {
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getId(), 0, 0, new NotificationsDataRequestHandler() {
+            @Override
+            public void onNotificationsReceived(final List<Notification> notifications) {
+                AccountDashboardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notificationArray.clear();
+                        notificationArray.addAll(notifications);
+                        notificationListView = findViewById(R.id.notification_list);
+                        notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this, 0, notificationArray);
+                        notificationListView.setAdapter(notificationArrayAdapter);
+                        updateUIAfterSearch(notifications.size());
+                    }
+                });
 
+            }
+        });
+    }
+
+    /**
+     * function responsible for getting devices from cache
+     */
     public void getDevicesFromCache()
     {
-        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getAccountid(), 0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getDevicesRelatedToAccount(account.getId(), 0, 0, new DeviceDataRequestHandler() {
 
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {
@@ -150,11 +170,16 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                 });
 
             }
+
         });
     }
 
 
-
+    /**
+     * function responsible fot transitioning to device status, must send with extra account and filter
+     * if its healthy or faulty
+     * @param view : view of current activity
+     */
     public void goToDevicesStatus(View view) {
 
         Intent intent = new Intent(this, AccountDevicesStatus.class);
@@ -169,6 +194,10 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         startActivity(intent);
     }
 
+    /**
+     * open dialog box to the filter popup
+     * @param view : view of current activity
+     */
     public void gotoFilter(View view) {
         // show the layout of the popup window
         popUpDialog.setContentView(R.layout.pop_up1);
@@ -198,6 +227,10 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         popUpDialog.show();
     }
 
+    /**
+     * listener used for date picker
+     * @param view : view of current activity
+     */
     public void listen(final Dialog view) {
         final Calendar cldr = Calendar.getInstance();
         int day = cldr.get(Calendar.DAY_OF_MONTH);
@@ -217,6 +250,10 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         picker.show();
     }
 
+    /**
+     * listener used for date picker
+     * @param view : view of current activity
+     */
     public void listen1(final View.OnClickListener view) {
         final Calendar cldr = Calendar.getInstance();
         int day = cldr.get(Calendar.DAY_OF_MONTH);
@@ -237,6 +274,10 @@ public class AccountDashboardActivity extends SearchBaseActivity {
     }
 
 
+    /**
+     * resets filter popup options
+     * @param view : view of current activity
+     */
     public void reset(View view) {
         TextView fromDate = (TextView) popUpDialog.findViewById(R.id.fromDate);
         TextView toDate = (TextView) popUpDialog.findViewById(R.id.toDate);
@@ -252,6 +293,11 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
     }
 
+
+    /**
+     * function responsible for taking options in filter popup and filtering the results
+     * @param view : view of current activity
+     */
     public void search(View view) {
         ArrayList<Notification> filterArr = new ArrayList<>();
         if(after ==null || before == null){
@@ -281,6 +327,11 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         displayUnreadNotifications = false;
     }
 
+    /**
+     * function responsible for changing color of read/unread button in filter popup and save user's
+     * choice
+     * @param view : view of current activity
+     */
     public void displayReadNotifications(final View view) {
         TextView displayFaultyBox = view.findViewById(R.id.read_button);
 
@@ -297,6 +348,11 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         }
     }
 
+    /**
+     * function responsible for changing color of read/unread button in filter popup and save user's
+     * choice
+     * @param view : view of current activity
+     */
     public void displayUnreadNotifications(final View view) {
         TextView displayHealthyBox = view.findViewById(R.id.unread_button);
 
@@ -334,7 +390,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (AppBaseActivity.user instanceof Admin) {
+        if (AppBaseActivity.getUser() instanceof Admin) {
             finish();
             return;
         }
@@ -377,12 +433,16 @@ public class AccountDashboardActivity extends SearchBaseActivity {
 
     }
 
+    /**
+     * opens google maps to view all devices
+     * @param view : view of current activity
+     */
     public void openMap(View view) {
         if (devicesList == null || devicesList.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (Devices device : devicesList) {
-                Place newPlace = new Place((float) device.getLatitude(), (float) device.getLogitude());
+                Place newPlace = new Place(Float.parseFloat( device.getLatitude()), Float.parseFloat(device.getLogitude()));
                 if(device.getName()!=null) {
                     newPlace.setTitle(device.getName());
                 }

@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,29 +25,29 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
+
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
-import com.google.maps.android.clustering.view.ClusterRenderer;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DevicesAdapter;
 import com.tsofen.agsenceapp.adaptersInterfaces.DeviceDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
+
 import com.tsofen.agsenceapp.entities.DeviceData;
+
 import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Place;
-import com.tsofen.agsenceapp.entities.User;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         ClusterManager.OnClusterItemClickListener<Place>,
@@ -54,10 +58,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ClusterManager<Place> mClusterManager;
     private Renderer mRenderer;
     private LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
     private ArrayList<LatLng> listPoints;
     private ArrayList<LatLng> listPointsPoly;
     private MarkerOptions markerOptions;
     private MarkerOptions initialMarker;
+    private LatLng initialMarkerLatlng;
     private Polygon polygon;
     private Button clear;
     private AutoCompleteTextView searchView;
@@ -68,9 +74,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // 2. Map activity with timeline of device - shows polyline between them
     // 3. Map with last device location to define geofence
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         opCode = getIntent().getIntExtra("opcode", 1);
         switch (opCode) {
             case 1:
@@ -78,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 clear = (Button) findViewById(R.id.clear_button);
                 searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
                 searchView.setHint(R.string.search_device_hint);
-                DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+                DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
                     @Override
                     public void onDeviceDataLoaded(final List<Devices> devices) {
                         MapsActivity.this.runOnUiThread(new Runnable() {
@@ -95,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Devices device = (Devices) searchView.getAdapter().getItem(i);
                         builder = new LatLngBounds.Builder();
-                        builder.include(new LatLng(device.getLatitude(), device.getLogitude()));
+                        builder.include(new LatLng(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude())));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
                     }
                 });
@@ -109,13 +117,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 setContentView(R.layout.activity_maps_geofence);
                 break;
         }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
+
         listPoints = new ArrayList<>();
         listPointsPoly = new ArrayList<>();
+
     }
     /**
      * Manipulates the map once available.
@@ -144,6 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     initialMarker.position(userMap.getPlaces().get(0).getLocation());
                     initialMarker.title(userMap.getPlaces().get(0).getTitle());
                     mMap.addMarker(initialMarker);
+                    initialMarkerLatlng = new LatLng(userMap.getPlaces().get(0).getLocation().latitude, userMap.getPlaces().get(0).getLocation().longitude);
                     builder = new LatLngBounds.Builder();
                     builder.include(userMap.getPlaces().get(0).getLocation());
                     mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 100));
@@ -170,22 +182,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     markerOptions.position(latLng);
                     mMap.addMarker(markerOptions);
                     if(listPoints.size() == 2) {
-                        builder = new LatLngBounds.Builder();
-                        builder.include(listPoints.get(0));
-                        builder.include(listPoints.get(1));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+                        mMap.clear();
+                        if (initialMarker != null) {
+                            mMap.addMarker(initialMarker);
+                        }
                         Double top = Double.max(listPoints.get(0).latitude, listPoints.get(1).latitude);
                         Double bottom = Double.min(listPoints.get(0).latitude, listPoints.get(1).latitude);
                         Double right = Double.max(listPoints.get(0).longitude, listPoints.get(1).longitude);
                         Double left = Double.min(listPoints.get(0).longitude, listPoints.get(1).longitude);
-                        listPointsPoly.add(new LatLng(top, left));
-                        listPointsPoly.add(new LatLng(top, right));
-                        listPointsPoly.add(new LatLng(bottom, right));
-                        listPointsPoly.add(new LatLng(bottom, left));
-                        PolygonOptions polygonOptions = new PolygonOptions().addAll(listPointsPoly);
-                        polygonOptions.strokeColor(Color.RED);
-                        polygonOptions.strokeWidth(6);
-                        polygon= mMap.addPolygon(polygonOptions);
+                        if (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
+                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right) {
+                            Toast.makeText(MapsActivity.this, "Device must be inside defined area", Toast.LENGTH_SHORT).show();
+                            listPoints.clear();
+                            listPointsPoly.clear();
+                        } else {
+                            builder = new LatLngBounds.Builder();
+                            builder.include(listPoints.get(0));
+                            builder.include(listPoints.get(1));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 150));
+                            listPointsPoly.add(new LatLng(top, left));
+                            listPointsPoly.add(new LatLng(top, right));
+                            listPointsPoly.add(new LatLng(bottom, right));
+                            listPointsPoly.add(new LatLng(bottom, left));
+                            PolygonOptions polygonOptions = new PolygonOptions().addAll(listPointsPoly);
+                            polygonOptions.strokeColor(Color.RED);
+                            polygonOptions.strokeWidth(6);
+                            polygon= mMap.addPolygon(polygonOptions);
+                        }
                     }
                 }
             }
@@ -195,6 +218,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void clearText(View view) {
+
+        searchView.setText("");
+        
     }
 
     private void setUpClusterer() {
@@ -240,6 +269,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
         }
+
     }
 
     private void addPolylines() {
@@ -296,7 +326,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void clearText(View view) {
-        searchView.setText("");
-    }
 }

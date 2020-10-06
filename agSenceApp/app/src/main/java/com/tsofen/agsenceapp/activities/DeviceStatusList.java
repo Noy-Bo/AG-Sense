@@ -101,14 +101,16 @@ public class DeviceStatusList extends BackBaseActivity {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
             for (DeviceData deviceData : deviceData) {
-                Place newPlace = new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon());
-                if(deviceData.getId()!=null) {
-                    newPlace.setTitle("device" + deviceData.getId().toString());
+                if (device.getLatitude() != null && device.getLogitude() != null) {
+                    Place newPlace = new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon());
+                    if (deviceData.getId() != null) {
+                        newPlace.setTitle("device" + deviceData.getId().toString());
+                    }
+                    if (deviceData.getDateAndTime() != null) {
+                        newPlace.setSnippet(deviceData.getDateAndTime().toString());
+                    }
+                    userMap.addPlace(newPlace);
                 }
-                if(deviceData.getDateAndTime()!=null) {
-                    newPlace.setSnippet(deviceData.getDateAndTime().toString());
-                }
-                userMap.addPlace(newPlace);
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("opcode", 2);

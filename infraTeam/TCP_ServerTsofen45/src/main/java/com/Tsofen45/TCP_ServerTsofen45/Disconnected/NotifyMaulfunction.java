@@ -5,6 +5,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.ArrayList;
 
 public class NotifyMaulfunction implements Runnable  {
+
     private  String current_imei = null;
     final private Object lock = new Object();
     public  NotifyMaulfunction(String imei){
@@ -13,7 +14,6 @@ public class NotifyMaulfunction implements Runnable  {
 
     @Override
     public void run() {
-
 
         synchronized (lock) {
             HashSet<String> arr_ = ReportTimer.getImei_list().get(current_imei);

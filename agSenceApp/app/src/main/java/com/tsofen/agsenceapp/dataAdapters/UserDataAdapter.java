@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
+import com.tsofen.agsenceapp.adaptersInterfaces.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.UserDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.onUserLoginHandler;
 import com.tsofen.agsenceapp.dataServices.LoginHandler;
@@ -43,6 +44,10 @@ public class UserDataAdapter extends BaseDataAdapter implements UserDataAdapterA
         } );
     }
 
+    @Override
+    public void getAdminDashboardInfo(int adminId, AdminDashboardInfoHandler handler) {
+    }
+
     public  Context getContext() {
         return context;
     }
@@ -58,4 +63,5 @@ public class UserDataAdapter extends BaseDataAdapter implements UserDataAdapterA
     public void setCallback(FailedLogin callback) {
         this.callback = callback;
     }
+
 }

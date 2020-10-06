@@ -39,6 +39,7 @@ public class DeviceSettings extends BackBaseActivity {
     SearchableSpinner spinner;
     int flag = 0;
     ArrayAdapter<String> dataAdapter;
+
     ArrayList<Devices> devicesList = new ArrayList<>();
     Devices chosenDevice;
 
@@ -48,33 +49,34 @@ public class DeviceSettings extends BackBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_settings);
         spinner = (SearchableSpinner) findViewById(R.id.settingSpinner);
-        final LinearLayout b1 = findViewById(R.id.buttonsPanel);
-        b1.setVisibility(View.INVISIBLE);
+        final LinearLayout settingButtons = findViewById(R.id.buttonsPanel);
+        settingButtons.setVisibility(View.INVISIBLE);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                b1.setVisibility(View.VISIBLE);
+                settingButtons.setVisibility(View.VISIBLE);
                 chosenDevice = devicesList.get(position);
+                spinner.setSelection(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
+
             }
 
         });
 
 
-        final ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         device = (Devices) getIntent().getSerializableExtra("device");
         if (device != null) {
             list.add(device.getImei().toString());
-            dataAdapter = new ArrayAdapter<>(DeviceSettings.this, android.R.layout.simple_spinner_item, list);
+            devicesList.add(device);
+            dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(dataAdapter);
-            spinner.setSelection(0);
-            b1.setVisibility(View.VISIBLE);
         } else {
-            DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+            DeviceDataAdapter.getInstance().getAllDevices(0, 0, false,new DeviceDataRequestHandler() {
                 @Override
                 public void onDeviceDataLoaded(final List<Devices> devices) {
                     for (Devices devices1 : devices) {
@@ -99,9 +101,9 @@ public class DeviceSettings extends BackBaseActivity {
     }
 
     public void openSpeedingAlertAndGeoFence(View view) {
-        Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
-        intent.putExtra("chosenPlace", new Place(chosenDevice.getLatitude(),chosenDevice.getLogitude()));
-        startActivity(intent);
+            Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
+            intent.putExtra("chosenPlace", new Place(Float.parseFloat(chosenDevice.getLatitude()), Float.parseFloat(chosenDevice.getLogitude())));
+            startActivity(intent);
     }
 
     public void openAuthorizationNumber(View view) {

@@ -73,13 +73,26 @@ public class DeviceDataAdapter extends BaseDataAdapter implements DeviceDataAdap
     }
 
     @Override
-    public void getAllDevices(int start, int num, final DeviceDataRequestHandler handler) {
-        cacheManager.getDevicesJob(0, 0, new DevicesHandler() {
-            @Override
-            public void onDevicesDownloadFinished(List<Devices> devices) {
-                handler.onDeviceDataLoaded(devices);
-            }
-        });
+    public void getAllDevices(int start, int num,boolean reqeustLatestData, final DeviceDataRequestHandler handler) {
+        if (reqeustLatestData == true)
+        {
+            cacheManager.getLatestDevicesJob(0, 0, new DevicesHandler() {
+                @Override
+                public void onDevicesDownloadFinished(List<Devices> devices) {
+                    handler.onDeviceDataLoaded(devices);
+                }
+            });
+        }
+        else if ( reqeustLatestData == false)
+        {
+            cacheManager.getDevicesJob(0, 0, new DevicesHandler() {
+                @Override
+                public void onDevicesDownloadFinished(List<Devices> devices) {
+                    handler.onDeviceDataLoaded(devices);
+                }
+            });
+        }
+
     }
 
     @Override

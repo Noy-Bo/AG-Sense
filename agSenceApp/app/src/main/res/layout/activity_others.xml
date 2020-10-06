@@ -131,6 +131,31 @@
                 android:layout_margin="5dp"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_background_frame"
+                android:onClick="goToEditUser"
+                android:text="@string/edit_user"
+                android:textAllCaps="false"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/small_text_size"
+                android:layout_margin="5dp"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

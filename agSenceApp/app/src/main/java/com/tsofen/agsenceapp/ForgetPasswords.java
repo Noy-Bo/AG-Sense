@@ -55,7 +55,7 @@ protected EditText forget_password_email_address;
             prog.setVisibility(View.VISIBLE);
             forget_password_email_address = findViewById(R.id.forget_password_email_address);
 
-            AccountsDataAdapter.getInstance().getAllAccounts(new AccountsHandler() {
+            AccountsDataAdapter.getInstance().getAllAccounts(false,new AccountsHandler() {
                 @Override
                 public void onAccountsDownloadFinished(List<Account> accounts) {
                     for (Account account1 : accounts) {
