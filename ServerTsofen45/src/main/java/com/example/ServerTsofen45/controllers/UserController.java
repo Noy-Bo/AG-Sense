@@ -54,7 +54,7 @@ public class UserController {
 	}
 
 	
-	@GetMapping("ForgetPassword")
+	@GetMapping("ForgotPassword")
 		public JSONObject getEmailAndPhonenumberForUser(@RequestParam String userName)
 		{
 		
