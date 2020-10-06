@@ -69,6 +69,7 @@ public class UserAccount extends User{
 		   jo.put("faultyDevices", faultyDevices);
 		   jo.put("faultyAccount", (Integer.parseInt(faultyDevices) >0));
 		   jo.put("phoneNumber", this.phoneNumber);
+		   jo.put("CompanyName",this.account.getName());
 		   return jo;
 	}
 
