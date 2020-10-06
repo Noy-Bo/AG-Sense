@@ -9,19 +9,30 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/**
+ * this class is responsible for all SMS related management, is has an array of trackers that track
+ * SMS coming from devices.
+ *
+ * it contains all SMS that can be received from device
+ */
 public class SmsMgr {
     private static SmsMgr smsMgr = null;
+
+    // each type of settings has its own HashMap so that we can tracks which device sends SMS and
+    // for what purpose
     private  static HashMap<String, TrackingSMS> tracking = new HashMap<>();
     private  static HashMap<String, TrackingSMS> speedingAlert = new HashMap<>();
     private static  HashMap<String, TrackingSMS> authorization = new HashMap<>();
+
+    // for each command we need to create an array to contain what SMs we want to receive in response
+    // from device
     private static ArrayList<Response> trackingResponse;
     private static ArrayList<Response> speedingAlertResponse;
     private static ArrayList<Response> authorizationResponse;
 
 
     private  SmsMgr() {
-
-
+        //here we define what SMS we want to receive for each kind of command
             trackingResponse = new ArrayList<Response>(
                     Arrays.asList(Response.SET_INTERVAL));
             speedingAlertResponse = new ArrayList<Response>(
@@ -38,6 +49,14 @@ public class SmsMgr {
         return smsMgr;
     }
 
+    /**
+     * this function create a  tracker in correlation to type of command we send.
+     *
+     * @param phoneNumber phone number of device
+     * @param commands   List of command from Response enum that we want to receive from device
+     * @param setting   type of setting settingType enum
+     * @param handler   a handler for when all SMS are received
+     */
     public void createTracker(String phoneNumber, ArrayList<Response> commands, settingType setting, OnAllSmsRecievedHandler handler ){
         switch (setting){
             case TRACKING:
@@ -55,6 +74,9 @@ public class SmsMgr {
 
     }
 
+    /**
+     * types of setting change we can make to device
+     */
     public enum settingType
     {
         SPEEDING_ALERT,
@@ -62,6 +84,10 @@ public class SmsMgr {
         TRACKING;
     }
 
+    /**
+     * all the possible conformation responses from device according to SMS COMMAND V1.22 [Pretrace Technology],
+     * document is located in \Documentation\Client Side\SMS Management Feature\Pretrace SMS Command-V1.22.pdf
+     */
     public enum Response
     {
         RESET_PASS("Reset password ok!"),
@@ -133,7 +159,13 @@ public class SmsMgr {
         return authorizationResponse;
     }
 
-    public static  void delteTrakcing (String phoneNumber, settingType type ){
+
+    /**
+     * after a tracker has received all its messages it is deleted from the HashMap
+     * @param phoneNumber   phone number of device
+     * @param type          type of setting that tracks was assigned to
+     */
+    public static  void deleteTracker(String phoneNumber, settingType type ){
         switch (type){
             case TRACKING:
                 tracking.remove(phoneNumber);
