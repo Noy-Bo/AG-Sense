@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Component
 public class ReportTimer {
+
     private static ReportTimer report_instance = null;
     private static Timer timer_ = null;
     private static HashMap<String,HashSet> imei_list = null;
@@ -19,7 +20,10 @@ public class ReportTimer {
     int mins = 2;
     @Autowired
     private DeviceRepository devicerRepo;
-
+    /**
+     * constructor
+     * @param
+     */
     public ReportTimer(){
         timer_ = new Timer();
         if(lists_ == null) {
@@ -29,6 +33,12 @@ public class ReportTimer {
             imei_list = new HashMap<>();
         }
     }
+
+    /**
+     * loads the imeis from the database
+     * @param
+     * @exception
+     */
     public  void load_imei(){
         Iterable<Device> imeies = devicerRepo.findAll();
         for(Device device : imeies)
@@ -40,28 +50,26 @@ public class ReportTimer {
             }
         }
     }
+
+    /**
+     *
+     * @return all imei list
+     */
     public static HashMap<String, HashSet> getImei_list() {
         return imei_list;
     }
 
-    public static void setImei_list(HashMap<String, HashSet> imei_list) {
-        ReportTimer.imei_list = imei_list;
-    }
-
+    /**
+     *
+     * @return time shifting imei list
+     */
     public static HashSet[] getLists_() {
         return lists_;
     }
 
-    public static void setLists_(HashSet[] lists_) {
-        ReportTimer.lists_ = lists_;
-    }
-
-    public static ReportTimer getInstance(){
-        if(report_instance == null)
-            report_instance = new ReportTimer();
-        return report_instance;
-    }
-
+    /**
+     * shifts the hast set every 10 secs.
+     */
     class shiftTask extends TimerTask {
 
         @Override
@@ -77,6 +85,10 @@ public class ReportTimer {
 
         }
     }
+
+    /**
+     * every 10 secs check if there is a disconnected device and report it
+     */
     class ReportTask extends TimerTask{
 
         @Override
@@ -86,11 +98,18 @@ public class ReportTimer {
             }
         }
     }
+
+    /**
+     * start the tasks threads.
+     */
     public void start_tasks(){
         timer_.schedule(new shiftTask(),10000,10000);
         timer_.schedule(new ReportTask(),11000,10000);
     }
 
+    /**
+     * reports a disconncted device
+     */
     public static void  report_disconnected(){
         //check if in the list[12] any devices and report back.
     }
