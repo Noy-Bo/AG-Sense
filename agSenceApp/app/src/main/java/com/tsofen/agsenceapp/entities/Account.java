@@ -11,6 +11,7 @@ public class Account extends User implements Serializable {
     private Integer faultyDevices;
     private Boolean faultyAccount;
     private Integer numberOfDevices;
+    private String CompanyName;
 
     public Account(){
         super();
@@ -99,6 +100,14 @@ public class Account extends User implements Serializable {
         this.numberOfDevices = numberOfDevices;
     }
 
+    public String getCompanyName() {
+        return CompanyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        CompanyName = companyName;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
@@ -107,6 +116,7 @@ public class Account extends User implements Serializable {
                 ", id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", Company name='" + CompanyName + '\'' +
                 '}';
     }
 }
