@@ -86,8 +86,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             public void onRefresh() {
                 devicesList.clear();
                 getDevicesFromCache();
-
-
+                getNotificationsFromCache();
             }
         });
 
@@ -126,7 +125,27 @@ public class AccountDashboardActivity extends SearchBaseActivity {
         });
 
         getDevicesFromCache();
+        getNotificationsFromCache();
+    }
 
+    private void getNotificationsFromCache() {
+        NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(account.getId(), 0, 0, new NotificationsDataRequestHandler() {
+            @Override
+            public void onNotificationsReceived(final List<Notification> notifications) {
+                AccountDashboardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notificationArray.clear();
+                        notificationArray.addAll(notifications);
+                        notificationListView = findViewById(R.id.notification_list);
+                        notificationArrayAdapter = new NotificationListAdaptor(AccountDashboardActivity.this, 0, notificationArray);
+                        notificationListView.setAdapter(notificationArrayAdapter);
+                        updateUIAfterSearch(notifications.size());
+                    }
+                });
+
+            }
+        });
     }
 
     /**
