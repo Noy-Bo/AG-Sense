@@ -55,12 +55,12 @@ public class VerificationController {
 	@Autowired
 	DeviceBL deviceBL;
 
-	//	@GetMapping("EmailVerification")
-	//	  public List<NotificationDTO>  getNotifications(@RequestParam String userName)
-	//		{
-	//		
-	//		 
-	//		}
+//		@GetMapping("EmailVerification")
+//		  public List<NotificationDTO>  getNotifications(@RequestParam String userName)
+//			{
+//			
+//			 
+//			}
 
 
 

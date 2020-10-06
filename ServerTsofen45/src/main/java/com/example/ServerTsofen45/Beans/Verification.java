@@ -1,11 +1,6 @@
 package com.example.ServerTsofen45.Beans;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;  
-import javax.mail.*;  
-import javax.mail.internet.*;  
-import javax.activation.*;  
-
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -14,7 +9,6 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.Column;
@@ -92,7 +86,7 @@ public class Verification {
 				}});
 		
 
-this.setCode(getRandomNumberString());
+this.setCode(RandomNumber());
 this.setSentTime(new Timestamp(System.currentTimeMillis()));
 
 
@@ -186,7 +180,7 @@ this.setSentTime(new Timestamp(System.currentTimeMillis()));
 		
 	}
 	
-	private String getRandomNumberString() {
+	private String RandomNumber() {
 	    // It will generate 6 digit random Number.
 	    // from 0 to 999999
 	    Random rnd = new Random();
