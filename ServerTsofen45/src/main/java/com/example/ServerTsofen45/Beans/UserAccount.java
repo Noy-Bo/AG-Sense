@@ -44,6 +44,7 @@ public class UserAccount extends User{
 		   jo.put("faultyAccount", this.account.faultyAccount());
 		   jo.put("phoneNumber", this.phoneNumber);
 		   jo.put("notificationFlag",this.notificationFlag);
+		   jo.put("CompanyName",this.account.getName());
 		   return jo;
 	}
 
