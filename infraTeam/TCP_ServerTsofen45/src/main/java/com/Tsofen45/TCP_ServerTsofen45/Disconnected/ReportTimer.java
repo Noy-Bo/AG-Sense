@@ -27,7 +27,7 @@ public class ReportTimer extends Analyzer {
     private static Timer timer_ = null;
     private static HashMap<String,HashSet> imei_list = null;
     private static HashSet[] lists_ = null;
-    int mins = 2;
+    private static int mins = 2;
     @Autowired
     private DeviceRepository devicerRepo;
     /**
@@ -128,7 +128,7 @@ public class ReportTimer extends Analyzer {
    
     public static void  report_disconnected() throws IOException{
         //check if in the list[12] any devices and report back.
-    	ArrayList<String> imeies = lists_[12];
+    	HashSet<String> imeies = lists_[12];
     	JSONObject json = null;
     	json.put("minutes", mins);
     	for(String imei : imeies) {
