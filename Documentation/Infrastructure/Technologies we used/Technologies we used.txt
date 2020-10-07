@@ -1,0 +1,18 @@
+Technologies we used:
+1.	Kitty, 0.74.2.3 version.
+(KiTTY is a fork from version 0.71 of PuTTY, telnet / SSH client.)
+•	Telnet is a network protocol that allows a user to communicate with a remote device.
+•	SH is a network protocol used to remotely access and manage a device.
+•	The key difference between Telnet and SSH is that SSH uses encryption, which means that all data transmitted over a network is secure from eavesdropping. 
+
+2.	SQL Manager Lite for PostgreSQL 6.1.2
+PostgreSQL also known as Postgres, is a free and open-source relational database management system (RDBMS) emphasizing extensibility and SQL compliance.
+
+3.	Apache Tomcat 7
+an open-source implementation of the Java Servlet, Java Server Pages, Java Expression Language and WebSocket technologies. Tomcat provides a "pure Java" HTTP web server environment in which Java code can run.
+
+4.	Virtual private server 
+ (VPS) is a virtual machine sold as a service by an Internet hosting service. 
+We used interServer – Cloud virtual private server – hosting platform to deploy our project.
+
+5.	Java 13 & spring boot 2.3.4.
