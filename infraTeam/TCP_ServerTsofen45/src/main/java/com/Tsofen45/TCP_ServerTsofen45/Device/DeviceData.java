@@ -2,12 +2,9 @@ package com.Tsofen45.TCP_ServerTsofen45.Device;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-
 import javax.persistence.*;
 
-
-
-@Entity(name = "DevicesData")
+@Entity(name = "TestDevicesData")
 public class DeviceData {
     long ID;
     long imei;
@@ -15,9 +12,9 @@ public class DeviceData {
     String gpsValid;
     Timestamp dateAndTime;
     Time updateTime;
-    String lat;
+    double lat;
     String latIndicator;
-    String lon;
+    double lon;
     String lonIndicator;
     float speed;
     int orientation;
@@ -97,10 +94,10 @@ public class DeviceData {
     public void setUpdateTime(Time updateTime) {
         this.updateTime = updateTime;
     }
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
-    public void setLon(String lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
     public void setSpeed(float speed) {
@@ -279,7 +276,7 @@ public class DeviceData {
         return dateAndTime;
     }
     @Column
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
     @Column
@@ -287,7 +284,7 @@ public class DeviceData {
         return latIndicator;
     }
     @Column
-    public String getLon() {
+    public double getLon() {
         return lon;
     }
     @Column

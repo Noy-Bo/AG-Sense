@@ -52,8 +52,13 @@ public class U111 extends UpCommand{
 	        deviceData.setGpsValid(data.substring(1,2));
 	        deviceData.setDateAndTime(get_date_time(data.substring(2,14)));
 	        deviceData.setLonIndicator(data.substring(23,24));
-	        deviceData.setLon((data.substring(14,16)) + " " + (data.substring(16,23)));
-	        deviceData.setLat((data.substring(24,27)) + " " + (data.substring(27,34)));
+	        //33213.9504N03456.4721E
+	        //(864403044135268U1110V2010071207033213.9504N03456.4721E00000000000005F0A0001690000000,&P11A4,B1-.-.-.-,B2-.-.-.-^23
+	        
+	       // deviceData.setLon(0/*Double.parseDouble(data.substring(14,16)) + " " + Double.parseDouble((data.substring(16,23)))*/);
+	        deviceData.setLon(Double.parseDouble(data.substring(14,16)) + Double.parseDouble(data.substring(16,23))/60);
+	      //  deviceData.setLat(0/*(data.substring(24,27)) + " " + (data.substring(27,34))*/);
+	        deviceData.setLat(Double.parseDouble(data.substring(24,27)) + Double.parseDouble(data.substring(27,34))/60);
 	        deviceData.setLatIndicator(data.substring(34,35));
 	        deviceData.setSpeed(Integer.parseInt(data.substring(35,38)));
 	        deviceData.setOrientation(Integer.parseInt(data.substring(38,41)));
