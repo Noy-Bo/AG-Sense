@@ -25,6 +25,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Notification;
@@ -45,6 +46,8 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         super.onCreate(savedInstanceState);
         final LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_admin_dashboard, null, false);
+        pd = GeneralProgressBar.displayProgressDialog(this, "loading data ..");
+        initDashboard();
         drawer.addView(contentView, 0);
         navigationView.setCheckedItem(R.id.nav_admin_dashboard);
         searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
@@ -86,7 +89,8 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         // observer registeration for onforeground. -- read AppLifeCycleObserver.
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
-        initDashboard();
+
+
     }
 
     public void goToNotifications(View view) {
@@ -169,12 +173,12 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     private void initDashboard() {
         CacheMgr.getInstance().getAdminDashboardInfoJob(AppBaseActivity.getUser().getId(), new AdminDashboardInfoHandler() {
             @Override
-            public void onAdminDashboardInfoReceived(AdminDashboardInfo adminDashboardInfo) {
-                TextView faultyAccountsCount = findViewById(R.id.faulty_accounts_count);
-                TextView healthyAccountsCount = findViewById(R.id.healthy_accounts_count);
-                TextView faultyDevicesCount = findViewById(R.id.faulty_device_count);
-                TextView healthyDevicesCount = findViewById(R.id.healthy_devices_count);
-                TextView unreadNotificationsCount = findViewById(R.id.unread_notifications_count);
+            public void onAdminDashboardInfoReceived(final AdminDashboardInfo adminDashboardInfo) {
+                final TextView faultyAccountsCount = findViewById(R.id.faulty_accounts_count);
+                final TextView healthyAccountsCount = findViewById(R.id.healthy_accounts_count);
+                final TextView faultyDevicesCount = findViewById(R.id.faulty_device_count);
+                final TextView healthyDevicesCount = findViewById(R.id.healthy_devices_count);
+                final TextView unreadNotificationsCount = findViewById(R.id.unread_notifications_count);
                 AdminDashboardActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -183,6 +187,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
                         faultyDevicesCount.setText(adminDashboardInfo.getFaultyDevicesNumber());
                         healthyDevicesCount.setText(adminDashboardInfo.getHealtyDevicesNumber());
                         unreadNotificationsCount.setText(adminDashboardInfo.getUnreadNotificationsNumber());
+                        GeneralProgressBar.removeProgressDialog(pd);
                     }
                 });
             }

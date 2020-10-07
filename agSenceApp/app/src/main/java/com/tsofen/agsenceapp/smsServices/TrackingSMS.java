@@ -29,7 +29,7 @@ public class TrackingSMS {
         if(commands.contains(command)){
             commands.remove(command);
             if(commands.isEmpty()){
-                handler.onAllSmsRecievedHandler();
+                handler.onAllSmsReceivedHandler();
                 SmsMgr.deleteTracker(deviceNumber, type);
             }
         }

@@ -33,7 +33,7 @@ public class UserDataAdapter extends BaseDataAdapter implements UserDataAdapterA
             public void onLoginSuccess(User user) {
                 if(user instanceof Admin)
                     handler.onAdminLoginSuccess((Admin) user);
-                else
+                else if (user instanceof Account)
                     handler.onAccountLoginSuccess((Account)user);
             }
 
