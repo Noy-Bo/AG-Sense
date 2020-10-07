@@ -1,7 +1,7 @@
 
 ![logo](https://github.com/tsofen45/ag-Sence/blob/master/Documentation/Images/agsense_logo.png?raw=true)
 
-#  AG-Sense 
+#  
 
 This project is about developing android application to help communicate to Ag-Sense devices, the product was  developed in costumer experience in mind.
 
