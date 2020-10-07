@@ -7,7 +7,7 @@ This project is about developing android application to help communicate to Ag-S
 
 the project splits into three parts:
 
-## Client Side (Android Application) ![logo](https://github.com/tsofen45/ag-Sence/blob/master/Documentation/Images/ic_launcher_round.png?raw=true)
+## Client Side (Android Application) 
 
 the application  is responsible for displaying and and viewing notification and device info related to an AG-Sense  account, AG-Sense  employees can log into application and view each account and its devices and also have editing capabilities to edit/add account or device.
 
