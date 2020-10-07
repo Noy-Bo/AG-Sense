@@ -54,7 +54,7 @@ public enum  ServicesName {
 
     //Not Created by Server it, change when it is done;
 ConfirmCode("/Verification/ConfirmCode"), //username String, code String
-    ConfirmPassword("/User/confirmPassword"),    //username String, password String
+    ConfirmPassword("/Verification/ResetPassword"),    //username String, password String
     EmailPicked("/Verification/VerificationMethod"), //username String , method as email String
 PhonePicked("/Verification/VerificationMethod"); // username String, method as phone String
    // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
