@@ -12,6 +12,7 @@ import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
 
 public class SetNewPassword extends AppCompatActivity {
     protected EditText new_password, confirm_password;
+    String code;
 protected String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ protected String username;
         new_password = findViewById(R.id.new_password);
         username = getIntent().getStringExtra("username");
         confirm_password = findViewById(R.id.confirm_password);
+        code = getIntent().getStringExtra("code");
     }
 
 
@@ -67,15 +69,20 @@ protected String username;
         if (type1 && type2) {
 
 
-            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
+            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, code,new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
                 @Override
-                public void onUserConfirmPassword(boolean confirmed) {
-                    if(confirmed)
-                    {
-                        Intent intent = new Intent(SetNewPassword.this, ForgetPasswordSuccessMessage.class);
-                        startActivity(intent);
-                    }
+                public void onUserConfirmPasswordSuccess() {
+
+                    Intent intent = new Intent(SetNewPassword.this, ForgetPasswordSuccessMessage.class);
+                    startActivity(intent);
                 }
+
+                @Override
+                public void onUserConfirmPasswordFailure() {
+                   // Toast.makeText(SetNewPassword.this, "Failed to Update the password", Toast.LENGTH_SHORT).show();
+                }
+
+
             });
 
         }

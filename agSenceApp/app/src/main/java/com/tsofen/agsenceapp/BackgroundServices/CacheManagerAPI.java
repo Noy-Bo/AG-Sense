@@ -7,6 +7,7 @@ import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
@@ -21,10 +22,6 @@ import com.tsofen.agsenceapp.dataServices.UserDetailsForgetPasswordHandler;
 import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
-import com.tsofen.agsenceapp.entities.Notification;
-import com.tsofen.agsenceapp.utils.AdminDashboardInfo;
-
-import java.util.ArrayList;
 
 public interface CacheManagerAPI {
     /**
@@ -63,13 +60,16 @@ public interface CacheManagerAPI {
     void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler);
 
     //ForgetPassword Api
-    void changeUserPasswordJob(String username, String newPass, UserPasswordChangeHandler handler); // done
+    void changeUserPasswordJob(String username, String code,String newPass, UserPasswordChangeHandler handler); // done
     void verifyCodeJob(String username, String verificationCode, VerificationCodeCheckHandler handler);
     void userDetailsForgetPassword(String username , UserDetailsForgetPasswordHandler handler);
     void emailConfirmed(String username,VerificationCodeSentHandler handler);
-
+void phoneConfirmed(String username,VerificationCodeSentHandler handler);
     void getAdminDashboardInfoJob(int adminId, AdminDashboardInfoHandler handler);
     void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler);
+
+    //sms
+    void getDeviceSmsinfoJob(String imei, DeviceSmsInfoHandler handler);
 
 
 

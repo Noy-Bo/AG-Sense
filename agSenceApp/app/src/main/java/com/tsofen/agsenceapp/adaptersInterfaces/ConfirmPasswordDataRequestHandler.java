@@ -1,7 +1,7 @@
 package com.tsofen.agsenceapp.adaptersInterfaces;
 
 public interface ConfirmPasswordDataRequestHandler {
-    void onUserConfirmPassword(boolean confirmed);
-
+    void onUserConfirmPasswordSuccess();
+    void onUserConfirmPasswordFailure();
 
 }
