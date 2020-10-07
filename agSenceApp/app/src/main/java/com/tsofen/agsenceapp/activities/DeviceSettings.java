@@ -39,7 +39,7 @@ public class DeviceSettings extends BackBaseActivity {
     SearchableSpinner spinner;
     int flag = 0;
     ArrayAdapter<String> dataAdapter;
-
+    ArrayList<String> list;
     ArrayList<Devices> devicesList = new ArrayList<>();
     Devices chosenDevice;
 
@@ -67,7 +67,7 @@ public class DeviceSettings extends BackBaseActivity {
         });
 
 
-        ArrayList<String> list = new ArrayList<>();
+        list = new ArrayList<>();
         device = (Devices) getIntent().getSerializableExtra("device");
         if (device != null) {
             list.add(device.getImei().toString());
@@ -103,16 +103,19 @@ public class DeviceSettings extends BackBaseActivity {
     public void openSpeedingAlertAndGeoFence(View view) {
             Intent intent = new Intent(this, SpeedingAlertAndGeoFenceSetting.class);
             intent.putExtra("chosenPlace", new Place(Float.parseFloat(chosenDevice.getLatitude()), Float.parseFloat(chosenDevice.getLogitude())));
+            intent.putExtra("device", device);
             startActivity(intent);
     }
 
     public void openAuthorizationNumber(View view) {
         Intent intent1 = new Intent(this, AuthorizationNumberSetting.class);
+        intent1.putExtra("device", device);
         startActivity(intent1);
     }
 
     public void openTracking(View view) {
         Intent intent2 = new Intent(this, TrackingSetting.class);
+        intent2.putExtra("device", device);
         startActivity(intent2);
     }
     public void sendMsg(String phoneNumber, String message) {
