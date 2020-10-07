@@ -11,6 +11,14 @@ the project splits into three parts:
 
 the application  is responsible for displaying and and viewing notification and device info related to an AG-Sense  account, AG-Sense  employees can log into application and view each account and its devices and also have editing capabilities to edit/add account or device.
 
+Admin Example:
+Username: admin
+Password: 123123
+
+UserAccount Example:
+Username: user1
+Password: 123123
+
 ## Server Side
 Server side uses [Spring](https://spring.io/) framework to build RESTful API to help the client side access the database, it uses the help of [Swagger](https://swagger.io/) for describing RESTful APIs expressed using JSON.
 [API Documentation](http://206.72.198.59:8080/ServerTsofen45v7/swagger-ui.html#/)
