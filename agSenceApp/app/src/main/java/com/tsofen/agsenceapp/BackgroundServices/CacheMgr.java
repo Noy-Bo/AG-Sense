@@ -483,10 +483,11 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void changeUserPasswordJob(String username, String newPass, UserPasswordChangeHandler handler) {
+    public void changeUserPasswordJob(String username,String code, String newPass, UserPasswordChangeHandler handler) {
         Map<String, String> params = new HashMap<>();
         params.put("newPass",newPass);
         params.put("userName",username); // changed to userName by ameer from int Id
+        params.put("Code",code);
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.ConfirmPassword);// changed by ameer from changePass to ConfirmPassword
         asyncGeneric.execute();
 
@@ -519,7 +520,7 @@ public class CacheMgr implements CacheManagerAPI {
     public void verifyCodeJob(String username, String verificationCode, VerificationCodeCheckHandler handler) {
         Map<String, String> params = new HashMap<>();
         params.put("userName",username);
-        params.put("Verification",verificationCode);
+        params.put("code",verificationCode);
 
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.ConfirmCode);
         asyncGeneric.execute();
@@ -528,8 +529,17 @@ public class CacheMgr implements CacheManagerAPI {
     public void emailConfirmed(String username, VerificationCodeSentHandler handler) {
         Map<String, String> params = new HashMap<>();
         params.put("userName",username);
-
+params.put("method","email");
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params, ServicesName.EmailPicked);
+        asyncGeneric.execute();
+    }
+
+    @Override
+    public void phoneConfirmed(String username, VerificationCodeSentHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+        params.put("method","phone");
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params, ServicesName.PhonePicked);
         asyncGeneric.execute();
     }
 
