@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -26,35 +27,32 @@ abstract public class Analyzer {
 
 	protected static void sendNotify(String imei,int code,JSONObject json) throws IOException {
 		//something
-
+			String url ="";
 			 if(json==null) {
-				 GET_URL = GET_URL + "?imei="+  imei  +"&code="+code;
+				 url = GET_URL + "?imei="+  imei  +"&code="+code;
 				 }
 			 else {			 
 				 String params = URLEncoder.encode(json.toString(), StandardCharsets.UTF_8.toString()).toString();
 				 
-				 GET_URL = GET_URL + "?imei="+  imei  +"&code="+code+"&params="+params;
+				 url = GET_URL + "?imei="+  imei  +"&code="+code+"&params="+params;
 			 }
 				
-			URL obj = new URL(GET_URL);
 			
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			System.out.println(url);
+			System.out.println(new Date());
+			HttpURLConnection con = (HttpURLConnection)(new URL(url)).openConnection();
 			con.setRequestMethod("GET");
 			
 			int responseCode = con.getResponseCode();
 			System.out.println("GET Response Code :: " + responseCode);
 			if (responseCode == HttpURLConnection.HTTP_OK) { // success
 				BufferedReader bfrReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				StringBuffer response = new StringBuffer();
 				
-				String message = "";
-			    for (String line = bfrReader.readLine(); line != null; line = bfrReader.readLine()) {
-			        message = message + line +"\n";
-			     }
+				String message = bfrReader.readLine();
 			    bfrReader.close();
 	
-					// print result
-					System.out.println(response.toString());
+				// print result
+				System.out.println(message);
 			} else {
 				System.out.println("GET request not worked");
 			}
