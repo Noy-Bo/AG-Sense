@@ -59,7 +59,7 @@ public class CacheManagerHandlers {
                 JSONObject userJSON = new JSONObject(downloadedData);
                 User user;
 
-                if(userJSON.getString("type").equals("account"))
+                if(userJSON.getString("type").equals("Account"))
                 {
                     user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
                 }

@@ -86,8 +86,6 @@ public class AccountDashboardActivity extends SearchBaseActivity {
             public void onRefresh() {
                 devicesList.clear();
                 getDevicesFromCache();
-
-
             }
         });
 

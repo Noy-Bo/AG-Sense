@@ -310,6 +310,16 @@ public class CacheMgr implements CacheManagerAPI {
     // ----------------------- Jobs API for Data Adapters -------------------------------
     // ==================================================================================
 
+    /* this section is the api we reveal to the data adapters layer. each method is constructed for a specific task. */
+    /* every task has the same core flow logic - creating hashmap of params for URLConnection. and creating asyncTask for specific task. */
+
+
+    /**
+     * this task is a server request for login authentication.
+     * @param username username.
+     * @param password password.
+     * @param handler LoginHandler, look at class to see its api.
+     */
     @Override
     public void loginJob(final String username, final String password, final LoginHandler handler) {
 
@@ -318,9 +328,6 @@ public class CacheMgr implements CacheManagerAPI {
         params.put("password",password);
         GenericAsyncServerRequest<String> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.Login);
         asyncGeneric.execute();
-
-
-
     }
 
     @Override
@@ -416,46 +423,65 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler)
-    {
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler) {
         Log.d("testing stamps","on latest going to getDevicesRelatedToAccountJob");
-        if (AppBaseActivity.getUser() instanceof Admin)
-        {
-            Map<String, String> params = new HashMap<>();
-            params.put("id", Integer.toString(accountId));
-            params.put("num", Integer.toString(num));
-            params.put("start", Integer.toString(start));
-            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
-            asyncGeneric.execute();
-        }
-        else if (AppBaseActivity.getUser() instanceof Account)
+
+        if (AppBaseActivity.getUser() instanceof Account)
         {
             if  ( getDevices().size() == 0)
             {
-                Log.d("testing stamps","getDevices().size() == 0");
                 newTimeStamp(accountsTimeStamp);
-                Map<String, String> params = new HashMap<>();
-                params.put("id", Integer.toString(accountId));
-                params.put("num", Integer.toString(num));
-                params.put("start", Integer.toString(start));
-                GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
-                asyncGeneric.execute();
-                return;
             }
-            else if (isServerRequestAccounts(accountsTimeStamp))
+            else if (isServerRequestAccounts(accountsTimeStamp) == false)
             {
-                Log.d("testing stamps","after timestamp - requesting SERVER for data");
-                Map<String, String> params = new HashMap<>();
-                params.put("id", Integer.toString(accountId));
-                params.put("num", Integer.toString(num));
-                params.put("start", Integer.toString(start));
-                GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
-                asyncGeneric.execute();
+                handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
                 return;
             }
-            Log.d("testing stamps","after timestamp - taking data from CACHE");
-            handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
         }
+        Map<String, String> params = new HashMap<>();
+        params.put("id", Integer.toString(accountId));
+        params.put("num", Integer.toString(num));
+        params.put("start", Integer.toString(start));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+        asyncGeneric.execute();
+
+//        if (AppBaseActivity.getUser() instanceof Admin)
+//        {
+//            Map<String, String> params = new HashMap<>();
+//            params.put("id", Integer.toString(accountId));
+//            params.put("num", Integer.toString(num));
+//            params.put("start", Integer.toString(start));
+//            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+//            asyncGeneric.execute();
+//        }
+//        else if (AppBaseActivity.getUser() instanceof Account)
+//        {
+//            if  ( getDevices().size() == 0)
+//            {
+//                Log.d("testing stamps","getDevices().size() == 0");
+//                newTimeStamp(accountsTimeStamp);
+//                Map<String, String> params = new HashMap<>();
+//                params.put("id", Integer.toString(accountId));
+//                params.put("num", Integer.toString(num));
+//                params.put("start", Integer.toString(start));
+//                GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+//                asyncGeneric.execute();
+//                return;
+//            }
+//            else if (isServerRequestAccounts(accountsTimeStamp))
+//            {
+//                Log.d("testing stamps","after timestamp - requesting SERVER for data");
+//                Map<String, String> params = new HashMap<>();
+//                params.put("id", Integer.toString(accountId));
+//                params.put("num", Integer.toString(num));
+//                params.put("start", Integer.toString(start));
+//                GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+//                asyncGeneric.execute();
+//                return;
+//            }
+//            Log.d("testing stamps","after timestamp - taking data from CACHE");
+//            handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
+//        }
     }
 
     @Override
@@ -488,6 +514,14 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this task  a server request for adding new user, we pass boolean to indicate success or failure on handler's callback.
+     * @param username username
+     * @param emailAddress email
+     * @param userType admin\account
+     * @param accountName account name
+     * @param handler NewUserAddedHandler, look at class to see API.
+     */
     @Override
     public void addNewUserJob(String username, String emailAddress, String userType, String accountName, NewUserAddedHandler handler) {
 
@@ -501,6 +535,11 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this task  a server request for adding new company request to server, we pass boolean to indicate success or failure on handler's callback.
+     * @param companyName company name
+     * @param handler NewCompanyHandler look at class to see API
+     */
     @Override
     public void addNewCompanyJob(String companyName, NewCompanyHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -509,6 +548,12 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
     }
 
+    /**
+     * this task is a server request to get all companies name, we return List<CompanyName> in handler's callback.
+     * @param num to get all pass 0
+     * @param start to get all pass 0
+     * @param handler CompaniesNameHandler, look at class for API.
+     */
     @Override
     public void getAllCompaniesNameJob(int num, int start, CompaniesNameHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -518,6 +563,17 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
     }
 
+    /**
+     *  this task is  a server request for adding new device, making request to server with the new device data
+     *  we pass boolean to indicate success or failure on handler's callback.
+     * @param imei imei
+     * @param deviceType look at types
+     * @param deviceName device type
+     * @param accountName account name
+     * @param devicePhoneNumber phone number to communicate with the device
+     * @param devicePassword device password
+     * @param handler NewDeviceAddedHandler, look at class for API.
+     */
     @Override
     public void addNewDeviceJob(Long imei, String deviceType, String deviceName, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -532,6 +588,12 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this task  a server request for changing password, we pass boolean to indicate success or failure on handler's callback.
+     * @param userId user id
+     * @param password password
+     * @param handler PasswordSetHandler look at class for API.
+     */
     @Override
     public void setPasswordJob(int userId, String password, PasswordSetHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -542,6 +604,12 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     *
+     * @param prevName
+     * @param newName
+     * @param handler
+     */
     @Override
     public void editAccountJob(String prevName, String newName, EditAccountHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -606,6 +674,7 @@ public class CacheMgr implements CacheManagerAPI {
 
     /**
      * sets a given TimeStamp to the current time in miilis
+     * this function is synchronized for denying race condition over the timestamp.
      * @param timestamp TimeStamp Object.
      */
     public synchronized void newTimeStamp(Timestamp timestamp)
