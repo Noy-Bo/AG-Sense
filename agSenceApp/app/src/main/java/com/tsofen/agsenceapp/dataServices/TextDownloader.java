@@ -27,7 +27,14 @@ public class TextDownloader {
         return textDownloader;
     }
 
-
+    /**
+     * this is the main downloading function. almost every task passes here inorder to download the received data from the server.
+     * the function download all data into a string.
+     * we receive a url and handler and return the downloaded data
+     * @param urlAddress url address to download from.
+     * @param handler OnDataReadyHandler api of failure and success
+     * @return downloaded data in string.
+     */
     public String getText(String urlAddress, OnDataReadyHandler handler) {
         try {
             // Create a URL for the desired page

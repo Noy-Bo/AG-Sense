@@ -791,6 +791,7 @@ public class CacheMgr implements CacheManagerAPI {
 
     /**
      * this function clears all data currently in cache.
+     * used at logout.
      */
     public  void clearCache(){
         accounts.clear();
