@@ -4,18 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tsofen.agsenceapp.adaptersInterfaces.ConfirmPasswordDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
+
 public class SetNewPassword extends AppCompatActivity {
     protected EditText new_password, confirm_password;
-
+    String code;
+protected String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_new_password);
         new_password = findViewById(R.id.new_password);
+        username = getIntent().getStringExtra("username");
         confirm_password = findViewById(R.id.confirm_password);
+        code = getIntent().getStringExtra("code");
     }
 
 
@@ -61,9 +68,24 @@ public class SetNewPassword extends AppCompatActivity {
             type2= false;
         }
         if (type1 && type2) {
-            Intent intent = new Intent(this, ForgetPasswordSuccessMessage.class);
 
-            startActivity(intent);
+
+            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, code,new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
+                @Override
+                public void onUserConfirmPasswordSuccess() {
+
+                    Intent intent = new Intent(SetNewPassword.this, ForgetPasswordSuccessMessage.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onUserConfirmPasswordFailure() {
+                    Toast.makeText(SetNewPassword.this, "Failed to Update the password", Toast.LENGTH_SHORT).show();
+                }
+
+
+            });
+
         }
     }
 }

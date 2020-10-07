@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.BackgroundServices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
@@ -12,6 +13,7 @@ import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
@@ -22,6 +24,7 @@ import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
+import com.tsofen.agsenceapp.dataServices.UserDetailsForgetPasswordHandler;
 import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
@@ -50,8 +53,14 @@ public class CacheManagerHandlers {
     // ==================================================================================
 
 
-    public static void parseDataAndSendCallback(String downloadedData, BaseHandler handler)
-    {
+    /**
+     * this function is called after TextDownloader finishes downloading text successfully.
+     * the downloaded data is being parsed and entities are being created according to the handler type.
+     * we reuturn entities \ parsed data to the data adapters handlers accordingly.
+     * @param downloadedData downloaded data from TextDownloader
+     * @param handler the data adapter handler, we will call this handler callback to return results.
+     */
+    public static void parseDataAndSendCallback(String downloadedData, BaseHandler handler)  {
 
         if (handler instanceof LoginHandler)
         {
@@ -62,7 +71,7 @@ public class CacheManagerHandlers {
 
                 if(userJSON.getString("type").equals("Account"))
                 {
-                    user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
+                    user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false);
                     ((LoginHandler)handler).onLoginSuccess(user);
                 }
                 else if(userJSON.getString("type").equals("admin"))
@@ -134,6 +143,24 @@ public class CacheManagerHandlers {
             ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
 
+        else if (handler instanceof UserDetailsForgetPasswordHandler)
+        {
+            try {
+                //parsing json
+                JSONObject userJSON = new JSONObject(downloadedData);
+                Account user;
+
+                user = new Account( userJSON.getString("email"), userJSON.getString("phoneNumber")  );
+
+
+                ((UserDetailsForgetPasswordHandler)handler).onUserDetails(user);
+            }
+            catch (Exception ignored)
+            {
+
+            }
+        }
+
         else if (handler instanceof EditDeviceHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
@@ -196,7 +223,8 @@ public class CacheManagerHandlers {
 
         else if (handler instanceof VerificationCodeSentHandler)
         {
-            ((VerificationCodeSentHandler) handler).onVerificationCodeSent();
+            Boolean result = Boolean.valueOf(downloadedData);
+            ((VerificationCodeSentHandler) handler).onVerificationCodeSent(result);
         }
 
         else if (handler instanceof VerificationCodeCheckHandler)
@@ -218,17 +246,42 @@ public class CacheManagerHandlers {
             ((MarkNotificationAsReadHandler) handler).onNotificationMarkedAsRead(result);
         }
 
+        else if (handler instanceof DeviceSmsInfoHandler)
+        {
+            if (downloadedData == null)
+                ((DeviceSmsInfoHandler) handler).onDeviceSmsInfoReceived("");
+
+           JSONObject downloadedDataJSON = parseToOneJsonObject(downloadedData);
+           String devicePasswordAndPhoneNumber = "";
+           try{
+               devicePasswordAndPhoneNumber += downloadedDataJSON.getString("password");
+               devicePasswordAndPhoneNumber += ",";
+               devicePasswordAndPhoneNumber += downloadedDataJSON.getString("PhoneNumber");
+           }
+           catch (JSONException e)
+           {
+               e.printStackTrace();
+           }
+
+
+           ((DeviceSmsInfoHandler) handler).onDeviceSmsInfoReceived(devicePasswordAndPhoneNumber);
+        }
+
     }
 
     // ==================================================================================
     // ------------------------------- JSON Parsers -------------------------------------
     // ==================================================================================
 
-    public static JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
+    public static JSONObject parseToOneJsonObject(String jsonStr)  {
         JSONObject jObj = null;
-        jObj = new JSONObject(jsonStr);
+        try {
+            jObj = new JSONObject(jsonStr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if (jObj == null)
-            throw new JSONException("json allocation failed");
+            return new JSONObject();
         return jObj;
 
     }

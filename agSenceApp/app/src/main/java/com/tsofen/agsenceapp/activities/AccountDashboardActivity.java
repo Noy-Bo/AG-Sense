@@ -87,6 +87,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                 devicesList.clear();
                 getDevicesFromCache();
                 getNotificationsFromCache();
+
             }
         });
 

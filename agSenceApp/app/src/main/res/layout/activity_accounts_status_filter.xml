@@ -47,36 +47,7 @@
             android:paddingEnd="60dp"
             android:weightSum="2">
 
-            <TextView
-                android:id="@+id/display_faulty_button"
-                android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/white_shape_squares"
-                android:gravity="center"
-                android:onClick="displayFaultyClicked"
-                android:text="@string/display_faulty"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small_text_size" />
 
-            <TextView
-
-                android:id="@+id/display_healthy_button"
-                android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/white_shape_squares"
-                android:gravity="center"
-                android:onClick="displayHealthyClicked"
-                android:text="@string/display_healthy"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small_text_size" />
 
         </LinearLayout>
 

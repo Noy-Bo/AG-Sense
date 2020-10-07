@@ -27,6 +27,7 @@ public enum  ServicesName {
     setDeviceSettingAuthorizedNumber("/Device/SetDeviceSettingAuthorizedNumber"),
     setDeviceSettingInterval("/Device/SetDeviceSettingInterval"),
     getSpicificDeviceByFilter("/Device/SpicificDeviceByFilter"),
+    getSmsInfo("/Device/getSMSInfo"),
 
 
 
@@ -47,10 +48,15 @@ public enum  ServicesName {
     changePass("/User/changeUserPassword"),  //newPass string, userId integer
     Login("/User/Login"),                   //password string, username string
     setPass("/User/setPassword"),           //userId string, userId integer
-    getSpecificAccountsByName("/User/SpecificAccountsByName");      // name string,num integer,start integer
+    getSpecificAccountsByName("/User/SpecificAccountsByName"),      // name string,num integer,start integer
+    usernameForgetPassword("/User/ForgotPassword"), // email string, phonenumber string
 
 
-
+    //Not Created by Server it, change when it is done;
+ConfirmCode("/Verification/ConfirmCode"), //username String, code String
+    ConfirmPassword("/User/confirmPassword"),    //username String, password String
+    EmailPicked("/Verification/VerificationMethod"), //username String , method as email String
+PhonePicked("/Verification/VerificationMethod"); // username String, method as phone String
    // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
    //getSpicificDeviceByname(""),
     //getDeviceSetting(""),

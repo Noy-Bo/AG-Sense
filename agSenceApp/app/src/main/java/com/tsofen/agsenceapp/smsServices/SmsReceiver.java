@@ -56,6 +56,12 @@ public class SmsReceiver extends BroadcastReceiver {
 
     }
 
+    /**
+     * functions responsible for filtering relevant  SMS to AG-Sense application and to update trackers
+     *
+     * @param phoneNumber phone number of device from whom we received the sms
+     * @param message   message we received from device
+     */
     private void checkSMS(String phoneNumber, String message){
         SmsMgr.Response response = SmsMgr.Response.contains(message);
 
