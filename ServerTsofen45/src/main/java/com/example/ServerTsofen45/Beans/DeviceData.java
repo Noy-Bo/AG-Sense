@@ -18,12 +18,14 @@ public class DeviceData {
 	Timestamp dateAndTime;
 	Time updateTime;
 	double lat;
-	char latIndicator;
+	String latIndicator;
 	double lon;
-	char lonIndicator;
+	String lonIndicator;
 	Float speed;
 	int orientation;
+	String altitude;
 	String mileage;
+	String state;
 	int satelites;
 	int hdop;
 	int gsmSignal;
@@ -63,6 +65,7 @@ public class DeviceData {
 	Float internalBattery;
 	Float internalBatteryPower;
 	Float temperatureInsideDevice;
+	float DataOfFuelSensor;
 	Float temperatureExternal;
 	Float fuelVoltage;
 	Float humidity;
@@ -108,7 +111,7 @@ public class DeviceData {
 		this.lat = lat;
 	}
 
-	public void setLatIndicator(char latIndicator) {
+	public void setLatIndicator(String latIndicator) {
 		this.latIndicator = latIndicator;
 	}
 
@@ -116,7 +119,7 @@ public class DeviceData {
 		this.lon = lon;
 	}
 
-	public void setLonIndicator(char lonIndicator) {
+	public void setLonIndicator(String lonIndicator) {
 		this.lonIndicator = lonIndicator;
 	}
 
@@ -315,6 +318,8 @@ public class DeviceData {
 	public void setCheck_interval_seconds(Integer check_interval_seconds) {
 		this.check_interval_seconds = check_interval_seconds;
 	}
+	
+	
 
 	@Id
 	@GeneratedValue
@@ -348,7 +353,7 @@ public class DeviceData {
 	}
 
 	@Column
-	public char getLatIndicator() {
+	public String getLatIndicator() {
 		return latIndicator;
 	}
 
@@ -358,7 +363,7 @@ public class DeviceData {
 	}
 
 	@Column
-	public char getLonIndicator() {
+	public String getLonIndicator() {
 		return lonIndicator;
 	}
 
