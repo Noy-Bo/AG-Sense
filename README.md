@@ -13,8 +13,13 @@ the application  is responsible for displaying and and viewing notification and 
 
 ## Server Side
 Server side uses [Spring](https://spring.io/) framework to build RESTful API to help the client side access the database, it uses the help of [Swagger](https://swagger.io/) for describing RESTful APIs expressed using JSON.
+[API Documentation](http://206.72.198.59:8080/ServerTsofen45v7/swagger-ui.html#/)
+
 ## Infrastructure 
 Infrastructure  is responsible for communicating with Devices directly, they receive messages from  AG-Sense devices via TCP client .
+
+## BackEnd
+Java project responsible in sorting tokens uses to communicate to device via Firebase service to  send push notifiction to devices.
 
 ## Documentation
 documentation can be found in the documentation directory, it will include multiple diagrams and explanations such as this: 
