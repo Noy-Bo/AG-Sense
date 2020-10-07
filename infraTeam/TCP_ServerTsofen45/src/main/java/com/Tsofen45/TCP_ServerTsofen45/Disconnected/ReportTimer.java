@@ -132,6 +132,7 @@ public class ReportTimer extends Analyzer {
     	JSONObject json = new JSONObject();
     	json.put("minutes", mins);
     	for(String imei : imeies) {
+    		System.out.println("The imei 2 minutes : "+imei);
 			sendNotify(imei,13,json);
     	}
     	
