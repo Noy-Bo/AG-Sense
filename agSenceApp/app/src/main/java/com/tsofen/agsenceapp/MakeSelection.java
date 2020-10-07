@@ -3,6 +3,7 @@ package com.tsofen.agsenceapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ protected TextView mail_des;
 protected TextView mobile_des;
 protected Account account;
 protected String username;
+protected TextView please_wait;
+protected ProgressBar progressbarplease_wait;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,10 @@ protected String username;
     }
 
     public void GoToEmailSending(View view) {
+        progressbarplease_wait = findViewById(R.id.progressbarplease_wait);
+        progressbarplease_wait.setVisibility(View.VISIBLE);
+        please_wait = findViewById(R.id.please_wait_verifycode);
+        please_wait.setVisibility(View.VISIBLE);
         ForgetPasswordDataAdapter.getInstance().emailPickedConfirmed(username, new EmailPickedConfirmedDataRequestHandler() {
             @Override
             public void onUserEmailPickedSuccess() {
