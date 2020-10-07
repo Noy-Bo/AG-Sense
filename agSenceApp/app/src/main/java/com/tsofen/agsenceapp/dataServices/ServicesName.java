@@ -53,10 +53,10 @@ public enum  ServicesName {
 
 
     //Not Created by Server it, change when it is done;
-ConfirmCode("/User/confirmCode"), //username String, code String
+ConfirmCode("/Verification/ConfirmCode"), //username String, code String
     ConfirmPassword("/User/confirmPassword"),    //username String, password String
-    EmailPicked("/User/EmailPicked"); //username String
-
+    EmailPicked("/Verification/VerificationMethod"), //username String , method as email String
+PhonePicked("/Verification/VerificationMethod"); // username String, method as phone String
    // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
    //getSpicificDeviceByname(""),
     //getDeviceSetting(""),

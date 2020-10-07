@@ -63,10 +63,18 @@ editText = findViewById(R.id.forgot_password);
             ForgetPasswordDataAdapter.getInstance().getUserDetails(editText.getText().toString(), new ForgetPasswordDataRequestHandler() {
                 @Override
                 public void onUserDetailsReceived(Account account) {
-                    Intent intent = new Intent(ForgetPasswords.this, MakeSelection.class);
-                    intent.putExtra("account", account);
-intent.putExtra("username",editText.getText().toString());
-                    startActivity(intent);
+                    if (account != null) {
+                        Intent intent = new Intent(ForgetPasswords.this, MakeSelection.class);
+                        intent.putExtra("account", account);
+                        intent.putExtra("username", editText.getText().toString());
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        prog.setVisibility(View.INVISIBLE);
+
+                        Toast.makeText(ForgetPasswords.this, "Username you entered is not registered.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -93,11 +101,7 @@ intent.putExtra("username",editText.getText().toString());
 //                }
 //            });
 
-            if (!checking) {
-                prog.setVisibility(View.INVISIBLE);
 
-                Toast.makeText(ForgetPasswords.this, "Username you entered is not registered.", Toast.LENGTH_SHORT).show();
-            }
       //  }
      //   else {
         //    forget_password_email_address.setError("Invalid Username");
