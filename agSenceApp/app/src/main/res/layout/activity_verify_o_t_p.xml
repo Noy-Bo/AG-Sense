@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@color/colorPrimary"
-            android:onClick="callNextScreenFromOTP"
+            android:onClick="confirmuserCode"
             android:text="@string/verify_code"
             android:textColor="@color/black"
             android:transitionName="transition_OTP_screen" />
