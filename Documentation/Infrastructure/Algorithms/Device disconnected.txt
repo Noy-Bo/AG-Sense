@@ -1,0 +1,9 @@
+Algorithms:
+1. Device disconnected.
+The algorithm located in the Disconnected class.
+Description:
+Algorithm used to report disconnected devices (device that didn’t report/send a msg for x mins at least).
+in this algorithm we use HashMap where the key is the imei of the device and the value is the HashSet containing.
+Example for x=2:
+We use 2*6+1 HashSet in HashSet array which represents a time fragment (the first HashSet is 0 secs then 10 secs until 120 secs).
+we run one main thread ReportTimer to shift the HashSets and to report disconnected, and run a new thread every time we get a msg from a specific device to swap when was the last time we received a msg to 0 secs(first HashSet). 
