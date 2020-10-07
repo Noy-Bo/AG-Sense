@@ -111,9 +111,7 @@ public class DeviceMessageHandler implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			bfrReader.close();
-			is.close();
-			
+			bfrReader.close();			
 		}
 		
 		
