@@ -7,6 +7,7 @@ import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
@@ -70,6 +71,9 @@ public interface CacheManagerAPI {
 
     void getAdminDashboardInfoJob(int adminId, AdminDashboardInfoHandler handler);
     void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler);
+
+    //sms
+    void getDeviceSmsinfoJob(String imei, DeviceSmsInfoHandler handler);
 
 
 

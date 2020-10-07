@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class SmsMgr {
     private static SmsMgr smsMgr = null;
+    public static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0; // sms permission.
 
     // each type of settings has its own HashMap so that we can tracks which device sends SMS and
     // for what purpose
@@ -118,6 +119,46 @@ public class SmsMgr {
         private String url;
 
         Response(String envUrl) {
+            this.url = envUrl;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+        public static Response contains(String test) {
+
+            for (Response response : Response.values()) {
+                if (response.getUrl().equals(test)) {
+                    return response;
+                }
+            }
+            return null;
+        }
+    }
+
+    public enum SendFormat
+    {
+        SET_GEO_FENCE("pw%s,fence=%sn,%se,%sn,%se"),
+        //speeding and geo fence setting
+        //pw******,fence=latitude1,logitude1,latitude2,logitude2
+        //pw123456,fence = 22.123455n,114.235615e,22.125612n,114.236845e
+        SET_SPEEDING_ALARM("pw%s, speed=%s"),
+        //speeding and geo fence setting
+        //pw******, speed=speed value
+        //pw123456,speed=100
+        ADD_ADMIN_NUM("pw%s,admin=+%s"),
+        //authorization number setting
+        //pw******,admin=+/-phone number
+        //pw123456,admin=+13356785239
+        SET_INTERVAL("pw%s,interval=%ss,%ss,%sm,%sd");
+        //tracking setting
+        //pw******,interval= time interval 1(s), time interval 2(s),distance interval(m), heading change interval(d)
+        //pw123456,interval=30s,600s,0m,0d
+
+
+        private String url;
+
+        SendFormat(String envUrl) {
             this.url = envUrl;
         }
 

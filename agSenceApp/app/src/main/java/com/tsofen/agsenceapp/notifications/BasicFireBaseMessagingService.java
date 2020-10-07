@@ -43,8 +43,7 @@ public class BasicFireBaseMessagingService extends RemoteMessageHandler {
         }
         else if (AppBaseActivity.getUser() instanceof Account)
         {
-            cacheMgr.getNotificationRelatedToAccountJob(((Account) AppBaseActivity.getUser()).getAccountid(),
-                    0, 0, new AccountNotificationsHandler() {
+            cacheMgr.getNotificationRelatedToAccountJob(( AppBaseActivity.getUser().getId()), 0, 0, new AccountNotificationsHandler() {
                         @Override
                         public void onNotificationsRelatedToAccountDownloadFinished(List<Notification> notifications) {
                             cacheMgr.setNotifications(notifications);
