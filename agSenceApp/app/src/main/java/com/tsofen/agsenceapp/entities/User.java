@@ -11,7 +11,11 @@ public abstract class User implements Serializable {
     protected Boolean receiveNotifications;
     protected String phoneNumber;
 
-    public User() {
+
+    public User(){}
+    public User(String email)
+    {
+        this.email = email;
     }
 
     public User(int id, String username, String email) {

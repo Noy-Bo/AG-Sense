@@ -17,6 +17,7 @@ import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
+import com.tsofen.agsenceapp.dataServices.UserDetailsForgetPasswordHandler;
 import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
@@ -58,11 +59,18 @@ public interface CacheManagerAPI {
     void setPasswordJob(int userId, String password, PasswordSetHandler handler);
     void editAccountJob(String prevName, String newName, EditAccountHandler handler);
     void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler);
-    void changeUserPasswordJob(int userId, String newPass, UserPasswordChangeHandler handler);
+
     void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler);
-    void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler);
+
+    //ForgetPassword Api
+    void changeUserPasswordJob(String username, String newPass, UserPasswordChangeHandler handler); // done
+    void verifyCodeJob(String username, String verificationCode, VerificationCodeCheckHandler handler);
+    void userDetailsForgetPassword(String username , UserDetailsForgetPasswordHandler handler);
+    void emailConfirmed(String username,VerificationCodeSentHandler handler);
+
     void getAdminDashboardInfoJob(int adminId, AdminDashboardInfoHandler handler);
     void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler);
+
 
 
 
