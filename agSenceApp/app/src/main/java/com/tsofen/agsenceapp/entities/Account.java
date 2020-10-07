@@ -22,6 +22,10 @@ public class Account extends User implements Serializable {
         this.faulty = isFaulty;
         this.accountid = accountid;
     }
+    public Account(String email, String phoneNumber){
+        super(email);
+        this.phoneNumber = phoneNumber;
+    }
 
     public Account(boolean faulty, int accountid, List<Devices> devices, Integer faultyDevices, String phoneNumber, Boolean faultyAccount, Integer numberOfDevices) {
         this.faulty = faulty;

@@ -32,6 +32,7 @@ import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
 import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
+import com.tsofen.agsenceapp.dataServices.UserDetailsForgetPasswordHandler;
 import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
@@ -393,14 +394,12 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void changeUserPasswordJob(int userId, String newPass, UserPasswordChangeHandler handler) {
+    public void changeUserPasswordJob(String username, String newPass, UserPasswordChangeHandler handler) {
         Map<String, String> params = new HashMap<>();
         params.put("newPass",newPass);
-        params.put("userId",Integer.toString(userId));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.changePass);
+        params.put("userName",username); // changed to userName by ameer from int Id
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.ConfirmPassword); // changed by ameer from changePass to ConfirmPassword
         asyncGeneric.execute();
-
-
     }
 
 
@@ -410,9 +409,30 @@ public class CacheMgr implements CacheManagerAPI {
     }
 
     @Override
-    public void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler) {
-        // NO URL FROM SERVER
+    public void verifyCodeJob(String username, String verificationCode, VerificationCodeCheckHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+        params.put("Verification",verificationCode);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.ConfirmCode);
+        asyncGeneric.execute();
     }
+    @Override
+    public void emailConfirmed(String username, VerificationCodeSentHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.EmailPicked); // must change when server link is live
+        asyncGeneric.execute();
+    }
+
+    @Override
+    public void userDetailsForgetPassword(String username, UserDetailsForgetPasswordHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.usernameForgetPassword);
+        asyncGeneric.execute();
+    }
+
+
 
 
     // ==================================================================================

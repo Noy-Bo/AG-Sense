@@ -19,6 +19,7 @@ import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
+import com.tsofen.agsenceapp.dataServices.UserDetailsForgetPasswordHandler;
 import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
@@ -115,6 +116,24 @@ public class CacheManagerHandlers {
             retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
             ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
         }
+        else if (handler instanceof UserDetailsForgetPasswordHandler)
+        {
+            try {
+                //parsing json
+                JSONObject userJSON = new JSONObject(downloadedData);
+                Account user;
+
+
+                    user = new Account( userJSON.getString("email"), userJSON.getString("phoneNumber")  );
+
+
+                ((UserDetailsForgetPasswordHandler)handler).onUserDetails(user);
+            }
+            catch (Exception ignored)
+            {
+
+            }
+        }
         else if (handler instanceof EditDeviceHandler)
         {
             Boolean result = Boolean.valueOf(downloadedData);
@@ -167,7 +186,8 @@ public class CacheManagerHandlers {
         }
         else if (handler instanceof VerificationCodeSentHandler)
         {
-            ((VerificationCodeSentHandler) handler).onVerificationCodeSent();
+            Boolean result = Boolean.valueOf(downloadedData);
+            ((VerificationCodeSentHandler) handler).onVerificationCodeSent(result);
         }
         else if (handler instanceof VerificationCodeCheckHandler)
         {
