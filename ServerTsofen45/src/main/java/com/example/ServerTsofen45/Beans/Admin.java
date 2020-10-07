@@ -6,15 +6,16 @@ import javax.persistence.Entity;
 
 @Entity
 public class Admin extends User {
-	public Admin(String string, String string2, String string3, String string4) throws NoSuchAlgorithmException {
+	public Admin(String email, String name, String userName, String string4, Account acc) throws NoSuchAlgorithmException {
     	super();
-    		this.setEmail(string);
-    		this.setname(string2);
-    		this.setUserName(string3);
+    		this.setEmail(email);
+    		this.setname(name);
+    		this.setUserName(userName);
     		//this.setHashPassword(string4);
     		this.hashPassword=hashPassword("123456");
-    		this.setAccount(null);
+    		this.setAccount(acc);
     		this.setType("admin");
+    		this.notificationFlag=1;
     	}
 
 	public Admin() {

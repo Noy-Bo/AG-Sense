@@ -6,10 +6,11 @@ public enum  ServicesName {
     // ??????????????????????????????????????????????????????????????????????????????????????? getAllDevices is duplicated !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     getAccountByName("/Account/AccountBy"),  // parameters :name
     editAccount("/Account/editAccount"),     // parameters :accountName
+    editDevice("/Device/editDevice"),     // parameters : deviceIMEI, newPass, newPhoneNumber
     addAccount("/Account/Add"),              //// parameters:accountName
-    //getAllAccounts("/Account/AllAccounts"),  // parameters: num(int-number of accounts) ,start(int)
+    getAllAccountsAccountController("/Account/AllAccounts"),  // parameters: num(int-number of accounts) ,start(int)
     getAllAccountsName("/Account/getAllAccountsName"),
-   // getAllDevices("/Dashboard/AdminDashboardInfo"),  // parameters:id
+    adminDashboardInfo("/Dashboard/AdminDashboardInfo"),  // parameters:id
     AddNewDevice("/Device/Add"),             // parameters: accountName string,devicePassword string ,imei integer,phoneNumber  string ,type string
     getDeviceById("/Device/DeviceById"),     //parameters: deviceId integer
     getAllDevices("/Device/AllDevices"),
@@ -26,7 +27,7 @@ public enum  ServicesName {
     setDeviceSettingAuthorizedNumber("/Device/SetDeviceSettingAuthorizedNumber"),
     setDeviceSettingInterval("/Device/SetDeviceSettingInterval"),
     getSpicificDeviceByFilter("/Device/SpicificDeviceByFilter"),
-    
+
 
 
     //getAllDevices("/DeviceData/AllDeviceData"),

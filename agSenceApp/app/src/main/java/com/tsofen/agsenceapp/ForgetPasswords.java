@@ -54,8 +54,10 @@ protected EditText forget_password_email_address;
           //  System.out.println("The email address " + forget_password_email_address.getText().toString() + " is valid");
             prog = findViewById(R.id.prog);
             prog.setVisibility(View.VISIBLE);
+
             //forget_password_email_address = findViewById(R.id.forgot_password);
 editText = findViewById(R.id.forgot_password);
+
 
 
             ForgetPasswordDataAdapter.getInstance().getUserDetails(editText.getText().toString(), new ForgetPasswordDataRequestHandler() {

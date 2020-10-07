@@ -1,0 +1,39 @@
+user: Base class for account and admin ,its the common class for all users of the app
+
+AccountCompany- each Account is associated with account company, this way one company can
+have multiple users and all users view the same devices and receive the same notification.,
+multiple devices are connected to Company.
+
+Account- account extends User , Account is the typical user of the system and has moderate
+privileges , he can view his devices and see notification and related to devices he is connected
+to, an account in two states , healthy and faulty, an account is faulty is when there is 
+a faulty device associated with the AccountCompany, and healthy if all devices associated
+with the account company are healthy.
+
+Admin- admin extends User ,admin is a user with the highest privileges , he can add account, 
+add company , add device, edit account, edit company, edit device, view all device , view all
+account and edit device setting, he has all the access rights of Account and has greater control 
+of the system.
+
+Map- an entity which is utilized for google maps and displays points on map, it has a list
+of places to display.
+
+Place-used to represent a point on map, using longitude and altitude.
+
+devices- a representation of Ag-Sense devices that are connected to customers property, each 
+device  sends a message every 10 second, each message is represented as DeviceData, 
+device can be is two states, healthy of faulty, is depends on the setting and sensors values.
+
+deviceData- each message that is send from the device to the server is represented as device data, 
+it contains all the device settings and device configuration and sensors value, if the device
+send a message that indicated abnormal activity then a notification and reproduced and is send to
+all the users related to company that is associated with the device.
+
+notification- each notification is related to one deviceData, it can have four levels of severity :
+1-MODERATE
+2-LOW
+3-MAJOR
+4-CRITICAL
+each level is displayed in a different color.
+a notification can be in two states, read or unread , the user can change the state from 
+read to unread when clicking on a notification.

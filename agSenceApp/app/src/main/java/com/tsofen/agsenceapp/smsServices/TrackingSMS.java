@@ -16,18 +16,22 @@ public class TrackingSMS {
         this.type =type;
     }
 
-    boolean deleteCommand(SmsMgr.Response command){
+
+    /**
+     * funtion responsible for updating SMS list waiting ti be received from device.
+     *
+     * @param command command to delete from list
+     */
+    void deleteCommand(SmsMgr.Response command){
         if(command==null){
-            return false;
+            return;
         }
         if(commands.contains(command)){
             commands.remove(command);
             if(commands.isEmpty()){
                 handler.onAllSmsRecievedHandler();
-                SmsMgr.delteTrakcing(deviceNumber, type);
+                SmsMgr.deleteTracker(deviceNumber, type);
             }
-            return true;
         }
-        return false;
     }
 }

@@ -25,7 +25,7 @@ public class DashboardInfoController {
 	//http://localhost:8080/Dashboard/AdminDashboardInfo?id=1
 	@SuppressWarnings("unchecked")
 	@GetMapping("AdminDashboardInfo")
-	public JSONObject  getAllDevices(@RequestParam int id) {
+	public JSONObject  dashboardInfo(@RequestParam int id) {
 		
 		String faultyAccountsNumber  = deviceBL.faultyAccountsNumber() ;
 		String healtyAccountsNumber = deviceBL.healtyAccountsNumber();

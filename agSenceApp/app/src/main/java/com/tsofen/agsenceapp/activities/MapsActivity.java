@@ -86,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 clear = (Button) findViewById(R.id.clear_button);
                 searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
                 searchView.setHint(R.string.search_device_hint);
-                DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+                DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
                     @Override
                     public void onDeviceDataLoaded(final List<Devices> devices) {
                         MapsActivity.this.runOnUiThread(new Runnable() {
