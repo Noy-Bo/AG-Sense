@@ -12,11 +12,15 @@ the project splits into three parts:
 the application  is responsible for displaying and and viewing notification and device info related to an AG-Sense  account, AG-Sense  employees can log into application and view each account and its devices and also have editing capabilities to edit/add account or device.
 
 Admin Example:
+
 Username: admin
+
 Password: 123123
 
 UserAccount Example:
+
 Username: user1
+
 Password: 123123
 
 ## Server Side
