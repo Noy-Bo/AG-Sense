@@ -86,12 +86,16 @@ public class UserBL {
 		}
 		
 		
+		
 		public boolean setPass(int id,String pass) {
 			general_user = userRepository.findBysysId(id);
-			general_user.setHashPassword(pass);
+			String newpass = general_user.hashPassword(pass);
+			general_user.setHashPassword(newpass);
+			userRepository.save(general_user);
 			return true;
 			
 		}
+		
 		// http://localhost:8080//User/editUser?userId=101&newEmail=%22newEmail@gmail.com%22&newPhoneNumber=0501234567&newNotificationFlag=1
 		public boolean edit_user(int userId,String newMail,String newPhone,int newNFlag) {
 			User userAcc =  userRepository.findBysysId(userId);

@@ -106,7 +106,7 @@ public class VerificationController {
 			
 				if(verification.isVerified() && verification.getCode().equals(code)) {
 					
-					userBL.setPass(user.getSysId(), user.hashPassword(password));
+					userBL.setPass(user.getSysId(), password);
 					 verificationBL.deleteVerificationCode(userName);
 					return true;
 				}
