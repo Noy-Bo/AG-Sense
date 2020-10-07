@@ -14,7 +14,7 @@ public class DeviceData {
 	long ID;
 	long imei;
 	int gpsType;
-	char gpsValid;
+	String gpsValid;
 	Timestamp dateAndTime;
 	Time updateTime;
 	double lat;
@@ -65,7 +65,7 @@ public class DeviceData {
 	Float internalBattery;
 	Float internalBatteryPower;
 	Float temperatureInsideDevice;
-	float DataOfFuelSensor;
+	Float DataOfFuelSensor;
 	Float temperatureExternal;
 	Float fuelVoltage;
 	Float humidity;
@@ -91,7 +91,7 @@ public class DeviceData {
 		this.gpsType = gpsType;
 	}
 
-	public void setGpsValid(char gpsValid) {
+	public void setGpsValid(String gpsValid) {
 		this.gpsValid = gpsValid;
 	}
 
@@ -321,6 +321,18 @@ public class DeviceData {
 	
 	
 
+	public void setAltitude(String altitude) {
+		this.altitude = altitude;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setDataOfFuelSensor(Float dataOfFuelSensor) {
+		DataOfFuelSensor = dataOfFuelSensor;
+	}
+
 	@Id
 	@GeneratedValue
 	public long getID() {
@@ -338,7 +350,7 @@ public class DeviceData {
 	}
 
 	@Column
-	public char getGpsValid() {
+	public String getGpsValid() {
 		return gpsValid;
 	}
 
@@ -611,4 +623,21 @@ public class DeviceData {
 	public Integer getCheck_interval_seconds() {
 		return check_interval_seconds;
 	}
+	
+	@Column
+	public String getAltitude() {
+		return altitude;
+	}
+
+	@Column
+	public String getState() {
+		return state;
+	}
+
+	@Column
+	public Float getDataOfFuelSensor() {
+		return DataOfFuelSensor;
+	}
+	
+	
 }
