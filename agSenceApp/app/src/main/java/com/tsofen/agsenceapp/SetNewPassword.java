@@ -7,14 +7,18 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tsofen.agsenceapp.adaptersInterfaces.ConfirmPasswordDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
+
 public class SetNewPassword extends AppCompatActivity {
     protected EditText new_password, confirm_password;
-
+protected String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_new_password);
         new_password = findViewById(R.id.new_password);
+        username = getIntent().getStringExtra("username");
         confirm_password = findViewById(R.id.confirm_password);
     }
 
@@ -61,9 +65,19 @@ public class SetNewPassword extends AppCompatActivity {
             type2= false;
         }
         if (type1 && type2) {
-            Intent intent = new Intent(this, ForgetPasswordSuccessMessage.class);
 
-            startActivity(intent);
+
+            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
+                @Override
+                public void onUserConfirmPassword(boolean confirmed) {
+                    if(confirmed)
+                    {
+                        Intent intent = new Intent(SetNewPassword.this, ForgetPasswordSuccessMessage.class);
+                        startActivity(intent);
+                    }
+                }
+            });
+
         }
     }
 }
