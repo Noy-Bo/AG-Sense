@@ -9,7 +9,7 @@ public class UrlConnectionMaker {
     //http://206.72.198.59:8080/ServerTsofen45/User/Login?password=123123&username=admin
 
 
-    static String baseurl = "http://87.71.39.211:8080";
+    static String baseurl = "http://206.72.198.59:8080/ServerTsofen45v7";
 
 
     public static String createUrl(ServicesName serviceName, Map<String, String> params) {
