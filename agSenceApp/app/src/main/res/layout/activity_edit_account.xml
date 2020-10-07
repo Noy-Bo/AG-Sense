@@ -60,20 +60,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/previous_name"
                     android:textColor="@color/dark_blue"
                     android:textSize="@dimen/small_text_size" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.55" />
 
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/PreviousAccountNameSpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="5" />
 
             </LinearLayout>
 
@@ -81,8 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:orientation="horizontal">
 
                 <Space
@@ -93,46 +89,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
                     android:text="@string/new_name"
                     android:textColor="@color/dark_blue"
-                    android:textSize="@dimen/small_text_size"
-                    android:layout_gravity="center"/>
+                    android:textSize="@dimen/small_text_size" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
 
                 <EditText
                     android:id="@+id/edit_account_new_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.01"
-                    android:ems="16"
-                    android:inputType="text"
-                    android:textSize="10sp"
-                    tools:ignore="TextFields" />
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="text" />
 
             </LinearLayout>
-
-
-            <Switch
-                android:id="@+id/NotifiationsEditSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="left"
-                android:shadowColor="@color/orange"
-                android:showText="true"
-                android:text="@string/notifications"
-                android:textColor="@color/dark_blue"
-                android:textSize="@dimen/small_text_size"
-                android:thumb="@drawable/switch_thumb"
-                android:track="@drawable/track_selector"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <Button
                 android:id="@+id/EditAccountUpdateButton"

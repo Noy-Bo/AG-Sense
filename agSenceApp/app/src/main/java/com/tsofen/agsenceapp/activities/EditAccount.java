@@ -21,7 +21,6 @@ import java.util.List;
 public class EditAccount extends BackBaseActivity {
 
     EditText newNameTxt;
-    Switch notificationsSwitch;
     Spinner prevNameTxt;
 
 
@@ -47,31 +46,34 @@ public class EditAccount extends BackBaseActivity {
         });
 
 
-        notificationsSwitch = findViewById(R.id.NotifiationsEditSwitch);
         newNameTxt = findViewById(R.id.edit_account_new_name);
     }
 
     public void UpdateAccount(View view) {
-        String prevName = (String) prevNameTxt.getSelectedItem();
+        AccountCompany selectedCompany = ((AccountCompany) prevNameTxt.getSelectedItem());
         String newName = newNameTxt.getText().toString();
-        boolean receive = notificationsSwitch.isActivated();
-        if (prevName == null || newName.equals("")) {
+        if (selectedCompany == null || newName.equals("")) {
             showAlertBox(EditAccount.this, AlertFlag.FAILURE, "Some details are missing");
             return;
         }
 
+        String prevName = selectedCompany.getName() ;
         EditDataAdapter.getInstance().editAccount(prevName, newName, new EditDataRequestHandler() {
             @Override
             public void onDataEditedSuccess() {
                 showAlertBox(EditAccount.this, AlertFlag.SUCCESS, "Edited account successfully");
-                return;
+                clearView();
             }
 
             @Override
             public void onDataEditedFailure() {
                 showAlertBox(EditAccount.this, AlertFlag.FAILURE, "Failed to edit account");
-                return;
             }
         });
+    }
+
+    private void clearView() {
+        prevNameTxt.setSelection(-1);
+        newNameTxt.setText("");
     }
 }

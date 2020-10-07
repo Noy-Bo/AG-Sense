@@ -67,7 +67,6 @@ public class CompanyAdapter<A extends User> extends ArrayAdapter<Account> implem
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProgressDialog pd = GeneralProgressBar.displayProgressDialog( getContext(), "loading...");
                 Intent intent = new Intent(getContext(), AccountStatusFilter.class);
                 intent.putExtra("filter", "all");
                 intent.putExtra("company", account.getCompanyName());

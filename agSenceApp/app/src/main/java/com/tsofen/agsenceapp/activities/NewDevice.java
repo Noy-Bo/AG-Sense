@@ -43,7 +43,6 @@ public class NewDevice extends BackBaseActivity {
         DeviceTypeSpinner = (Spinner) findViewById(R.id.DeviceTypeSpinner);
         DeviceTypeSpinner.setGravity(Gravity.RIGHT);
         List<String> DeviceSpinner_type = new ArrayList<>();
-        //DeviceSpinner_type.add(0, "Choose Type");
         DeviceSpinner_type.add("GpsForPersonal");
         DeviceSpinner_type.add("SensorForBanks");
         DeviceSpinner_type.add("lequidHeightForTanks");
@@ -95,12 +94,21 @@ public class NewDevice extends BackBaseActivity {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewDevice.this, AlertFlag.SUCCESS, "Added new device successfully");
+                clearView();
             }
 
             @Override
             public void onNewDataAddedFailure() {
                 showAlertBox(NewDevice.this, AlertFlag.FAILURE, "Failed to add new device"); }
         });
+    }
+
+    private void clearView() {
+        deviceNameEdit.setText("");
+        DeviceTypeSpinner.setSelection(-1);
+        devicePasswordEdit.setText("");
+        devicePhoneNumberEdit.setText("");
+
     }
 }
 
