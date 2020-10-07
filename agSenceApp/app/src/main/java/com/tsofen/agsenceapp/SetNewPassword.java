@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +16,8 @@ public class SetNewPassword extends AppCompatActivity {
     protected EditText new_password, confirm_password;
     String code;
 protected String username;
+protected TextView waiting;
+protected ProgressBar newpasswordprogressbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +71,10 @@ protected String username;
             type2= false;
         }
         if (type1 && type2) {
-
+            newpasswordprogressbar = findViewById(R.id.newpasswordprogressbar);
+            waiting = findViewById(R.id.waiting);
+            waiting.setVisibility(View.VISIBLE);
+            newpasswordprogressbar.setVisibility(View.VISIBLE);
 
             ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, code,new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
                 @Override

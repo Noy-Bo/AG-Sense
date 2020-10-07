@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ protected EditText editText;
 protected Account tempaccount;
 protected ArrayList<Account> __accounts;
 protected ProgressBar prog;
+protected TextView please_wait_forgetpassword;
 protected EditText forget_password_email_address;
    protected Boolean checking = false;
 
@@ -54,7 +56,8 @@ protected EditText forget_password_email_address;
           //  System.out.println("The email address " + forget_password_email_address.getText().toString() + " is valid");
             prog = findViewById(R.id.prog);
             prog.setVisibility(View.VISIBLE);
-
+please_wait_forgetpassword = findViewById(R.id.please_wait_forgetpassword);
+please_wait_forgetpassword.setVisibility(View.VISIBLE);
             //forget_password_email_address = findViewById(R.id.forgot_password);
 editText = findViewById(R.id.forgot_password);
 
