@@ -25,4 +25,7 @@ public interface UserRepository<T extends User>  extends CrudRepository<T, Integ
 			"from public.users " + 
 			"where sys_id = ?1 ;" )
 	public int getAccountIDForUser(int Id);
+	
+
+	
 }

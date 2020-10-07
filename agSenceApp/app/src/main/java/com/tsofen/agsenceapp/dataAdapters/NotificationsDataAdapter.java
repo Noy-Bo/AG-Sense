@@ -5,6 +5,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.entities.Notification;
 
@@ -56,8 +57,15 @@ public class NotificationsDataAdapter extends BaseDataAdapter implements Notific
     }
 
     @Override
-    public void setNotificationAsRead(int userID,int notificationId, MarkNotificationRequestHandler handler) {
+    public void setNotificationAsRead(int userID, int notificationId, MarkNotificationRequestHandler handler) {
+        cacheManager.markNotificationAsReadJob(userID, notificationId, new MarkNotificationAsReadHandler() {
+            @Override
+            public void onNotificationMarkedAsRead(Boolean finishedSuccessfully) {
 
+                   handler.onInfoReceived(finishedSuccessfully);
+
+            }
+        });
     }
 
 

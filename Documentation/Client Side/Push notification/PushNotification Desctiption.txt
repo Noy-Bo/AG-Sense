@@ -1,0 +1,43 @@
+Push notification Feature
+
+Description:
+When ever a device has a critical issue the server send a notification to the accounts associated 
+with the device.
+
+Description of Class and functions:
+
+	TokenRegistrationHandler:
+					Description:
+					class responsible for registering the user with its device to the Firebase database
+
+
+Flow:
+when the user  first logs in successful  we will register that user with a device identifier using the 
+TokenRegistrationHandler class to the Firebase server.
+whenever the is a need for a notification, the server team check who the device associated
+with the notification is connected to (which accounts) when the server send a signal to 
+the Firebase server to send a notification, the code responsible for manual notification is 
+in backEnd project located in the same repository.
+
+there is two option for sending a notification:
+-send to one person
+-sending to multiple people
+
+
+when the user logs out, we remove the device and user account pair from the Firebase database
+so that that phone wont receive notification related to that used.
+
+
+REQUIRE FIXING:
+
+- on "backend", right now we send a firebase-notification, wherein we actually need to send a data-payload message (this will cause the push-notifications to arrive even upon application-killed-mode!).
+	-we can solve it within "backend" code.
+
+- need to handle the registration of tokens better: as of now, only the device who last-logged to a specific account/admin will receive push-notifications.
+	- we can solve it by changing the structure of the Firebase-DB we use (eg. Firestore) to hold the accounts/admins tokens and also adjust the way we register new tokens to the DB from the client-code(on TokenRegistrationHandler).
+
+- after applying the 2 aforementioned fixes, we need to adjust within the "backend" code, the way we send data-payload-messages: 
+	- to a single account/admin (meaning we need to send to multiple devices associated with that account/admin).
+	- to multiple accounts/admins (again, to multiple devices associated with these accounts/admins).
+
+- adjusting the notification-design which is shown on the phone screen - the code for this should be applied within "OnMessageReceived" overriden method (located on client code).

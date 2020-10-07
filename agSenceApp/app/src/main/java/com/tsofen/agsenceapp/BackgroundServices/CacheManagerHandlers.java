@@ -1,5 +1,6 @@
 package com.tsofen.agsenceapp.BackgroundServices;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
@@ -62,12 +63,15 @@ public class CacheManagerHandlers {
                 if(userJSON.getString("type").equals("Account"))
                 {
                     user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
+                    ((LoginHandler)handler).onLoginSuccess(user);
                 }
-                else
+                else if(userJSON.getString("type").equals("admin"))
                 {
                     user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
+                    ((LoginHandler)handler).onLoginSuccess(user);
                 }
-                ((LoginHandler)handler).onLoginSuccess(user);
+                else
+                    throw new Exception();
             }
             catch (Exception e)
             {
@@ -203,8 +207,9 @@ public class CacheManagerHandlers {
 
         else if (handler instanceof AdminDashboardInfoHandler)
         {
-            retrievedEntitiesList = parseToJsonArray(downloadedData, new AdminDashboardInfo());
-            ((AdminDashboardInfoHandler) handler).onAdminDashboardInfoReceived((AdminDashboardInfo) retrievedEntitiesList.get(0));
+//            retrievedEntitiesList = parseToJsonArray(downloadedData, new AdminDashboardInfo());
+            AdminDashboardInfo dashboardInfo = (new GsonBuilder()).create().fromJson(downloadedData, AdminDashboardInfo.class);
+            ((AdminDashboardInfoHandler) handler).onAdminDashboardInfoReceived(dashboardInfo);
         }
 
         else if (handler instanceof MarkNotificationAsReadHandler)

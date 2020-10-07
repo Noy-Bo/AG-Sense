@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,7 @@ public class UserBL {
 	}
 
 		public List<UserAccount> findallByName(String Name) {
-			return UseraccountRepository. findByNameContaining(Name);
+			return UseraccountRepository.findByNameContaining(Name);
 
 	}
 		
@@ -79,7 +80,7 @@ public class UserBL {
 			}
 			else if(userType.contentEquals("Support")) {
 				Support sup = new Support();
-				userRepository.save(sup);
+				supportRepository.save(sup);
 			}
 			return true;
 		}
@@ -91,6 +92,37 @@ public class UserBL {
 			return true;
 			
 		}
+		// http://localhost:8080//User/editUser?userId=101&newEmail=%22newEmail@gmail.com%22&newPhoneNumber=0501234567&newNotificationFlag=1
+		public boolean edit_user(int userId,String newMail,String newPhone,int newNFlag) {
+			User userAcc =  userRepository.findBysysId(userId);
+			if (!(newMail.isEmpty())||(newMail.equalsIgnoreCase(null))) {
+				userAcc.setEmail(newMail);
+			}
+			if (!(newPhone.isEmpty())) {
+				userAcc.setPhoneNumber(newPhone);
+			}
+			if (newNFlag!=3) {
+				userAcc.setNotificationFlag(newNFlag);
+			}
+			userRepository.save(userAcc);
+			return true;
+		}
 		
+		
+		@SuppressWarnings("unchecked")
+		public JSONObject getEmailAndPhonenumberForUser(String userName) {
+			
+			User user = userRepository.findByUserName(userName);
+			
+			JSONObject jo = new JSONObject();
+			
+			String email = user.getEmail().replaceAll("(\\w{1,2})(\\w+)(@.*)", "$1******$3");
+			String phoneNumber =  user.getPhoneNumber().replaceAll("\\d(?=\\d{2})", "*");
+			   jo.put("email", email);
+			   jo.put("phoneNumber",phoneNumber);
+			   
+			   return jo;
+			
+		}
 		
 }

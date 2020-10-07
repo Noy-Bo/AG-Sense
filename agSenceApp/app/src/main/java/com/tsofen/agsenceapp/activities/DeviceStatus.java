@@ -196,6 +196,7 @@ public class DeviceStatus extends SearchBaseActivity {
         if (filteredDevices == null || filteredDevices.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
+            userMap.getPlaces().clear();
             for (Devices device : filteredDevices) {
                 if (device.getLatitude() != null && device.getLogitude() != null) {
                     Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));

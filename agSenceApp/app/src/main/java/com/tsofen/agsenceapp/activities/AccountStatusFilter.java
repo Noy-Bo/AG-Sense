@@ -35,6 +35,7 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
     boolean displayFaultyAccounts = true;
     boolean displayHealthyAccounts = true;
     ListView accountsList;
+    String company = "";
     ArrayList<Account> accountsArr = new ArrayList<>();
     ProgressDialog pd;
 
@@ -64,26 +65,8 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
         accountsList = findViewById(R.id.accounts_list);
 
 
-        //update buttons color according to filter
-        String filter = getIntent().getExtras().getString("filter");
-        if (filter != null) {
-            if (filter.equals("faulty")) {
-                TextView displayHealthyBox = findViewById(R.id.display_healthy_button);
-                displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-                displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            } else if (filter.equals("healthy")) {
-                TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
-                displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-                displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            } else {
-                TextView displayHealthyBox = findViewById(R.id.display_healthy_button);
-                displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-                displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-                TextView displayFaultyBox = findViewById(R.id.display_faulty_button);
-                displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-                displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            }
-        }
+
+        company = getIntent().getExtras().getString("company");
         searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
         searchView.setHint(R.string.search_account_hint);
 
@@ -114,38 +97,6 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
         });
     }
 
-    public void displayFaultyClicked(View view) {
-        TextView displayFaultyBox = view.findViewById(R.id.display_faulty_button);
-        if (displayFaultyAccounts == true) // do not display faulty devices.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            displayFaultyAccounts = false;
-
-        } else if (displayFaultyAccounts == false) // displaying the faulty device.
-        {
-            displayFaultyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            displayFaultyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
-            displayFaultyAccounts = true;
-        }
-        updateList();
-    }
-
-    public void displayHealthyClicked(View view) {
-        TextView displayHealthyBox = view.findViewById(R.id.display_healthy_button);
-        if (displayHealthyAccounts == true) // do not display healthy devices.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.blue_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-            displayHealthyAccounts = false;
-        } else if (displayHealthyAccounts == false) // displaying the healthy device.
-        {
-            displayHealthyBox.setBackground(ContextCompat.getDrawable(this, R.drawable.white_shape_squares));
-            displayHealthyBox.setTextColor(ContextCompat.getColor(this, R.color.white));
-            displayHealthyAccounts = true;
-        }
-        updateList();
-    }
 
     public void createAccount(View view) {
         Intent intent = new Intent(this, NewAccount.class);
@@ -172,7 +123,12 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
         AccountsDataAdapter.getInstance().getAllAccounts(requestLatestData,new AccountsHandler() {
             @Override
             public void onAccountsDownloadFinished(final List<Account> accounts) {
-                accountsArr = (ArrayList<Account>) accounts;
+                accountsArr = new ArrayList<>();
+                for (Account account: accounts) {
+                    if(account.getCompanyName().equals(company)){
+                        accountsArr.add(account);
+                    }
+                }
                 AccountStatusFilter.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -195,7 +151,7 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
                             }
                             updateList();
                         }
-                        searchView.setAdapter(new AccountsAdapter<Account>(AccountStatusFilter.this, accounts));
+                        searchView.setAdapter(new AccountsAdapter<Account>(AccountStatusFilter.this, accountsArr));
 
                     }
                 });

@@ -75,15 +75,11 @@ public class NewDevice extends BackBaseActivity {
             devicePhoneNumberEdit.setError("Invalid Phone number");
             legal = false;
         }
-        if (!validatePassword(devicePasswordEdit.getText().toString())) {
-            devicePasswordEdit.setError("Password is weak");
-            legal = false;
-        }
         if (!iemiEdit.getText().toString().matches(iemiRegex)) {
             iemiEdit.setError("Illegal IEMI");
             legal = false;
         }
-        if (DeviceTypeSpinner.getSelectedItem() == null || AccountNameSpinner.getSelectedItem() == null || deviceNameEdit.getText().toString().equals("")) {
+        if (devicePasswordEdit.getText().toString().equals("") || DeviceTypeSpinner.getSelectedItem() == null || AccountNameSpinner.getSelectedItem() == null || deviceNameEdit.getText().toString().equals("")) {
             showAlertBox(NewDevice.this, AlertFlag.FAILURE, "Some details are missing");
             legal = false;
         }
