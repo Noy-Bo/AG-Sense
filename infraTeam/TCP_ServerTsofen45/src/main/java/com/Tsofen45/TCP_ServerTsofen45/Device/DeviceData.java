@@ -4,7 +4,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import javax.persistence.*;
 
-@Entity(name = "TestDevicesData")
+@Entity(name = "DevicesData")
 public class DeviceData {
     long ID;
     long imei;
