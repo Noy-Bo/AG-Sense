@@ -6,7 +6,7 @@ import java.util.List;
 public class Account extends User implements Serializable {
 
     private boolean faulty;
-    public int accountid;
+
     private List<Devices> devices;
     private Integer faultyDevices;
     private Boolean faultyAccount;
@@ -17,15 +17,15 @@ public class Account extends User implements Serializable {
         super();
     }
 
-    public Account(int id, String username, String email, boolean isFaulty, int accountid) {
+    public Account(int id, String username, String email, boolean isFaulty) {
         super(id, username, email);
         this.faulty = isFaulty;
-        this.accountid = accountid;
+
     }
 
     public Account(boolean faulty, int accountid, List<Devices> devices, Integer faultyDevices, String phoneNumber, Boolean faultyAccount, Integer numberOfDevices) {
         this.faulty = faulty;
-        this.accountid = accountid;
+
         this.devices = devices;
         this.faultyDevices = faultyDevices;
         this.phoneNumber = phoneNumber;
@@ -36,7 +36,6 @@ public class Account extends User implements Serializable {
     public Account(int id, String username, String email, boolean faulty, int accountid, List<Devices> devices, Integer faultyDevices, String phoneNumber, Boolean faultyAccount, Integer numberOfDevices) {
         super(id, username, email);
         this.faulty = faulty;
-        this.accountid = accountid;
         this.devices = devices;
         this.faultyDevices = faultyDevices;
         this.phoneNumber = phoneNumber;
@@ -52,13 +51,9 @@ public class Account extends User implements Serializable {
         this.faulty = faulty;
     }
 
-    public int getAccountid() {
-        return accountid;
-    }
 
-    public void setAccountid(int accountid) {
-        this.accountid = accountid;
-    }
+
+
 
     public List<Devices> getDevices() {
         return devices;
@@ -112,7 +107,6 @@ public class Account extends User implements Serializable {
     public String toString() {
         return "Account{" +
                 "isFaulty=" + faulty +
-                ", accountId=" + accountid +
                 ", id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +

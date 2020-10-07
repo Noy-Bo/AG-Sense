@@ -70,7 +70,7 @@ public class CacheManagerHandlers {
 
                 if(userJSON.getString("type").equals("Account"))
                 {
-                    user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
+                    user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false);
                     ((LoginHandler)handler).onLoginSuccess(user);
                 }
                 else if(userJSON.getString("type").equals("admin"))
