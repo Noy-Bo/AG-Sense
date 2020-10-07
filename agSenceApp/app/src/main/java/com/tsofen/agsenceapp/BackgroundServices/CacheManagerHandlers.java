@@ -2,6 +2,7 @@ package com.tsofen.agsenceapp.BackgroundServices;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
@@ -12,6 +13,7 @@ import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
 import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
@@ -50,8 +52,7 @@ public class CacheManagerHandlers {
     // ==================================================================================
 
 
-    public static void parseDataAndSendCallback(String downloadedData, BaseHandler handler)
-    {
+    public static void parseDataAndSendCallback(String downloadedData, BaseHandler handler)  {
 
         if (handler instanceof LoginHandler)
         {
@@ -218,17 +219,42 @@ public class CacheManagerHandlers {
             ((MarkNotificationAsReadHandler) handler).onNotificationMarkedAsRead(result);
         }
 
+        else if (handler instanceof DeviceSmsInfoHandler)
+        {
+            if (downloadedData == null)
+                ((DeviceSmsInfoHandler) handler).onDeviceSmsInfoReceived("");
+
+           JSONObject downloadedDataJSON = parseToOneJsonObject(downloadedData);
+           String devicePasswordAndPhoneNumber = "";
+           try{
+               devicePasswordAndPhoneNumber += downloadedDataJSON.getString("password");
+               devicePasswordAndPhoneNumber += ",";
+               devicePasswordAndPhoneNumber += downloadedDataJSON.getString("PhoneNumber");
+           }
+           catch (JSONException e)
+           {
+               e.printStackTrace();
+           }
+
+
+           ((DeviceSmsInfoHandler) handler).onDeviceSmsInfoReceived(devicePasswordAndPhoneNumber);
+        }
+
     }
 
     // ==================================================================================
     // ------------------------------- JSON Parsers -------------------------------------
     // ==================================================================================
 
-    public static JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
+    public static JSONObject parseToOneJsonObject(String jsonStr)  {
         JSONObject jObj = null;
-        jObj = new JSONObject(jsonStr);
+        try {
+            jObj = new JSONObject(jsonStr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if (jObj == null)
-            throw new JSONException("json allocation failed");
+            return new JSONObject();
         return jObj;
 
     }

@@ -14,6 +14,7 @@ import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
 import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
@@ -667,6 +668,13 @@ public class CacheMgr implements CacheManagerAPI {
         // NO URL FROM SERVER
     }
 
+    @Override
+    public void getDeviceSmsinfoJob(String imei, DeviceSmsInfoHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("imei",imei);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getSmsInfo);
+        asyncGeneric.execute();
+    }
 
     // ==================================================================================
     // ------------------------- Clear Data, Time Stamps checks  ------------------------

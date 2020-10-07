@@ -25,6 +25,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.NotificationsDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
 import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
 import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Notification;
@@ -87,6 +88,13 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
         initDashboard();
+
+        CacheMgr.getInstance().getDeviceSmsinfoJob("864403044179316", new DeviceSmsInfoHandler() {
+            @Override
+            public void onDeviceSmsInfoReceived(String devicePasswordAndPhoneNumber) {
+               Log.d("testing sms","displaying results: " + devicePasswordAndPhoneNumber);
+            }
+        });
     }
 
     public void goToNotifications(View view) {
