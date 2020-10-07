@@ -1,28 +1,9 @@
-===============ACCOUNT===============
-Policy:
-	X -- Notifcation - updated through notification callback.
-	Account X
-	@PROBLEMATIC@ -- Devices - Oncreate + ORefresh.
-	 X -- DevicesData - per view + OnRefresh
-	
-TODO:
-	activities - ACCOUNT
-	update Devices at deviceStatus, accountDashboard
-	 X -- update DeviceData at deviceView
-===============ADMIN===============
-Policy:
-	 X -- Notifcation - updated through notifcation callback
-	 X -- Account - onCreate. + OnRefresh.
-	
-	Devices - 60sec bigThread. + OnRefresh.
-	 X -- DevicesData - per view + OnRefresh.
-TODO:
-	activities - ADMIN
-	 X -- update ACCOUNT at accountStatus.
-	
-	update DEVICES at deviceStatus.
-	
-	 X -- update ACCOUNT & DEVICES at AdminDashboard.
-	// setting only infrastructure for now. untill server API is ready.
-	
-	 X -- update DeviceData: deviceView
+Refresh feature
+
+there is a refresh feature that was added to the application, whenever you are on a page 
+like notification or device view or whenever data is displayed to you you can pull down 
+from the top of the page and the page will refresh, when refreshed the app will request new
+data from the server, each request has a x- second timeout till we request the same request 
+again.
+
+this number can be changed in cache manger.
