@@ -5,26 +5,27 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Log;
+
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
-import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
-import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
+import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
+import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
+import com.tsofen.agsenceapp.dataServices.DevicesHandler;
 import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
 import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
+import com.tsofen.agsenceapp.dataServices.LoginHandler;
 import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
 import com.tsofen.agsenceapp.dataServices.NewCompanyHandler;
 import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
-import com.tsofen.agsenceapp.dataServices.DevicesHandler;
-import com.tsofen.agsenceapp.dataServices.LoginHandler;
 import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
 import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
@@ -34,9 +35,9 @@ import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
 import com.tsofen.agsenceapp.entities.Account;
-import com.tsofen.agsenceapp.entities.Notification;
-import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.Devices;
+import com.tsofen.agsenceapp.entities.Notification;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -670,9 +671,10 @@ public class CacheMgr implements CacheManagerAPI {
     @Override
     public void changeUserPasswordJob(String username,String code, String newPass, UserPasswordChangeHandler handler) {
         Map<String, String> params = new HashMap<>();
-        params.put("newPass",newPass);
         params.put("userName",username); // changed to userName by ameer from int Id
-        params.put("Code",code);
+        params.put("password",newPass);
+
+        params.put("code",code);
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.ConfirmPassword);// changed by ameer from changePass to ConfirmPassword
         asyncGeneric.execute();
 

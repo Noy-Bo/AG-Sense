@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -80,7 +79,7 @@ protected String username;
 
                 @Override
                 public void onUserConfirmPasswordFailure() {
-                    Toast.makeText(SetNewPassword.this, "Failed to Update the password", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(SetNewPassword.this, "Failed to Update the password", Toast.LENGTH_SHORT).show();
                 }
 
 
