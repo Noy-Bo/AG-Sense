@@ -84,7 +84,7 @@ public class DeviceMessageHandler implements Runnable {
 		stateManager.setDeviceData(deviceData);
 		stateManager.setStates();
 
-		(new Thread(new NotifyMaulfunction(""+deviceData.getImei()))).start();
+		//(new Thread(new NotifyMaulfunction(""+deviceData.getImei()))).start();
 
 		//Making Analyzes if we need to notify the user .. like: Battery low, Device Moved
 		try {
