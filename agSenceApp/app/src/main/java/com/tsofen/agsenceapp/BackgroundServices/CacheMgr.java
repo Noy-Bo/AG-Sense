@@ -351,6 +351,13 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this function checks if the current timestamp is old, if so it requests data from server
+     * if the timestamp is ok, we go to getAccounts and fetch accounts from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler AccountsHandler, look at the class for API
+     */
     @Override
     public void getLatestAccountsJob(int start, int num, AccountsHandler handler) {
         Log.d("testing stamps","on getLatestAccountsJob");
@@ -370,6 +377,13 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this function checks if devices in cache is empty, if so it requests server for devices,
+     * if devices not empty we return devices from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler DevicesHandler look at the class for API.
+     */
     @Override
     public void getDevicesJob(int start, int num, DevicesHandler handler) {
         Log.d("testing stamps","on getDevicesJob");
@@ -389,6 +403,13 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this function checks if the current timestamp is old, if so it requests data from server
+     * if the timestamp is ok, we go to getDevices and fetch devices from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler DevicesHandler, look at the class for API
+     */
     @Override
     public void getLatestDevicesJob(int start, int num, DevicesHandler handler) {
         Log.d("testing stamps","on getLatestDevicesJob");
@@ -408,6 +429,13 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this function checks if notifications in cache is empty, if so it requests server for notifications,
+     * if devices not empty we return Notifications from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler NotificationsHandler look at the class for API.
+     */
     @Override
     public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
         if (getNotifications().size() == 0)
@@ -423,6 +451,13 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * making server request for devices related to specific account
+     * @param accountId account id
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler AccountDevicesHandler look at the class for API
+     */
     @Override
     public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler) {
         Log.d("testing stamps","on latest going to getDevicesRelatedToAccountJob");
@@ -446,45 +481,16 @@ public class CacheMgr implements CacheManagerAPI {
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
         asyncGeneric.execute();
 
-//        if (AppBaseActivity.getUser() instanceof Admin)
-//        {
-//            Map<String, String> params = new HashMap<>();
-//            params.put("id", Integer.toString(accountId));
-//            params.put("num", Integer.toString(num));
-//            params.put("start", Integer.toString(start));
-//            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
-//            asyncGeneric.execute();
-//        }
-//        else if (AppBaseActivity.getUser() instanceof Account)
-//        {
-//            if  ( getDevices().size() == 0)
-//            {
-//                Log.d("testing stamps","getDevices().size() == 0");
-//                newTimeStamp(accountsTimeStamp);
-//                Map<String, String> params = new HashMap<>();
-//                params.put("id", Integer.toString(accountId));
-//                params.put("num", Integer.toString(num));
-//                params.put("start", Integer.toString(start));
-//                GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
-//                asyncGeneric.execute();
-//                return;
-//            }
-//            else if (isServerRequestAccounts(accountsTimeStamp))
-//            {
-//                Log.d("testing stamps","after timestamp - requesting SERVER for data");
-//                Map<String, String> params = new HashMap<>();
-//                params.put("id", Integer.toString(accountId));
-//                params.put("num", Integer.toString(num));
-//                params.put("start", Integer.toString(start));
-//                GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
-//                asyncGeneric.execute();
-//                return;
-//            }
-//            Log.d("testing stamps","after timestamp - taking data from CACHE");
-//            handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
-//        }
+
     }
 
+    /**
+     * making server request for notifications related to specific device
+     * @param deviceId device id
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler DeviceNotificationsHandler look at the class for API
+     */
     @Override
     public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, DeviceNotificationsHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -495,6 +501,13 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
     }
 
+    /**
+     * making server request for notifications related to specific account
+     * @param accountId account id
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler AccountNotificationsHandler look at the class for API
+     */
     @Override
     public void getNotificationRelatedToAccountJob(int accountId, int start, int num, AccountNotificationsHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -505,6 +518,12 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
     }
 
+
+    /**
+     * making server request for DeviceData related to specific device
+     * @param deviceId device id
+     * @param handler DeviceDataHandler look at the class for API
+     */
     @Override
     public void getSpecificDeviceDataByIdJob(int deviceId, DeviceDataHandler handler) {
 
@@ -621,6 +640,14 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this function edits a device, making a server request with new device fields.
+     * returns boolean through handler to indicate success or failure
+     * @param deviceIMEI device imei
+     * @param newPhoneNumber new phone number
+     * @param newPass new password
+     * @param handler EditDeviceHandler look at the class for API
+     */
     @Override
     public void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -631,6 +658,14 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
     }
 
+
+    /**
+     * this function changes user password, making a server request.
+     * returns boolean through handler to indicate success or failure
+     * @param userId user id
+     * @param newPass new password
+     * @param handler UserPasswordChangeHandler look at the class for API
+     */
     @Override
     public void changeUserPasswordJob(int userId, String newPass, UserPasswordChangeHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -641,6 +676,12 @@ public class CacheMgr implements CacheManagerAPI {
 
     }
 
+    /**
+     * this function makes a server requet to get the numbers of faulty\healthy accounts\devices and notification to be presented at admin dashboard.
+     * returns string list, which we parse and retrieve data from at CacheManagerHandler.
+     * @param adminId admin id
+     * @param handler AdminDashboardInfoHandler look at the class for api
+     */
     @Override
     public void getAdminDashboardInfoJob(int adminId, AdminDashboardInfoHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -649,6 +690,13 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
     }
 
+
+    /**
+     * this function sends a notification id to server to indicate it has been read by a specific user.
+     * @param userId user id
+     * @param notificationId notification id
+     * @param handler MarkNotificationAsReadHandler look at the class for api.
+     */
     @Override
     public void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler) {
         Map<String, String> params = new HashMap<>();
@@ -658,16 +706,25 @@ public class CacheMgr implements CacheManagerAPI {
         asyncGeneric.execute();
     }
 
+
+    // currently not supported by server
     @Override
     public void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler) {
         // NO URL FROM SERVER
     }
 
+    // currently not supported by server
     @Override
     public void verifyCodeJob(String email, String verificationCode, VerificationCodeCheckHandler handler) {
         // NO URL FROM SERVER
     }
 
+    /**
+     * this function request the sms info from server via Device's imei.
+     * the server returns device's password and phone number.
+     * @param imei device's imei
+     * @param handler DeviceSmsInfoHandler look at the class for api.
+     */
     @Override
     public void getDeviceSmsinfoJob(String imei, DeviceSmsInfoHandler handler) {
         Map<String, String> params = new HashMap<>();

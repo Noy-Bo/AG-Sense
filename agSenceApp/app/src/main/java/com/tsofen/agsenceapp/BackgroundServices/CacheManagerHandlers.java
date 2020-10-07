@@ -52,6 +52,13 @@ public class CacheManagerHandlers {
     // ==================================================================================
 
 
+    /**
+     * this function is called after TextDownloader finishes downloading text successfully.
+     * the downloaded data is being parsed and entities are being created according to the handler type.
+     * we reuturn entities \ parsed data to the data adapters handlers accordingly.
+     * @param downloadedData downloaded data from TextDownloader
+     * @param handler the data adapter handler, we will call this handler callback to return results.
+     */
     public static void parseDataAndSendCallback(String downloadedData, BaseHandler handler)  {
 
         if (handler instanceof LoginHandler)

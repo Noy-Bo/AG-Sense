@@ -89,7 +89,7 @@ public class AdminDashboardActivity extends SearchBaseActivity {
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
         initDashboard();
 
-//        CacheMgr.getInstance().getDeviceSmsinfoJob("864403044179316", new DeviceSmsInfoHandler() {
+//        CacheMgr.getInstance().getDeviceSmsinfoJob("864403044179311", new DeviceSmsInfoHandler() {
 //            @Override
 //            public void onDeviceSmsInfoReceived(String devicePasswordAndPhoneNumber) {
 //               Log.d("testing sms","displaying results: " + devicePasswordAndPhoneNumber);
