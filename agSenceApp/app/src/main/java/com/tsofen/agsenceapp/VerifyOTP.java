@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,10 +21,11 @@ public class VerifyOTP extends AppCompatActivity {
     protected  String verificationCodeBySystem;
     protected String username;
     protected PinView pinView;
+    protected TextView please_wait;
     //   protected FirebaseUser fireBaseUser;
 //    protected boolean isemailchecked;
 //    protected String email = "ameerkadi97@gmail.com";
-    protected ProgressBar progressBar;
+    protected ProgressBar VerifyCodeProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,8 @@ public class VerifyOTP extends AppCompatActivity {
 
     public void confirmUserCode(View view) {
         verificationCodeByUser = pinView.getText().toString();
-
+        VerifyCodeProgressbar = findViewById(R.id.VerifyCodeProgressbar);
+        please_wait = findViewById(R.id.please_wait_verifycode);
         //sendVerificationCodeToUser("0507737781");
         ForgetPasswordDataAdapter.getInstance().confirmUserCode(username, verificationCodeByUser, new ConfirmCodeDataRequestHandler() {
             @Override
