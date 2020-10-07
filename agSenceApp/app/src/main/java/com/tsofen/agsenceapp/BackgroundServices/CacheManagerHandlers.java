@@ -142,8 +142,7 @@ public class CacheManagerHandlers {
                 JSONObject userJSON = new JSONObject(downloadedData);
                 Account user;
 
-
-                    user = new Account( userJSON.getString("email"), userJSON.getString("phoneNumber")  );
+                user = new Account( userJSON.getString("email"), userJSON.getString("phoneNumber")  );
 
 
                 ((UserDetailsForgetPasswordHandler)handler).onUserDetails(user);
