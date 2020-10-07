@@ -10,6 +10,45 @@ the project splits into three parts:
 ## Client Side (Android Application) 
 
 the application  is responsible for displaying and and viewing notification and device info related to an AG-Sense  account, AG-Sense  employees can log into application and view each account and its devices and also have editing capabilities to edit/add account or device.
+App features:
+
+### App features: 
+
+Forget password - when a user forgets his password, he can reset it with authentication code that can be sent using SMS or Email , this whole process is executed from the server side.
+
+Search feature - you can Search device and User by name and have quick access to view them. Available in  most activities.
+
+Notification -  the system keeps track of each user's Notification.
+
+Push notification- when device has notification server send notification to Users device.
+
+Change device setting- SMS protocol uses trackers that monitor receiving SMS and updates for each command sent to the device.
+
+### What can you do in Application: 
+
+View accounts - see all the ag-sense’s systems accounts 
+
+View Users related to account -  see a specific account users
+
+View notification related to user -  account dashboard activit, which contains all the user notifications that had received
+
+View Device messages (DeviceInfo reports)  - on this activity we can see the latest device info
+
+View Device notification - see all the notifications that related to this device
+
+View DeviceInfo -  this activity shows the device full overview witch contains notification, last update info, timeline map, settings
+
+View devices on map - this activity displays all devices with the latest location on the google maps
+
+View device timeline -  this activity make a red line (timeline) between the all locations of a specific device
+
+Edit/Add Account-  in those activities we can add and edit an account.
+
+Edit/Add device-  in those activities we can add and edit a device.
+
+Edit/Add User-  in those activities we can add and edit a user.
+
+
 
 Admin Example:
 
