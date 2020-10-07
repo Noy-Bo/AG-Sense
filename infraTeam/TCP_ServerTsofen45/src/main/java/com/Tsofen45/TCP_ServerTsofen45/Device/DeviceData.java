@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 
 
-@Entity
+@Entity(name = "DevicesData")
 public class DeviceData {
     long ID;
     long imei;

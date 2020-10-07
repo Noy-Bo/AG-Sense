@@ -19,7 +19,7 @@ abstract public class Analyzer {
 	protected JSONObject json=null;
 	protected int code;
 	
-	private static String GET_URL = "http://victorhanna-26955.portmap.host:26955/Notifications/AddNotification";
+	private static String GET_URL = "http://206.72.198.59:8080/ServerTsofen45v7Notifications/AddNotification";
 	
 	abstract public void Analyze(DeviceData d) throws IOException;
 	
