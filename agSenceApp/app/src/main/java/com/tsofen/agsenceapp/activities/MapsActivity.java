@@ -136,9 +136,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
-        if (userMap != null && userMap.getPlaces() != null) {
-            Collections.reverse(userMap.getPlaces());
-        }
         listPoints = new ArrayList<>();
         listPointsPoly = new ArrayList<>();
 
@@ -299,7 +296,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 latLng1 = latLng2;
             }
             polyline = mMap.addPolyline(poly);
-            polyline.setStartCap(new CustomCap(bitmapDescriptorFromVector(this, R.drawable.ic_arrow), 10));
+            polyline.setEndCap(new CustomCap(bitmapDescriptorFromVector(this, R.drawable.ic_arrow), 10));
         }
     }
 
