@@ -129,13 +129,13 @@ public class ReportTimer extends Analyzer {
     public static void  report_disconnected() throws IOException{
         //check if in the list[12] any devices and report back.
     	HashSet<String> imeies = lists_[12];
-    	JSONObject json = new JSONObject();
-    	json.put("minutes", mins);
+    	JSONObject j= new JSONObject();
+    	j.put("minutes", mins);
     	for(String imei : imeies) {
     		System.out.println("The imei 2 minutes : "+imei);
-			sendNotify(imei,13,json);
+			sendNotify(imei,13,j);
     	}
-    	
+    	//sendNotify( "864403044134410", 13, j);
     	
     }
 	@Override

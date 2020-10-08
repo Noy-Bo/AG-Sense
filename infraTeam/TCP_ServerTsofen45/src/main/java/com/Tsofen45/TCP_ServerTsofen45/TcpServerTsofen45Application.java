@@ -20,9 +20,9 @@ public class TcpServerTsofen45Application {
 	static int port = 1025;
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(TcpServerTsofen45Application.class, args);
-//		ReportTimer reportTimer = context.getBean(ReportTimer.class);
-//		reportTimer.load_imei();
-//		reportTimer.start_tasks();
+		ReportTimer reportTimer = context.getBean(ReportTimer.class);
+		reportTimer.load_imei();
+		reportTimer.start_tasks();
 		//The purpose of this class is to make thread for each message that is recieved from the device 
 		try {
 

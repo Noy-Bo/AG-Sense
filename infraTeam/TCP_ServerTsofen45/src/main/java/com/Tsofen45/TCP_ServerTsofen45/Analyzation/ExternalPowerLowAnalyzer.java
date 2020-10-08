@@ -13,9 +13,13 @@ public class ExternalPowerLowAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isExternalPowerLow()) {
-			System.out.println("Entered ext pow low");
-			json.put("externalPower", d.getExternalPower());
-			sendNotify(d.getImei()+"",14,json);
+			if(d.isCanExternalPowerLow()) {				
+				System.out.println("Entered ext pow low");
+				json.put("externalPower", d.getExternalPower());
+				sendNotify(d.getImei()+"",14,json);
+				d.setCanExternalPowerLow(false);
+			}
+			
 		}
 	}
 

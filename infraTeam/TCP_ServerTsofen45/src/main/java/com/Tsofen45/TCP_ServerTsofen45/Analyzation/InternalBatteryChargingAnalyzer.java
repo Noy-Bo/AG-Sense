@@ -13,9 +13,12 @@ public class InternalBatteryChargingAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(!d.isInternalBatteryCharching()) {
-			System.out.println("Entere internal battery charg");
-
-			sendNotify(d.getImei()+"",4,json);
+			if(d.isCanInternalBatteryCharging()) {				
+				System.out.println("Entere internal battery charg");
+				sendNotify(d.getImei()+"",4,json);
+				
+				d.setCanInternalBatteryCharging(false);
+			}
 
 		}
 	}
