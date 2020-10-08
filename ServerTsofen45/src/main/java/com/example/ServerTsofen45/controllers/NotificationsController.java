@@ -146,6 +146,7 @@ public class NotificationsController {
 		  Error error = errorBL.findBycode(code);
 		  String message = error.getMessage();
 		  List<User> users = userBL.getAllUsersForAccountID(device.getAccountId());
+		  List<User> admins = userBL.getAllUsersForAccountID(0);
 		  ArrayList<String> usersToNotify = new ArrayList<>();
 		  
 		  
@@ -179,6 +180,23 @@ public class NotificationsController {
 		 
 
 		  for (User user : users) {
+
+			  Notification notification = new Notification();
+
+			  notification.setDevice(device);
+			  notification.setDateTime(new Timestamp(System.currentTimeMillis()));
+			  notification.setErrorCode(code);
+			  notification.setReaded(false);
+			  notification.setSeverity(error.getSeverity());
+			  notification.setMessage(message);
+			  notification.setUserId(user.getSysId());
+
+			  usersToNotify.add(user.getUserName());
+			  notificationRepo.save(notification); 
+
+		  }
+		  
+		  for (User user : admins) {
 
 			  Notification notification = new Notification();
 

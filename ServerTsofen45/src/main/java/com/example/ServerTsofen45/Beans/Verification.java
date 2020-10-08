@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.ServerTsofen45.Repo.VerificationsRepository;
+import com.example.ServerTsofen45.Repo.VerificationRepository;
 
 
 @Entity
@@ -28,6 +28,7 @@ public class Verification {
 	String userName;
 	String code;
 	Timestamp SentTime;
+	boolean verified;
 	
 
 	@Column
@@ -60,9 +61,18 @@ public class Verification {
 	}
 
 	
-	@Autowired
-	VerificationsRepository verificationsRepository;
-	
+	@Column
+	public boolean isVerified() {
+		return verified;
+	}
+
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
+
+
 	public boolean sendVerificationMail(String mail) {
 		final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 		// Get a Properties object
@@ -169,7 +179,6 @@ this.setSentTime(new Timestamp(System.currentTimeMillis()));
 
 			msg.setSentDate(new Date());
 			Transport.send(msg);
-			verificationsRepository.save(this);
 			return true;
 		}
 		
