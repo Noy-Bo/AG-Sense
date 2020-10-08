@@ -14,8 +14,12 @@ public class SpeedAlertActiveAnalyzer extends Analyzer {
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isSpeedingAlertActive()) {
-			json.put("speed", d.getSpeed());
-			sendNotify(d.getImei()+"",10,json);
+			if(d.isCanSpeedAlert()) {
+				json.put("speed", d.getSpeed());
+				sendNotify(d.getImei()+"",10,json);
+				
+				d.setCanSpeedAlert(false);
+			}
 
 		}
 	}

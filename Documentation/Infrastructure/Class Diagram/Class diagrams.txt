@@ -1,0 +1,10 @@
+Classes:
+1.	messageHandler – manages all the process from receiving message from the device to saving the message. 
+2.	ServerMessage- manages the Add Device process.
+3.	Authentication- manages the authentication for each message.
+4.	DeviceData – manages the device variables and generates getters/setters.
+5.	Disconnected- manage the Device Disconnected process.
+6.	Factories – manage the U111 command that we collect from the device.
+7.	Routers – manage  save & update data for devices.
+8.	Validation – manage the validation for each device.
+9.	Analyzation – manages the analyzation for each exception we get.

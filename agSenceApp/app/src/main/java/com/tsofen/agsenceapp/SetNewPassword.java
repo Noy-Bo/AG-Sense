@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +14,10 @@ import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
 
 public class SetNewPassword extends AppCompatActivity {
     protected EditText new_password, confirm_password;
+    String code;
 protected String username;
+protected TextView waiting;
+protected ProgressBar newpasswordprogressbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +25,7 @@ protected String username;
         new_password = findViewById(R.id.new_password);
         username = getIntent().getStringExtra("username");
         confirm_password = findViewById(R.id.confirm_password);
+        code = getIntent().getStringExtra("code");
     }
 
 
@@ -65,17 +71,25 @@ protected String username;
             type2= false;
         }
         if (type1 && type2) {
+            newpasswordprogressbar = findViewById(R.id.newpasswordprogressbar);
+            waiting = findViewById(R.id.waiting);
+            waiting.setVisibility(View.VISIBLE);
+            newpasswordprogressbar.setVisibility(View.VISIBLE);
 
-
-            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
+            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, code,new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
                 @Override
-                public void onUserConfirmPassword(boolean confirmed) {
-                    if(confirmed)
-                    {
-                        Intent intent = new Intent(SetNewPassword.this, ForgetPasswordSuccessMessage.class);
-                        startActivity(intent);
-                    }
+                public void onUserConfirmPasswordSuccess() {
+
+                    Intent intent = new Intent(SetNewPassword.this, ForgetPasswordSuccessMessage.class);
+                    startActivity(intent);
                 }
+
+                @Override
+                public void onUserConfirmPasswordFailure() {
+                   // Toast.makeText(SetNewPassword.this, "Failed to Update the password", Toast.LENGTH_SHORT).show();
+                }
+
+
             });
 
         }

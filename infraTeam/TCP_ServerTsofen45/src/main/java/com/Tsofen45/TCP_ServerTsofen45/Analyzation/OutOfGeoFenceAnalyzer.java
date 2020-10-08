@@ -14,9 +14,12 @@ public class OutOfGeoFenceAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isOutOfGeoFenceActive()) {
-			System.out.println("Entered geo fence");
-
-			sendNotify(d.getImei()+"",11,json);
+			if(d.isCanOutOfGeo()) {				
+				System.out.println("Entered geo fence");
+				sendNotify(d.getImei()+"",11,json);
+				
+				d.setCanOutOfGeo(false);
+			}
 
 		}
 	}

@@ -5,6 +5,7 @@ import com.tsofen.agsenceapp.adaptersInterfaces.ConfirmPasswordDataRequestHandle
 import com.tsofen.agsenceapp.adaptersInterfaces.EmailPickedConfirmedDataRequestHandler;
 import com.tsofen.agsenceapp.adaptersInterfaces.ForgetPasswordDataAdapterAPI;
 import com.tsofen.agsenceapp.adaptersInterfaces.ForgetPasswordDataRequestHandler;
+import com.tsofen.agsenceapp.adaptersInterfaces.PhonePickedConfirmedDataRequestHandler;
 import com.tsofen.agsenceapp.dataServices.UserDetailsForgetPasswordHandler;
 import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
 import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
@@ -41,17 +42,24 @@ private ForgetPasswordDataAdapter(){
         cacheManager.verifyCodeJob(username, code, new VerificationCodeCheckHandler() {
             @Override
             public void onVerificationCodeFinished(Boolean finishedSuccessfully) {
-                handler.onUserConfirmCode(finishedSuccessfully);
+                if(finishedSuccessfully)
+                    handler.onUserConfirmCodeSuccess();
+                else
+                    handler.onUserConfirmCodeFailure();
             }
         });
     }
 
     @Override
-    public void confirmUserPassword(String username, String password, ConfirmPasswordDataRequestHandler handler) {
-        cacheManager.changeUserPasswordJob(username, password, new UserPasswordChangeHandler() {
+    public void confirmUserPassword(String username,String code, String password, ConfirmPasswordDataRequestHandler handler) {
+        cacheManager.changeUserPasswordJob(username,code ,password, new UserPasswordChangeHandler() {
             @Override
             public void onUserPasswordChangedFinished(Boolean finishedSuccessfully) {
-                handler.onUserConfirmPassword(finishedSuccessfully);
+                if(finishedSuccessfully)
+                    handler.onUserConfirmPasswordSuccess();
+                else
+                    handler.onUserConfirmPasswordFailure();
+
             }
         });
     }
@@ -61,7 +69,23 @@ private ForgetPasswordDataAdapter(){
         cacheManager.emailConfirmed(username, new VerificationCodeSentHandler() {
             @Override
             public void onVerificationCodeSent(Boolean finishedSuccessfully) {
-                handler.onUserEmailPicked(finishedSuccessfully);
+              if(finishedSuccessfully)
+                  handler.onUserEmailPickedSuccess();
+              else
+                  handler.onUserEmailPickedFailure();
+            }
+        });
+    }
+
+    @Override
+    public void phonePickedConfirmed(String username, PhonePickedConfirmedDataRequestHandler handler) {
+        cacheManager.phoneConfirmed(username, new VerificationCodeSentHandler() {
+            @Override
+            public void onVerificationCodeSent(Boolean finishedSuccessfully) {
+                if(finishedSuccessfully)
+                handler.onUserPhonePickedSuccess();
+                else
+                    handler.onUserPhonePickedFailure();
             }
         });
     }
