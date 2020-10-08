@@ -639,6 +639,7 @@ public class DeviceData {
                 "\n, analog2=" + analog2 +
                 '}';
     }
+
     
     
 }

@@ -71,10 +71,15 @@ public class U111 extends UpCommand{
 	        
 	        parse_optional(msg.substring(msg.indexOf("&")+1,msg.indexOf("^")));
 	        
+	        
+	        //making flags if can new notifications
+	        
+	        
 	        return deviceData;
 
 	        
 	    }
+	    
 
 	    public void parse_optional(String opt)
 	    {
@@ -187,6 +192,7 @@ public class U111 extends UpCommand{
 	            }
 	        }
 	    }
+	    
 
 
 }
