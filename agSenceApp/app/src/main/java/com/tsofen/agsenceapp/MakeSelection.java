@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tsofen.agsenceapp.activities.LoginActivity;
 import com.tsofen.agsenceapp.adaptersInterfaces.EmailPickedConfirmedDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
 import com.tsofen.agsenceapp.entities.Account;
@@ -36,7 +37,9 @@ protected ProgressBar progressbarplease_wait;
     }
 
     public void callBackScreenFromMakeSelection(View view) {
-
+        finishAffinity();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     public void GoToPhoneSending(View view) {

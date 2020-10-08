@@ -88,7 +88,7 @@
             android:background="@drawable/gradient_color_background"
             android:onClick="confirmUserCode"
             android:text="@string/verify_code"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:transitionName="transition_OTP_screen" />
 
 

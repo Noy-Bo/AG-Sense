@@ -86,18 +86,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 clear = (Button) findViewById(R.id.clear_button);
                 searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
                 searchView.setHint(R.string.search_device_hint);
-                DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
-                    @Override
-                    public void onDeviceDataLoaded(final List<Devices> devices) {
-                        MapsActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
-                            }
-                        });
+                String filterStr = getIntent().getStringExtra("filter");
+                if(filterStr.equals("healthy")) {
+                    DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
+                        @Override
+                        public void onDeviceDataLoaded(final List<Devices> devices) {
+                            MapsActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                }
+                            });
 
-                    }
-                });
+                        }
+                    });
+                }else if(filterStr.equals("faulty")) {
+                    DeviceDataAdapter.getInstance().getFaultyDevices(new DeviceDataRequestHandler() {
+                        @Override
+                        public void onDeviceDataLoaded(final List<Devices> devices) {
+                            MapsActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                }
+                            });
+
+                        }
+                    });
+                }else{
+                    DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
+                        @Override
+                        public void onDeviceDataLoaded(final List<Devices> devices) {
+                            MapsActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                }
+                            });
+
+                        }
+                    });
+                }
+
                 searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -122,7 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
+        userMap = (UserMap) getIntent().getSerializableExtra("user_map");
 
         listPoints = new ArrayList<>();
         listPointsPoly = new ArrayList<>();
@@ -190,8 +220,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Double bottom = Double.min(listPoints.get(0).latitude, listPoints.get(1).latitude);
                         Double right = Double.max(listPoints.get(0).longitude, listPoints.get(1).longitude);
                         Double left = Double.min(listPoints.get(0).longitude, listPoints.get(1).longitude);
-                        if (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
-                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right) {
+                        if (initialMarker != null && (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
+                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right)) {
                             Toast.makeText(MapsActivity.this, "Device must be inside defined area", Toast.LENGTH_SHORT).show();
                             listPoints.clear();
                             listPointsPoly.clear();
@@ -242,7 +272,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addItems();
         // Move camera to bounded position
         mapBounds();
-        if (getIntent().getBooleanExtra("polylineFlag", false)) {
+        if (opCode == 2) {
             addPolylines();
         }
     }

@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Place implements Serializable, ClusterItem {
     private String title;
@@ -48,7 +49,7 @@ public class Place implements Serializable, ClusterItem {
     }
 
     public LatLng getLocation() {
-        return new LatLng(latitude,longitude);
+        return new LatLng(latitude, longitude);
     }
 
     public void setLocation(LatLng location) {
@@ -60,5 +61,20 @@ public class Place implements Serializable, ClusterItem {
     @Override
     public LatLng getPosition() {
         return getLocation();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return Float.compare(place.latitude, latitude) == 0 &&
+                Float.compare(place.longitude, longitude) == 0 &&
+                Objects.equals(title, place.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, latitude, longitude);
     }
 }

@@ -1,8 +1,10 @@
 package com.tsofen.agsenceapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +19,8 @@ import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
 public class VerifyOTP extends AppCompatActivity {
     //    protected String verificationCodeBySystem;
     protected String verificationCodeByUser;
-        protected FirebaseAuth mAuth;
-    protected  String verificationCodeBySystem;
+    protected FirebaseAuth mAuth;
+    protected String verificationCodeBySystem;
     protected String username;
     protected PinView pinView;
     protected TextView please_wait;
@@ -44,13 +46,17 @@ public class VerifyOTP extends AppCompatActivity {
         verificationCodeByUser = pinView.getText().toString();
         VerifyCodeProgressbar = findViewById(R.id.VerifyCodeProgressbar);
         please_wait = findViewById(R.id.please_wait_verifycode);
+        please_wait.setVisibility(View.VISIBLE);
+        VerifyCodeProgressbar.setVisibility(View.VISIBLE);
+        hideKeyboard(this);
+
         //sendVerificationCodeToUser("0507737781");
         ForgetPasswordDataAdapter.getInstance().confirmUserCode(username, verificationCodeByUser, new ConfirmCodeDataRequestHandler() {
             @Override
             public void onUserConfirmCodeSuccess() {
                 Intent intent = new Intent(VerifyOTP.this, SetNewPassword.class);
                 intent.putExtra("username", username);
-                intent.putExtra("code",verificationCodeByUser);
+                intent.putExtra("code", verificationCodeByUser);
                 startActivity(intent);
             }
 
@@ -59,10 +65,20 @@ public class VerifyOTP extends AppCompatActivity {
                 Toast.makeText(VerifyOTP.this, "The Code you entered is invalid, try again.", Toast.LENGTH_SHORT).show();
 
             }
-
-
         });
     }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
 }
 //    private void sendEmailVerificationCodeToUser(String email) {
 //fireBaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
