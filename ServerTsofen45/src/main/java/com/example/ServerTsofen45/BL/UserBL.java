@@ -117,11 +117,22 @@ public class UserBL {
 		public JSONObject getEmailAndPhonenumberForUser(String userName) {
 			
 			User user = userRepository.findByUserName(userName);
-			
 			JSONObject jo = new JSONObject();
+			String email;
+			String phoneNumber;
 			
-			String email = user.getEmail().replaceAll("(\\w{1,2})(\\w+)(@.*)", "$1******$3");
-			String phoneNumber =  user.getPhoneNumber().replaceAll("\\d(?=\\d{2})", "*");
+			if(user.getEmail() != null) {
+				 email = user.getEmail().replaceAll("(\\w{1,2})(\\w+)(@.*)", "$1******$3");
+			}
+			else {email = "no email address";}
+			
+			
+			if(user.getPhoneNumber() != null) {
+				 phoneNumber =  user.getPhoneNumber().replaceAll("\\d(?=\\d{2})", "*");
+			}
+			else{ phoneNumber = "no phone number";}
+			
+			
 			   jo.put("email", email);
 			   jo.put("phoneNumber",phoneNumber);
 			   
