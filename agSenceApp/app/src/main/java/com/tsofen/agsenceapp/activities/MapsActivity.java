@@ -3,6 +3,7 @@ package com.tsofen.agsenceapp.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.ButtCap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -180,8 +182,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Double bottom = Double.min(listPoints.get(0).latitude, listPoints.get(1).latitude);
                         Double right = Double.max(listPoints.get(0).longitude, listPoints.get(1).longitude);
                         Double left = Double.min(listPoints.get(0).longitude, listPoints.get(1).longitude);
-                        if (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
-                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right) {
+                        if (initialMarkerLatlng != null && (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
+                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right)) {
                             Toast.makeText(MapsActivity.this, "Device must be inside defined area", Toast.LENGTH_SHORT).show();
                             listPoints.clear();
                             listPointsPoly.clear();
@@ -226,7 +228,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addItems();
         // Move camera to bounded position
         mapBounds();
-        if (getIntent().getBooleanExtra("polylineFlag", false)) {
+        if (opCode == 2) {
             addPolylines();
         }
     }
@@ -262,7 +264,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng latLng2;
             for (int i = 1; i < userMap.getPlaces().size(); i++) {
                 latLng2 = userMap.getPlaces().get(i).getLocation();
-                poly.add(latLng1, latLng2);
+                poly.add(latLng1, latLng2).endCap(new ButtCap());
                 mMap.addPolyline(poly).setColor(Color.RED);
                 latLng1 = latLng2;
             }
