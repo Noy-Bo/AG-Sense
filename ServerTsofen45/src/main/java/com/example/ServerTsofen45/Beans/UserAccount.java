@@ -18,10 +18,11 @@ public class UserAccount extends User{
 	}
 
 
-	public UserAccount(String string, String string2, String string3, String string4,Account ac) throws NoSuchAlgorithmException {
+	public UserAccount(String string, String string2, String phoneNumber, String string3, String string4,Account ac) throws NoSuchAlgorithmException {
     	super();
     		this.setEmail(string);
     		this.setname(string2);
+    		this.setPhoneNumber(phoneNumber);
     		this.setUserName(string3);
     		//this.setHashPassword(string4);
     		this.hashPassword=hashPassword("123456");
