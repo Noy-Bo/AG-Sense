@@ -68,14 +68,14 @@ public class UserBL {
 			return  userRepository.getAccountIDForUser(id);
 		}
 		
-		public boolean addNewUser(String username, String email, String userType, String accountName) throws NoSuchAlgorithmException {
+		public boolean addNewUser(String username, String email, String phoneNumber, String userType, String accountName) throws NoSuchAlgorithmException {
 			Account acc = accountRepository.findByName(accountName);
 			if (userType.contentEquals("Admin")) {
-				Admin admin = new Admin(email,username,username,null,acc);
+				Admin admin = new Admin(email,username, phoneNumber,username,null,acc);
 				adminRepository.save(admin);
 			}
 			else if(userType.contentEquals("Account")) {
-				UserAccount user_acc= new UserAccount(email,username,username,null,acc);
+				UserAccount user_acc= new UserAccount(email,username, phoneNumber, username,null,acc);
 				UseraccountRepository.save(user_acc);
 			}
 			else if(userType.contentEquals("Support")) {

@@ -120,8 +120,8 @@ public class UserController {
 
 
 	@GetMapping("addNewUser")
-	public boolean AddToDb(@RequestParam String username, @RequestParam String email, @RequestParam String userType, @RequestParam String accountName) throws NoSuchAlgorithmException {
-		return userBL.addNewUser(username, email, userType, accountName);
+	public boolean AddToDb(@RequestParam String username, @RequestParam String email, @RequestParam String phoneNumber, @RequestParam String userType, @RequestParam String accountName) throws NoSuchAlgorithmException {
+		return userBL.addNewUser(username, email, phoneNumber, userType, accountName);
 	}
 	
 	@GetMapping("changeUserPassword")
