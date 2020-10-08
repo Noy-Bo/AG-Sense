@@ -62,7 +62,6 @@ public class CompanyAdapter<A extends User> extends ArrayAdapter<Account> implem
             imageView.setImageResource(R.drawable.healthy_accounts_icon);
 
         username.setText(account.getCompanyName());
-        accountName.setText("");
         LinearLayout linearLayout = layout.findViewById(R.id.account_item_shape);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
