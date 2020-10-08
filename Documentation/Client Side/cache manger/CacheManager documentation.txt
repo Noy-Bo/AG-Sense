@@ -1,0 +1,76 @@
+Cache Manager class
+
+**for any method\class that is mentioned here you can read JavaDocument on the source code.
+
+Description:
+
+	CacheManager is responsible for :
+		*server requests.
+		*storing data.
+		*retreiving data.
+		*asynchornious tasks.
+	- CacheManager is a singleton class.
+	- has an cacheManagerAPI - in which you can see the API for using the cache from data adapters.
+	- has an extension class CachemanagerHandlers(with only 1 static method).
+	
+	CacheManager is the last part of the Apllication model (see image "server request flow.png")
+	
+
+Description of class and functions and policies : 
+
+	TextDownloader:
+	a class with a static method to download data from url.
+	
+	URLConnectionMaker:
+	a class with a static method that gets an ServicesName(enum) that represent a specific server request, and translate it to our server's url request accordingly.
+
+	Tasks API:
+		in the cacheManagerAPI you can see all tasks available for the data adapters(previous layer in model). 
+		each task has a uniue handler, the task performs a server request and returns a callback to the its handler.
+
+	
+	GenericAsyncTask:
+		a class in CacheManager that extends AsyncTask, allows us to fill in generic info and a handler to notify when task is finished. 
+		the task flow:
+			1.creating URL to make network request(done via URLConnectionMaker class).
+			2.making the network request and downloading the data results from server (done by TextDownloader class.)
+			3.parsing that data according to the class handler's type.
+			4.creating entities \ lists \ object from parsed downloaded data and returning it in a callback to its handler.
+			
+	caching and updating policy:
+		all data is either kept in cache or retreived every time from server.
+		each data has its own policy of when to update \ request new data \ keep at cache.
+		the policy also changes from admin to user.
+		quick explanation about each data type and its policy:
+		*Devices
+			admin: data is kept at cache, updates only on refresh \ on big thread. 
+			user: data is kept at cache, updates only on refresh.
+		*Accounts - only admin,data is kept at cache, updates only on refresh.
+		*Device Data - both admin and account, data is not kept, requesting data from server.
+		*notification - both admin and account, data is kept at cache, updates only when new notification received.
+		
+	Refresh policy:
+		when the user refreshes activity and ask for new devices \ accounts(for admin) we make a specifc request and bind it with a timestamp. the timestamp is checked every time we request new data. and if the old's data timestamp did not exceed the limit(the limit is a param at CacheManager variables) we send data that is allready in cache, otherwise we make a server request requiring new data.
+		Setting the timestamp, or overriding it is protected by a synchroized function, to prevent race conditions over the stamp.
+	
+	Big Thread \ AdminPeriodicThread
+		in the CacheManager u'll find a runnable with a handler that is responsible for getting devices periodically, the variable for this period of time is set at the CacheManager variables.
+		the periodic thread has a handler that works with a looper and thread handler.\
+		the handler is started on Initialize all services.
+		its flow:
+			1. post the runnable on looper
+			2. when runnable finishes, it calls its handler (periodic handler in CacheManager) there it will call Thread.wait for a period and then set another runnable, himself, back on the loop.
+		this periodic thread only works when user is logged in as 'admin' and the app runs on foreground.
+		we detect running on foreground via AppCycleObserver(class), we sign activities such as admindashboard to this observer, the observer triggers an event each time this application goes to background\foreground. because every other admin activity is on top of admindashboard activity, we can 'capture' every other admin's activity via only subscribing admindashboard activity.
+	
+	How to add a new task to Cache Manager?
+		to add another method to cache ull need to follow this steps
+		1. add the signature on CacheManagerAPI
+		2. add a new handler for this job.
+		3. create serviceName(enum) to match the url you need to request from.
+		4. create the method in the cache, pass the handler and the parameters to request the server.
+			in the function create new GenericAsyncTask and pass it the handler and the parameters and execute it.
+		5. in CachemanagerHandlers add another if-else condition matching the handler you created, there handle the data received(parse \ create entities) and activate your callback on the handler you createt with the result.
+		
+	for further information checkout the java doc at the source code.
+	
