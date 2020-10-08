@@ -43,7 +43,6 @@ public class NewDevice extends BackBaseActivity {
         DeviceTypeSpinner = (Spinner) findViewById(R.id.DeviceTypeSpinner);
         DeviceTypeSpinner.setGravity(Gravity.RIGHT);
         List<String> DeviceSpinner_type = new ArrayList<>();
-        //DeviceSpinner_type.add(0, "Choose Type");
         DeviceSpinner_type.add("GpsForPersonal");
         DeviceSpinner_type.add("SensorForBanks");
         DeviceSpinner_type.add("lequidHeightForTanks");

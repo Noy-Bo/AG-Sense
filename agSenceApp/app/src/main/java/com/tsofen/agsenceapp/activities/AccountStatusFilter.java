@@ -99,7 +99,7 @@ public class AccountStatusFilter extends SearchBaseActivity implements Serializa
 
 
     public void createAccount(View view) {
-        Intent intent = new Intent(this, NewAccount.class);
+        Intent intent = new Intent(this, NewUser.class);
         startActivity(intent);
     }
 

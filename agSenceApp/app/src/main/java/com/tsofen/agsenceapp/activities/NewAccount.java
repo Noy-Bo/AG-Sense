@@ -15,16 +15,15 @@ import com.tsofen.agsenceapp.utils.AlertFlag;
 import com.tsofen.agsenceapp.utils.GeneralProgressBar;
 
 public class NewAccount extends BackBaseActivity {
-    GeneralProgressBar pb;
+    EditText accountName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_account);
-        GeneralProgressBar.displayProgressDialog(this, "loading...");
     }
 
     public void AddNewAccount(View view) {
-        EditText accountName = findViewById(R.id.new_account_name);
+        accountName = findViewById(R.id.new_account_name);
         String name = accountName.getText().toString();
         if (name.equals("")){
             showAlertBox(NewAccount.this, AlertFlag.FAILURE, "You must enter the account name");
@@ -35,7 +34,6 @@ public class NewAccount extends BackBaseActivity {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewAccount.this,AlertFlag.SUCCESS, "New account had been added successfully");
-                return;
             }
 
             @Override

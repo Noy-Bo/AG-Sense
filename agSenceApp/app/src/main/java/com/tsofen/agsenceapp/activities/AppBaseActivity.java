@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tsofen.agsenceapp.BackgroundServices.CacheManagerHandlers;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.entities.Admin;
@@ -36,8 +37,6 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_app_base);
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.open, R.string.close);
@@ -58,10 +57,12 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         View header = navigationView.getHeaderView(0);
         TextView usernameHeader = (TextView) header.findViewById(R.id.header_username);
         TextView userEmailHeader = (TextView) header.findViewById(R.id.header_user_email);
-        if (user.getEmail() != null)
-            userEmailHeader.setText(user.getEmail());
-        if (user.getUsername() != null)
-            usernameHeader.setText(user.getUsername());
+        if(user != null){
+            if (user.getEmail() != null)
+                userEmailHeader.setText(user.getEmail());
+            if (user.getUsername() != null)
+                usernameHeader.setText(user.getUsername());
+        }
     }
 
 
@@ -75,7 +76,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.nav_account_dashboard) {
             startActivity(new Intent(getApplicationContext(), AccountDashboardActivity.class));
         } else if (id == R.id.nav_accounts_status) {
-            Intent intent = new Intent(this, AccountStatusFilter.class);
+            Intent intent = new Intent(this, CompanyStatus.class);
             intent.putExtra("filter", "all");
             startActivity(intent);
         } else if (id == R.id.nav_account_devices_status) {

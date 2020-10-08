@@ -191,11 +191,6 @@ public class CacheManagerHandlers {
             ((NewDeviceAddedHandler) handler).onNewDeviceAddedFinished(result);
         }
 
-        else if (handler instanceof NewDeviceAddedHandler)
-        {
-            Boolean result = Boolean.valueOf(downloadedData);
-            ((NewDeviceAddedHandler) handler).onNewDeviceAddedFinished(result);
-        }
 
         else if (handler instanceof PasswordSetHandler)
         {
@@ -207,12 +202,6 @@ public class CacheManagerHandlers {
         {
             Boolean result = Boolean.valueOf(downloadedData);
             ((EditAccountHandler) handler).onAccountEditedFinished(result);
-        }
-
-        else if (handler instanceof EditDeviceHandler)
-        {
-            Boolean result = Boolean.valueOf(downloadedData);
-            ((EditDeviceHandler) handler).onDeviceEditedFinished(result);
         }
 
         else if (handler instanceof UserPasswordChangeHandler)

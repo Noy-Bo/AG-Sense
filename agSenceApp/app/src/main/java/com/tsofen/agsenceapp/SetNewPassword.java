@@ -15,9 +15,10 @@ import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
 public class SetNewPassword extends AppCompatActivity {
     protected EditText new_password, confirm_password;
     String code;
-protected String username;
-protected TextView waiting;
-protected ProgressBar newpasswordprogressbar;
+    protected String username;
+    protected TextView waiting;
+    protected ProgressBar newpasswordprogressbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,7 @@ protected ProgressBar newpasswordprogressbar;
         }
         if (!CheckPassword(new_password.getText().toString())) {
             new_password.setError("Password is weak");
-            type2= false;
+            type2 = false;
         }
         if (type1 && type2) {
             newpasswordprogressbar = findViewById(R.id.newpasswordprogressbar);
@@ -76,7 +77,7 @@ protected ProgressBar newpasswordprogressbar;
             waiting.setVisibility(View.VISIBLE);
             newpasswordprogressbar.setVisibility(View.VISIBLE);
 
-            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, code,new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
+            ForgetPasswordDataAdapter.getInstance().confirmUserPassword(username, code, new_password.getText().toString(), new ConfirmPasswordDataRequestHandler() {
                 @Override
                 public void onUserConfirmPasswordSuccess() {
 
@@ -86,7 +87,7 @@ protected ProgressBar newpasswordprogressbar;
 
                 @Override
                 public void onUserConfirmPasswordFailure() {
-                   // Toast.makeText(SetNewPassword.this, "Failed to Update the password", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(SetNewPassword.this, "Failed to Update the password", Toast.LENGTH_SHORT).show();
                 }
 
 

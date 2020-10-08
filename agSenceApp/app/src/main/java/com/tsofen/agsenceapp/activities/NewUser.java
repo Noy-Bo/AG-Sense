@@ -79,7 +79,7 @@ public class NewUser extends BackBaseActivity {
     public void addNewUser(View view) {
         boolean legal = true;
         String username = accountUsername.getText().toString(), phoneNumber = phoneNumberTxt.getText().toString();
-        String userType = (String) spin.getSelectedItem(), companyName = (String) accountCompanyName.getSelectedItem(), email = EmailEditText.getText().toString();
+        String userType = (String) spin.getSelectedItem(), companyName = ((AccountCompany) accountCompanyName.getSelectedItem()).getName(), email = EmailEditText.getText().toString();
         boolean receiveNotifications = false;
 
         if (!validateEmail(email)) {
@@ -97,17 +97,15 @@ public class NewUser extends BackBaseActivity {
             return;
         }
 
-        AddNewDataAdapter.getInstance().addNewUser(username, email, userType, companyName, new AddNewDataRequestHandler() {
+        AddNewDataAdapter.getInstance().addNewUser(username, email, userType, phoneNumber, companyName, new AddNewDataRequestHandler() {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewUser.this, AlertFlag.SUCCESS, "Added new user successfully");
-                return;
             }
 
             @Override
             public void onNewDataAddedFailure() {
                 showAlertBox(NewUser.this, AlertFlag.FAILURE, "Failed to add new user");
-                return;
             }
         });
     }

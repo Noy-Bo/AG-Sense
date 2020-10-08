@@ -204,10 +204,13 @@ public class CompanyStatus extends SearchBaseActivity implements Serializable {
                             updateList();
                         }
                         searchView.setAdapter(new CompanyAdapter<Account>(CompanyStatus.this, accounts));
+                        GeneralProgressBar.removeProgressDialog(pd);
                     }
                 });
 
             }
         });
     }
+
+
 }

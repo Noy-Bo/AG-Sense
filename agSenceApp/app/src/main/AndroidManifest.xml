@@ -73,11 +73,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.DeviceSetting"
-            android:label="Device Settings"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".activities.AccountStatusFilter"
             android:label="Accounts Status"
             android:screenOrientation="portrait"

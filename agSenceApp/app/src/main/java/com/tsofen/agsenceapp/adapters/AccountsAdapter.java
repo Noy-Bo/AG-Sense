@@ -57,7 +57,6 @@ public class AccountsAdapter<A extends User> extends ArrayAdapter<Account> imple
             imageView.setImageResource(R.drawable.healthy_accounts_icon);
 
         username.setText(account.getUsername());
-//        accountName.setText("");
         LinearLayout linearLayout = layout.findViewById(R.id.account_item_shape);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

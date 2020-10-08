@@ -106,22 +106,19 @@
                 android:text="@string/phone_number"
                 android:textColor="@color/dark_blue"
                 android:textSize="@dimen/small_text_size"
+                android:layout_weight="1"
                 android:layout_gravity="center"/>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" />
+
 
             <EditText
                 android:id="@+id/new_user_phone_number"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
                 android:layout_marginStart="75dp"
                 android:layout_marginEnd="5dp"
-                android:ems="16"
                 android:inputType="phone"
-                android:textSize="10sp"
                 android:background="@drawable/blue_shape_squares"/>
 
         </LinearLayout>
@@ -179,7 +176,9 @@
                 android:layout_marginStart="75dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/blue_shape_squares"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:spinnerMode="dialog"
+                app:hintText="Select account" />
 
         </LinearLayout>
 

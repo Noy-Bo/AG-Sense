@@ -30,8 +30,8 @@ public class AddNewDataAdapter extends BaseDataAdapter implements AddNewDataAdap
     }
 
     @Override
-    public void addNewUser(String username, String email, String userType, String accountName, final AddNewDataRequestHandler handler) {
-        cacheManager.addNewUserJob(username, email, userType, accountName, new NewUserAddedHandler() {
+    public void addNewUser(String username, String email, String userType, String phoneNumber, String accountName, final AddNewDataRequestHandler handler) {
+        cacheManager.addNewUserJob(username, email, userType,phoneNumber, accountName, new NewUserAddedHandler() {
             @Override
             public void onNewUserAddedFinished(Boolean finishedSuccessfully) {
                 if(finishedSuccessfully)

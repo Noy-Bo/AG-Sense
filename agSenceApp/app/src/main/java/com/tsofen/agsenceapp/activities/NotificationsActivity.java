@@ -122,9 +122,9 @@ public class NotificationsActivity extends SearchBaseActivity {
         } else if (obj instanceof Admin) {
             obj = ((Admin) obj);
             setTitle("Admin Notifications");
-            NotificationsDataAdapter.getInstance().getAllNotifications(0, 0, new NotificationsDataRequestHandler() {
+            NotificationsDataAdapter.getInstance().getNotificationsBySpecificAccount(((Admin) obj).getId(), 0, 0, new NotificationsDataRequestHandler() {
                 @Override
-                public void onNotificationsReceived(final List<Notification> notifications) {
+                public void onNotificationsReceived(List<Notification> notifications) {
                     (NotificationsActivity.this).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -138,8 +138,6 @@ public class NotificationsActivity extends SearchBaseActivity {
                             initialUpdateUI();
                         }
                     });
-
-
                 }
             });
 
