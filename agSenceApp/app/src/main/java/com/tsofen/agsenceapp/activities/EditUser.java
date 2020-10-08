@@ -84,7 +84,6 @@ public class EditUser extends BackBaseActivity {
             @Override
             public void onDataEditedSuccess() {
                 showAlertBox(EditUser.this, AlertFlag.SUCCESS, "Edited user details successfully");
-                clearView();
             }
 
             @Override
@@ -92,11 +91,5 @@ public class EditUser extends BackBaseActivity {
                 showAlertBox(EditUser.this, AlertFlag.FAILURE, "Failed to edit user details");
             }
         });
-    }
-
-    private void clearView() {
-        newPhoneTxt.setText("");
-        newEmailTxt.setText("");
-        userSpinner.setSelection(-1);
     }
 }

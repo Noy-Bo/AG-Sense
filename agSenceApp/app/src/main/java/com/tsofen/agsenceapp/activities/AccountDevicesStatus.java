@@ -203,7 +203,6 @@ public class AccountDevicesStatus extends SearchBaseActivity {
                         newPlace.setSnippet(device.getLastUpdate().toString());
                     }
                     userMap.addPlace(newPlace);
-                    //                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
                 }
             }
             Intent intent = new Intent(this, MapsActivity.class);

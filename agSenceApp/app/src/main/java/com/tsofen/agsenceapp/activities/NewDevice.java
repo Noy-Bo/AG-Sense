@@ -94,21 +94,12 @@ public class NewDevice extends BackBaseActivity {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewDevice.this, AlertFlag.SUCCESS, "Added new device successfully");
-                clearView();
             }
 
             @Override
             public void onNewDataAddedFailure() {
                 showAlertBox(NewDevice.this, AlertFlag.FAILURE, "Failed to add new device"); }
         });
-    }
-
-    private void clearView() {
-        deviceNameEdit.setText("");
-        DeviceTypeSpinner.setSelection(-1);
-        devicePasswordEdit.setText("");
-        devicePhoneNumberEdit.setText("");
-
     }
 }
 

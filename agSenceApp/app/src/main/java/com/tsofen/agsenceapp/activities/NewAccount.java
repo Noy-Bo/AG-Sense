@@ -34,7 +34,6 @@ public class NewAccount extends BackBaseActivity {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewAccount.this,AlertFlag.SUCCESS, "New account had been added successfully");
-                clearView();
             }
 
             @Override
@@ -43,9 +42,5 @@ public class NewAccount extends BackBaseActivity {
                 return;
             }
         });
-    }
-
-    private void clearView() {
-        accountName.setText("");
     }
 }

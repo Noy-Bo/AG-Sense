@@ -81,7 +81,6 @@ public class EditDevice extends BackBaseActivity {
             @Override
             public void onDataEditedSuccess() {
                 showAlertBox(EditDevice.this, AlertFlag.SUCCESS, "Edited device successfully");
-                clearView();
             }
 
             @Override
@@ -92,14 +91,6 @@ public class EditDevice extends BackBaseActivity {
         });
 
 
-    }
-
-    private void clearView() {
-        deviceNewPassword.setText("");
-        deviceNewName.setText("");
-        deviceNewPhoneNumberEdit.setText("");
-        deviceIEMISpinner.setSelection(-1);
-        deviceVerifyPassword.setText("");
     }
 
 }

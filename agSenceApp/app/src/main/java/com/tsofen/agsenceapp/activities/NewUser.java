@@ -97,11 +97,10 @@ public class NewUser extends BackBaseActivity {
             return;
         }
 
-        AddNewDataAdapter.getInstance().addNewUser(username, email, userType, companyName, new AddNewDataRequestHandler() {
+        AddNewDataAdapter.getInstance().addNewUser(username, email, userType, phoneNumber, companyName, new AddNewDataRequestHandler() {
             @Override
             public void onNewDataAddedSuccess() {
                 showAlertBox(NewUser.this, AlertFlag.SUCCESS, "Added new user successfully");
-                clearView();
             }
 
             @Override
@@ -109,15 +108,6 @@ public class NewUser extends BackBaseActivity {
                 showAlertBox(NewUser.this, AlertFlag.FAILURE, "Failed to add new user");
             }
         });
-    }
-
-    private void clearView() {
-        phoneNumberTxt.setText("");
-        accountCompanyName.setSelection(-1);
-        accountUsername.setText("");
-        EmailEditText.setText("");
-        spin.setSelection(-1);
-        accountCompanyName.setVisibility(View.INVISIBLE);
     }
 
 }

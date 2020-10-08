@@ -62,7 +62,6 @@ public class EditAccount extends BackBaseActivity {
             @Override
             public void onDataEditedSuccess() {
                 showAlertBox(EditAccount.this, AlertFlag.SUCCESS, "Edited account successfully");
-                clearView();
             }
 
             @Override
@@ -72,8 +71,4 @@ public class EditAccount extends BackBaseActivity {
         });
     }
 
-    private void clearView() {
-        prevNameTxt.setSelection(-1);
-        newNameTxt.setText("");
-    }
 }

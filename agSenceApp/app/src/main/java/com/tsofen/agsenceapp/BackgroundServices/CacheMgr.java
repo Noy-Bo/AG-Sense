@@ -545,13 +545,14 @@ public class CacheMgr implements CacheManagerAPI {
      * @param handler NewUserAddedHandler, look at class to see API.
      */
     @Override
-    public void addNewUserJob(String username, String emailAddress, String userType, String accountName, NewUserAddedHandler handler) {
+    public void addNewUserJob(String username, String emailAddress, String userType, String phoneNumber, String accountName, NewUserAddedHandler handler) {
 
         Map<String, String> params = new HashMap<>();
         params.put("accountName",accountName);
         params.put("username",username);
         params.put("userType",userType);
         params.put("email",emailAddress);
+        params.put("phoneNumber",phoneNumber);
         GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.AddToDb);
         asyncGeneric.execute();
 

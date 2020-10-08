@@ -100,33 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
                 searchView.setHint(R.string.search_device_hint);
                 String filterStr = getIntent().getStringExtra("filter");
-                if(filterStr.equals("healthy")) {
-                    DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
-                        @Override
-                        public void onDeviceDataLoaded(final List<Devices> devices) {
-                            MapsActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
-                                }
-                            });
-
-                        }
-                    });
-                }else if(filterStr.equals("faulty")) {
-                    DeviceDataAdapter.getInstance().getFaultyDevices(new DeviceDataRequestHandler() {
-                        @Override
-                        public void onDeviceDataLoaded(final List<Devices> devices) {
-                            MapsActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
-                                }
-                            });
-
-                        }
-                    });
-                }else{
+                if(filterStr == null){
                     DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
                         @Override
                         public void onDeviceDataLoaded(final List<Devices> devices) {
@@ -139,6 +113,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         }
                     });
+                }else {
+                    if (filterStr.equals("healthy")) {
+                        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
+                            @Override
+                            public void onDeviceDataLoaded(final List<Devices> devices) {
+                                MapsActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                    }
+                                });
+
+                            }
+                        });
+                    } else if (filterStr.equals("faulty")) {
+                        DeviceDataAdapter.getInstance().getFaultyDevices(new DeviceDataRequestHandler() {
+                            @Override
+                            public void onDeviceDataLoaded(final List<Devices> devices) {
+                                MapsActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                    }
+                                });
+
+                            }
+                        });
+                    } else {
+                        DeviceDataAdapter.getInstance().getAllDevices(0, 0, false, new DeviceDataRequestHandler() {
+                            @Override
+                            public void onDeviceDataLoaded(final List<Devices> devices) {
+                                MapsActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                    }
+                                });
+
+                            }
+                        });
+                    }
                 }
 
                 searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -265,7 +280,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void clearText(View view) {
 
         searchView.setText("");
-        
+
     }
 
     private void setUpClusterer() {
