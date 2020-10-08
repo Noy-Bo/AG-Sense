@@ -60,6 +60,7 @@ public class DeviceStatusList extends BackBaseActivity {
                             @Override
                             public void run() {
                                 ((DeviceDataListAdapter)lastMessagesListView.getAdapter()).notifyDataSetChanged();
+                                swipeRefreshLayout.setEnabled(false);
                             }
                         });
                     }
