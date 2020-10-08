@@ -23,6 +23,7 @@ import java.util.List;
 public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializable {
     LayoutInflater inflater;
     ArrayList<Devices> allDevices;
+    View layout;
 
     public DevicesAdapter(Context context, List<Devices> devices) {
         super(context, 0, devices);
@@ -38,7 +39,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
+        layout = this.inflater.inflate(R.layout.activity_device_status_shape, null);
 
         final Devices device = getItem(position);
         TextView name = layout.findViewById(R.id.device_item_name);
@@ -55,7 +56,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
         name.setText(device.getName());
         accountNname.setText(device.getAccountId().toString());
         devicetypeid.setText((device.getType()));
-        if (device.getFaultyTime() == null)
+        if (!device.getFaulty() || device.getFaultyTime() == null)
             faultytime.setText("");
         else
             faultytime.setText(String.valueOf(device.getFaultyTime()));
@@ -74,6 +75,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
 //                getContext().startActivity(intent);
 //            }
 //        });
+
         return layout;
     }
 
@@ -89,7 +91,7 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
                 for (Devices device : allDevices) {
-                    if (device.getName().toLowerCase().contains(filterPattern))
+                    if ((device.getName()!=null && device.getName().toLowerCase().contains(filterPattern)) || (device.getImei() != null && device.getImei().toString().contains((filterPattern))))
                         suggestions.add(device);
                 }
             }
@@ -110,5 +112,18 @@ public class DevicesAdapter<D> extends ArrayAdapter<Devices> implements Serializ
             return ((Devices) resultValue).getName();
         }
     };
+
+   /* public void setOnClickerListener(final Devices device)
+    {
+        LinearLayout linearLayout = layout.findViewById(R.id.device_item_test_shape);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), DeviceView.class);
+                intent.putExtra("device", device);
+                getContext().startActivity(intent);
+            }
+        });
+    }*/
 
 }

@@ -125,7 +125,7 @@ public class NotificationsController {
 		 
 		}
 	  
-	  @GetMapping("Readed")
+	  @GetMapping("Read")
 	  public int markNotificationAsRead (@RequestParam ArrayList<Integer> notificationIdList, @RequestParam ArrayList<Integer> accountIdList )
 		{
 			int count = 0;
@@ -149,7 +149,10 @@ public class NotificationsController {
 		  ArrayList<String> usersToNotify = new ArrayList<>();
 		  
 		  
-		  if(!device.isFaulty() ) device.setFaulty(true);
+		  if(!device.isFaulty() ) {
+			  device.setFaulty(true);
+			  device.setFaultyTime(new Timestamp(System.currentTimeMillis()));
+		  }
 
 		  if(!params.equals("null")) {
 

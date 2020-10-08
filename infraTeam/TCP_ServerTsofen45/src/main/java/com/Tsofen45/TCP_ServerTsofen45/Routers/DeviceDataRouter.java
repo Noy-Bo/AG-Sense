@@ -21,8 +21,5 @@ public class DeviceDataRouter {
 		deviceDataRepo.save(d);	
 	}
 
-	public void updateDevice(DeviceData d){
-		deviceRepository.updateDeviceInfo(d.getDateAndTime(), d.getLat(), d.getLon(),
-				true, d.getImei());
-	}
+
 }

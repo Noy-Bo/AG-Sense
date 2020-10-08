@@ -87,6 +87,7 @@ public class Account {
 		JSONObject jo = new JSONObject();
 
 		jo.put("name", this.name);
+		jo.put("id", this.Id);
 		jo.put("numberOfDevices", this.devices.size());
 		jo.put("faultyDevices", this.faultyDevices());
 		jo.put("faultyAccount", this.faultyAccount());

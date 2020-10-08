@@ -20,5 +20,12 @@ public interface UserRepository<T extends User>  extends CrudRepository<T, Integ
 			"where account_id = ?1 ;" )
 	List<User> getAllUsersForAccountID(int accountId);
 	
+	@Query(nativeQuery = true, value =
+			"select account_id " + 
+			"from public.users " + 
+			"where sys_id = ?1 ;" )
+	public int getAccountIDForUser(int Id);
+	
 
+	
 }

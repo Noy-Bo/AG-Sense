@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
-import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
@@ -44,8 +43,7 @@ public class BasicFireBaseMessagingService extends RemoteMessageHandler {
         }
         else if (AppBaseActivity.getUser() instanceof Account)
         {
-            cacheMgr.getNotificationRelatedToAccountJob(((Account) AppBaseActivity.getUser()).getAccountid(),
-                    0, 0, new AccountNotificationsHandler() {
+            cacheMgr.getNotificationRelatedToAccountJob(( AppBaseActivity.getUser().getId()), 0, 0, new AccountNotificationsHandler() {
                         @Override
                         public void onNotificationsRelatedToAccountDownloadFinished(List<Notification> notifications) {
                             cacheMgr.setNotifications(notifications);

@@ -1,57 +1,69 @@
 package com.tsofen.agsenceapp.utils;
 
 public class AdminDashboardInfo {
-    private Integer healthyAccounts;
-    private Integer faultyAccounts;
-    private Integer healthyDevices;
-    private Integer faultyDevices;
-    private Integer unreadNotifications;
+    private String unreadNotificationsNumber;
+    private String faultyDevicesNumber;
+    private String healtyAccountsNumber;
+    private String faultyAccountsNumber;
+    private String healtyDevicesNumber;
 
-    public AdminDashboardInfo(Integer healthyAccounts, Integer faultyAccounts, Integer healthyDevices, Integer faultyDevices, Integer unreadNotifications) {
-        this.healthyAccounts = healthyAccounts;
-        this.faultyAccounts = faultyAccounts;
-        this.healthyDevices = healthyDevices;
-        this.faultyDevices = faultyDevices;
-        this.unreadNotifications = unreadNotifications;
+    public AdminDashboardInfo(){ }
+    public AdminDashboardInfo(String unreadNotificationsNumber, String faultyDevicesNumber, String healtyAccountsNumber, String faultyAccountsNumber, String healtyDevicesNumber) {
+        this.unreadNotificationsNumber = unreadNotificationsNumber;
+        this.faultyDevicesNumber = faultyDevicesNumber;
+        this.healtyAccountsNumber = healtyAccountsNumber;
+        this.faultyAccountsNumber = faultyAccountsNumber;
+        this.healtyDevicesNumber = healtyDevicesNumber;
     }
 
-    public Integer getHealthyAccounts() {
-        return healthyAccounts;
+    public String getUnreadNotificationsNumber() {
+        return unreadNotificationsNumber;
     }
 
-    public void setHealthyAccounts(Integer healthyAccounts) {
-        this.healthyAccounts = healthyAccounts;
+    public void setUnreadNotificationsNumber(String unreadNotificationsNumber) {
+        this.unreadNotificationsNumber = unreadNotificationsNumber;
     }
 
-    public Integer getFaultyAccounts() {
-        return faultyAccounts;
+    public String getFaultyDevicesNumber() {
+        return faultyDevicesNumber;
     }
 
-    public void setFaultyAccounts(Integer faultyAccounts) {
-        this.faultyAccounts = faultyAccounts;
+    public void setFaultyDevicesNumber(String faultyDevicesNumber) {
+        this.faultyDevicesNumber = faultyDevicesNumber;
     }
 
-    public Integer getHealthyDevices() {
-        return healthyDevices;
+    public String getHealtyAccountsNumber() {
+        return healtyAccountsNumber;
     }
 
-    public void setHealthyDevices(Integer healthyDevices) {
-        this.healthyDevices = healthyDevices;
+    public void setHealtyAccountsNumber(String healtyAccountsNumber) {
+        this.healtyAccountsNumber = healtyAccountsNumber;
     }
 
-    public Integer getFaultyDevices() {
-        return faultyDevices;
+    public String getFaultyAccountsNumber() {
+        return faultyAccountsNumber;
     }
 
-    public void setFaultyDevices(Integer faultyDevices) {
-        this.faultyDevices = faultyDevices;
+    public void setFaultyAccountsNumber(String faultyAccountsNumber) {
+        this.faultyAccountsNumber = faultyAccountsNumber;
     }
 
-    public Integer getUnreadNotifications() {
-        return unreadNotifications;
+    public String getHealtyDevicesNumber() {
+        return healtyDevicesNumber;
     }
 
-    public void setUnreadNotifications(Integer unreadNotifications) {
-        this.unreadNotifications = unreadNotifications;
+    public void setHealtyDevicesNumber(String healtyDevicesNumber) {
+        this.healtyDevicesNumber = healtyDevicesNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "AdminDashboardInfo{" +
+                "unreadNotificationsNumber='" + unreadNotificationsNumber + '\'' +
+                ", faultyDevicesNumber='" + faultyDevicesNumber + '\'' +
+                ", healtyAccountsNumber='" + healtyAccountsNumber + '\'' +
+                ", faultyAccountsNumber='" + faultyAccountsNumber + '\'' +
+                ", healtyDevicesNumber='" + healtyDevicesNumber + '\'' +
+                '}';
     }
 }

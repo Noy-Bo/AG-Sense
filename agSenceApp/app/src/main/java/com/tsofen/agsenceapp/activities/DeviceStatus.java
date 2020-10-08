@@ -44,7 +44,7 @@ public class DeviceStatus extends SearchBaseActivity {
     View contentView;
     ListView devicesList;
     ProgressDialog pd;
-
+    CacheMgr cacheMgr = CacheMgr.getInstance();
 
 
     @Override
@@ -52,17 +52,19 @@ public class DeviceStatus extends SearchBaseActivity {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View contentView = inflater.inflate(R.layout.activity_device_status, null, false);
-        pd = GeneralProgressBar.displayProgressDialog(this,"loading devices...");
+        pd = GeneralProgressBar.displayProgressDialog(this, "loading devices...");
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                devicesArr.clear();
+                //devicesArr.clear(); // do not use this!. down below you take Devices from cache and assign it directly to this variable, therefore controlling cache from here. this is bad
+                // if u still need to use it. do not take direct refrence from cache!.
                 filteredDevices.clear();
+
                 ((ArrayAdapter)devicesList.getAdapter()).notifyDataSetChanged();
-                CacheMgr.getInstance().setDevices(new ArrayList<Devices>());
-                getAllDevicesFromCache();
+                getAllDevicesFromCache(true);
+
 
 
             }
@@ -70,7 +72,7 @@ public class DeviceStatus extends SearchBaseActivity {
         devicesList = contentView.findViewById(R.id.listOfDevices);
         searchView = (AutoCompleteTextView) contentView.findViewById(R.id.search_text_view);
         searchView.setHint(R.string.search_device_hint);
-        DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {
                 DeviceStatus.this.runOnUiThread(new Runnable() {
@@ -93,7 +95,7 @@ public class DeviceStatus extends SearchBaseActivity {
         });
 
 
-        getAllDevicesFromCache();
+        getAllDevicesFromCache(false);
 
         devicesList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -111,7 +113,7 @@ public class DeviceStatus extends SearchBaseActivity {
         devicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(swipeRefreshLayout.isRefreshing())
+                if (swipeRefreshLayout.isRefreshing())
                     return;
 
                 Intent intent = new Intent(getApplicationContext(), DeviceView.class);
@@ -166,24 +168,25 @@ public class DeviceStatus extends SearchBaseActivity {
     private void updatingUI() {
         filteredDevices = new ArrayList<>();
 
-        String filter = getIntent().getExtras().getString("filter");
+        String filter = getIntent().getStringExtra("filter");
         if (filter != null) {
-            if (filter.equals("faulty") ) {
+            if (filter.equals("faulty")) {
                 for (Devices device : devicesArr) {
-                    if (device.getFaulty() == true){
+                    if (device.getFaulty()) {
                         filteredDevices.add(device);
                     }
                 }
-            }else{
+            } else if (filter.equals("healthy")) {
                 for (Devices device : devicesArr) {
-                    if (device.getFaulty() == false){
+                    if (!device.getFaulty()) {
                         filteredDevices.add(device);
                     }
                 }
-            }
+            } else
+                filteredDevices.addAll(devicesArr);
 
         }
-        final ListAdapter myAdapter = new DevicesAdapter<Devices>(DeviceStatus.this,  filteredDevices);
+        final ListAdapter myAdapter = new DevicesAdapter<Devices>(DeviceStatus.this, filteredDevices);
         devicesList.setAdapter(myAdapter);
         GeneralProgressBar.removeProgressDialog(pd);
         swipeRefreshLayout.setRefreshing(false);
@@ -193,15 +196,18 @@ public class DeviceStatus extends SearchBaseActivity {
         if (filteredDevices == null || filteredDevices.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
-            for (Devices device :  filteredDevices) {
-                Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
-                if(device.getName()!=null) {
-                    newPlace.setTitle(device.getName());
+            userMap.getPlaces().clear();
+            for (Devices device : filteredDevices) {
+                if (device.getLatitude() != null && device.getLogitude() != null) {
+                    Place newPlace = new Place(Float.parseFloat(device.getLatitude()), Float.parseFloat(device.getLogitude()));
+                    if (device.getName() != null) {
+                        newPlace.setTitle(device.getName());
+                    }
+                    if (device.getLastUpdate() != null) {
+                        newPlace.setSnippet(device.getLastUpdate().toString());
+                    }
+                    userMap.addPlace(newPlace);
                 }
-                if(device.getLastUpdate()!=null) {
-                    newPlace.setSnippet(device.getLastUpdate().toString());
-                }
-                userMap.addPlace(newPlace);
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);
@@ -210,9 +216,12 @@ public class DeviceStatus extends SearchBaseActivity {
         }
     }
 
-    public void getAllDevicesFromCache()
+
+    public void getAllDevicesFromCache(boolean requestLatestData)
     {
-        DeviceDataAdapter.getInstance().getAllDevices(0, 0, new DeviceDataRequestHandler() {
+
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0,requestLatestData, new DeviceDataRequestHandler() {
+
             @Override
             public void onDeviceDataLoaded(final List<Devices> devices) {
                 DeviceStatus.this.runOnUiThread(new Runnable() {
@@ -226,5 +235,6 @@ public class DeviceStatus extends SearchBaseActivity {
 
             }
         });
+
     }
 }

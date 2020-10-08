@@ -1,0 +1,9 @@
+Refresh feature
+
+there is a refresh feature that was added to the application, whenever you are on a page 
+like notification or device view or whenever data is displayed to you you can pull down 
+from the top of the page and the page will refresh, when refreshed the app will request new
+data from the server, each request has a x- second timeout till we request the same request 
+again.
+
+this number can be changed in cache manger.

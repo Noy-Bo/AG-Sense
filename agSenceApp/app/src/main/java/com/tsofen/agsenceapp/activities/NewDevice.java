@@ -7,107 +7,100 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.tsofen.agsenceapp.R;
+import com.tsofen.agsenceapp.adaptersInterfaces.AddNewDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
-import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.dataAdapters.AddNewDataAdapter;
+import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
+import com.tsofen.agsenceapp.entities.AccountCompany;
+import com.tsofen.agsenceapp.utils.AlertFlag;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewDevice extends BackBaseActivity {
-EditText IEMIEdit,DevicePhoneNumberEdit,DevicePasswordEdit;
-    Spinner DeviceTypeSpinner,AccountNameSpinner;
-    final List<Account> _accounts = new ArrayList<>();
-    final List<String> _accountsnames = new ArrayList<>();
-/**/
+    EditText iemiEdit, devicePhoneNumberEdit, devicePasswordEdit, deviceNameEdit;
+    Spinner DeviceTypeSpinner, AccountNameSpinner;
+    final List<AccountCompany> _accountsnames = new ArrayList<>();
+
+    /**/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_device);
-//_accountsnames.add(0,"Choose Type");
-    UpdateAccounts();
-        assert _accounts != null;
-        AccountNameSpinner =  (Spinner) findViewById(R.id.AccountNameSpinner);
-        ArrayAdapter<String> dataAdapter;
+//      _accountsnames.add(0,"Choose Type");
+        UpdateAccountsName();
+        AccountNameSpinner = (Spinner) findViewById(R.id.AccountNameSpinner);
+        ArrayAdapter<AccountCompany> dataAdapter;
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, _accountsnames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AccountNameSpinner.setAdapter(dataAdapter);
-AccountNameSpinner.setGravity(Gravity.RIGHT);
+        AccountNameSpinner.setGravity(Gravity.RIGHT);
         /*UpdateAccount included
-        * these lines can be removed as it is Account name spinner, should be changed after we have the new API*/
-
+         * these lines can be removed as it is Account name spinner, should be changed after we have the new API*/
 
 
         DeviceTypeSpinner = (Spinner) findViewById(R.id.DeviceTypeSpinner);
         DeviceTypeSpinner.setGravity(Gravity.RIGHT);
         List<String> DeviceSpinner_type = new ArrayList<>();
         //DeviceSpinner_type.add(0, "Choose Type");
-        DeviceSpinner_type.add("Type 1");
-        DeviceSpinner_type.add("Type 2");
-        DeviceSpinner_type.add("Type 3");
+        DeviceSpinner_type.add("GpsForPersonal");
+        DeviceSpinner_type.add("SensorForBanks");
+        DeviceSpinner_type.add("lequidHeightForTanks");
         ArrayAdapter<String> DeviceSpinner_dataAdapter;
         DeviceSpinner_dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, DeviceSpinner_type);
         DeviceSpinner_dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         DeviceTypeSpinner.setAdapter(DeviceSpinner_dataAdapter);
-
-
     }
 
-    private void UpdateAccounts() {
-        AccountsDataAdapter.getInstance().getHealthyAccounts(new AccountsHandler() {
+    private void UpdateAccountsName() {
+        AccountsDataAdapter.getInstance().getAllCompaniesName(new CompaniesNameHandler() {
             @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                _accounts.addAll(accounts);
-                for(Account account : _accounts)
-                {
-                    _accountsnames.add(account.getUsername());
-                }
+            public void onCompaniesNameReady(List<AccountCompany> companiesName) {
+                _accountsnames.addAll(companiesName);
+
             }
         });
     }
 
-    public void UpdateDevice(View view) {
-        DevicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
-        DevicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
-        String Ragex = "^05\\d{8}";
-        if(!DevicePhoneNumberEdit.getText().toString().matches(Ragex))
-        {
-            DevicePhoneNumberEdit.setError("Invalid Phone number");
+    public void addNewDevice(View view) {
+        devicePasswordEdit = findViewById(R.id.DevicePasswordEdit);
+        devicePhoneNumberEdit = findViewById(R.id.DevicePhoneNumberEdit);
+        deviceNameEdit = findViewById(R.id.DeviceNameEdit);
+        iemiEdit = findViewById(R.id.IEMIEdit);
+
+        String iemiRegex = "[0-9]+";
+        boolean legal = true;
+        if (!validatePhoneNumber(devicePhoneNumberEdit.getText().toString())) {
+            devicePhoneNumberEdit.setError("Invalid Phone number");
+            legal = false;
         }
-        if(!CheckPassword(DevicePasswordEdit.getText().toString()))
-        {
-            DevicePasswordEdit.setError("Password is weak");
+        if (!iemiEdit.getText().toString().matches(iemiRegex)) {
+            iemiEdit.setError("Illegal IEMI");
+            legal = false;
         }
-
-    }
-
-    private boolean CheckPassword(String toString) {
-        boolean hasUpperCase = false;
-        boolean hasLowerCase = false;
-        boolean hasDigit = false;
-        if(DevicePasswordEdit.getText().toString().length() >= 8)
-        {
-            for(int i = 0; i<DevicePasswordEdit.getText().toString().length(); i++)
-            {
-                char temp = DevicePasswordEdit.getText().toString().charAt(i);
-                if(Character.isUpperCase(temp))
-                    hasUpperCase = true;
-                else if(Character.isLowerCase(temp))
-                    hasLowerCase = true;
-                else if(Character.isDigit(temp))
-                    hasDigit = true;
-
-                if(hasDigit && hasLowerCase && hasUpperCase)
-                {
-                    return true;
-                }
+        if (devicePasswordEdit.getText().toString().equals("") || DeviceTypeSpinner.getSelectedItem() == null || AccountNameSpinner.getSelectedItem() == null || deviceNameEdit.getText().toString().equals("")) {
+            showAlertBox(NewDevice.this, AlertFlag.FAILURE, "Some details are missing");
+            legal = false;
+        }
+        if (!legal)
+            return;
+        Long iemi = Long.parseLong(iemiEdit.getText().toString());
+        String accountName = (String) AccountNameSpinner.getSelectedItem();
+        String phoneNumber = devicePhoneNumberEdit.getText().toString();
+        String password = devicePasswordEdit.getText().toString();
+        String name = deviceNameEdit.getText().toString();
+        String type = (String) DeviceTypeSpinner.getSelectedItem().toString().replace(" ","");
+        AddNewDataAdapter.getInstance().addNewDevice(iemi, type,name, accountName, phoneNumber, password, new AddNewDataRequestHandler() {
+            @Override
+            public void onNewDataAddedSuccess() {
+                showAlertBox(NewDevice.this, AlertFlag.SUCCESS, "Added new device successfully");
             }
-        }
-        return false;
+
+            @Override
+            public void onNewDataAddedFailure() {
+                showAlertBox(NewDevice.this, AlertFlag.FAILURE, "Failed to add new device"); }
+        });
     }
 }
 

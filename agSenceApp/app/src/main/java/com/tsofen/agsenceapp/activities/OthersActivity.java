@@ -45,4 +45,9 @@ public class OthersActivity extends AppBaseActivity {
         Intent intent = new Intent(this,NewDevice.class);
         startActivity(intent);
     }
+
+    public void goToEditUser(View view) {
+        Intent intent = new Intent(this,EditUser.class);
+        startActivity(intent);
+    }
 }

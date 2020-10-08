@@ -1,0 +1,41 @@
+Adding new API for cache manger:
+1- in dataServices package create a new interface that extends from base handler
+	we implement a handler function inside it that receives the desired information.
+	for example if you want handler the receives  AraayList<notification>
+	its signature will be     void onNotificationsRelatedToDeviceDownloadFinished(List<Notification> notifications);
+	
+2-we go to CacheManagerAPI in the Utiles package and we add a new function the receives all the relevant information to the API
+	request and then the handler we created in dataServices
+	example:  void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, DeviceNotificationsHandler handler);
+	
+3- we go into CacheMgr in BAckgroundServices package and we need to implement the new function we specified in the CacheManagerAPI
+	we create a HashMap and put the relavent information to API there, we need to make sure that the variable we put in hashmap,
+	the keys match the same as the API request,
+	we create a new BaseAsyncTaske<?>  where the ? = type of data we want to receive.
+	example:         BaseAsyncTaske<Notification> runnableGeneric = new BaseRunnable<>(handler,params,ServicesName.getNotificationRelatedToDevice);
+	 inside BaseAsyncTaske in the doInBackground we need to add a specific case for the handler
+	 
+4- in adaptersInterfaces package we create a new handler interface for the adapters the receives object from server 
+	example:
+	public interface NotificationsDataRequestHandler {
+		void onNotificationsReceived(List<Notification> notifications);
+	}
+	we create a function for that interface
+
+
+5-  in the appropriator adapter we go into its API we add a new function the receives all API parameters and the handler we created in #4
+	we then go into handler and create the function we declared in #4
+	in that function we call cache manger  adn call the function we created in #3 and create an appropriator handler for when we receive data
+	example:
+	public void getAllNotifications(int start, int num, final NotificationsDataRequestHandler handler) {
+        cacheManager.getNotificationsJob(0, 0, new NotificationsHandler() {
+            @Override
+            public void onNotificationsDownloadFinished(List<Notification> notifications) {
+                handler.onNotificationsReceived(notifications);
+            }
+        });
+    }
+	this handler is used to call function declared in activity.
+	
+	
+6- now in activity we  get an instance of adapter and call the function in #5 and with paramerters and then we specify in handler what we want to do in handler

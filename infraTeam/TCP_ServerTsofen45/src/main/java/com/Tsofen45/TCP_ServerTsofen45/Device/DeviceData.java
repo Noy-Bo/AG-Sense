@@ -2,12 +2,9 @@ package com.Tsofen45.TCP_ServerTsofen45.Device;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-
 import javax.persistence.*;
 
-
-
-@Entity
+@Entity(name = "DevicesData")
 public class DeviceData {
     long ID;
     long imei;
@@ -15,9 +12,9 @@ public class DeviceData {
     String gpsValid;
     Timestamp dateAndTime;
     Time updateTime;
-    String lat;
+    double lat;
     String latIndicator;
-    String lon;
+    double lon;
     String lonIndicator;
     float speed;
     int orientation;
@@ -70,7 +67,84 @@ public class DeviceData {
     float distance;
     float analog1;
     float analog2;
-    public void setID(long iD) {
+    
+    
+    
+    //can make notifications
+    private boolean canExternalPowerOn=true;
+    private boolean canExternalPowerLow=true;
+    private boolean canInternalBatteryCharging=true;
+    private boolean canMoveAlertActive=true;
+    private boolean canOutOfGeo=true;
+    private boolean canPowerCut=true;
+    private boolean canSesmoActivated=true;
+    private boolean canSpeedAlert=true;
+    private boolean canSwitch1=true;
+    private boolean canSwitch2=true;
+    
+    
+    
+    public boolean isCanExternalPowerOn() {
+		return canExternalPowerOn;
+	}
+	public void setCanExternalPowerOn(boolean canExternalPowerOn) {
+		this.canExternalPowerOn = canExternalPowerOn;
+	}
+	public boolean isCanExternalPowerLow() {
+		return canExternalPowerLow;
+	}
+	public void setCanExternalPowerLow(boolean canExternalPowerLow) {
+		this.canExternalPowerLow = canExternalPowerLow;
+	}
+	public boolean isCanInternalBatteryCharging() {
+		return canInternalBatteryCharging;
+	}
+	public void setCanInternalBatteryCharging(boolean canInternalBatteryCharging) {
+		this.canInternalBatteryCharging = canInternalBatteryCharging;
+	}
+	public boolean isCanMoveAlertActive() {
+		return canMoveAlertActive;
+	}
+	public void setCanMoveAlertActive(boolean canMoveAlertActive) {
+		this.canMoveAlertActive = canMoveAlertActive;
+	}
+	public boolean isCanOutOfGeo() {
+		return canOutOfGeo;
+	}
+	public void setCanOutOfGeo(boolean canOutOfGeo) {
+		this.canOutOfGeo = canOutOfGeo;
+	}
+	public boolean isCanPowerCut() {
+		return canPowerCut;
+	}
+	public void setCanPowerCut(boolean canPowerCut) {
+		this.canPowerCut = canPowerCut;
+	}
+	public boolean isCanSesmoActivated() {
+		return canSesmoActivated;
+	}
+	public void setCanSesmoActivated(boolean canSesmoActivated) {
+		this.canSesmoActivated = canSesmoActivated;
+	}
+	public boolean isCanSpeedAlert() {
+		return canSpeedAlert;
+	}
+	public void setCanSpeedAlert(boolean canSpeedAlert) {
+		this.canSpeedAlert = canSpeedAlert;
+	}
+	public boolean isCanSwitch1() {
+		return canSwitch1;
+	}
+	public void setCanSwitch1(boolean canSwitch1) {
+		this.canSwitch1 = canSwitch1;
+	}
+	public boolean isCanSwitch2() {
+		return canSwitch2;
+	}
+	public void setCanSwitch2(boolean canSwitch2) {
+		this.canSwitch2 = canSwitch2;
+	}
+	public void setID(long iD) {
         ID = iD;
     }
     public void setImei(long imei) {
@@ -97,10 +171,10 @@ public class DeviceData {
     public void setUpdateTime(Time updateTime) {
         this.updateTime = updateTime;
     }
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
-    public void setLon(String lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
     public void setSpeed(float speed) {
@@ -279,7 +353,7 @@ public class DeviceData {
         return dateAndTime;
     }
     @Column
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
     @Column
@@ -287,7 +361,7 @@ public class DeviceData {
         return latIndicator;
     }
     @Column
-    public String getLon() {
+    public double getLon() {
         return lon;
     }
     @Column
@@ -565,6 +639,7 @@ public class DeviceData {
                 "\n, analog2=" + analog2 +
                 '}';
     }
+
     
     
 }

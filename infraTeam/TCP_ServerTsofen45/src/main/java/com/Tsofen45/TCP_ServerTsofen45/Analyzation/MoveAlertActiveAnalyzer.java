@@ -13,8 +13,11 @@ public class MoveAlertActiveAnalyzer extends Analyzer{
 	public void Analyze(DeviceData d) throws IOException {
 		// TODO Auto-generated method stub
 		if(d.isMoveAlertActive()) {
-			System.out.println("Entered move alert");
-			sendNotify(d.getImei()+"",9,json);
+			if(d.isMoveAlertActive()) {
+				System.out.println("Entered move alert");
+				sendNotify(d.getImei()+"",9,json);
+				d.setCanMoveAlertActive(false);
+			}
 
 		}
 	}

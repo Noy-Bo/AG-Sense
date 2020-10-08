@@ -6,555 +6,838 @@ import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.google.gson.GsonBuilder;
-
-
-import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.activities.AppBaseActivity;
 import com.tsofen.agsenceapp.dataServices.AccountDevicesHandler;
-import com.tsofen.agsenceapp.dataServices.BaseHandler;
 import com.tsofen.agsenceapp.dataServices.AccountNotificationsHandler;
-
 import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-
+import com.tsofen.agsenceapp.dataServices.AdminDashboardInfoHandler;
+import com.tsofen.agsenceapp.dataServices.BaseHandler;
+import com.tsofen.agsenceapp.dataServices.CompaniesNameHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceDataHandler;
 import com.tsofen.agsenceapp.dataServices.DeviceNotificationsHandler;
+import com.tsofen.agsenceapp.dataServices.DeviceSmsInfoHandler;
+import com.tsofen.agsenceapp.dataServices.DevicesHandler;
+import com.tsofen.agsenceapp.dataServices.EditAccountHandler;
+import com.tsofen.agsenceapp.dataServices.EditDeviceHandler;
+import com.tsofen.agsenceapp.dataServices.LoginHandler;
+import com.tsofen.agsenceapp.dataServices.MarkNotificationAsReadHandler;
+import com.tsofen.agsenceapp.dataServices.NewCompanyHandler;
+import com.tsofen.agsenceapp.dataServices.NewDeviceAddedHandler;
+import com.tsofen.agsenceapp.dataServices.NewUserAddedHandler;
 import com.tsofen.agsenceapp.dataServices.NotificationsHandler;
 import com.tsofen.agsenceapp.dataServices.OnDataReadyHandler;
-
-import com.tsofen.agsenceapp.dataServices.DevicesHandler;
-import com.tsofen.agsenceapp.dataServices.LoginHandler;
-
+import com.tsofen.agsenceapp.dataServices.PasswordSetHandler;
 import com.tsofen.agsenceapp.dataServices.ServicesName;
 import com.tsofen.agsenceapp.dataServices.TextDownloader;
 import com.tsofen.agsenceapp.dataServices.UrlConnectionMaker;
+import com.tsofen.agsenceapp.dataServices.UserDetailsForgetPasswordHandler;
+import com.tsofen.agsenceapp.dataServices.UserPasswordChangeHandler;
+import com.tsofen.agsenceapp.dataServices.VerificationCodeCheckHandler;
+import com.tsofen.agsenceapp.dataServices.VerificationCodeSentHandler;
 import com.tsofen.agsenceapp.entities.Account;
+import com.tsofen.agsenceapp.entities.Devices;
 import com.tsofen.agsenceapp.entities.Notification;
 
-import com.tsofen.agsenceapp.entities.Admin;
-import com.tsofen.agsenceapp.entities.DeviceData;
-import com.tsofen.agsenceapp.entities.Devices;
-import com.tsofen.agsenceapp.entities.User;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 public class CacheMgr implements CacheManagerAPI {
 
     private static CacheMgr cacheMgr=null;
     private List<Notification> notifications;
-    private List<Account> accounts = new ArrayList<Account>();
-    private List<Devices> devices = new ArrayList<Devices>();
+    private List<Account> accounts;
+    private List<Devices> devices;
 
-    private final static int waitInterval = 60000;
+    /**
+     * this waitInterval sets the interval time to request new devices data from server.
+     * every waitInterval/1000 we will make a background request for new devices.
+     * for further info read Periodic Admin
+     */
+    private final static int getDevicesPeriodicWaitInterval = 60000; // millis.
+
+    /**
+     * this is part of the periodicThread mechanism. do not change.
+     * for more info look at handlerForRepeatedGetDevicesJob.
+     */
     private boolean stopGetDevicesPeriodic = false;
+
+    /**
+     * minimum interval time for requesting new devices. - if our devices timestamp is older then this parameter, we will request new data.
+     * otherwise we will deny the request and return current data.
+     */
+    private  int intervalBetweenServerRequestsForDevices = 5000; // millis.
+
+    /**
+     * minimum interval time for requesting new accounts. - if our accounts timestamp is older then this parameter, we will request new data.
+     * otherwise we will deny the request and return current data.
+     */
+    private  int intervalBetweenServerRequestsForAccounts = 5000; // millis.
+
+    private Timestamp devicesTimeStamp;
+    private Timestamp accountsTimeStamp ;
+
+    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
+    private Handler threadHandlerForGetDevicesPeriodic;
+
+
+
+    private TextDownloader downloader = TextDownloader.getInstance();
+
+    // ==================================================================================
+    // --------------------------- CTOR, Getters / Setters ------------------------------
+    // ==================================================================================
 
 
     private CacheMgr() {
-        initializeAllServices();
-        notifications = new ArrayList<>();
+        initializeAllServicesAndParameters();
+        devices = new ArrayList<>();
         accounts = new ArrayList<>();
         notifications = new ArrayList<>();
     }
 
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-    }
-    public void setStopGetDevicesPeriodic(boolean stopGetDevicesPeriodic) {
-        this.stopGetDevicesPeriodic = stopGetDevicesPeriodic;
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
-    public List<Devices> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(List<Devices> devices) {
-        this.devices = devices;
-    }
-
+    /**
+     * synchronized getInstance, singleton class.
+     * @return returns the singleton CacheManager class
+     */
     public static CacheMgr getInstance() {
         if (cacheMgr == null)
-            cacheMgr = new CacheMgr(); // TODO - add synchronized.
-
+        {
+            synchronized (CacheMgr.class)
+            {
+                if (cacheMgr == null)
+                {
+                    cacheMgr = new CacheMgr();
+                }
+            }
+        }
         return cacheMgr;
     }
+
+    //getters \ setters
+
+    public List<Notification> getNotifications() { return notifications; }
+    public  void setNotifications(List<Notification> notifications) { this.notifications = notifications; }// public setter for firebase notification onReceive
+    public void setStopGetDevicesPeriodic(boolean stopGetDevicesPeriodic) { this.stopGetDevicesPeriodic = stopGetDevicesPeriodic; }
+    public List<Account> getAccounts() { return accounts; }
+    public void setAccounts(List<Account> accounts) { this.accounts = accounts; }
+    public List<Devices> getDevices() { return devices; }
+    public void setDevices(List<Devices> devices) { this.devices = devices; }
+
     // periodic GetDevices configs
 
+    public HandlerThread getHandlerThreadForGetDevicesPeriodic(){ return handlerThreadForGetDevicesPeriodic; }
+    public Handler getThreadHandlerForGetDevicesPeriodic() { return threadHandlerForGetDevicesPeriodic; }
 
 
-    private HandlerThread handlerThreadForGetDevicesPeriodic = new HandlerThread("serverPeriodicJobHandler");
-    private HandlerThread handlerThreadLogin = new HandlerThread("handlerThreadLogin");
-
-
-    private Handler threadHandlerForLogin;
-    private Handler threadHandlerForGetDevicesPeriodic;
-    private TextDownloader downloader = TextDownloader.getInstance();
-
-    public HandlerThread getHandlerThreadForGetDevicesPeriodic(){
-        return handlerThreadForGetDevicesPeriodic;
-    }
-    public Handler getThreadHandlerForGetDevicesPeriodic() {
-        return threadHandlerForGetDevicesPeriodic;
-    }
-
-    private void initializeAllServices() // remove public
+    /**
+     * this function initialises:
+     * looper and handler for periodic thread.
+     * setting timestamps to: current timestamp - matching interval.
+     */
+    private void initializeAllServicesAndParameters()
     {
 
         //initializing the handlers
         handlerThreadForGetDevicesPeriodic.start();
         threadHandlerForGetDevicesPeriodic = new Handler(handlerThreadForGetDevicesPeriodic.getLooper());
 
-        handlerThreadLogin.start();
-        threadHandlerForLogin = new Handler(handlerThreadLogin.getLooper());
+        devicesTimeStamp = new Timestamp(System.currentTimeMillis());
+        devicesTimeStamp.setTime(System.currentTimeMillis() - intervalBetweenServerRequestsForDevices);
 
+        accountsTimeStamp = new Timestamp(System.currentTimeMillis());
+        accountsTimeStamp.setTime(System.currentTimeMillis() - intervalBetweenServerRequestsForAccounts);
 
     }
 
-    // repeated job.
+    // ==================================================================================
+    // --------------------------- Admin's Periodic GetDevices --------------------------
+    // ==================================================================================
 
+    /**
+     * this class is the runnable class that runs on the PeriodicTask.
+     * the flow is similar to the "GenericAsyncServerRequest"
+     * this is the runnable that responsible for requesting the server for devices periodicaly once every  getDevicesPeriodicWaitInterval(variable),
+     *  parsing it, and invoking the handlerForRepeatedGetDevicesJob.
+     * u must create this class according to its CTOR, it receives handler, hashmap with params to create URL and enum ServiceName.
+     * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+     * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, the data is then parsed and a devices array is made
+     * the array is then  set to be the new Devices Array of the cache.
+     */
+    private class AdminGetDevicesPeriodicRunnable implements Runnable {
+
+        private BaseHandler handler;
+        Map<String, String> params;
+        ServicesName serviceName;
+
+        public AdminGetDevicesPeriodicRunnable(BaseHandler handler, Map<String, String> params,ServicesName serviceName) {
+            this.serviceName = serviceName;
+            this.handler = handler;
+            this.params = params;
+        }
+
+
+        /**
+         * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+         * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, the data is then parsed and a devices array is made
+         * the array is then  set to be the new Devices Array of the cache.
+         */
+        @Override
+        public void run() {
+
+            if (isServerRequestDevices(devicesTimeStamp))
+            {
+                //creating the URL via UrlConnectionMaker class
+                UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+
+                //downloading text via TextDownloader class
+                TextDownloader.getInstance().getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
+                    @Override
+                    public void onDataDownloadCompleted(String downloadedData) {
+                        Log.d("AdminPeriodic", "onDataDownloadCompleted");
+                        // JSON Parser
+
+                        List retrievedEntitiesList = new ArrayList<>();
+
+                        if (handler instanceof DevicesHandler) {
+                            retrievedEntitiesList = CacheManagerHandlers.parseToJsonArray(downloadedData, new Devices());
+                            ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
+                        }
+                    }
+
+                    @Override
+                    public void onDownloadError() {
+                        Log.d("AdminPeriodic", "onDownloadError");
+                    }
+                });
+            }
+            else
+            {
+                ((DevicesHandler) handler).onDevicesDownloadFinished(CacheMgr.getInstance().getDevices());
+            }
+        }
+    }
+
+    /**
+     * this is part of the PeriodicTask. this handler is set to be the handler of the runnable.
+     * this handler waits the getDevicesPeriodicWaitInterval after finishing the task. and then posts
+     * a new runnable of the same kind. using this handler achieves the periodic task.
+     */
     private DevicesHandler handlerForRepeatedGetDevicesJob  = new DevicesHandler() {
         @Override
         public void onDevicesDownloadFinished(List<Devices> devices) {
             Log.d("repeated","repeated task completed onDevicesDownloadFinished");
             setDevices(devices);
-            SystemClock.sleep(waitInterval); // 60
+            SystemClock.sleep(getDevicesPeriodicWaitInterval);
             cacheMgr.getThreadHandlerForGetDevicesPeriodic().post(cacheMgr.GetDevicesPeriodic);
 
-            if (stopGetDevicesPeriodic == true) // this need to be fixed and changed to RemoveCallBacks via handler.
+            if (stopGetDevicesPeriodic == true)
             {
                 cacheMgr.getThreadHandlerForGetDevicesPeriodic().removeCallbacksAndMessages(null);
                 stopGetDevicesPeriodic = false;
             }
         }
     };
-
-
-    private  BaseRunnable<Devices> GetDevicesPeriodic = new BaseRunnable<Devices>(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
+    private  AdminGetDevicesPeriodicRunnable GetDevicesPeriodic = new AdminGetDevicesPeriodicRunnable(handlerForRepeatedGetDevicesJob,new HashMap<String,String>(),ServicesName.getAllDevices);
 
     public Runnable getGetDevicesPeriodicRunnable() {
         return this.GetDevicesPeriodic;
     }
 
-    // handlers and loopers.
 
-    private class LoginJobRunnable implements Runnable {
-        private String username;
-        private String password;
-        private LoginHandler handler;
+    // ==================================================================================
+    // ---------------------------- Main Generic Async Task. ----------------------------
+    // ==================================================================================
 
-        public LoginJobRunnable(String username, String password, LoginHandler handler) {
-            this.username = username;
-            this.password = password;
-            this.handler = handler;
-        }
-
-        @Override
-        public void run() {
-
-
-            //URL Connection.
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
-            Map<String, String> params = new HashMap<>();
-            params.put("username",this.username);
-            params.put("password",this.password);
-
-
-            downloader.getText(urlConnectionMaker.createUrl(ServicesName.Login,params), new OnDataReadyHandler() {
-                @Override
-                public void onDataDownloadCompleted(String downloadedData) {
-                    try {
-
-                        //parsing json
-                        JSONObject userJSON = new JSONObject(downloadedData);
-                        User user;
-                        //{"accountid":8,"id":9,"type":"account","email":"ibra123@gmail.com","username":"ibra"}
-
-                        if(userJSON.getString("type").equals("account"))
-                        {
-                            user = new Account(userJSON.getInt("id"), userJSON.getString("username")   , userJSON.getString("email"),false, userJSON.getInt("accountid"));
-                        }
-                        else {
-                            user = new Admin(userJSON.getInt("id"), userJSON.getString("username"), userJSON.getString("email"));
-                        }
-                        handler.onLoginSuccess(user);
-                    }
-                    catch (Exception e)
-                    {
-                        handler.onLoginFailure();
-                    }
-                }
-
-                @Override
-                public void onDownloadError() {
-                    handler.onLoginFailure();
-                }
-            });
-        }
-    }
-
-    private class BaseAsyncTask<E> extends AsyncTask<Void, Void, Void>
+    /**
+     * this is the AyncTask that responsible for requesting the server for data, parsing it, and invoking handlers callback with the requested data.
+     * u must create this class according to its CTOR, it receives handler, hashmap with params to create URL and enum ServiceName.
+     * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+     * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, from we send the downloadedData to CacheManagerHandlers
+     * there we detect the handler type, and parse the data accordingly, and invoke the handler's callback with the requested data.
+     * @param <E> currently not used.
+     */
+    private class GenericAsyncServerRequest<E> extends AsyncTask<Void, Void, Void>
     {
         private BaseHandler handler;
         Map<String, String> params;
         ServicesName serviceName;
 
-        public BaseAsyncTask(BaseHandler handler, Map<String, String> params, ServicesName serviceName) {
+        public GenericAsyncServerRequest(BaseHandler handler, Map<String, String> params, ServicesName serviceName) {
             this.handler = handler;
             this.params = params;
             this.serviceName = serviceName;
         }
 
 
-
+        /**
+         * via UrlConnectionMaker class, we crate the URL, send it to the TextDownloader class, to make the network request and download the data.
+         * when the TextDownloader finishes it invokes a callback that signals that data is downloaded, from we send the downloadedData to CacheManagerHandlers
+         * there we detect the handler type, and parse the data accordingly, and invoke the handler's callback with the requested data.
+         * @param voids we use class parameters here.
+         * @return no ret val.
+         */
         @Override
         protected Void doInBackground(Void... voids) {
+            //creating the URL via UrlConnectionMaker class
             UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker();
+
+            //downloading text via TextDownloader class
             downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
-                //downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
                 @Override
                 public void onDataDownloadCompleted(String downloadedData) {
                     Log.d("generics","onDataDownloadCompleted");
-                    // JSON Parser
 
-
-                    List<E> retrievedEntitiesList = new ArrayList<>();
-
-                    if (handler instanceof DevicesHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        setDevices((List<Devices>)retrievedEntitiesList);
-                        ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountDevicesHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        if (AppBaseActivity.getUser() instanceof Account)
-                        {
-                            setDevices((List<Devices>)retrievedEntitiesList);
-                        }
-                        ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
-
-                    }
-                    else if(handler instanceof DeviceDataHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
-
-                        ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
-                    }
-                    else if(handler instanceof AccountsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
-                        setAccounts((List<Account>)retrievedEntitiesList);
-                        ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof DeviceNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof NotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
+                    //sending downloaded data to parse and finish.
+                    CacheManagerHandlers.parseDataAndSendCallback(downloadedData,handler);
 
                 }
 
                 @Override
                 public void onDownloadError() {
-
+                    if (handler instanceof LoginHandler)
+                    {
+                        ((LoginHandler)handler).onLoginFailure();
+                    }
                 }
             });
 
             return null;
         }
     }
-    // general runnable generic class.
-     private class BaseRunnable<E>  implements Runnable {
-        private BaseHandler handler;
-        Map<String, String> params;
-        ServicesName serviceName;
-
-        public BaseRunnable(BaseHandler handler, Map<String, String> params,ServicesName serviceName) {
-            this.serviceName = serviceName;
-            this.handler = handler;
-            this.params = params;
-        }
-
-        @Override
-        public void run() {
-            UrlConnectionMaker urlConnectionMaker = new UrlConnectionMaker(); //TODO static
-            downloader.getText(urlConnectionMaker.createUrl(serviceName, this.params), new OnDataReadyHandler() {
-            //downloader.getText("http://206.72.198.59:8080/ServerTsofen45//Device/SpicificDeviceByFilter?id=5&healthy=1&faulty=1&bank=1&gps=1&tank=1&start=0&num=500", new OnDataReadyHandler() {
-                @Override
-                public void onDataDownloadCompleted(String downloadedData) {
-                    Log.d("generics","onDataDownloadCompleted");
-                    // JSON Parser
 
 
-                    List<E> retrievedEntitiesList = new ArrayList<>();
+    // ==================================================================================
+    // ----------------------- Jobs API for Data Adapters -------------------------------
+    // ==================================================================================
 
-                    if (handler instanceof DevicesHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        ((DevicesHandler) handler).onDevicesDownloadFinished((List<Devices>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountDevicesHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Devices());
-                        ((AccountDevicesHandler) handler).onDevicesRelatedToAccountDownloadFinished((List<Devices>) retrievedEntitiesList);
-                    }
-                    else if(handler instanceof DeviceDataHandler)
-                    {
-
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new DeviceData());
-
-                        ((DeviceDataHandler)handler).onDeviceDataRelatedToDeviceDownloadFinished((List<DeviceData>) retrievedEntitiesList);
-                    }
-                    else if(handler instanceof AccountsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Account());
-                        ((AccountsHandler)handler).onAccountsDownloadFinished((List<Account>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof AccountNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((AccountNotificationsHandler)handler).onNotificationsRelatedToAccountDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof DeviceNotificationsHandler)
-                    {
-                        retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((DeviceNotificationsHandler)handler).onNotificationsRelatedToDeviceDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-                    else if (handler instanceof NotificationsHandler)
-                    {
-                      retrievedEntitiesList = parseToJsonArray(downloadedData, new Notification());
-                        ((NotificationsHandler)handler).onNotificationsDownloadFinished((List<Notification>) retrievedEntitiesList);
-                    }
-
-                }
-
-                @Override
-                public void onDownloadError() {
-
-                }
-            });
-        }
-    }
+    /* this section is the api we reveal to the data adapters layer. each method is constructed for a specific task. */
+    /* every task has the same core flow logic - creating hashmap of params for URLConnection. and creating asyncTask for specific task. */
 
 
-    public void onNotificationRecieved()
-    {
-       //on notification recieved we want ot update all data.
-
-        Log.d("notification","notification recieved, on onNotificationRecieved");
-
-        getDevicesJob(0, 0, new DevicesHandler() {
-            @Override
-            public void onDevicesDownloadFinished(List<Devices> devices) {
-                setDevices(devices);
-            }
-        });
-
-        getAccountsJob(0, 0, new AccountsHandler() {
-            @Override
-            public void onAccountsDownloadFinished(List<Account> accounts) {
-                setAccounts(accounts);
-            }
-        });
-
-        getNotificationsJob(0, 0, new NotificationsHandler() {
-            @Override
-            public void onNotificationsDownloadFinished(List<Notification> notifications) {
-                setNotifications(notifications);
-            }
-        });
-
-
-
-    }
-
-
-    // API -
-
+    /**
+     * this task is a server request for login authentication.
+     * @param username username.
+     * @param password password.
+     * @param handler LoginHandler, look at class to see its api.
+     */
     @Override
     public void loginJob(final String username, final String password, final LoginHandler handler) {
-        LoginJobRunnable runnable = new LoginJobRunnable(username,password,handler);
-        threadHandlerForLogin.post(runnable); // TODO test this one.
 
-
-    }
-
-    @Override
-    public void getAccountsJob(int start, int num, AccountsHandler handler) {
-        if (getAccounts().size() == 0)
-        {
-            Map<String, String> params = new HashMap<>();
-            params.put("num", Integer.toString(num));
-            params.put("start", Integer.toString(start));
-            BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllAccounts);
-            asyncGeneric.execute();
-
-        }
-        else
-        {
-            handler.onAccountsDownloadFinished(getAccounts());
-        }
-    }
-    @Override
-    public void getDevicesJob(int start, int num, DevicesHandler handler) {
-
-       /*GetDevicesJobRunnable runnable =  new GetDevicesJobRunnable(0,0,handler);
-        runnable.run();
-        */
-       if (getDevices().size() == 0) {
-           Map<String, String> params = new HashMap<>();
-           //       params.put("num",Integer.toString(num));
-           //       params.put("start",Integer.toString(start));
-           BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getAllDevices);
-           asyncGeneric.execute();
-       }
-       else
-       {
-           handler.onDevicesDownloadFinished(getDevices());
-       }
-
-    }
-
-    @Override
-    public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
         Map<String, String> params = new HashMap<>();
-        params.put("num",Integer.toString(num));
-        params.put("start",Integer.toString(start));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getNotifications);
+        params.put("username",username);
+        params.put("password",password);
+        GenericAsyncServerRequest<String> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.Login);
         asyncGeneric.execute();
     }
 
     @Override
-    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler)
-    {
-        if (AppBaseActivity.getUser() instanceof Admin)
+    public void getAccountsJob(int start, int num, AccountsHandler handler) {
+        Log.d("testing stamps","on getAccountsJob");
+        if (getAccounts().size() == 0)
         {
+            Log.d("testing stamps","getting accounts from server");
+            newTimeStamp(accountsTimeStamp);
             Map<String, String> params = new HashMap<>();
-            params.put("id", Integer.toString(accountId));
             params.put("num", Integer.toString(num));
             params.put("start", Integer.toString(start));
-            BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getAllAccounts);
             asyncGeneric.execute();
+            return;
+
         }
-        else if (AppBaseActivity.getUser() instanceof Account)
+        Log.d("testing stamps","getting accounts from cache");
+            handler.onAccountsDownloadFinished(getAccounts());
+
+    }
+
+    /**
+     * this function checks if the current timestamp is old, if so it requests data from server
+     * if the timestamp is ok, we go to getAccounts and fetch accounts from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler AccountsHandler, look at the class for API
+     */
+    @Override
+    public void getLatestAccountsJob(int start, int num, AccountsHandler handler) {
+        Log.d("testing stamps","on getLatestAccountsJob");
+        if (isServerRequestAccounts(accountsTimeStamp))
         {
-            if  ( getDevices().size() == 0)
-            {
-                Map<String, String> params = new HashMap<>();
-                params.put("id", Integer.toString(accountId));
-                params.put("num", Integer.toString(num));
-                params.put("start", Integer.toString(start));
-                BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler, params, ServicesName.getDeviceRelatedToAccount);
-                asyncGeneric.execute();
-            }
-            else
-            {
-                handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
-            }
+            Log.d("testing stamps","getting accounts from server");
+            Map<String, String> params = new HashMap<>();
+            params.put("num", Integer.toString(num));
+            params.put("start", Integer.toString(start));
+            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getAllAccounts);
+            asyncGeneric.execute();
+            return;
+
         }
+        Log.d("testing stamps","on latest accounts going to getAccounts");
+        getAccountsJob(start,num,handler);
+
+    }
+
+    /**
+     * this function checks if devices in cache is empty, if so it requests server for devices,
+     * if devices not empty we return devices from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler DevicesHandler look at the class for API.
+     */
+    @Override
+    public void getDevicesJob(int start, int num, DevicesHandler handler) {
+        Log.d("testing stamps","on getDevicesJob");
+        if (getDevices().size() == 0)
+        {
+            Log.d("testing stamps","getting devices from server");
+            newTimeStamp(devicesTimeStamp);
+            Map<String, String> params = new HashMap<>();
+
+            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getAllDevices);
+            asyncGeneric.execute();
+            return;
+        }
+        Log.d("testing stamps","getting devices from cache");
+        handler.onDevicesDownloadFinished(getDevices());
 
 
     }
 
+    /**
+     * this function checks if the current timestamp is old, if so it requests data from server
+     * if the timestamp is ok, we go to getDevices and fetch devices from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler DevicesHandler, look at the class for API
+     */
+    @Override
+    public void getLatestDevicesJob(int start, int num, DevicesHandler handler) {
+        Log.d("testing stamps","on getLatestDevicesJob");
+        if (isServerRequestDevices(devicesTimeStamp))
+        {
+            Log.d("testing stamps","getting devices from server");
+            Map<String, String> params = new HashMap<>();
+            //params.put("num",Integer.toString(num));
+            //params.put("start",Integer.toString(start));
+            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getAllDevices);
+            asyncGeneric.execute();
+            return;
+        }
+        Log.d("testing stamps","on latest going to getdevices");
+        getDevicesJob(start,num,handler);
+
+
+    }
+
+    /**
+     * this function checks if notifications in cache is empty, if so it requests server for notifications,
+     * if devices not empty we return Notifications from cache.
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler NotificationsHandler look at the class for API.
+     */
+    @Override
+    public void getNotificationsJob(int start, int num, NotificationsHandler handler) {
+        if (getNotifications().size() == 0)
+        {
+            Map<String, String> params = new HashMap<>();
+            params.put("num", Integer.toString(num));
+            params.put("start", Integer.toString(start));
+            GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getNotifications);
+            asyncGeneric.execute();
+            return;
+        }
+        handler.onNotificationsDownloadFinished(getNotifications());
+
+    }
+
+    /**
+     * making server request for devices related to specific account
+     * @param accountId account id
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler AccountDevicesHandler look at the class for API
+     */
+    @Override
+    public void getDevicesRelatedToAccountJob(int accountId, int start, int num, AccountDevicesHandler handler) {
+        Log.d("testing stamps","on latest going to getDevicesRelatedToAccountJob");
+
+        if (AppBaseActivity.getUser() instanceof Account)
+        {
+            if  ( getDevices().size() == 0)
+            {
+                newTimeStamp(accountsTimeStamp);
+            }
+            else if (isServerRequestAccounts(accountsTimeStamp) == false)
+            {
+                handler.onDevicesRelatedToAccountDownloadFinished(getDevices());
+                return;
+            }
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("id", Integer.toString(accountId));
+        params.put("num", Integer.toString(num));
+        params.put("start", Integer.toString(start));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler, params, ServicesName.getDeviceRelatedToAccount);
+        asyncGeneric.execute();
+
+
+    }
+
+    /**
+     * making server request for notifications related to specific device
+     * @param deviceId device id
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler DeviceNotificationsHandler look at the class for API
+     */
     @Override
     public void getNotificationRelatedToDeviceJob(int deviceId, int start, int num, DeviceNotificationsHandler handler) {
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
         params.put("num",Integer.toString(num));
         params.put("start",Integer.toString(start));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getNotificationRelatedToDevice);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getNotificationRelatedToDevice);
         asyncGeneric.execute();
     }
 
+    /**
+     * making server request for notifications related to specific account
+     * @param accountId account id
+     * @param start send 0 for all
+     * @param num send 0 for all
+     * @param handler AccountNotificationsHandler look at the class for API
+     */
     @Override
     public void getNotificationRelatedToAccountJob(int accountId, int start, int num, AccountNotificationsHandler handler) {
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(accountId));
         params.put("num",Integer.toString(num));
         params.put("start",Integer.toString(start));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getNotificationsRelatedToAccount);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getNotificationsRelatedToAccount);
         asyncGeneric.execute();
     }
 
-    @Override
 
+    /**
+     * making server request for DeviceData related to specific device
+     * @param deviceId device id
+     * @param handler DeviceDataHandler look at the class for API
+     */
+    @Override
     public void getSpecificDeviceDataByIdJob(int deviceId, DeviceDataHandler handler) {
 
         Map<String, String> params = new HashMap<>();
         params.put("id",Integer.toString(deviceId));
-        BaseAsyncTask<Devices> asyncGeneric = new BaseAsyncTask<>(handler,params,ServicesName.getSpecificDeviceDataById);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getAllDeviceDataById);
+        asyncGeneric.execute();
+
+    }
+
+    /**
+     * this task  a server request for adding new user, we pass boolean to indicate success or failure on handler's callback.
+     * @param username username
+     * @param emailAddress email
+     * @param userType admin\account
+     * @param accountName account name
+     * @param handler NewUserAddedHandler, look at class to see API.
+     */
+    @Override
+    public void addNewUserJob(String username, String emailAddress, String userType, String accountName, NewUserAddedHandler handler) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("accountName",accountName);
+        params.put("username",username);
+        params.put("userType",userType);
+        params.put("email",emailAddress);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.AddToDb);
+        asyncGeneric.execute();
+
+    }
+
+    /**
+     * this task  a server request for adding new company request to server, we pass boolean to indicate success or failure on handler's callback.
+     * @param companyName company name
+     * @param handler NewCompanyHandler look at class to see API
+     */
+    @Override
+    public void addNewCompanyJob(String companyName, NewCompanyHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("accountName",companyName);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.addAccount);
+        asyncGeneric.execute();
+    }
+
+    /**
+     * this task is a server request to get all companies name, we return List<CompanyName> in handler's callback.
+     * @param num to get all pass 0
+     * @param start to get all pass 0
+     * @param handler CompaniesNameHandler, look at class for API.
+     */
+    @Override
+    public void getAllCompaniesNameJob(int num, int start, CompaniesNameHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("num",Integer.toString(num));
+        params.put("start",Integer.toString(start));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getAllAccountsAccountController);
+        asyncGeneric.execute();
+    }
+
+    /**
+     *  this task is  a server request for adding new device, making request to server with the new device data
+     *  we pass boolean to indicate success or failure on handler's callback.
+     * @param imei imei
+     * @param deviceType look at types
+     * @param deviceName device type
+     * @param accountName account name
+     * @param devicePhoneNumber phone number to communicate with the device
+     * @param devicePassword device password
+     * @param handler NewDeviceAddedHandler, look at class for API.
+     */
+    @Override
+    public void addNewDeviceJob(Long imei, String deviceType, String deviceName, String accountName, String devicePhoneNumber, String devicePassword, NewDeviceAddedHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("accountName",accountName);
+        params.put("devicePassword",devicePassword);
+        params.put("imei",Long.toString(imei));
+        params.put("phoneNumber",devicePhoneNumber);
+        params.put("deviceName",deviceName);
+        params.put("type",deviceType);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.AddNewDevice);
+        asyncGeneric.execute();
+
+    }
+
+    /**
+     * this task  a server request for changing password, we pass boolean to indicate success or failure on handler's callback.
+     * @param userId user id
+     * @param password password
+     * @param handler PasswordSetHandler look at class for API.
+     */
+    @Override
+    public void setPasswordJob(int userId, String password, PasswordSetHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userId",Long.toString(userId));
+        params.put("pass",password);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.setPass);
+        asyncGeneric.execute();
+
+    }
+
+    /**
+     *
+     * @param prevName
+     * @param newName
+     * @param handler
+     */
+    @Override
+    public void editAccountJob(String prevName, String newName, EditAccountHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("prevName",prevName);
+        params.put("newName",newName);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.editAccount);
+        asyncGeneric.execute();
+
+    }
+
+    /**
+     * this function edits a device, making a server request with new device fields.
+     * returns boolean through handler to indicate success or failure
+     * @param deviceIMEI device imei
+     * @param newPhoneNumber new phone number
+     * @param newPass new password
+     * @param handler EditDeviceHandler look at the class for API
+     */
+    @Override
+    public void editDeviceJob(Long deviceIMEI, String newPhoneNumber, String newPass, EditDeviceHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("deviceIMEI",Long.toString(deviceIMEI));
+        params.put("newPass",newPhoneNumber);
+        params.put("newPhoneNumber",newPhoneNumber);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.editDevice);
+        asyncGeneric.execute();
+    }
+
+
+    /**
+     * this function changes user password, making a server request.
+     * returns boolean through handler to indicate success or failure
+     * @param username username
+     * @param newPass new password
+     * @param handler UserPasswordChangeHandler look at the class for API
+     */
+    @Override
+    public void changeUserPasswordJob(String username,String code, String newPass, UserPasswordChangeHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username); // changed to userName by ameer from int Id
+        params.put("password",newPass);
+
+        params.put("code",code);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.ConfirmPassword);// changed by ameer from changePass to ConfirmPassword
+        asyncGeneric.execute();
+
+    }
+
+    /**
+     * this function makes a server requet to get the numbers of faulty\healthy accounts\devices and notification to be presented at admin dashboard.
+     * returns string list, which we parse and retrieve data from at CacheManagerHandler.
+     * @param adminId admin id
+     * @param handler AdminDashboardInfoHandler look at the class for api
+     */
+    @Override
+    public void getAdminDashboardInfoJob(int adminId, AdminDashboardInfoHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id",Integer.toString(adminId));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.adminDashboardInfo);
         asyncGeneric.execute();
 
     }
 
 
-
-    public JSONObject parseToOneJsonObject(String jsonStr) throws JSONException {
-        JSONObject jObj = null;
-        jObj = new JSONObject(jsonStr);
-        if (jObj == null)
-            throw new JSONException("json allocation failed");
-        return jObj;
-
+    /**
+     * this function sends a notification id to server to indicate it has been read by a specific user.
+     * @param userId user id
+     * @param notificationId notification id
+     * @param handler MarkNotificationAsReadHandler look at the class for api.
+     */
+    @Override
+    public void markNotificationAsReadJob(int userId, int notificationId, MarkNotificationAsReadHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("notificationId",Integer.toString(userId));
+        params.put("notificationId",Integer.toString(notificationId));
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.markNotificationAsRead);
+        asyncGeneric.execute();
     }
 
 
-    public <T> List<T> parseToJsonArray(String jsonArray, Object clazz) {
-        try {
-            Type typeOfT = TypeToken.getParameterized(List.class, clazz.getClass()).getType();
-            return new GsonBuilder().create().fromJson(jsonArray, typeOfT);
-
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-
+    // currently not supported by server
+    @Override
+    public void sendVerificationCodeJob(String email, VerificationCodeSentHandler handler) {
+        // NO URL FROM SERVER
     }
 
+    // currently not supported by server
+    @Override
+    public void verifyCodeJob(String username, String verificationCode, VerificationCodeCheckHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+        params.put("code",verificationCode);
+
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.ConfirmCode);
+        asyncGeneric.execute();
+    }
+    @Override
+    public void emailConfirmed(String username, VerificationCodeSentHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+params.put("method","email");
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params, ServicesName.EmailPicked);
+        asyncGeneric.execute();
+    }
+
+    /**
+     * this function request the sms info from server via Device's imei.
+     * the server returns device's password and phone number.
+     * @param imei device's imei
+     * @param handler DeviceSmsInfoHandler look at the class for api.
+     */
+    @Override
+    public void getDeviceSmsinfoJob(String imei, DeviceSmsInfoHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("imei",imei);
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params,ServicesName.getSmsInfo);
+        asyncGeneric.execute();
+    }
+
+    @Override
+    public void phoneConfirmed(String username, VerificationCodeSentHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+        params.put("method","phone");
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params, ServicesName.PhonePicked);
+        asyncGeneric.execute();
+    }
+
+    @Override
+    public void userDetailsForgetPassword(String username, UserDetailsForgetPasswordHandler handler) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",username);
+
+        GenericAsyncServerRequest<Devices> asyncGeneric = new GenericAsyncServerRequest<>(handler,params, ServicesName.usernameForgetPassword);
+        asyncGeneric.execute();
+    }
+
+
+
+
+
+    // ==================================================================================
+    // ------------------------- Clear Data, Time Stamps checks  ------------------------
+    // ==================================================================================
+
+    /**
+     * sets a given TimeStamp to the current time in miilis
+     * this function is synchronized for denying race condition over the timestamp.
+     * @param timestamp TimeStamp Object.
+     */
+    public synchronized void newTimeStamp(Timestamp timestamp)
+    {
+        timestamp.setTime(System.currentTimeMillis());
+    }
+
+    /**
+     * this function checks if the given stamp object is older then the current time by intervalBetweenServerRequestsForDevices
+     * if so, we will make a new stamp, return true, and therefore signaling that Devices array in the cache is old and we need to replace it with
+     * new data from server.
+     * if the time between the given stamp and the current time is less then intervalBetweenServerRequestsForDevices, we return true to signal that
+     * we have latest data and we do not need to request the server.
+     * Note that this function is synchronized to prevent race condition over the stamp.
+     * @param timeStamp TimeStamp object, pass devicesTimeStamp to check device's timestamp.
+     * @return we return true to indicate that the data is old and we need to request new one, false otherwise.
+     */
+    public synchronized boolean isServerRequestDevices(Timestamp timeStamp)
+    {
+        if (timeStamp.getTime() + intervalBetweenServerRequestsForDevices < System.currentTimeMillis()) {
+            timeStamp.setTime(System.currentTimeMillis());
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * this function checks if the given stamp object is older then the current time by intervalBetweenServerRequestsForAccount
+     * if so, we will make a new stamp, return true, and therefore signaling that Accounts array in the cache is old and we need to replace it with
+     * new data from server.
+     * if the time between the given stamp and the current time is less then intervalBetweenServerRequestsForAccounts, we return true to signal that
+     * we have latest data and we do not need to request the server.
+     * Note that this function is synchronized to prevent race condition over the stamp.
+     * @param timeStamp TimeStamp object, pass accountsTimeStamp to check account's timestamp.
+     * @return we return true to indicate that the data is old and we need to request new one, false otherwise.
+     */
+    public synchronized boolean isServerRequestAccounts(Timestamp timeStamp)
+    {
+
+        if (timeStamp.getTime() + intervalBetweenServerRequestsForAccounts < System.currentTimeMillis()) {
+            timeStamp.setTime(System.currentTimeMillis());
+            return true;
+        }
+        return false;
+    }
+
+
+    public void clearCacheNotification(){notifications.clear();}
+
+    /**
+     * this function clears all data currently in cache.
+     * used at logout.
+     */
     public  void clearCache(){
         accounts.clear();
         devices.clear();
         notifications.clear();
     }
-
 
 }
 

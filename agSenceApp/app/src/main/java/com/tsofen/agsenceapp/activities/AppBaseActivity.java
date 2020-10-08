@@ -17,16 +17,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.tsofen.agsenceapp.BackgroundServices.CacheMgr;
-import com.tsofen.agsenceapp.CacheManagerAPI;
 import com.tsofen.agsenceapp.R;
-import com.tsofen.agsenceapp.dataAdapters.AccountsDataAdapter;
-import com.tsofen.agsenceapp.dataServices.AccountsHandler;
-import com.tsofen.agsenceapp.entities.Account;
 import com.tsofen.agsenceapp.entities.Admin;
 import com.tsofen.agsenceapp.entities.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,7 +27,7 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
     protected DrawerLayout drawer;
     protected NavigationView navigationView;
     protected Toolbar toolbar;
-    static User user;
+    private static User user;
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -104,7 +97,11 @@ public class AppBaseActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.nav_device_settings) {
             Intent intent = new Intent(this, DeviceSettings.class);
             startActivity(intent);
-        } else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(this, UserProfile.class);
+            intent.putExtra("user",user);
+            startActivity(intent);
+        }else if (id == R.id.nav_logout) {
             CacheMgr.getInstance().clearCache();
             finishAffinity();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
