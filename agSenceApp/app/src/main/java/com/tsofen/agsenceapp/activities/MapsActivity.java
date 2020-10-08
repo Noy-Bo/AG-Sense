@@ -2,8 +2,11 @@ package com.tsofen.agsenceapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 
@@ -15,15 +18,20 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.ButtCap;
+import com.google.android.gms.maps.model.CustomCap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -32,7 +40,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
@@ -49,6 +59,7 @@ import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -125,7 +136,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
-
+        if (userMap != null && userMap.getPlaces() != null) {
+            Collections.reverse(userMap.getPlaces());
+        }
         listPoints = new ArrayList<>();
         listPointsPoly = new ArrayList<>();
 
@@ -277,15 +290,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void addPolylines() {
         if (!userMap.getPlaces().isEmpty()) {
             PolylineOptions poly = new PolylineOptions();
+            Polyline polyline;
             LatLng latLng1 = userMap.getPlaces().get(0).getLocation();
             LatLng latLng2;
             for (int i = 1; i < userMap.getPlaces().size(); i++) {
                 latLng2 = userMap.getPlaces().get(i).getLocation();
-                poly.add(latLng1, latLng2).endCap(new ButtCap());
-                mMap.addPolyline(poly).setColor(Color.RED);
+                poly.add(latLng1, latLng2);
                 latLng1 = latLng2;
             }
+            polyline = mMap.addPolyline(poly);
+            polyline.setStartCap(new CustomCap(bitmapDescriptorFromVector(this, R.drawable.ic_arrow), 10));
         }
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     @Override
