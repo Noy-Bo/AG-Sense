@@ -2,7 +2,7 @@ package com.tsofen.agsenceapp.dataServices;
 
 //for every service's list of paramerters you can check the swagger
 
-public enum  ServicesName {
+public enum ServicesName {
     // ??????????????????????????????????????????????????????????????????????????????????????? getAllDevices is duplicated !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     getAccountByName("/Account/AccountBy"),  // parameters :name
     editAccount("/Account/editAccount"),     // parameters :accountName
@@ -30,7 +30,6 @@ public enum  ServicesName {
     getSmsInfo("/Device/getSMSInfo"),
 
 
-
     //getAllDevices("/DeviceData/AllDeviceData"),
     getAllDeviceDataById("/DeviceData/getDeviceDataById"),    //id integer
 
@@ -40,7 +39,6 @@ public enum  ServicesName {
     getNotificationRelatedToDevice("/Notifications/NotificationRelatedToDevice"),    //id integer, num integer,start integer
     getNotificationsRelatedToAccount("/Notifications/NotificationsRelatedToAccount"), //id integer, num integer,start integer
     markNotificationAsRead("/Notifications/Readed"),        //accountIdList array[integer], notificationIdList array[integer]
-
 
 
     AddToDb("/User/addNewUser"),             // accountName string, email string,userType string, username string
@@ -53,12 +51,12 @@ public enum  ServicesName {
 
 
     //Not Created by Server it, change when it is done;
-ConfirmCode("/User/confirmCode"), //username String, code String
-    ConfirmPassword("/User/confirmPassword"),    //username String, password String
-    EmailPicked("/User/EmailPicked"); //username String
-
-   // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
-   //getSpicificDeviceByname(""),
+    ConfirmCode("/Verification/ConfirmCode"), //username String, code String
+    ConfirmPassword("/Verification/ResetPassword"),    //username String, password String
+    EmailPicked("/Verification/VerificationMethod"), //username String , method as email String
+    PhonePicked("/Verification/VerificationMethod"); // username String, method as phone String
+    // getSpecificDeviceDataById("/DeviceData/getDeviceDataById"),
+    //getSpicificDeviceByname(""),
     //getDeviceSetting(""),
 
 

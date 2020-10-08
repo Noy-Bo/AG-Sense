@@ -438,7 +438,7 @@ public class AccountDashboardActivity extends SearchBaseActivity {
      * opens google maps to view all devices
      * @param view : view of current activity
      */
-    public void openMap(View view) {
+  /*  public void openMap(View view) {
         if (devicesList == null || devicesList.size() == 0) {
             Toast.makeText(this, "No devices to display", Toast.LENGTH_LONG).show();
         } else {
@@ -451,13 +451,12 @@ public class AccountDashboardActivity extends SearchBaseActivity {
                     newPlace.setSnippet(device.getLastUpdate().toString());
                 }
                 userMap.addPlace(newPlace);
-                //                userMap.addPlace(new Place(device.getName(), device.getLastUpdate().toString(), (float) device.getLatitude(), (float) device.getLogitude()));
             }
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);
             intent.putExtra("opcode", 1);
             startActivity(intent);
         }
-    }
+    } */
 }
 

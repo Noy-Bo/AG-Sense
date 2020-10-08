@@ -68,14 +68,14 @@ public class UserBL {
 			return  userRepository.getAccountIDForUser(id);
 		}
 		
-		public boolean addNewUser(String username, String email, String userType, String accountName) throws NoSuchAlgorithmException {
+		public boolean addNewUser(String username, String email, String phoneNumber, String userType, String accountName) throws NoSuchAlgorithmException {
 			Account acc = accountRepository.findByName(accountName);
 			if (userType.contentEquals("Admin")) {
-				Admin admin = new Admin(email,username,username,null,acc);
+				Admin admin = new Admin(email,username, phoneNumber,username,null,acc);
 				adminRepository.save(admin);
 			}
 			else if(userType.contentEquals("Account")) {
-				UserAccount user_acc= new UserAccount(email,username,username,null,acc);
+				UserAccount user_acc= new UserAccount(email,username, phoneNumber, username,null,acc);
 				UseraccountRepository.save(user_acc);
 			}
 			else if(userType.contentEquals("Support")) {
@@ -86,12 +86,16 @@ public class UserBL {
 		}
 		
 		
+		
 		public boolean setPass(int id,String pass) {
 			general_user = userRepository.findBysysId(id);
-			general_user.setHashPassword(pass);
+			String newpass = general_user.hashPassword(pass);
+			general_user.setHashPassword(newpass);
+			userRepository.save(general_user);
 			return true;
 			
 		}
+		
 		// http://localhost:8080//User/editUser?userId=101&newEmail=%22newEmail@gmail.com%22&newPhoneNumber=0501234567&newNotificationFlag=1
 		public boolean edit_user(int userId,String newMail,String newPhone,int newNFlag) {
 			User userAcc =  userRepository.findBysysId(userId);
@@ -113,11 +117,22 @@ public class UserBL {
 		public JSONObject getEmailAndPhonenumberForUser(String userName) {
 			
 			User user = userRepository.findByUserName(userName);
-			
 			JSONObject jo = new JSONObject();
+			String email;
+			String phoneNumber;
 			
-			String email = user.getEmail().replaceAll("(\\w{1,2})(\\w+)(@.*)", "$1******$3");
-			String phoneNumber =  user.getPhoneNumber().replaceAll("\\d(?=\\d{2})", "*");
+			if(user.getEmail() != null) {
+				 email = user.getEmail().replaceAll("(\\w{1,2})(\\w+)(@.*)", "$1******$3");
+			}
+			else {email = "no email address";}
+			
+			
+			if(user.getPhoneNumber() != null) {
+				 phoneNumber =  user.getPhoneNumber().replaceAll("\\d(?=\\d{2})", "*");
+			}
+			else{ phoneNumber = "no phone number";}
+			
+			
 			   jo.put("email", email);
 			   jo.put("phoneNumber",phoneNumber);
 			   

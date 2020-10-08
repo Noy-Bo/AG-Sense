@@ -84,7 +84,7 @@ public class DeviceMessageHandler implements Runnable {
 		stateManager.setDeviceData(deviceData);
 		stateManager.setStates();
 
-		(new Thread(new NotifyMaulfunction(""+deviceData.getImei()))).start();
+		//(new Thread(new NotifyMaulfunction(""+deviceData.getImei()))).start();
 
 		//Making Analyzes if we need to notify the user .. like: Battery low, Device Moved
 		try {
@@ -96,19 +96,22 @@ public class DeviceMessageHandler implements Runnable {
 		
 		//Saving the Device Data in the data base
 		deviceDatarouter.saveDeviceData(deviceData);
-		deviceDatarouter.updateDevice(deviceData);
 		
 	}
 	private String GetMessage() throws IOException {
 		bfrReader = new BufferedReader(new InputStreamReader(is));
 		try {
+			
 			message = bfrReader.readLine();
+//		    for (String line = bfrReader.readLine(); line != null; line = bfrReader.readLine()) {
+//		        message = message + line +"\n";
+//		     }
 		} catch (IOException e) {
 			
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			bfrReader.close();
+			bfrReader.close();			
 		}
 		
 		

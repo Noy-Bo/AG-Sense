@@ -38,11 +38,9 @@ public class EditDevice extends BackBaseActivity {
     }
 
     private void UpdateDevicesList() {
-        DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
+        DeviceDataAdapter.getInstance().getAllDevices(0, 0, false, new DeviceDataRequestHandler() {
             @Override
             public void onDeviceDataLoaded(List<Devices> devices) {
-
-
                 for (Devices devices1 : devices) {
                     devicesIEMI.add(devices1.getImei().toString());
                 }
@@ -67,12 +65,8 @@ public class EditDevice extends BackBaseActivity {
             deviceVerifyPassword.setError("Password Doesn't Match");
             legal = false;
         }
-        if (!deviceNewPassword.getText().toString().equals("") && !validatePassword(deviceNewPassword.getText().toString())) {
-            deviceNewPassword.setError("Password is weak");
-            legal = false;
-        }
 
-        if (imei == null || !legal) {
+        if (imei == null || !deviceNewPassword.getText().toString().equals("") || !legal) {
             showAlertBox(EditDevice.this, AlertFlag.FAILURE, "Some details are missing or illegal");
             return;
         }
@@ -86,12 +80,13 @@ public class EditDevice extends BackBaseActivity {
         EditDataAdapter.getInstance().editDevice(Long.parseLong(imei), deviceNewPhoneNumberEdit.getText().toString(), deviceNewPassword.getText().toString(), new EditDataRequestHandler() {
             @Override
             public void onDataEditedSuccess() {
-                showAlertBox(EditDevice.this, AlertFlag.SUCCESS, "Edited device successfully");;
+                showAlertBox(EditDevice.this, AlertFlag.SUCCESS, "Edited device successfully");
             }
 
             @Override
             public void onDataEditedFailure() {
-                showAlertBox(EditDevice.this, AlertFlag.FAILURE, "Failed to edit device");;
+                showAlertBox(EditDevice.this, AlertFlag.FAILURE, "Failed to edit device");
+
             }
         });
 

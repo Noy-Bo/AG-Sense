@@ -55,14 +55,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/iemi"
+                    android:text="@string/imei"
                     android:textColor="@color/dark_blue"
-                    android:textSize="@dimen/small_text_size" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4" />
+                    android:textSize="@dimen/small_text_size"
+                    android:layout_weight="15"/>
 
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/DeviceIEMISpinner"
@@ -70,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:spinnerMode="dialog"
-                    app:hintText="Select Device IEMI" />
+                    app:hintText="Select Device IMEI" />
 
             </LinearLayout>
 
@@ -100,9 +96,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-                    android:ems="16"
+                    android:ems="10"
                     android:inputType="number"
-                    android:textSize="10sp"
                     tools:ignore="TextFields" />
             </LinearLayout>
 
@@ -134,9 +129,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-                    android:ems="16"
-                    android:inputType="textPassword"
-                    android:textSize="10sp" />
+                    android:ems="10"
+                    android:inputType="textPassword" />
 
             </LinearLayout>
 
@@ -167,9 +161,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-                    android:ems="16"
-                    android:inputType="textPassword"
-                    android:textSize="10sp" />
+                    android:ems="10"
+                    android:inputType="textPassword"/>
 
             </LinearLayout>
 
@@ -199,10 +192,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.01"
-                    android:ems="16"
-                    android:inputType="text"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
+                    android:ems="10"
+                    android:inputType="text"/>
 
             </LinearLayout>
 

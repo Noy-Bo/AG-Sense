@@ -2,7 +2,11 @@ package com.tsofen.agsenceapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 
@@ -14,14 +18,20 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.ButtCap;
+import com.google.android.gms.maps.model.CustomCap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -30,7 +40,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
@@ -47,6 +59,7 @@ import com.tsofen.agsenceapp.entities.Place;
 import com.tsofen.agsenceapp.entities.UserMap;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -86,18 +99,63 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 clear = (Button) findViewById(R.id.clear_button);
                 searchView = (AutoCompleteTextView) findViewById(R.id.map_search_text_view);
                 searchView.setHint(R.string.search_device_hint);
-                DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
-                    @Override
-                    public void onDeviceDataLoaded(final List<Devices> devices) {
-                        MapsActivity.this.runOnUiThread(new Runnable() {
+                String filterStr = getIntent().getStringExtra("filter");
+                if(filterStr == null){
+                    DeviceDataAdapter.getInstance().getAllDevices(0, 0,false, new DeviceDataRequestHandler() {
+                        @Override
+                        public void onDeviceDataLoaded(final List<Devices> devices) {
+                            MapsActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                }
+                            });
+
+                        }
+                    });
+                }else {
+                    if (filterStr.equals("healthy")) {
+                        DeviceDataAdapter.getInstance().getHealthyDevices(new DeviceDataRequestHandler() {
                             @Override
-                            public void run() {
-                                searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                            public void onDeviceDataLoaded(final List<Devices> devices) {
+                                MapsActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                    }
+                                });
+
                             }
                         });
+                    } else if (filterStr.equals("faulty")) {
+                        DeviceDataAdapter.getInstance().getFaultyDevices(new DeviceDataRequestHandler() {
+                            @Override
+                            public void onDeviceDataLoaded(final List<Devices> devices) {
+                                MapsActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                    }
+                                });
 
+                            }
+                        });
+                    } else {
+                        DeviceDataAdapter.getInstance().getAllDevices(0, 0, false, new DeviceDataRequestHandler() {
+                            @Override
+                            public void onDeviceDataLoaded(final List<Devices> devices) {
+                                MapsActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        searchView.setAdapter(new DevicesAdapter<Devices>(MapsActivity.this, devices));
+                                    }
+                                });
+
+                            }
+                        });
                     }
-                });
+                }
+
                 searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -122,8 +180,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        userMap = (UserMap) getIntent().getExtras().getSerializable("user_map");
-
+        userMap = (UserMap) getIntent().getSerializableExtra("user_map");
         listPoints = new ArrayList<>();
         listPointsPoly = new ArrayList<>();
 
@@ -190,8 +247,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Double bottom = Double.min(listPoints.get(0).latitude, listPoints.get(1).latitude);
                         Double right = Double.max(listPoints.get(0).longitude, listPoints.get(1).longitude);
                         Double left = Double.min(listPoints.get(0).longitude, listPoints.get(1).longitude);
-                        if (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
-                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right) {
+                        if (initialMarker != null && (initialMarkerLatlng.latitude < bottom || initialMarkerLatlng.latitude > top ||
+                                initialMarkerLatlng.longitude < left || initialMarkerLatlng.longitude > right)) {
                             Toast.makeText(MapsActivity.this, "Device must be inside defined area", Toast.LENGTH_SHORT).show();
                             listPoints.clear();
                             listPointsPoly.clear();
@@ -223,7 +280,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void clearText(View view) {
 
         searchView.setText("");
-        
+
     }
 
     private void setUpClusterer() {
@@ -242,7 +299,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addItems();
         // Move camera to bounded position
         mapBounds();
-        if (getIntent().getBooleanExtra("polylineFlag", false)) {
+        if (opCode == 2) {
             addPolylines();
         }
     }
@@ -275,15 +332,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void addPolylines() {
         if (!userMap.getPlaces().isEmpty()) {
             PolylineOptions poly = new PolylineOptions();
+            Polyline polyline;
             LatLng latLng1 = userMap.getPlaces().get(0).getLocation();
             LatLng latLng2;
             for (int i = 1; i < userMap.getPlaces().size(); i++) {
                 latLng2 = userMap.getPlaces().get(i).getLocation();
                 poly.add(latLng1, latLng2);
-                mMap.addPolyline(poly).setColor(Color.RED);
                 latLng1 = latLng2;
             }
+            polyline = mMap.addPolyline(poly);
+            polyline.setEndCap(new CustomCap(bitmapDescriptorFromVector(this, R.drawable.ic_arrow), 10));
         }
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     @Override

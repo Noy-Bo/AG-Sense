@@ -10,11 +10,67 @@ the project splits into three parts:
 ## Client Side (Android Application) 
 
 the application  is responsible for displaying and and viewing notification and device info related to an AG-Sense  account, AG-Sense  employees can log into application and view each account and its devices and also have editing capabilities to edit/add account or device.
+App features:
+
+### App features: 
+
+Forget password - when a user forgets his password, he can reset it with authentication code that can be sent using SMS or Email , this whole process is executed from the server side.
+
+Search feature - you can Search device and User by name and have quick access to view them. Available in  most activities.
+
+Notification -  the system keeps track of each user's Notification.
+
+Push notification- when device has notification server send notification to Users device.
+
+Change device setting- SMS protocol uses trackers that monitor receiving SMS and updates for each command sent to the device.
+
+### What can you do in Application: 
+
+View accounts - see all the ag-sense’s systems accounts 
+
+View Users related to account -  see a specific account users
+
+View notification related to user -  account dashboard activit, which contains all the user notifications that had received
+
+View Device messages (DeviceInfo reports)  - on this activity we can see the latest device info
+
+View Device notification - see all the notifications that related to this device
+
+View DeviceInfo -  this activity shows the device full overview witch contains notification, last update info, timeline map, settings
+
+View devices on map - this activity displays all devices with the latest location on the google maps
+
+View device timeline -  this activity make a red line (timeline) between the all locations of a specific device
+
+Edit/Add Account-  in those activities we can add and edit an account.
+
+Edit/Add device-  in those activities we can add and edit a device.
+
+Edit/Add User-  in those activities we can add and edit a user.
+
+
+
+Admin Example:
+
+Username: admin
+
+Password: 123123
+
+UserAccount Example:
+
+Username: user1
+
+Password: 123123
 
 ## Server Side
 Server side uses [Spring](https://spring.io/) framework to build RESTful API to help the client side access the database, it uses the help of [Swagger](https://swagger.io/) for describing RESTful APIs expressed using JSON.
+[API Documentation](http://206.72.198.59:8080/ServerTsofen45v7/swagger-ui.html#/)
+
 ## Infrastructure 
 Infrastructure  is responsible for communicating with Devices directly, they receive messages from  AG-Sense devices via TCP client .
+
+## BackEnd
+Java project responsible in sorting tokens uses to communicate to device via Firebase service to  send push notifiction to devices.
 
 ## Documentation
 documentation can be found in the documentation directory, it will include multiple diagrams and explanations such as this: 

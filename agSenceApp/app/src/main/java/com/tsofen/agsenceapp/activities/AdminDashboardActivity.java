@@ -171,27 +171,29 @@ public class AdminDashboardActivity extends SearchBaseActivity {
     }
 
     private void initDashboard() {
-        CacheMgr.getInstance().getAdminDashboardInfoJob(AppBaseActivity.getUser().getId(), new AdminDashboardInfoHandler() {
-            @Override
-            public void onAdminDashboardInfoReceived(final AdminDashboardInfo adminDashboardInfo) {
-                final TextView faultyAccountsCount = findViewById(R.id.faulty_accounts_count);
-                final TextView healthyAccountsCount = findViewById(R.id.healthy_accounts_count);
-                final TextView faultyDevicesCount = findViewById(R.id.faulty_device_count);
-                final TextView healthyDevicesCount = findViewById(R.id.healthy_devices_count);
-                final TextView unreadNotificationsCount = findViewById(R.id.unread_notifications_count);
-                AdminDashboardActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        faultyAccountsCount.setText(adminDashboardInfo.getFaultyAccountsNumber());
-                        healthyAccountsCount.setText(adminDashboardInfo.getHealtyAccountsNumber());
-                        faultyDevicesCount.setText(adminDashboardInfo.getFaultyDevicesNumber());
-                        healthyDevicesCount.setText(adminDashboardInfo.getHealtyDevicesNumber());
-                        unreadNotificationsCount.setText(adminDashboardInfo.getUnreadNotificationsNumber());
-                        GeneralProgressBar.removeProgressDialog(pd);
-                    }
-                });
-            }
-        });
+       if(AppBaseActivity.getUser() != null){
+           CacheMgr.getInstance().getAdminDashboardInfoJob(AppBaseActivity.getUser().getId(), new AdminDashboardInfoHandler() {
+               @Override
+               public void onAdminDashboardInfoReceived(final AdminDashboardInfo adminDashboardInfo) {
+                   final TextView faultyAccountsCount = findViewById(R.id.faulty_accounts_count);
+                   final TextView healthyAccountsCount = findViewById(R.id.healthy_accounts_count);
+                   final TextView faultyDevicesCount = findViewById(R.id.faulty_device_count);
+                   final TextView healthyDevicesCount = findViewById(R.id.healthy_devices_count);
+                   final TextView unreadNotificationsCount = findViewById(R.id.unread_notifications_count);
+                   AdminDashboardActivity.this.runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                           faultyAccountsCount.setText(adminDashboardInfo.getFaultyAccountsNumber());
+                           healthyAccountsCount.setText(adminDashboardInfo.getHealtyAccountsNumber());
+                           faultyDevicesCount.setText(adminDashboardInfo.getFaultyDevicesNumber());
+                           healthyDevicesCount.setText(adminDashboardInfo.getHealtyDevicesNumber());
+                           unreadNotificationsCount.setText(adminDashboardInfo.getUnreadNotificationsNumber());
+                           GeneralProgressBar.removeProgressDialog(pd);
+                       }
+                   });
+               }
+           });
+       }
     }
 
 }

@@ -142,6 +142,7 @@ public class DeviceController {
 		Device device = new Device(imei, accountId, type, deviceName, phoneNumber, devicePassword);
 
 		deviceRepository.save(device);
+		
 		return true;
 	}
 	

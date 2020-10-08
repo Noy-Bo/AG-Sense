@@ -40,9 +40,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-
     }
 
 
@@ -60,22 +57,6 @@ public class LoginActivity extends AppCompatActivity implements FailedLogin {
         progressBar.setVisibility(View.VISIBLE);
 
         hideKeyboard(this);
-
-       /* //dummy login cause server is down.
-        if (username.equals("admin"))
-        {
-            AppBaseActivity.setUser(new Admin());
-            Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-            finishAffinity();
-            startActivity(intent);
-        }
-        else if (username.equals("user"))
-        {
-            AppBaseActivity.setUser(new Account());
-            Intent intent = new Intent(LoginActivity.this, AccountDashboardActivity.class);
-            finishAffinity();
-            startActivity(intent);
-        }*/
 
         UserDataAdapter.getInstance().setContext(this);
         UserDataAdapter.getInstance().setCallback(this);

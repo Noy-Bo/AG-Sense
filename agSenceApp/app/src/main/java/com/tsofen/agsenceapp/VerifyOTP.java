@@ -1,27 +1,33 @@
 package com.tsofen.agsenceapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.tsofen.agsenceapp.adaptersInterfaces.ConfirmCodeDataRequestHandler;
 import com.tsofen.agsenceapp.dataAdapters.ForgetPasswordDataAdapter;
 
 public class VerifyOTP extends AppCompatActivity {
-//    protected String verificationCodeBySystem;
+    //    protected String verificationCodeBySystem;
     protected String verificationCodeByUser;
-//    protected FirebaseAuth mAuth;
+    protected FirebaseAuth mAuth;
+    protected String verificationCodeBySystem;
     protected String username;
     protected PinView pinView;
-//   protected FirebaseUser fireBaseUser;
+    protected TextView please_wait;
+    //   protected FirebaseUser fireBaseUser;
 //    protected boolean isemailchecked;
 //    protected String email = "ameerkadi97@gmail.com";
-    protected ProgressBar progressBar;
+    protected ProgressBar VerifyCodeProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,30 +36,49 @@ public class VerifyOTP extends AppCompatActivity {
         setContentView(R.layout.activity_verify_o_t_p);
         pinView = findViewById(R.id.pin_view);
         username = getIntent().getStringExtra("username");
-        verificationCodeByUser = pinView.getText().toString();
 
     }
 
     public void goToHomeFromOTP(View view) {
     }
 
-    public void confirmuserCode(View view) {
+    public void confirmUserCode(View view) {
+        verificationCodeByUser = pinView.getText().toString();
+        VerifyCodeProgressbar = findViewById(R.id.VerifyCodeProgressbar);
+        please_wait = findViewById(R.id.please_wait_verifycode);
+        please_wait.setVisibility(View.VISIBLE);
+        VerifyCodeProgressbar.setVisibility(View.VISIBLE);
+        hideKeyboard(this);
+
+        //sendVerificationCodeToUser("0507737781");
         ForgetPasswordDataAdapter.getInstance().confirmUserCode(username, verificationCodeByUser, new ConfirmCodeDataRequestHandler() {
             @Override
-            public void onUserConfirmCode(boolean confirmed) {
-if(confirmed)
-{
-    Intent intent = new Intent(VerifyOTP.this, VerifyOTP.class);
-    intent.putExtra("username",username);
-    startActivity(intent);
-}
-else
-{
-    Toast.makeText(VerifyOTP.this, "The Code you entered is invalid, try again.", Toast.LENGTH_SHORT).show();
-}
+            public void onUserConfirmCodeSuccess() {
+                Intent intent = new Intent(VerifyOTP.this, SetNewPassword.class);
+                intent.putExtra("username", username);
+                intent.putExtra("code", verificationCodeByUser);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onUserConfirmCodeFailure() {
+                Toast.makeText(VerifyOTP.this, "The Code you entered is invalid, try again.", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
 }
 //    private void sendEmailVerificationCodeToUser(String email) {
 //fireBaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -85,12 +110,13 @@ else
 //            Toast.makeText(VerifyOTP.this, "Verification failed", Toast.LENGTH_SHORT).show();
 //        }
 //    }
-//
+
 //    private void sendVerificationCodeToUser(String phoneNumber) {
-//        PhoneAuthProvider.getInstance().verifyPhoneNumber("+972"+phoneNumber,60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,mCallBack);
-//
+//        PhoneAuthProvider.getInstance().verifyPhoneNumber("+972"+phoneNumber,120, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,mCallBack);
 //    }
 //private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//
+//
 //
 //    @Override
 //    public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
@@ -114,8 +140,7 @@ else
 //        Toast.makeText(VerifyOTP.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 //    }
 //};
-//    public void goToHomeFromOTP(View view) {
-//    }
+//
 //
 //    public void callNextScreenFromOTP(View view) {
 //      /*  pinView = findViewById(R.id.pin_view);
@@ -135,7 +160,8 @@ else
 //    }
 //
 //private void verifyCode(String codeByUser){
-//        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCodeBySystem,codeByUser);
+//
+//    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCodeBySystem,codeByUser);
 //        signInTheUserByCredentials(credential);
 //}
 //

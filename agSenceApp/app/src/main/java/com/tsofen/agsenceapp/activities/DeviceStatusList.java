@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tsofen.agsenceapp.R;
 import com.tsofen.agsenceapp.adapters.DeviceDataListAdapter;
+import com.tsofen.agsenceapp.adaptersInterfaces.DeviceInfoDataRequestHandler;
+import com.tsofen.agsenceapp.dataAdapters.DeviceDataAdapter;
 import com.tsofen.agsenceapp.entities.DeviceData;
 import com.tsofen.agsenceapp.entities.DeviceLastMessage;
 import com.tsofen.agsenceapp.entities.Devices;
@@ -28,13 +32,11 @@ public class DeviceStatusList extends BackBaseActivity {
     UserMap userMap = new UserMap();
     List<DeviceData> deviceData;
     Devices device;
-
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_status_list);
-
-
         device = (Devices) getIntent().getSerializableExtra("device");
         deviceData = device.getDeviceData();
         if (deviceData == null) {
@@ -45,55 +47,42 @@ public class DeviceStatusList extends BackBaseActivity {
         final DeviceDataListAdapter myAdapter = new DeviceDataListAdapter(this, deviceData);
         lastMessagesListView.setAdapter(myAdapter);
 
-        //Applying listeners for the sorting arrows on the lastMessages table:
-//        lastMessagesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                if (position == 0) { //position = item position within the listview..
-//
-//                    //setting another onClick on the Update-Time down-arrow-sorting..
-//                    ImageView image = (ImageView) view.findViewById(R.id.update_time_sort_down);
-//                    image.setOnClickListener(new View.OnClickListener() {
-//                        @RequiresApi(api = Build.VERSION_CODES.N)
-//                        // to be able to use sort()  (api>=24)
-//                        @Override
-//                        public void onClick(View view) {
-//                            Toast.makeText(getApplicationContext(), "Sorting...", Toast.LENGTH_SHORT).show();
-//                            deviceData.sort(DeviceLastMessage.DLMUpdateTimeComparator);
-//                            myAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//
-//                    //setting another onClick on the Ellapsed Time-Ascending up-arrow-sorting..
-//                    ImageView image2 = (ImageView) view.findViewById(R.id.time_ellapsed_sort_up);
-//                    image2.setOnClickListener(new View.OnClickListener() {
-//                        @RequiresApi(api = Build.VERSION_CODES.N)
-//                        // to be able to use sort()  (api>=24)
-//                        @Override
-//                        public void onClick(View view) {
-//                            Toast.makeText(getApplicationContext(), "Sorting...", Toast.LENGTH_SHORT).show();
-//                            deviceDataArrayList.sort(DeviceLastMessage.DLMEllapsedTimeDescendingComparator);
-//                            myAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//
-//                    //setting another onClick on the Ellapsed Time-Ascending up-arrow-sorting..
-//                    ImageView image3 = (ImageView) view.findViewById(R.id.time_ellapsed_sort_down);
-//                    image3.setOnClickListener(new View.OnClickListener() {
-//                        @RequiresApi(api = Build.VERSION_CODES.N)
-//                        // to be able to use sort()  (api>=24)
-//                        @Override
-//                        public void onClick(View view) {
-//                            Toast.makeText(getApplicationContext(), "Sorting...", Toast.LENGTH_SHORT).show();
-//                            deviceDataArrayList.sort(DeviceLastMessage.DLMEllapsedTimeAscendingComparator);
-//                            myAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//
-//
-//                }
-//            }
-//        });
+        swipeRefreshLayout = findViewById(R.id.device_status_list_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                DeviceDataAdapter.getInstance().getDeviceDataList(device.getId(), new DeviceInfoDataRequestHandler() {
+                    @Override
+                    public void getDeviceDataInfo(List<DeviceData> deviceDataList) {
+                        device.setDeviceData(deviceDataList);
+                        deviceData = device.getDeviceData();
+                        DeviceStatusList.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((DeviceDataListAdapter)lastMessagesListView.getAdapter()).notifyDataSetChanged();
+                                swipeRefreshLayout.setEnabled(false);
+                            }
+                        });
+                    }
+                });
+
+
+
+            }
+        });
+
+       lastMessagesListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int firstVisibleCount, int totalItemCount) {
+                int topRowVerticalPosition = (lastMessagesListView == null || lastMessagesListView.getChildCount() == 0) ? 0 : lastMessagesListView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
     }
 
     public void openMap(View view) {
@@ -104,12 +93,13 @@ public class DeviceStatusList extends BackBaseActivity {
                 if (device.getLatitude() != null && device.getLogitude() != null) {
                     Place newPlace = new Place(deviceData.getDateAndTime().toString(), deviceData.getLat(), deviceData.getLon());
                     if (deviceData.getId() != null) {
-                        newPlace.setTitle("device" + deviceData.getId().toString());
+                        newPlace.setTitle(device.getName());
                     }
                     if (deviceData.getDateAndTime() != null) {
                         newPlace.setSnippet(deviceData.getDateAndTime().toString());
                     }
-                    userMap.addPlace(newPlace);
+//                    if (userMap.getPlaces().size() == 0 || (!userMap.getPlaces().contains(newPlace) && checkDist(newPlace, userMap.getPlaces().get(userMap.getPlaces().size() - 1))))
+                        userMap.addPlace(newPlace);
                 }
             }
             Intent intent = new Intent(this, MapsActivity.class);
@@ -117,5 +107,13 @@ public class DeviceStatusList extends BackBaseActivity {
             intent.putExtra("user_map", userMap);
             startActivity(intent);
         }
+    }
+
+    private boolean checkDist(Place newPlace, Place place) {
+        Double latDist = newPlace.getLocation().latitude - place.getLocation().latitude;
+        Double lonDist = newPlace.getLocation().longitude - place.getLocation().longitude;
+        Double squareSum = latDist * latDist + lonDist * lonDist;
+
+        return (Math.sqrt(squareSum) >= 0.0001);
     }
 }

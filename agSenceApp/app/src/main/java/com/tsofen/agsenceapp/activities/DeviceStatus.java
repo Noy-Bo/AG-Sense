@@ -45,6 +45,7 @@ public class DeviceStatus extends SearchBaseActivity {
     ListView devicesList;
     ProgressDialog pd;
     CacheMgr cacheMgr = CacheMgr.getInstance();
+    String filterStr;
 
 
     @Override
@@ -149,6 +150,12 @@ public class DeviceStatus extends SearchBaseActivity {
             faultyDevices = intent.getBooleanExtra("faultyDevices", false);
         }
         filteredDevices = new ArrayList<>();
+        if(faultyDevices)
+            filterStr = "faulty";
+        else if(healthyDevices)
+            filterStr = "healthy";
+        else
+            filterStr = "all";
         //filtering
         for (Devices device : devicesArr) {
             if (((device.getFaulty() && faultyDevices) ||
@@ -168,15 +175,15 @@ public class DeviceStatus extends SearchBaseActivity {
     private void updatingUI() {
         filteredDevices = new ArrayList<>();
 
-        String filter = getIntent().getStringExtra("filter");
-        if (filter != null) {
-            if (filter.equals("faulty")) {
+        filterStr = getIntent().getStringExtra("filter");
+        if (filterStr != null) {
+            if (filterStr.equals("faulty")) {
                 for (Devices device : devicesArr) {
                     if (device.getFaulty()) {
                         filteredDevices.add(device);
                     }
                 }
-            } else if (filter.equals("healthy")) {
+            } else if (filterStr.equals("healthy")) {
                 for (Devices device : devicesArr) {
                     if (!device.getFaulty()) {
                         filteredDevices.add(device);
@@ -212,6 +219,7 @@ public class DeviceStatus extends SearchBaseActivity {
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("user_map", userMap);
             intent.putExtra("opcode", 1);
+            intent.putExtra("filter", filterStr);
             startActivity(intent);
         }
     }

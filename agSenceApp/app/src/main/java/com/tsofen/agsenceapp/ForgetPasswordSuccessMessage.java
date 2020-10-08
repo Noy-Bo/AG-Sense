@@ -17,7 +17,6 @@ LottieAnimationView lottieAnimationView;
         setContentView(R.layout.activity_forget_password_success_message);
        lottieAnimationView = findViewById(R.id.check_mark);
        lottieAnimationView.playAnimation();
-
     }
 
 
